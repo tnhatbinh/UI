@@ -1,0 +1,115 @@
+:root {
+  --zoom: 1;
+  --device-height: calc(100vh / var(--zoom));
+  // PhimBook Cinema Design Tokens
+  --primary: #ff2a42;
+  --primary-sub: #e01e35;
+  --primary-hover: #ff475c;
+  --secondary: #f5a623;
+  --secondary-hover: #ffb738;
+  --tertiary: #8c90a4;
+  --primary-gold: #f5a623;
+  --primary-gold-bg: rgba(245, 166, 35, 0.12);
+  --primary-text: #ffffff;
+  --primary-title: #ffffff;
+  --primary-subtitle: #ae8786;
+  --primary-bg-highlight: #ff2a42;
+  --primary-border: rgba(255, 255, 255, 0.1);
+  --primary-bg-hover: rgba(255, 42, 66, 0.12);
+  --gradient-primary: linear-gradient(135deg, #ff2a42 0%, #e01e35 100%);
+  //-------------- Backgrounds ---------------
+  --bg-primary: #0b0b0c;
+  --bg-secondary: #131314;
+  --bg-card: #1c1b1c;
+  --bg-elevated: #201f20;
+  --bg-glass: rgba(28, 27, 28, 0.7);
+  --bg-thirt: rgba(42, 42, 43, 0.6);
+  --bg-icon-action: rgba(255, 255, 255, 0.08);
+  --bg-tooltip: #201f20;
+
+  --bg-disabled: #2a2a2b;
+  --bg-hover-primary: rgba(255, 42, 66, 0.15);
+  --bg-info: rgba(23, 143, 226, 0.15);
+
+  --bg-success: rgba(52, 199, 89, 0.15);
+  --bg-danger: rgba(255, 42, 66, 0.15);
+  --bg-warning: rgba(245, 166, 35, 0.15);
+
+  --text-primary: #ffffff;
+  --text-secondary: #ae8786;
+  --text-muted: #8c90a4;
+  --text-ternary: #8c90a4;
+  --text-disabled: #555558;
+
+  --text-success: #34c759;
+  --text-warning: #f5a623;
+  --text-error: #ff2a42;
+
+  --btn-hover-primary: #5f172a;
+  --hover-primary: #e2f2fd;
+
+  --table-header-bg: #e7e7e7;
+  --table-row-hover-color: #e2f2fd;
+  --table-row-disabled: #e7e7e7;
+
+  --icon-primary: #636567;
+  --icon-secondary: #bcbebe;
+  --icon-gray: #b3b5b5;
+
+  --border-primary: #bcbebe;
+  --border-secondary: #e7e7e7;
+
+  --border-success: rgba(21, 181, 74, 0.5);
+  --border-danger: rgba(230, 50, 50, 0.5);
+  --border-warning: #ff9500;
+
+  --white: #ffffff;
+  --surface-elevated: #ffffff;
+  --error: #e63232;
+  --hover-error: rgb(255, 79, 79);
+  --info: #178fe2;
+  --yellow: #ffcc00;
+  --warning: #ff9500;
+  --purple: #af52de;
+  --success: #34c759;
+
+  --container: 132rem;
+  --sidebar-width: 32rem;
+  --table-row-height: 4.8rem;
+  --header-height: 4.8rem;
+  --header-admin-height: 6rem;
+  --modal-max-height: calc(95vh - 7.2rem); //Trừ đi footer height
+  --base-input-width: 100%;
+  --breadcrumb-height: 6.4rem;
+  --modal-width-lg: 107rem;
+
+  --gap-global: 1.2rem;
+
+  --table-body-height-default: calc(
+    var(--device-height) - var(--header-admin-height) - 26.8rem
+  );
+  --table-tree: calc(
+    var(--device-height) - (4.8rem + 6.4rem + 8.2rem + 11.4rem)
+  );
+
+  // --shadow: rgba(0, 0, 0, 0.2);
+  --shadow: 0px 2px 8px 1px #00000024;
+
+  //chart
+  --chart-green: #34c759;
+  --chart-yellow: #ffcc00;
+  --chart-orange: #ff9500;
+  --chart-red: #ff3b30;
+
+  // New UI variables mapped from Figma Design
+  --on-primary-dark: #680010;
+  --on-primary-darker: #5b000d;
+  --primary-tint: #ffb3b0;
+  --on-secondary-dark: #4f3100;
+  --text-secondary-alt: #e7bcba;
+  --text-ternary-alt: #e2dce8;
+  --bg-card-alt: #1a1a1b;
+  --bg-border-light: #353436;
+  --bg-border-lighter: #3a393a;
+  --bg-border-lightest: #4a494a;
+}

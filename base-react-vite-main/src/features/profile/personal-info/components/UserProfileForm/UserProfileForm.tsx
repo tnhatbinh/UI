@@ -157,7 +157,7 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
 
       <S.FormRow>
         <S.FormGroup>
-          <label>Thành phố thường trú</label>
+          <label>Thành phố </label>
           <div className="input-wrap">
             <MapPin size={14} className="icon" />
             <select value={city} onChange={(e) => setCity(e.target.value)}>

@@ -1,5 +1,5 @@
-import { Button, Result } from "antd";
-import { Component, type ErrorInfo, type ReactNode } from "react";
+import { Button, Result } from 'antd';
+import { Component, type ErrorInfo, type ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -32,7 +32,7 @@ class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     console.error(
-      "[ErrorBoundary] Uncaught error:",
+      '[ErrorBoundary] Uncaught error:',
       error,
       info.componentStack,
     );
@@ -52,16 +52,16 @@ class ErrorBoundary extends Component<Props, State> {
       return (
         <div
           style={{
-            minHeight: "100vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            minHeight: '100vh',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           <Result
             status="500"
             title="Đã xảy ra lỗi"
-            subTitle={"Ứng dụng gặp sự cố không mong muốn. Vui lòng thử lại."}
+            subTitle={'Ứng dụng gặp sự cố không mong muốn. Vui lòng thử lại.'}
             extra={
               <Button type="primary" onClick={this.handleReset}>
                 Thử lại

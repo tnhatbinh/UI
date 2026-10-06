@@ -1,0 +1,1 @@
+export { CinemaTechCard } from './CinemaTechCard';

@@ -1,0 +1,1 @@
+export { SeatVisualizerCard } from './SeatVisualizerCard';

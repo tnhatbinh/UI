@@ -14,4 +14,4 @@ export interface IResponse<T> {
   message: string;
 }
 
-export interface IResponsePagination<T> extends IResponse<IPagination<T>> {}
+export type IResponsePagination<T> = IResponse<IPagination<T>>;

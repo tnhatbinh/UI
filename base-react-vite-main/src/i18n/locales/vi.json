@@ -1,0 +1,82 @@
+{
+  "common": {
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "delete": "Xóa",
+    "edit": "Chỉnh sửa",
+    "add": "Thêm",
+    "search": "Tìm kiếm",
+    "reset": "Đặt lại",
+    "close": "Đóng",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "loading": "Đang tải...",
+    "noData": "Không có dữ liệu",
+    "success": "Thành công",
+    "error": "Lỗi",
+    "warning": "Cảnh báo",
+    "required": "Trường này là bắt buộc"
+  },
+  "header": {
+    "home": "Trang chủ",
+    "discovery": "Khám phá",
+    "showtimes": "Lịch chiếu",
+    "offers": "Ưu đãi",
+    "cinemas": "Rạp chiếu",
+    "ai_assistant": "Trợ lý AI",
+    "my_tickets": "Vé của tôi",
+    "login": "Đăng nhập",
+    "search": "Tìm kiếm phim, rạp..."
+  },
+  "footer": {
+    "brand_desc": "Nền tảng đặt vé xem phim trực tuyến hàng đầu, mang đến trải nghiệm điện ảnh đẳng cấp và tiện lợi nhất cho khán giả Việt Nam.",
+    "hotline_label": "Hotline hỗ trợ 24/7:",
+    "cinemas_title": "Hệ Thống Rạp",
+    "policies_title": "Chính Sách & Quy Định",
+    "about_us": "Về chúng tôi",
+    "regulations": "Quy chế hoạt động",
+    "terms": "Điều khoản sử dụng",
+    "privacy": "Chính sách bảo mật",
+    "refund_policy": "Chính sách hoàn vé",
+    "faq": "Câu hỏi thường gặp",
+    "app_title": "Tải Ứng Dụng",
+    "app_desc": "Trải nghiệm đặt vé nhanh chóng, tiện lợi hơn trên ứng dụng di động PhimBook.",
+    "download_on": "Tải về trên",
+    "secure_payment": "Thanh Toán An Toàn",
+    "copyright": "© 2026 PhimBook Cinematic Lounge. Bản quyền thuộc về PhimBook.",
+    "contact_ads": "Liên hệ quảng cáo"
+  },
+  "home": {
+    "advisor": {
+      "engine_name": "CineAI Advisor",
+      "heading": "Gợi Ý Phim Dành Riêng Cho Bạn",
+      "subtext": "Khám phá những tựa phim được chọn lọc riêng dựa trên khẩu vị và cảm xúc của bạn hôm nay.",
+      "taste_label": "Khẩu vị của bạn:",
+      "taste_highlight": "Điện ảnh nghệ thuật & Bom tấn kịch tính"
+    },
+    "hero": {
+      "step_movie": "Chọn phim",
+      "step_cinema": "Chọn rạp",
+      "step_date": "Chọn ngày",
+      "step_showtime": "Chọn suất"
+    },
+    "luxury": {
+      "status": "ĐẶC QUYỀN VIP",
+      "title": "Trải Nghiệm Phòng Chiếu Đẳng Cấp Thượng Lưu",
+      "subtitle": "Ghế da cao cấp, dịch vụ ẩm thực fine-dining ngay tại rạp và công nghệ âm thanh vòm đỉnh cao."
+    },
+    "newsletter": {
+      "title": "Đăng Ký Nhận Bản Tin Điện Ảnh",
+      "subtitle": "Đặc quyền thành viên",
+      "desc": "Nhận ngay thông báo về các suất chiếu sớm, sự kiện thảm đỏ và voucher giảm giá 50% mỗi tuần.",
+      "placeholder": "Nhập email của bạn...",
+      "submit_btn": "Đăng ký ngay"
+    },
+    "offers": {
+      "title": "Ưu Đãi Đặc Quyền",
+      "subtitle": "Dành riêng cho thành viên",
+      "view_all_btn": "Xem tất cả ưu đãi"
+    }
+  }
+}

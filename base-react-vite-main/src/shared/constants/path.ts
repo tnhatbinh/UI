@@ -1,3 +1,2 @@
-export const LOGIN_PATH = "login";
-export const LOGIN_ANIMATED_PATH = "login-animated";
-export const HOME_PATH = "home";
+export const LOGIN_PATH = 'login';
+export const HOME_PATH = 'home';

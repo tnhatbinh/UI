@@ -1,0 +1,1 @@
+export { CinePassCard } from './CinePassCard';

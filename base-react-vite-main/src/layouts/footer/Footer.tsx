@@ -1,9 +1,11 @@
-import type { FC } from "react";
-import { Film, Mail, Smartphone } from "lucide-react";
-import { BiPhone } from "react-icons/bi";
-import * as S from "./footer.styles";
+import type { FC } from 'react';
+import { Film, Mail, Smartphone } from 'lucide-react';
+import { BiPhone } from 'react-icons/bi';
+import { useTranslation } from 'react-i18next';
+import * as S from './footer.styles';
 
 export const Footer: FC = () => {
+  const { t } = useTranslation();
   return (
     <S.FooterContainer>
       <S.FooterInner>
@@ -12,7 +14,9 @@ export const Footer: FC = () => {
           {/* Col 1 */}
           <S.BrandColumn>
             {/* Logo */}
-            <S.LogoWrapper onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+            <S.LogoWrapper
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
               <S.LogoIconBadge>
                 <Film size={20} strokeWidth={2.2} />
               </S.LogoIconBadge>
@@ -26,19 +30,17 @@ export const Footer: FC = () => {
             </S.LogoWrapper>
 
             {/* Description */}
-            <S.BrandDescription>
-              Nền tảng đặt vé xem phim điện ảnh tiêu chuẩn quốc tế số 1 Việt Nam. Trải nghiệm không gian rạp sang trọng, phòng chiếu IMAX, 4DX, ScreenX với công nghệ thanh toán tức thì và ưu đãi thành viên thượng lưu độc quyền.
-            </S.BrandDescription>
+            <S.BrandDescription>{t('footer:brand_desc')}</S.BrandDescription>
 
             {/* Contacts */}
             <S.ContactsList>
               <S.ContactItem>
-                <BiPhone style={{ color: "#FFB955" }} size={14} />
-                <S.ContactLabel>Hotline Hỗ Trợ 24/7:</S.ContactLabel>
+                <BiPhone style={{ color: '#FFB955' }} size={14} />
+                <S.ContactLabel>{t('footer:hotline_label')}</S.ContactLabel>
                 <S.ContactHotline>1900 8888 99</S.ContactHotline>
               </S.ContactItem>
               <S.ContactItem>
-                <Mail style={{ color: "#AE8786" }} size={12} />
+                <Mail style={{ color: '#AE8786' }} size={12} />
                 <S.ContactEmail>support@phimbook.vn</S.ContactEmail>
               </S.ContactItem>
             </S.ContactsList>
@@ -46,15 +48,15 @@ export const Footer: FC = () => {
 
           {/* Col 2 */}
           <S.LinksColumn>
-            <S.ColumnTitle>Hệ Thống Rạp Đối Tác</S.ColumnTitle>
+            <S.ColumnTitle>{t('footer:cinemas_title')}</S.ColumnTitle>
             <S.LinksList>
               {[
-                "CGV Cinemas Vietnam",
-                "Lotte Cinema",
-                "BHD Star Cineplex",
-                "Galaxy Studio",
-                "Beta Cinemas",
-                "Cinestar Cinema",
+                'CGV Cinemas Vietnam',
+                'Lotte Cinema',
+                'BHD Star Cineplex',
+                'Galaxy Studio',
+                'Beta Cinemas',
+                'Cinestar Cinema',
               ].map((item) => (
                 <S.FooterLink key={item}>{item}</S.FooterLink>
               ))}
@@ -63,44 +65,42 @@ export const Footer: FC = () => {
 
           {/* Col 3 */}
           <S.LinksColumn>
-            <S.ColumnTitle>Thông Tin & Chính Sách</S.ColumnTitle>
+            <S.ColumnTitle>{t('footer:policies_title')}</S.ColumnTitle>
             <S.LinksList>
               {[
-                "Về chúng tôi",
-                "Quy chế hoạt động",
-                "Điều khoản dịch vụ",
-                "Chính sách bảo mật",
-                "Chính sách hoàn & đổi vé",
-                "Hỏi đáp (FAQ)",
+                { key: 'about_us', label: t('footer:about_us') },
+                { key: 'regulations', label: t('footer:regulations') },
+                { key: 'terms', label: t('footer:terms') },
+                { key: 'privacy', label: t('footer:privacy') },
+                { key: 'refund_policy', label: t('footer:refund_policy') },
+                { key: 'faq', label: t('footer:faq') },
               ].map((item) => (
-                <S.FooterLink key={item}>{item}</S.FooterLink>
+                <S.FooterLink key={item.key}>{item.label}</S.FooterLink>
               ))}
             </S.LinksList>
           </S.LinksColumn>
 
           {/* Col 4 */}
           <S.AppColumn>
-            <S.ColumnTitle style={{ marginBottom: "4px" }}>
-              Tải Ứng Dụng & Kết Nối
+            <S.ColumnTitle style={{ marginBottom: '4px' }}>
+              {t('footer:app_title')}
             </S.ColumnTitle>
-            <S.AppDescription>
-              Tải app PhimBook nhận ngay voucher bắp nước miễn phí
-            </S.AppDescription>
+            <S.AppDescription>{t('footer:app_desc')}</S.AppDescription>
 
             {/* App download */}
             <S.AppDownloadBox>
-              <Smartphone size={24} style={{ color: "#FFB955" }} />
+              <Smartphone size={24} style={{ color: '#FFB955' }} />
               <S.AppDownloadTextCol>
-                <S.AppDownloadSub>Tải trên</S.AppDownloadSub>
+                <S.AppDownloadSub>{t('footer:download_on')}</S.AppDownloadSub>
                 <S.AppDownloadTitle>App Store & Google Play</S.AppDownloadTitle>
               </S.AppDownloadTextCol>
             </S.AppDownloadBox>
 
             {/* Payment security */}
             <S.PaymentSection>
-              <S.PaymentTitle>THANH TOÁN BẢO MẬT</S.PaymentTitle>
+              <S.PaymentTitle>{t('footer:secure_payment')}</S.PaymentTitle>
               <S.PaymentBadgesWrapper>
-                {["VNPAY", "MOMO", "VISA", "MASTERCARD"].map((badge) => (
+                {['VNPAY', 'MOMO', 'VISA', 'MASTERCARD'].map((badge) => (
                   <S.PaymentBadge key={badge}>
                     <S.PaymentBadgeText>{badge}</S.PaymentBadgeText>
                   </S.PaymentBadge>
@@ -112,12 +112,14 @@ export const Footer: FC = () => {
 
         {/* Bottom Section */}
         <S.BottomSection>
-          <S.CopyrightText>
-            © 2024 PhimBook Entertainment Joint Stock Co, Giấy phép MXH số 188/GP-BTTTT cấp bởi Bộ TT&TT.
-          </S.CopyrightText>
+          <S.CopyrightText>{t('footer:copyright')}</S.CopyrightText>
           <S.BottomLinksGroup>
-            {["Bảo mật", "Điều khoản", "Liên hệ quảng cáo"].map((link) => (
-              <S.BottomLink key={link}>{link}</S.BottomLink>
+            {[
+              { key: 'privacy', label: t('footer:privacy') },
+              { key: 'terms', label: t('footer:terms') },
+              { key: 'contact_ads', label: t('footer:contact_ads') },
+            ].map((link) => (
+              <S.BottomLink key={link.key}>{link.label}</S.BottomLink>
             ))}
           </S.BottomLinksGroup>
         </S.BottomSection>

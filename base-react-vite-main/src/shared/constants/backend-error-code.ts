@@ -12,10 +12,10 @@ export type BackendErrorCode =
 
 // key:value map from BE code to default message
 export const BACKEND_ERROR_MESSAGES: Record<number, string> = {
-  [BACKEND_ERROR_CODES.UNKNOWN]: "Unknown error",
-  [BACKEND_ERROR_CODES.UNAUTHORIZED]: "Unauthorized",
-  [BACKEND_ERROR_CODES.FORBIDDEN]: "Forbidden",
-  [BACKEND_ERROR_CODES.NOT_FOUND]: "Not found",
-  [BACKEND_ERROR_CODES.VALIDATION_ERROR]: "Validation error",
-  [BACKEND_ERROR_CODES.INTERNAL_SERVER_ERROR]: "Internal server error",
+  [BACKEND_ERROR_CODES.UNKNOWN]: 'Unknown error',
+  [BACKEND_ERROR_CODES.UNAUTHORIZED]: 'Unauthorized',
+  [BACKEND_ERROR_CODES.FORBIDDEN]: 'Forbidden',
+  [BACKEND_ERROR_CODES.NOT_FOUND]: 'Not found',
+  [BACKEND_ERROR_CODES.VALIDATION_ERROR]: 'Validation error',
+  [BACKEND_ERROR_CODES.INTERNAL_SERVER_ERROR]: 'Internal server error',
 };

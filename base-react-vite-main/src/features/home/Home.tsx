@@ -1,19 +1,24 @@
-
-import { HeroSpotlight } from "./components/hero-spotlight";
-import { NowShowing } from "./components/now-showing";
-import { AiCineAdvisor } from "./components/ai-cine-advisor";
-import { ExclusiveOffers } from "./components/exclusive-offers";
-import { LuxuryCinemas } from "./components/luxury-cinemas";
-import { Newsletter } from "./components/newsletter";
+import { HeroSpotlight } from './components/HeroSpotlight/HeroSpotlight';
+import { NowShowing } from './components/NowShowing/NowShowing';
+import { AiCineAdvisor } from './components/AiCineAdvisor/AiCineAdvisor';
+import { ExclusiveOffers } from './components/ExclusiveOffers/ExclusiveOffers';
+import { LuxuryCinemas } from './components/LuxuryCinemas/LuxuryCinemas';
+import { Newsletter } from './components/newsletter/newsletter';
 
 export default function Home() {
   return (
     <main className="w-full flex flex-col bg-[#0E0E0F]">
       <HeroSpotlight />
       <NowShowing />
-      <AiCineAdvisor />
-      <ExclusiveOffers />
-      <LuxuryCinemas />
+      <div id="ai-tro-ly">
+        <AiCineAdvisor />
+      </div>
+      <div id="uu-dai">
+        <ExclusiveOffers />
+      </div>
+      <div id="rap-chieu">
+        <LuxuryCinemas />
+      </div>
       <Newsletter />
     </main>
   );

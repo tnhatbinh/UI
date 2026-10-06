@@ -1,0 +1,82 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "reset": "Reset",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "loading": "Loading...",
+    "noData": "No data",
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "required": "This field is required"
+  },
+  "header": {
+    "home": "Home",
+    "discovery": "Discover",
+    "showtimes": "Showtimes",
+    "offers": "Offers",
+    "cinemas": "Cinemas",
+    "ai_assistant": "AI Assistant",
+    "my_tickets": "My Tickets",
+    "login": "Sign In",
+    "search": "Search movies, cinemas..."
+  },
+  "footer": {
+    "brand_desc": "The leading online movie ticket booking platform, delivering the finest and most convenient cinematic experience in Vietnam.",
+    "hotline_label": "24/7 Hotline Support:",
+    "cinemas_title": "Cinema Chains",
+    "policies_title": "Policies & Terms",
+    "about_us": "About Us",
+    "regulations": "Operating Regulations",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "refund_policy": "Ticket Refund Policy",
+    "faq": "FAQs",
+    "app_title": "Download App",
+    "app_desc": "Experience faster, more convenient booking on the PhimBook mobile application.",
+    "download_on": "Download on",
+    "secure_payment": "Secure Payment",
+    "copyright": "© 2026 PhimBook Cinematic Lounge. All rights reserved.",
+    "contact_ads": "Advertising Contact"
+  },
+  "home": {
+    "advisor": {
+      "engine_name": "CineAI Advisor",
+      "heading": "Personalized Movies For You",
+      "subtext": "Discover handpicked movies curated specifically for your mood and taste today.",
+      "taste_label": "Your Taste:",
+      "taste_highlight": "Art-house Cinema & Thrilling Blockbusters"
+    },
+    "hero": {
+      "step_movie": "Select Movie",
+      "step_cinema": "Select Cinema",
+      "step_date": "Select Date",
+      "step_showtime": "Select Showtime"
+    },
+    "luxury": {
+      "status": "VIP PRIVILEGE",
+      "title": "Luxury Cinematic Lounge Experience",
+      "subtitle": "Premium leather recliners, in-theatre fine dining service, and state-of-the-art surround sound."
+    },
+    "newsletter": {
+      "title": "Subscribe To Cinematic Newsletter",
+      "subtitle": "Member Privileges",
+      "desc": "Get notified first about sneak previews, red carpet events, and 50% discount vouchers every week.",
+      "placeholder": "Enter your email address...",
+      "submit_btn": "Subscribe Now"
+    },
+    "offers": {
+      "title": "Exclusive Offers",
+      "subtitle": "For Members Only",
+      "view_all_btn": "View All Offers"
+    }
+  }
+}

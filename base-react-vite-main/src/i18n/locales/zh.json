@@ -1,0 +1,82 @@
+{
+  "common": {
+    "save": "保存",
+    "cancel": "取消",
+    "confirm": "确认",
+    "delete": "删除",
+    "edit": "编辑",
+    "add": "添加",
+    "search": "搜索",
+    "reset": "重置",
+    "close": "关闭",
+    "back": "返回",
+    "next": "下一步",
+    "loading": "加载中...",
+    "noData": "暂无数据",
+    "success": "成功",
+    "error": "错误",
+    "warning": "警告",
+    "required": "此项为必填项"
+  },
+  "header": {
+    "home": "首页",
+    "discovery": "探索",
+    "showtimes": "排片表",
+    "offers": "优惠活动",
+    "cinemas": "影院",
+    "ai_assistant": "AI 助手",
+    "my_tickets": "我的电影票",
+    "login": "登录",
+    "search": "搜索电影、影院..."
+  },
+  "footer": {
+    "brand_desc": "越南领先的在线电影票预订平台，为影迷提供最便捷、尊贵的观影体验。",
+    "hotline_label": "24/7 服务热线:",
+    "cinemas_title": "合作影院",
+    "policies_title": "政策与条款",
+    "about_us": "关于我们",
+    "regulations": "运营规则",
+    "terms": "服务条款",
+    "privacy": "隐私政策",
+    "refund_policy": "退票政策",
+    "faq": "常见问题",
+    "app_title": "下载应用",
+    "app_desc": "在 PhimBook 移动端体验更快捷的购票服务。",
+    "download_on": "下载途径",
+    "secure_payment": "安全支付",
+    "copyright": "© 2026 PhimBook Cinematic Lounge. 版权所有。",
+    "contact_ads": "商务广告合作"
+  },
+  "home": {
+    "advisor": {
+      "engine_name": "CineAI Advisor",
+      "heading": "专属您的电影推荐",
+      "subtext": "根据您当下的心情和观影偏好，探索精心挑选的精彩影片。",
+      "taste_label": "您的偏好:",
+      "taste_highlight": "艺术电影与震撼大片"
+    },
+    "hero": {
+      "step_movie": "选电影",
+      "step_cinema": "选影院",
+      "step_date": "选日期",
+      "step_showtime": "选场次"
+    },
+    "luxury": {
+      "status": "VIP 尊享",
+      "title": "奢华影院贵宾体验",
+      "subtitle": "高端真皮电动躺椅、影厅内精致餐饮服务与顶级环绕立体声音效。"
+    },
+    "newsletter": {
+      "title": "订阅电影周刊",
+      "subtitle": "会员专享特权",
+      "desc": "第一时间获取点映场次、红毯盛会以及每周 50% 折扣券资讯。",
+      "placeholder": "请输入您的邮箱...",
+      "submit_btn": "立即订阅"
+    },
+    "offers": {
+      "title": "专属优惠",
+      "subtitle": "仅限会员",
+      "view_all_btn": "查看全部优惠"
+    }
+  }
+}

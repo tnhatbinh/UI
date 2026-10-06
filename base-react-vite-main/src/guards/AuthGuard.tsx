@@ -1,5 +1,5 @@
-import tokenManager from "@shared/utils/tokenManager";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import tokenManager from '@shared/utils/tokenManager';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 const AuthGuard = () => {
   const token = tokenManager.getAccessToken();

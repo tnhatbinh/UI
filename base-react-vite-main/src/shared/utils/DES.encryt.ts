@@ -1,8 +1,8 @@
-import CryptoJS from "crypto-js";
+import CryptoJS from 'crypto-js';
 
 export function encryptDES(
   message: string,
-  key: string = import.meta.env.VITE_DES_ENCRYPT_KEY as string
+  key: string = import.meta.env.VITE_DES_ENCRYPT_KEY as string,
 ) {
   const base64Encoded = window.btoa(encodeURIComponent(message));
   const keyWords = CryptoJS.enc.Utf8.parse(key);
@@ -16,7 +16,7 @@ export function encryptDES(
 
 export function decryptDES(
   message: string,
-  key: string = import.meta.env.VITE_DES_ENCRYPT_KEY as string
+  key: string = import.meta.env.VITE_DES_ENCRYPT_KEY as string,
 ) {
   const keyWords = CryptoJS.enc.Utf8.parse(key);
   const ivWords = CryptoJS.lib.WordArray.create([0, 0]);

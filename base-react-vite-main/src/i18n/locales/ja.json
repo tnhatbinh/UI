@@ -1,0 +1,82 @@
+{
+  "common": {
+    "save": "保存",
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "delete": "削除",
+    "edit": "編集",
+    "add": "追加",
+    "search": "検索",
+    "reset": "リセット",
+    "close": "閉じる",
+    "back": "戻る",
+    "next": "次へ",
+    "loading": "読み込み中...",
+    "noData": "データがありません",
+    "success": "成功",
+    "error": "エラー",
+    "warning": "警告",
+    "required": "この項目は必須です"
+  },
+  "header": {
+    "home": "ホーム",
+    "discovery": "見つける",
+    "showtimes": "上映スケジュール",
+    "offers": "特典・割引",
+    "cinemas": "劇場案内",
+    "ai_assistant": "AIアシスタント",
+    "my_tickets": "マイチケ",
+    "login": "ログイン",
+    "search": "映画、劇場を検索..."
+  },
+  "footer": {
+    "brand_desc": "ベトナム有数のオンライン映画チケット予約プラットフォーム。最高峰の映画体験をお届けします。",
+    "hotline_label": "24/7 ホットライン:",
+    "cinemas_title": "提携映画館",
+    "policies_title": "規約とポリシー",
+    "about_us": "会社概要",
+    "regulations": "運営規則",
+    "terms": "利用規約",
+    "privacy": "プライバシーポリシー",
+    "refund_policy": "払い戻し規定",
+    "faq": "よくある質問",
+    "app_title": "アプリをダウンロード",
+    "app_desc": "PhimBookモバイルアプリならもっと早く快適にご予約いただけます。",
+    "download_on": "ダウンロード",
+    "secure_payment": "安全な決済",
+    "copyright": "© 2026 PhimBook Cinematic Lounge. All rights reserved.",
+    "contact_ads": "広告掲載のお問い合わせ"
+  },
+  "home": {
+    "advisor": {
+      "engine_name": "CineAI Advisor",
+      "heading": "あなたにぴったりの映画をご提案",
+      "subtext": "本日の気分やお好みに合わせて厳選された作品をお楽しみください。",
+      "taste_label": "あなたのお好み:",
+      "taste_highlight": "アート系映画＆大迫力アクション大作"
+    },
+    "hero": {
+      "step_movie": "映画を選ぶ",
+      "step_cinema": "劇場を選ぶ",
+      "step_date": "日付を選ぶ",
+      "step_showtime": "時間を選ぶ"
+    },
+    "luxury": {
+      "status": "VIP特典",
+      "title": "最上級シネマラウンジ体験",
+      "subtitle": "高級レザーシート、劇場内ファインダイニングサービス、最新サラウンド音響システム。"
+    },
+    "newsletter": {
+      "title": "シネマニュースレター登録",
+      "subtitle": "会員限定特典",
+      "desc": "先行上映、レッドカーペットイベント、毎週の50%割引クーポンの情報をいち早くお届けします。",
+      "placeholder": "メールアドレスを入力...",
+      "submit_btn": "今すぐ登録"
+    },
+    "offers": {
+      "title": "限定特典",
+      "subtitle": "会員様限定",
+      "view_all_btn": "すべての特典を見る"
+    }
+  }
+}

@@ -1,7 +1,9 @@
-import { router } from "@config/app-routes";
-import { getZoomRatio } from "@shared/utils/getZoomRatio";
-import { useLayoutEffect } from "react";
-import { RouterProvider } from "react-router-dom";
+import { router } from '@config/AppRoutes';
+import { getZoomRatio } from '@shared/utils/getZoomRatio';
+import { useLayoutEffect } from 'react';
+import { RouterProvider } from 'react-router-dom';
+
+import { BookingProvider } from '@features/booking/context/BookingContext';
 
 function App() {
   useLayoutEffect(() => {
@@ -12,21 +14,21 @@ function App() {
 
       if (!isNarrow) {
         const zoom = getZoomRatio();
-        document.documentElement.style.setProperty("--zoom", zoom.toString());
+        document.documentElement.style.setProperty('--zoom', zoom.toString());
       } else {
-        document.documentElement.style.setProperty("--zoom", "1");
+        document.documentElement.style.setProperty('--zoom', '1');
       }
     };
 
     handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
-    // <AppContextProvider>
-    <RouterProvider router={router} />
-    // </AppContextProvider>
+    <BookingProvider>
+      <RouterProvider router={router} />
+    </BookingProvider>
   );
 }
 

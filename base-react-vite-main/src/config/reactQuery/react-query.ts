@@ -1,4 +1,4 @@
-import { QueryClient } from "@tanstack/react-query";
+import { QueryClient } from '@tanstack/react-query';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,5 +20,5 @@ export const defaultAgricultureQueryOptions = {
   gcTime: 10 * 60 * 1000, // 10 phút - giữ dữ liệu trong cache 10 phút sau khi không còn component nào sử dụng
   refetchOnWindowFocus: false, // Không refetch khi focus vào window
   refetchOnMount: false, // Không refetch khi component mount nếu dữ liệu vẫn fresh
-  placeholderData: (previousData: any) => previousData, // Giữ dữ liệu cũ khi đang fetch dữ liệu mới
+  placeholderData: (previousData: unknown) => previousData, // Giữ dữ liệu cũ khi đang fetch dữ liệu mới
 };

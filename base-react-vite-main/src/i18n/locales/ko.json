@@ -1,0 +1,82 @@
+{
+  "common": {
+    "save": "저장",
+    "cancel": "취소",
+    "confirm": "확인",
+    "delete": "삭제",
+    "edit": "편집",
+    "add": "추가",
+    "search": "검색",
+    "reset": "재설정",
+    "close": "닫기",
+    "back": "뒤로",
+    "next": "다음",
+    "loading": "로딩 중...",
+    "noData": "데이터 없음",
+    "success": "성공",
+    "error": "오류",
+    "warning": "경고",
+    "required": "필수 항목입니다"
+  },
+  "header": {
+    "home": "홈",
+    "discovery": "탐색",
+    "showtimes": "상영시간표",
+    "offers": "혜택",
+    "cinemas": "극장",
+    "ai_assistant": "AI 어시스턴트",
+    "my_tickets": "내 티켓",
+    "login": "로그인",
+    "search": "영화, 극장 검색..."
+  },
+  "footer": {
+    "brand_desc": "베트남 최고의 온라인 영화 예매 플랫폼으로 품격 있는 영화 관람 경험을 제공합니다.",
+    "hotline_label": "24/7 고객센터:",
+    "cinemas_title": "제휴 극장",
+    "policies_title": "이용약관 및 정책",
+    "about_us": "회사 소개",
+    "regulations": "운영 규정",
+    "terms": "이용약관",
+    "privacy": "개인정보처리방침",
+    "refund_policy": "환불 정책",
+    "faq": "자주 묻는 질문",
+    "app_title": "앱 다운로드",
+    "app_desc": "PhimBook 모바일 앱에서 더 빠르고 편리하게 예매하세요.",
+    "download_on": "다운로드",
+    "secure_payment": "안전 결제",
+    "copyright": "© 2026 PhimBook Cinematic Lounge. All rights reserved.",
+    "contact_ads": "광고 문의"
+  },
+  "home": {
+    "advisor": {
+      "engine_name": "CineAI Advisor",
+      "heading": "당신만을 위한 맞춤 영화 추천",
+      "subtext": "오늘 당신의 취향과 감성에 어울리는 특별한 영화를 만나보세요.",
+      "taste_label": "나의 취향:",
+      "taste_highlight": "예술 영화 & 스릴 넘치는 블록버스터"
+    },
+    "hero": {
+      "step_movie": "영화 선택",
+      "step_cinema": "극장 선택",
+      "step_date": "날짜 선택",
+      "step_showtime": "시간 선택"
+    },
+    "luxury": {
+      "status": "VIP 특권",
+      "title": "최고급 시네마 라운지 경험",
+      "subtitle": "프리미엄 리클라이너 가죽 좌석, 파인 다이닝 서비스 및 최고급 입체 음향 시스템."
+    },
+    "newsletter": {
+      "title": "영화 뉴스레터 구독",
+      "subtitle": "회원 전용 혜택",
+      "desc": "시사회, 레드카펫 이벤트 및 매주 50% 할인 쿠폰 소식을 가장 먼저 받아보세요.",
+      "placeholder": "이메일을 입력하세요...",
+      "submit_btn": "지금 구독하기"
+    },
+    "offers": {
+      "title": "특별 혜택",
+      "subtitle": "회원 전용",
+      "view_all_btn": "모든 혜택 보기"
+    }
+  }
+}

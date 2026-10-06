@@ -1,0 +1,1 @@
+export { IdolsCard } from './IdolsCard';

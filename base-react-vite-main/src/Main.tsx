@@ -1,27 +1,27 @@
 // Styles
-import "antd/dist/reset.css";
-import "./assets/scss/index.scss";
-import "./index.css";
+import 'antd/dist/reset.css';
+import './assets/scss/index.scss';
+import './index.css';
 
 // i18n - kích hoạt trước khi render app
-import "@config/i18n";
+import './i18n/i18n-config';
 
-import ReactDOM from "react-dom/client";
-import App from "./app.tsx";
+import ReactDOM from 'react-dom/client';
+import App from './app.tsx';
 
 // Ant Design
-import { StyleProvider, px2remTransformer } from "@ant-design/cssinjs";
-import antdDefaultConfig from "@config/antDesign";
-import { App as AntdApp, ConfigProvider as AntdConfigProvider } from "antd";
+import { StyleProvider, px2remTransformer } from '@ant-design/cssinjs';
+import antdDefaultConfig from '@config/antDesign';
+import { App as AntdApp, ConfigProvider as AntdConfigProvider } from 'antd';
 
 // React Query
-import queryClient from "@config/reactQuery/react-query";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import queryClient from '@config/reactQuery/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 // Error Boundary & Network
-import ErrorBoundary from "@shared/components/error-boundary/ErrorBoundary.tsx";
-import { NetworkDetector } from "@shared/components/online-offline";
+import ErrorBoundary from '@shared/components/error-boundary/ErrorBoundary.tsx';
+import { NetworkDetector } from '@shared/components/online-offline';
 
 /**
  * PX_2_REM: Chuyển px sang rem (rootValue = 10 → 10px = 1rem)
@@ -35,7 +35,7 @@ const PX_2_REM = px2remTransformer({ rootValue: 10 });
  */
 const SHOW_NETWORK_DETECTOR = true;
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
     <AntdConfigProvider {...antdDefaultConfig}>
       <AntdApp>

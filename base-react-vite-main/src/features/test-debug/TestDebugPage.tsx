@@ -1,7 +1,7 @@
-import ErrorBoundary from "@shared/components/error-boundary/ErrorBoundary";
-import { NetworkDetector } from "@shared/components/online-offline";
-import { Alert, Button, Card, Divider, Space, Tag, Typography } from "antd";
-import { useState } from "react";
+import ErrorBoundary from '@shared/components/error-boundary/ErrorBoundary';
+import { NetworkDetector } from '@shared/components/online-offline';
+import { Alert, Button, Card, Divider, Space, Tag, Typography } from 'antd';
+import { useState } from 'react';
 import {
   ContentStack,
   InfoBlock,
@@ -9,7 +9,7 @@ import {
   SectionStack,
   StatusRow,
   TestPageContainer,
-} from "./test-debug-page.styles";
+} from './TestDebugPage.styles';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -18,7 +18,7 @@ function BuggyCounter() {
 
   if (count === 3) {
     throw new Error(
-      `Crash gia lap! count dat ${count} - ErrorBoundary da bat duoc loi nay.`
+      `Crash gia lap! count dat ${count} - ErrorBoundary da bat duoc loi nay.`,
     );
   }
 
@@ -28,7 +28,10 @@ function BuggyCounter() {
         So lan click: <Tag color="blue">{count}</Tag>
       </Text>
       <Text type="secondary">Bam du 3 lan de trigger crash</Text>
-      <Button danger onClick={() => setCount((currentCount) => currentCount + 1)}>
+      <Button
+        danger
+        onClick={() => setCount((currentCount) => currentCount + 1)}
+      >
         Click de crash ({count}/3)
       </Button>
     </Space>
@@ -89,17 +92,17 @@ function NetworkTestSection() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   const simulateOffline = () => {
-    window.dispatchEvent(new Event("offline"));
+    window.dispatchEvent(new Event('offline'));
     setIsOnline(false);
 
     setTimeout(() => {
-      window.dispatchEvent(new Event("online"));
+      window.dispatchEvent(new Event('online'));
       setIsOnline(true);
     }, 4000);
   };
 
   const simulateOnline = () => {
-    window.dispatchEvent(new Event("online"));
+    window.dispatchEvent(new Event('online'));
     setIsOnline(true);
   };
 
@@ -120,7 +123,7 @@ function NetworkTestSection() {
           description={
             <>
               <div>
-                NetworkDetector lang nghe su kien <code>window.online</code> /{" "}
+                NetworkDetector lang nghe su kien <code>window.online</code> /{' '}
                 <code>window.offline</code> cua trinh duyet.
               </div>
               <div>
@@ -128,8 +131,9 @@ function NetworkTestSection() {
                 NetworkDetector phat hien va hien notification.
               </div>
               <div>
-                Hoac ban co the: <strong>F12 -&gt; Network tab -&gt; Offline</strong>{" "}
-                de test thuc te.
+                Hoac ban co the:{' '}
+                <strong>F12 -&gt; Network tab -&gt; Offline</strong> de test
+                thuc te.
               </div>
             </>
           }
@@ -139,8 +143,8 @@ function NetworkTestSection() {
       <ContentStack>
         <StatusRow>
           <Text>Trang thai hien tai:</Text>
-          <Tag color={isOnline ? "green" : "red"}>
-            {isOnline ? "Online" : "Offline"}
+          <Tag color={isOnline ? 'green' : 'red'}>
+            {isOnline ? 'Online' : 'Offline'}
           </Tag>
         </StatusRow>
 

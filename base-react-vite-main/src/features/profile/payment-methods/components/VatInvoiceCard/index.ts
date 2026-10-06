@@ -1,0 +1,1 @@
+export { VatInvoiceCard } from './VatInvoiceCard';

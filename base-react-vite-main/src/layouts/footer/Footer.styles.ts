@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const FooterContainer = styled.footer`
   width: 100%;
@@ -83,7 +83,7 @@ export const LogoTitle = styled.div`
   letter-spacing: -0.5px;
   text-transform: uppercase;
   line-height: 22px;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
 `;
 
 export const LogoPhim = styled.span`
@@ -116,7 +116,7 @@ export const BrandDescription = styled.p`
   line-height: 22px;
   font-weight: 400;
   color: #e7bcba;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
   margin: 0;
 `;
 
@@ -138,7 +138,7 @@ export const ContactLabel = styled.span`
   font-weight: 600;
   color: #e5e2e3;
   letter-spacing: 0.28px;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
 `;
 
 export const ContactHotline = styled.span`
@@ -146,7 +146,7 @@ export const ContactHotline = styled.span`
   font-weight: 900;
   color: #ffb3b0;
   letter-spacing: 0.28px;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
 `;
 
 export const ContactEmail = styled.span`
@@ -154,7 +154,7 @@ export const ContactEmail = styled.span`
   font-weight: 400;
   color: #e7bcba;
   letter-spacing: 0.18px;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
 `;
 
 export const LinksColumn = styled.div`
@@ -178,7 +178,7 @@ export const ColumnTitle = styled.h4`
   color: #e5e2e3;
   line-height: 26px;
   margin: 0 0 8px 0;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
 `;
 
 export const LinksList = styled.div`
@@ -194,7 +194,7 @@ export const FooterLink = styled.span`
   line-height: 22px;
   letter-spacing: 0.14px;
   cursor: pointer;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
   transition: color 0.15s ease;
 
   &:hover {
@@ -224,7 +224,7 @@ export const AppDescription = styled.p`
   letter-spacing: 0.18px;
   margin: 0;
   min-height: 36px;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
 `;
 
 export const AppDownloadBox = styled.div`
@@ -253,7 +253,7 @@ export const AppDownloadSub = styled.span`
   letter-spacing: 0.66px;
   text-transform: uppercase;
   line-height: 16px;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
 `;
 
 export const AppDownloadTitle = styled.span`
@@ -262,7 +262,7 @@ export const AppDownloadTitle = styled.span`
   color: #e5e2e3;
   letter-spacing: 0.28px;
   line-height: 20px;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
 `;
 
 export const PaymentSection = styled.div`
@@ -280,7 +280,7 @@ export const PaymentTitle = styled.span`
   text-transform: uppercase;
   letter-spacing: 0.55px;
   line-height: 16px;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
 `;
 
 export const PaymentBadgesWrapper = styled.div`
@@ -305,7 +305,7 @@ export const PaymentBadgeText = styled.span`
   font-weight: 700;
   color: #e7bcba;
   letter-spacing: 0.66px;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
 `;
 
 export const BottomSection = styled.div`
@@ -329,7 +329,7 @@ export const CopyrightText = styled.span`
   font-weight: 400;
   color: #ae8786;
   letter-spacing: 0.18px;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
   text-align: center;
 
   @media (min-width: 768px) {
@@ -349,7 +349,7 @@ export const BottomLink = styled.span`
   color: #ae8786;
   letter-spacing: 0.18px;
   cursor: pointer;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
   transition: color 0.15s ease;
 
   &:hover {

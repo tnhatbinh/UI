@@ -1,0 +1,1 @@
+export { VipSettingsPanel } from './VipSettingsPanel';

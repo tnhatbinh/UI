@@ -1,20 +1,20 @@
-import axios from "axios";
+import axios from 'axios';
 
-import type { IOriginRequest } from "@config/axios-instance";
-import axiosClient from "@config/axios-instance";
-import { LOGIN_PATH } from "@shared/constants/path";
-import tokenManager from "./tokenManager";
+import type { IOriginRequest } from '@config/axios-instance';
+import axiosClient from '@config/axios-instance';
+import { LOGIN_PATH } from '@shared/constants/path';
+import tokenManager from './tokenManager';
 interface IFailedQueue {
-  resolve: Promise<any>;
-  reject: Promise<any>;
+  resolve: (value: unknown) => void;
+  reject: (reason?: unknown) => void;
 }
 
 // for multiple requests
 let isRefreshing = false;
 let failedQueue: IFailedQueue[] = [];
 
-const processQueue = (error: Error | null, token = null) => {
-  failedQueue.forEach((prom: any) => {
+const processQueue = (error: Error | null, token: unknown = null) => {
+  failedQueue.forEach((prom) => {
     if (error) {
       prom.reject(error);
     } else {
@@ -27,12 +27,12 @@ const processQueue = (error: Error | null, token = null) => {
 
 export const handleRefreshToken = async (originalRequest: IOriginRequest) => {
   if (isRefreshing) {
-    return new Promise(function (resolve: any, reject: any) {
+    return new Promise(function (resolve, reject) {
       failedQueue.push({ resolve, reject });
     })
       .then((token) => {
         if (originalRequest.headers) {
-          originalRequest.headers.Authorization = "Bearer " + token;
+          originalRequest.headers.Authorization = 'Bearer ' + token;
         }
         return axiosClient(originalRequest);
       })
@@ -51,7 +51,7 @@ export const handleRefreshToken = async (originalRequest: IOriginRequest) => {
           `${import.meta.env.REACT_APP_SERVER_URL}/v1/auth/user/refresh_token`,
           JSON.stringify({ refreshToken }),
           {
-            headers: { "Content-Type": "application/json" },
+            headers: { 'Content-Type': 'application/json' },
           },
         )
         .then(({ data }) => {
@@ -67,8 +67,8 @@ export const handleRefreshToken = async (originalRequest: IOriginRequest) => {
           tokenManager.setRefreshToken(data.data.refreshToken);
 
           if (originalRequest.headers) {
-            originalRequest.headers["Authorization"] =
-              "Bearer " + data.data.accessToken;
+            originalRequest.headers['Authorization'] =
+              'Bearer ' + data.data.accessToken;
           }
 
           processQueue(null, data.data.accessToken);
@@ -78,7 +78,7 @@ export const handleRefreshToken = async (originalRequest: IOriginRequest) => {
           isRefreshing = false;
         })
         .catch((err) => {
-          console.log("refresh token err: ", err);
+          console.log('refresh token err: ', err);
           tokenManager.removeAccessToken();
           tokenManager.removeRefreshToken();
           window.location.href = LOGIN_PATH;

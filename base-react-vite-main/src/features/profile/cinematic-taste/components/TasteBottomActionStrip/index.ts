@@ -1,0 +1,1 @@
+export { TasteBottomActionStrip } from './TasteBottomActionStrip';

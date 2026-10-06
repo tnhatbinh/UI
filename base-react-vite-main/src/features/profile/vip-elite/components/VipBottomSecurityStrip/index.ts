@@ -1,0 +1,1 @@
+export { VipBottomSecurityStrip } from './VipBottomSecurityStrip';

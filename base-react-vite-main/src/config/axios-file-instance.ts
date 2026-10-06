@@ -3,17 +3,17 @@ import axios, {
   type AxiosRequestConfig,
   type AxiosResponse,
   type InternalAxiosRequestConfig,
-} from "axios";
-import type { IResponse } from "@shared/types/response";
-import { handleRefreshToken } from "@shared/utils/refreshToken";
-import tokenManager from "@shared/utils/tokenManager";
+} from 'axios';
+import type { IResponse } from '@shared/types/response';
+import { handleRefreshToken } from '@shared/utils/refreshToken';
+import tokenManager from '@shared/utils/tokenManager';
 import {
   handleCommonHttpError,
   isBusinessResponseFailed,
   rejectBusinessError,
   tryParseBlobErrorResponse,
-} from "./axios-error-helper";
-import notify from "./notification";
+} from './axios-error-helper';
+import notify from './notification';
 
 export interface IOriginRequest extends AxiosRequestConfig {
   _retry: boolean;
@@ -22,7 +22,7 @@ export interface IOriginRequest extends AxiosRequestConfig {
 const axiosFileClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
@@ -36,7 +36,7 @@ axiosFileClient.interceptors.request.use(
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 axiosFileClient.interceptors.response.use(
@@ -75,17 +75,17 @@ axiosFileClient.interceptors.response.use(
     }
 
     if (error.response.status === 403) {
-      notify.warning("Bạn không có quyền tải tài liệu này.");
+      notify.warning('Bạn không có quyền tải tài liệu này.');
       return Promise.reject(error);
     }
 
     if (error.response.status === 404) {
-      notify.warning("File không tồn tại.");
+      notify.warning('File không tồn tại.');
       return Promise.reject(error);
     }
 
     return handleCommonHttpError(error as AxiosError<IResponse<unknown>>);
-  }
+  },
 );
 
 export default axiosFileClient;

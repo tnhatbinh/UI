@@ -1,6 +1,6 @@
-import { localStorageKeys } from "@constants/storageKey";
-import { decryptDES, encryptDES } from "./DES.encryt";
-import { lcStorage } from "./storage";
+import { localStorageKeys } from '../constants/storage-key';
+import { decryptDES, encryptDES } from './DES.encryt';
+import { lcStorage } from './storage';
 
 const tokenManager = () => {
   let accessToken: string | undefined = lcStorage.get(
@@ -10,7 +10,7 @@ const tokenManager = () => {
     localStorageKeys.refreshToken,
   );
 
-  const isDev = import.meta.env.MODE === "development";
+  const isDev = import.meta.env.MODE === 'development';
 
   const getAccessToken = (): string | undefined => {
     if (!accessToken) return undefined;

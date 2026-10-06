@@ -11,7 +11,7 @@ export default defineConfig({
       "@config": path.resolve(__dirname, "src/config"),
       "@configs": path.resolve(__dirname, "src/config"),
       "@assets": path.resolve(__dirname, "src/assets"),
-      "@constants": path.resolve(__dirname, "src/constants"),
+      "@constants": path.resolve(__dirname, "src/shared/constants"),
       "@layouts": path.resolve(__dirname, "src/layouts"),
       "@features": path.resolve(__dirname, "src/features"),
       "@guards": path.resolve(__dirname, "src/guards"),

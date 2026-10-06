@@ -1,10 +1,10 @@
 export const lcStorage = {
-  get: <T = any>(key: string): T | undefined => {
-    return localStorage.getItem(key) !== "undefined"
+  get: <T = unknown>(key: string): T | undefined => {
+    return localStorage.getItem(key) !== 'undefined'
       ? JSON.parse(localStorage.getItem(key) as string)
       : undefined;
   },
-  set: (key: string, value: any): void => {
+  set: (key: string, value: unknown): void => {
     localStorage.setItem(key, JSON.stringify(value));
   },
   remove: (item: string, key: string) => {
@@ -18,10 +18,10 @@ export const lcStorage = {
 };
 
 export const ssStorage = {
-  get: <T = any>(key: string): T | undefined => {
+  get: <T = unknown>(key: string): T | undefined => {
     return JSON.parse(sessionStorage.getItem(key) as string);
   },
-  set: (key: string, value: any) => {
+  set: (key: string, value: unknown) => {
     sessionStorage.setItem(key, JSON.stringify(value));
   },
   remove: (item: string, key: string) => {

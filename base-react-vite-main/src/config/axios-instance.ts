@@ -1,18 +1,18 @@
-import type { IResponse } from "@shared/types/response";
+import type { IResponse } from '@shared/types/response';
 import axios, {
   AxiosError,
   type AxiosRequestConfig,
   type InternalAxiosRequestConfig,
   type AxiosResponse,
-} from "axios";
+} from 'axios';
 import {
   handleCommonHttpError,
   isBusinessError,
   rejectBusinessError,
   type BusinessError,
-} from "./axios-error-helper";
-import { handleRefreshToken } from "../shared/utils/refreshToken";
-import tokenManager from "../shared/utils/tokenManager";
+} from './axios-error-helper';
+import { handleRefreshToken } from '../shared/utils/refreshToken';
+import tokenManager from '../shared/utils/tokenManager';
 
 export interface IOriginRequest extends AxiosRequestConfig {
   _retry: boolean;
@@ -22,7 +22,7 @@ export type { BusinessError };
 export { isBusinessError };
 
 const handleRequest = (
-  config: InternalAxiosRequestConfig
+  config: InternalAxiosRequestConfig,
 ): InternalAxiosRequestConfig => {
   const accessToken = tokenManager.getAccessToken();
 
@@ -45,7 +45,7 @@ const handleResponse = (response: AxiosResponse<IResponse<unknown>>) => {
     return rejectBusinessError(data);
   }
 
-  if (response.config.method === "get") {
+  if (response.config.method === 'get') {
     return data.data;
   }
 
@@ -65,16 +65,16 @@ const handleResponseError = async (error: AxiosError<IResponse<unknown>>) => {
 const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
 axiosClient.interceptors.request.use(handleRequest, handleRequestError);
 axiosClient.interceptors.response.use(
   handleResponse as unknown as (
-    value: AxiosResponse
+    value: AxiosResponse,
   ) => AxiosResponse | Promise<AxiosResponse>,
-  handleResponseError
+  handleResponseError,
 );
 
 export default axiosClient;

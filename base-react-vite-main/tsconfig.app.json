@@ -9,7 +9,7 @@
     "skipLibCheck": true,
     /* Paths alias */
     "baseUrl": "./src",
-    "ignoreDeprecations": "6.0",
+    "ignoreDeprecations": "5.0",
 
     "paths": {
       "@/*": ["src/*"],
@@ -22,7 +22,7 @@
       "@guards/*": ["guards/*"],
       "@utils/*": ["utils/*"],
       "@shared/*": ["shared/*"],
-      "@constants/*": ["constants/*"]
+      "@constants/*": ["shared/constants/*"]
     },
     /* Bundler mode */
     "moduleResolution": "bundler",

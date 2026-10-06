@@ -1,0 +1,1 @@
+export { LinkedPaymentMethodsCard } from './LinkedPaymentMethodsCard';

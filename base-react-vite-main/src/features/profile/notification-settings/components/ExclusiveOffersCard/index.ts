@@ -1,0 +1,1 @@
+export { ExclusiveOffersCard } from './ExclusiveOffersCard';

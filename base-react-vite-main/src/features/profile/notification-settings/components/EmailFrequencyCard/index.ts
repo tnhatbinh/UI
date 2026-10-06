@@ -1,0 +1,1 @@
+export { EmailFrequencyCard } from './EmailFrequencyCard';

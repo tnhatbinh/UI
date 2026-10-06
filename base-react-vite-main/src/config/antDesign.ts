@@ -1,22 +1,22 @@
-import type { ConfigProviderProps, ThemeConfig } from "antd";
-import viVN from "antd/locale/vi_VN";
+import type { ConfigProviderProps, ThemeConfig } from 'antd';
+import viVN from 'antd/locale/vi_VN';
 
 const palette = {
-  bgPrimary: "#0B0B0C",
-  borderPrimary: "rgba(255, 255, 255, 0.15)",
-  borderSecondary: "rgba(255, 255, 255, 0.08)",
-  error: "#FF2A42",
-  goldSoft: "rgba(245, 166, 35, 0.15)",
-  hoverPrimary: "rgba(255, 42, 66, 0.15)",
-  info: "#178fe2",
-  primary: "#FF2A42",
-  primarySub: "#E01E35",
-  success: "#34c759",
-  surface: "#1C1B1C",
-  tableHeader: "#201F20",
-  textPrimary: "#FFFFFF",
-  textSecondary: "#AE8786",
-  warning: "#F5A623",
+  bgPrimary: '#0B0B0C',
+  borderPrimary: 'rgba(255, 255, 255, 0.15)',
+  borderSecondary: 'rgba(255, 255, 255, 0.08)',
+  error: '#FF2A42',
+  goldSoft: 'rgba(245, 166, 35, 0.15)',
+  hoverPrimary: 'rgba(255, 42, 66, 0.15)',
+  info: '#178fe2',
+  primary: '#FF2A42',
+  primarySub: '#E01E35',
+  success: '#34c759',
+  surface: '#1C1B1C',
+  tableHeader: '#201F20',
+  textPrimary: '#FFFFFF',
+  textSecondary: '#AE8786',
+  warning: '#F5A623',
 } as const;
 
 const theme: ThemeConfig = {
@@ -32,7 +32,7 @@ const theme: ThemeConfig = {
     colorTextSecondary: palette.textSecondary,
     colorBgBase: palette.bgPrimary,
     colorBgContainer: palette.surface,
-    colorBgElevated: "#201F20",
+    colorBgElevated: '#201F20',
     colorBgLayout: palette.bgPrimary,
     colorBorder: palette.borderSecondary,
     colorBorderSecondary: palette.borderPrimary,

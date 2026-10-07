@@ -10,14 +10,6 @@ export interface NavItemConfig {
 export const NAV_ITEMS: NavItemConfig[] = [
   { labelKey: 'header:home', path: '/' },
   { labelKey: 'header:discovery', path: '/kham-pha' },
-  { labelKey: 'header:showtimes', path: '/lich-chieu' },
-  { labelKey: 'header:offers', scrollTarget: 'uu-dai' },
-  { labelKey: 'header:cinemas', scrollTarget: 'rap-chieu' },
-  {
-    labelKey: 'header:ai_assistant',
-    scrollTarget: 'ai-tro-ly',
-    hasAiDot: true,
-  },
 ];
 
 // ─── Cities ──────────────────────────────────────────────────────────────────

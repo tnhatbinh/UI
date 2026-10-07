@@ -30,9 +30,6 @@ import {
   MetaText,
   MovieTitle,
   BottomInfoArea,
-  InfoColumn,
-  InfoLabel,
-  InfoValue,
   DetailButton,
   DetailButtonText,
   BuyButton,
@@ -221,14 +218,6 @@ export const NowShowing: FC = () => {
 
               {/* Bottom Info & Button */}
               <BottomInfoArea>
-                {/* Info */}
-                <InfoColumn>
-                  <InfoLabel>{movie.infoLabel}</InfoLabel>
-                  <InfoValue $color={movie.infoValueColor}>
-                    {movie.infoValue}
-                  </InfoValue>
-                </InfoColumn>
-
                 {/* Nút Chi Tiết */}
                 <DetailButton
                   type="button"

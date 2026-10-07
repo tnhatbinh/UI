@@ -1,9 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import Home from '@features/home/home';
+import Home from '@features/home/Home';
 import LoginPage from '@features/auth/LoginPage';
 import PageNotFound from '@features/PageNotFound/PageNotFound';
-import GuestGuard from '@guards/guestGuard';
+import GuestGuard from '@guards/guestguard';
 import MainLayout from '@layouts/MainLayout';
 import { HOME_PATH } from '@shared/constants/path';
 

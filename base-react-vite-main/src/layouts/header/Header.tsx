@@ -21,7 +21,7 @@ import {
   InnerContainer,
   NavLeftGroup,
   OuterHeader,
-} from './header.styles';
+} from './Header.styles';
 
 export interface HeaderProps {
   isSidebarOpen?: boolean;

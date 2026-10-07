@@ -5,7 +5,7 @@ import 'antd/dist/reset.css';
 import './i18n/i18n-config';
 
 import ReactDOM from 'react-dom/client';
-import App from './app.tsx';
+import App from './App.tsx';
 
 // Ant Design
 import { StyleProvider, px2remTransformer } from '@ant-design/cssinjs';

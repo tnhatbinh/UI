@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import Header from './header/header';
-import { Footer } from './footer/footer';
-import Sidebar from './sidebar/sidebar';
+import Header from './header/Header';
+import { Footer } from './footer/Footer';
+import Sidebar from './sidebar/Sidebar';
 
 export default function MainLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

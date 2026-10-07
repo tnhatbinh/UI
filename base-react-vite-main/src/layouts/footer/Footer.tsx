@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { Film, Mail, Smartphone } from 'lucide-react';
 import { BiPhone } from 'react-icons/bi';
 import { useTranslation } from 'react-i18next';
-import * as S from './footer.styles';
+import * as S from './Footer.styles';
 
 export const Footer: FC = () => {
   const { t } = useTranslation();

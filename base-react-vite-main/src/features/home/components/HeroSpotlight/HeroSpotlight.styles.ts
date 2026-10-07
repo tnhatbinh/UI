@@ -25,10 +25,9 @@ export const ImageContainer = styled.div`
   max-width: 1232px;
   height: 600px;
   margin: 0 auto;
-  border-radius: 24px;
+  border-radius: 0;
   isolation: isolate;
   overflow: hidden;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
 
   @media (max-width: 1024px) {
     height: 500px;
@@ -36,7 +35,7 @@ export const ImageContainer = styled.div`
 
   @media (max-width: 640px) {
     height: 650px;
-    border-radius: 16px;
+    border-radius: 0;
     width: 100%;
   }
 `;
@@ -155,6 +154,8 @@ export const StepItem = styled.div<{ $isOpen?: boolean }>`
   align-items: center;
   gap: 12px;
   padding: 10px 16px;
+  flex: 1;
+  min-width: 0;
   width: 100%;
   height: 60px;
   background-color: ${({ $isOpen }) =>
@@ -287,7 +288,7 @@ export const StepValue1 = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 190px;
+  max-width: 100%;
 `;
 
 export const StepValue2 = styled.span`
@@ -299,7 +300,7 @@ export const StepValue2 = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 200px;
+  max-width: 100%;
 `;
 
 export const StepValue3 = styled.span`

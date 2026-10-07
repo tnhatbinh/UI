@@ -328,16 +328,16 @@ export const BottomInfoArea = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
   gap: 8px;
-  padding: 14px 12px;
-  min-height: 88px;
+  padding: 12px;
+  height: 68px;
   background-color: var(--bg-elevated);
   position: relative;
 
-  @media (max-width: 960px) {
-    padding: 10px 8px;
+  @media (max-width: 680px) {
+    padding: 8px;
     gap: 6px;
+    height: 56px;
   }
 `;
 
@@ -395,6 +395,12 @@ export const DetailButton = styled.button`
   &:active {
     transform: translateY(0);
   }
+
+  @media (max-width: 680px) {
+    height: 38px;
+    padding: 6px 8px;
+    border-radius: 8px;
+  }
 `;
 
 export const DetailButtonText = styled.span`
@@ -430,6 +436,12 @@ export const BuyButton = styled.button`
 
   &:active {
     transform: translateY(0);
+  }
+
+  @media (max-width: 680px) {
+    height: 38px;
+    padding: 6px 8px;
+    border-radius: 8px;
   }
 `;
 

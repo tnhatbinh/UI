@@ -1,6 +1,5 @@
 import type { FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   ChevronLeft,
   ChevronRight,
@@ -25,7 +24,6 @@ import { SlideItem } from './components/SlideItem/SlideItem';
 
 export const HeroSpotlight: FC = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
   // ── Carousel ──────────────────────────────────────────────────────────────
   const { emblaRef, selectedIndex, handlePrev, handleNext, handleDotClick } =
@@ -358,22 +356,6 @@ export const HeroSpotlight: FC = () => {
             </S.BookingDropdown>
           )}
         </S.StepItem>
-
-        {/* Step 5 – Submit Button */}
-        <S.QuickBookSubmitButton
-          type="button"
-          onClick={() => {
-            const movieIdx = SPOTLIGHT_MOVIES.findIndex(
-              (m) => m.mainTitle === selectedMovie,
-            );
-            const targetId =
-              movieIdx === 0 ? '15' : movieIdx === 1 ? '5' : '1';
-            navigate(`/phim/${targetId}?booking=true`);
-          }}
-        >
-          <Ticket size={18} />
-          <span>{t('home:hero.book_now_btn_short', 'ĐẶT VÉ')}</span>
-        </S.QuickBookSubmitButton>
       </S.QuickBookingBar>
     </S.SectionContainer>
   );

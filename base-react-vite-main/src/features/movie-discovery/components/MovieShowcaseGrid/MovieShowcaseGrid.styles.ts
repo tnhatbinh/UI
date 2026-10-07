@@ -269,6 +269,10 @@ export const MovieDescription = styled.p`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  @media (max-width: 680px) {
+    display: none;
+  }
 `;
 
 export const ActionPanel = styled.div`
@@ -299,6 +303,10 @@ export const DetailButton = styled.button`
   &:hover {
     background: #282729;
     border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  @media (max-width: 680px) {
+    display: none;
   }
 `;
 

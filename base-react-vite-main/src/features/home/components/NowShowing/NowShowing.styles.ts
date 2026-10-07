@@ -328,16 +328,16 @@ export const BottomInfoArea = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 8px;
   padding: 14px 12px;
-  height: 88px;
+  min-height: 88px;
   background-color: var(--bg-elevated);
   position: relative;
 
-  @media (max-width: 680px) {
+  @media (max-width: 960px) {
     padding: 10px 8px;
     gap: 6px;
-    height: auto;
   }
 `;
 
@@ -345,6 +345,14 @@ export const InfoColumn = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2px;
+  min-width: 0;
+  flex: 1;
+
+  @media (max-width: 960px) {
+    width: 100%;
+    flex: none;
+    margin-bottom: 4px;
+  }
 `;
 
 export const InfoLabel = styled.span`

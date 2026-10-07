@@ -107,6 +107,7 @@ export const EngineBadge = styled.div`
 `;
 
 export const EngineText = styled.span`
+  white-space: nowrap;
   font-size: 11px;
   font-weight: 700;
   color: var(--on-primary-darker);

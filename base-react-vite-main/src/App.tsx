@@ -4,6 +4,8 @@ import { useLayoutEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
 import { BookingProvider } from '@features/booking/context/BookingContext';
+import { GlobalStyles } from './styles/GlobalStyles';
+import { AntdOverrides } from './styles/AntdOverrides';
 
 function App() {
   useLayoutEffect(() => {
@@ -27,6 +29,8 @@ function App() {
 
   return (
     <BookingProvider>
+      <GlobalStyles />
+      <AntdOverrides />
       <RouterProvider router={router} />
     </BookingProvider>
   );

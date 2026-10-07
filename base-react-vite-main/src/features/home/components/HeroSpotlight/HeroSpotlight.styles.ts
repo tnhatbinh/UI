@@ -4,59 +4,40 @@ import styled from 'styled-components';
 
 export const SectionContainer = styled.section`
   width: 100%;
-  height: 868px;
   position: relative;
   background-color: var(--bg-primary);
   z-index: 10;
   overflow: visible;
-  user-select: auto;
-
-  @media (max-width: 1024px) {
-    height: auto;
-    min-height: 1050px;
-  }
-
-  @media (max-width: 640px) {
-    min-height: 1080px;
-  }
+  padding-top: 104px;
+  padding-bottom: 40px;
 `;
 
 export const BackgroundWrapper = styled.div`
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -80px;
-  height: 948px;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  @media (max-width: 1024px) {
-    height: 100%;
-    min-height: 1050px;
-  }
-
-  @media (max-width: 640px) {
-    min-height: 1080px;
-  }
+  width: 100%;
 `;
 
 export const ImageContainer = styled.div`
   position: relative;
-  width: 100%;
-  height: 920px;
-  max-width: 1920px;
-  margin-top: -64px;
+  width: calc(100% - 32px);
+  max-width: 1232px;
+  height: 600px;
+  margin: 0 auto;
+  border-radius: 24px;
   isolation: isolate;
   overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
 
   @media (max-width: 1024px) {
-    height: 100%;
-    min-height: 1050px;
+    height: 500px;
   }
 
   @media (max-width: 640px) {
-    min-height: 1080px;
+    height: 650px;
+    border-radius: 16px;
+    width: 100%;
   }
 `;
 

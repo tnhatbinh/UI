@@ -1,7 +1,5 @@
 // Styles
 import 'antd/dist/reset.css';
-import './assets/scss/index.scss';
-import './index.css';
 
 // i18n - kích hoạt trước khi render app
 import './i18n/i18n-config';

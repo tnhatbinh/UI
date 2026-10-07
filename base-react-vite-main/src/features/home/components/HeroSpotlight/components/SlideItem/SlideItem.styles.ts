@@ -86,24 +86,20 @@ export const SlideContentInner = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: flex-start;
-  padding-top: 112px;
-  padding-bottom: 128px;
+  padding-bottom: 100px;
   pointer-events: auto;
   user-select: text;
   -webkit-user-select: text;
   cursor: default;
 
   @media (max-width: 1024px) {
-    padding-top: 100px;
-    padding-bottom: 380px;
-    justify-content: flex-start;
+    padding-bottom: 120px;
   }
 
   @media (max-width: 640px) {
-    padding-top: 230px;
-    padding-bottom: 320px;
+    padding-bottom: 150px;
   }
 `;
 

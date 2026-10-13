@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Home from '@features/home/Home';
 import LoginPage from '@features/auth/LoginPage';
 import PageNotFound from '@features/page-not-found/PageNotFound';
+import AuthGuard from '@guards/AuthGuard';
 import GuestGuard from '@guards/GuestGuard';
 import MainLayout from '@layouts/MainLayout';
 import BookingLayout from '@layouts/BookingLayout';
@@ -39,9 +40,12 @@ const VIP_ELITE_PATHS = ['profile/vip-elite', 'ho-so-vip', 'profile'];
 
 export const router = createBrowserRouter([
   {
-    path: '/',
-    element: <MainLayout />,
+    element: <AuthGuard />,
     children: [
+      {
+        path: '/',
+        element: <MainLayout />,
+        children: [
       { index: true, element: <Home /> },
       { path: HOME_PATH, element: <Home /> },
       {
@@ -152,6 +156,8 @@ export const router = createBrowserRouter([
         },
       },
       { path: '*', element: <PageNotFound /> },
+        ],
+      },
     ],
   },
   {

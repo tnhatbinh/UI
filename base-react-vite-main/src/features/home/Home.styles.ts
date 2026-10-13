@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export const HomeContainer = styled.main`
+export const HomeContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-primary, #0E0E0F);
+  background-color: var(--bg-primary, #0B0B0C);
 `;
 
 export const SectionWrapper = styled.div`

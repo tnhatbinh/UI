@@ -9,7 +9,7 @@ import {
   Lock,
   Ticket,
 } from 'lucide-react';
-import { useBooking } from '../../../context/use-booking';
+import { useBooking } from '../../../context/useBooking';
 import {
   PAYMENT_METHODS,
   type PaymentMethodId,
@@ -80,6 +80,26 @@ export const PaymentMethods: FC<PaymentMethodsProps> = ({
     }
   };
 
+  const handleMethodClick = (id: PaymentMethodId) => () => {
+    handleSelectMethod(id);
+  };
+
+  const handleVoucherInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onVoucherCodeChange(e.target.value);
+  };
+
+  const handleApplyVoucherClick = () => {
+    onApplyVoucher();
+  };
+
+  const handleSelectVoucherCard = (code: string) => () => {
+    handleCardVoucherClick(code);
+  };
+
+  const handleAgreedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onToggleAgreed(e.target.checked);
+  };
+
   return (
     <>
       {/* Section 2: Phương Thức Thanh Toán */}
@@ -106,7 +126,7 @@ export const PaymentMethods: FC<PaymentMethodsProps> = ({
               <S.PaymentMethodItem
                 key={method.id}
                 $isSelected={isSelected}
-                onClick={() => handleSelectMethod(method.id)}
+                onClick={handleMethodClick(method.id)}
               >
                 <div className="left-meta">
                   <div className="radio-circle">
@@ -164,12 +184,12 @@ export const PaymentMethods: FC<PaymentMethodsProps> = ({
               type="text"
               placeholder="Nhập mã voucher hoặc giftcode..."
               value={voucherCode}
-              onChange={(e) => onVoucherCodeChange(e.target.value)}
+              onChange={handleVoucherInputChange}
             />
             <button
               type="button"
               className="apply-btn"
-              onClick={() => onApplyVoucher()}
+              onClick={handleApplyVoucherClick}
             >
               Áp Dụng
             </button>
@@ -182,7 +202,7 @@ export const PaymentMethods: FC<PaymentMethodsProps> = ({
                 <S.VoucherCard
                   key={voucher.code}
                   $isSelected={isSelected}
-                  onClick={() => handleCardVoucherClick(voucher.code)}
+                  onClick={handleSelectVoucherCard(voucher.code)}
                 >
                   <div className="left">
                     <div className="icon-percent">{voucher.icon}</div>
@@ -206,7 +226,7 @@ export const PaymentMethods: FC<PaymentMethodsProps> = ({
         <input
           type="checkbox"
           checked={isAgreed}
-          onChange={(e) => onToggleAgreed(e.target.checked)}
+          onChange={handleAgreedChange}
         />
         <span>
           Tôi xác nhận thông tin vé đã chính xác và đồng ý với Quy chế hoạt động

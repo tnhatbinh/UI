@@ -35,6 +35,11 @@ export const SectionCard = styled.div`
         font-weight: 800;
         color: #ffffff;
       }
+
+      .sub-desc {
+        font-size: 11px;
+        color: #ae8786;
+      }
     }
 
     .link-all {
@@ -77,6 +82,16 @@ export const VoucherMiniCard = styled.div`
       font-size: 12.5px;
       font-weight: 900;
       flex-shrink: 0;
+
+      &.v2 {
+        background: rgba(255, 185, 85, 0.15);
+        color: #ffb955;
+      }
+
+      &.v3 {
+        background: rgba(74, 222, 128, 0.12);
+        color: #4ade80;
+      }
     }
 
     .info {
@@ -98,6 +113,10 @@ export const VoucherMiniCard = styled.div`
       .hsd {
         font-size: 10px;
         color: #ffb955;
+
+        &.urgent {
+          color: #ff535a;
+        }
       }
     }
   }

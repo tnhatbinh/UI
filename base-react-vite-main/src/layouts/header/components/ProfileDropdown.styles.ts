@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from '@/styles/breakpoints';
 
 export const UserProfileBadge = styled.div<{ $isOpen?: boolean }>`
   display: flex;
@@ -66,7 +67,7 @@ export const UserProfileBadge = styled.div<{ $isOpen?: boolean }>`
     background: rgba(255, 255, 255, 0.09);
   }
 
-  @media (max-width: 880px) {
+  @media ${media.md} {
     padding: 3px;
     gap: 0;
 
@@ -96,15 +97,15 @@ export const LoginBtn = styled.button`
   white-space: nowrap;
   flex-shrink: 0;
 
-  @media (max-width: 480px) {
-    padding: 5px 10px;
-    font-size: 11px;
-    height: 30px;
-  }
+  @media ${media.xs} {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    justify-content: center;
 
-  @media (max-width: 360px) {
-    padding: 4px 8px;
-    font-size: 10.5px;
+    span {
+      display: none;
+    }
   }
 
   &:hover {

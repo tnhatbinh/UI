@@ -17,20 +17,24 @@ export default function PersonalInfoPage() {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
+  const handleLogoutDevices = () => {
+    showToast('Đã gửi tín hiệu đăng xuất tất cả các thiết bị khác!');
+  };
+
   return (
     <CinemaNoirShell pageTitle="Thông tin cá nhân">
       <S.ProfileContentGrid>
         {/* Left Column: Personal Form & Taste Summary */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <S.LeftCol>
           {/* Main User Profile Card */}
           <UserProfileForm onSaveSuccess={showToast} />
 
           {/* Cinematic Taste Summary Card */}
           <TasteSummaryCard />
-        </div>
+        </S.LeftCol>
 
         {/* Right Column: Quick Security, Payment, Notification widgets & Danger zone */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <S.RightCol>
           {/* Security & Login Widget */}
           <QuickSecurityCard />
 
@@ -42,11 +46,9 @@ export default function PersonalInfoPage() {
 
           {/* Account Control Danger Zone */}
           <AccountControlCard
-            onLogoutDevices={() =>
-              showToast('Đã gửi tín hiệu đăng xuất tất cả các thiết bị khác!')
-            }
+            onLogoutDevices={handleLogoutDevices}
           />
-        </div>
+        </S.RightCol>
 
         {/* Floating Toast Notification */}
         {toastMessage && (

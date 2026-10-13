@@ -1,6 +1,6 @@
 import { Sparkles } from 'lucide-react';
 import * as S from './MyTicketsPage.styles';
-import { useMyTickets } from './hooks/use-my-tickets';
+import { useMyTickets } from './hooks/useMyTickets';
 import {
   PAST_TICKETS,
   RECENT_PAST_TICKETS,
@@ -8,7 +8,7 @@ import {
 } from './data/past-tickets.data';
 import { ActiveTicket } from './components/ActiveTicket/ActiveTicket';
 import { TicketHistory } from './components/TicketHistory/TicketHistory';
-import { VouchersSection } from './components/vouchers/VouchersSection';
+import { VouchersSection } from './components/VouchersSection/VouchersSection';
 import { UrgentSupport } from './components/UrgentSupport/UrgentSupport';
 
 export default function MyTicketsPage() {
@@ -22,6 +22,14 @@ export default function MyTicketsPage() {
     triggerToast,
     handleCopyCode,
   } = useMyTickets();
+
+  const handleSelectTab = (tab: 'upcoming' | 'history' | 'vouchers') => () => {
+    setActiveTab(tab);
+  };
+
+  const handleViewAllHistory = () => {
+    setActiveTab('history');
+  };
 
   return (
     <S.PageContainer>
@@ -39,19 +47,19 @@ export default function MyTicketsPage() {
           <div className="tabs-group">
             <S.TabPill
               $isActive={activeTab === 'upcoming'}
-              onClick={() => setActiveTab('upcoming')}
+              onClick={handleSelectTab('upcoming')}
             >
               Vé Sắp Xem ( 1 )
             </S.TabPill>
             <S.TabPill
               $isActive={activeTab === 'history'}
-              onClick={() => setActiveTab('history')}
+              onClick={handleSelectTab('history')}
             >
               Lịch Sử Đặt Vé ( 8 )
             </S.TabPill>
             <S.TabPill
               $isActive={activeTab === 'vouchers'}
-              onClick={() => setActiveTab('vouchers')}
+              onClick={handleSelectTab('vouchers')}
             >
               Voucher &amp; Ưu Đãi ( 3 )
             </S.TabPill>
@@ -71,7 +79,7 @@ export default function MyTicketsPage() {
               historyFilter={historyFilter}
               onFilterChange={setHistoryFilter}
               onToast={triggerToast}
-              onViewAll={() => setActiveTab('history')}
+              onViewAll={handleViewAllHistory}
             />
           </>
         )}
@@ -100,10 +108,10 @@ export default function MyTicketsPage() {
 
         {/* Floating Toast Notification */}
         {toastMessage && (
-          <S.ToastPill>
+          <S.ToastNotification>
             <Sparkles size={16} className="toast-icon" />
             <span>{toastMessage}</span>
-          </S.ToastPill>
+          </S.ToastNotification>
         )}
       </S.InnerWrapper>
     </S.PageContainer>

@@ -80,6 +80,7 @@ export const FormGroup = styled.div`
       position: absolute;
       left: 12px;
       color: #7d6b6a;
+      font-size: 13px;
     }
 
     input,
@@ -100,6 +101,14 @@ export const FormGroup = styled.div`
         border-color: #ff535a;
         background: rgba(255, 255, 255, 0.06);
       }
+
+      &.has-badge {
+        padding-right: 115px;
+      }
+    }
+
+    &:has(.status-badge) input {
+      padding-right: 115px;
     }
 
     select {

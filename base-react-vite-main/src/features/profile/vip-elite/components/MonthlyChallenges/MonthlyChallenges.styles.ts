@@ -35,6 +35,12 @@ export const SectionCard = styled.div`
         font-weight: 800;
         color: #ffffff;
       }
+
+      .sub-desc {
+        font-size: 11.5px;
+        color: #ae8786;
+        margin: 2px 0 0;
+      }
     }
 
     .tag-pill {
@@ -44,6 +50,10 @@ export const SectionCard = styled.div`
       background: rgba(255, 185, 85, 0.15);
       padding: 2px 7px;
       border-radius: 4px;
+
+      &.urgent {
+        color: #ff535a;
+      }
     }
   }
 `;
@@ -78,6 +88,11 @@ export const ChallengeItem = styled.div`
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+
+      &.success {
+        background: rgba(74, 222, 128, 0.12);
+        color: #4ade80;
+      }
     }
 
     .info {
@@ -132,6 +147,15 @@ export const ChallengeItem = styled.div`
           .fill {
             height: 100%;
             background: #ff535a;
+
+            &.fill-two-thirds {
+              width: 66.6%;
+            }
+
+            &.success {
+              width: 100%;
+              background: #4ade80;
+            }
           }
         }
 
@@ -139,6 +163,10 @@ export const ChallengeItem = styled.div`
           font-size: 10.5px;
           font-weight: 700;
           color: #ffffff;
+
+          &.success {
+            color: #4ade80;
+          }
         }
       }
     }
@@ -170,6 +198,15 @@ export const ChallengeItem = styled.div`
 
       &:hover {
         background: #ff7b54;
+      }
+
+      &.claimed {
+        background: rgba(255, 255, 255, 0.1);
+        cursor: default;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+        }
       }
     }
 

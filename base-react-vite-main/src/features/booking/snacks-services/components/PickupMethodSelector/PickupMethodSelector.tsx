@@ -1,11 +1,19 @@
 import type { FC } from 'react';
 import { Popcorn } from 'lucide-react';
-import { useBooking } from '../../../context/use-booking';
+import { useBooking } from '../../../context/useBooking';
 import * as S from './PickupMethodSelector.styles';
 
 export const PickupMethodSelector: FC = () => {
   const { state, setPickupMethod } = useBooking();
   const seatNames = state.selectedSeats.map((s) => s.id).join(', ');
+
+  const handleSelectPickupAtSeat = () => {
+    setPickupMethod('at-seat');
+  };
+
+  const handleSelectPickupFastTrack = () => {
+    setPickupMethod('fast-track');
+  };
 
   return (
     <S.PickupMethodSection>
@@ -17,7 +25,7 @@ export const PickupMethodSelector: FC = () => {
       <div className="options-grid">
         <S.PickupOptionCard
           $isSelected={state.pickupMethod === 'at-seat'}
-          onClick={() => setPickupMethod('at-seat')}
+          onClick={handleSelectPickupAtSeat}
         >
           <div className="radio-circle">
             <div className="dot" />
@@ -36,7 +44,7 @@ export const PickupMethodSelector: FC = () => {
 
         <S.PickupOptionCard
           $isSelected={state.pickupMethod === 'fast-track'}
-          onClick={() => setPickupMethod('fast-track')}
+          onClick={handleSelectPickupFastTrack}
         >
           <div className="radio-circle">
             <div className="dot" />

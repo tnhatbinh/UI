@@ -3,11 +3,23 @@ import { Bell, MessageSquare, Mail } from 'lucide-react';
 import * as S from './NotificationChannelsCard.styles';
 
 export function NotificationChannelsCard() {
-  const [appPush, setAppPush] = useState(true);
-  const [smsZalo, setSmsZalo] = useState(true);
-  const [emailNews, setEmailNews] = useState(true);
+  const [isAppPushEnabled, setIsAppPushEnabled] = useState(true);
+  const [isSmsZaloEnabled, setIsSmsZaloEnabled] = useState(true);
+  const [isEmailNewsEnabled, setIsEmailNewsEnabled] = useState(true);
 
-  const activeCount = [appPush, smsZalo, emailNews].filter(Boolean).length;
+  const handleToggleAppPush = () => {
+    setIsAppPushEnabled((prev) => !prev);
+  };
+
+  const handleToggleSmsZalo = () => {
+    setIsSmsZaloEnabled((prev) => !prev);
+  };
+
+  const handleToggleEmailNews = () => {
+    setIsEmailNewsEnabled((prev) => !prev);
+  };
+
+  const activeCount = [isAppPushEnabled, isSmsZaloEnabled, isEmailNewsEnabled].filter(Boolean).length;
 
   return (
     <S.Card>
@@ -40,8 +52,8 @@ export function NotificationChannelsCard() {
             </div>
           </div>
           <div
-            className={`switch ${appPush ? '' : 'off'}`}
-            onClick={() => setAppPush(!appPush)}
+            className={`switch ${isAppPushEnabled ? '' : 'off'}`}
+            onClick={handleToggleAppPush}
           />
         </div>
 
@@ -58,8 +70,8 @@ export function NotificationChannelsCard() {
             </div>
           </div>
           <div
-            className={`switch ${smsZalo ? '' : 'off'}`}
-            onClick={() => setSmsZalo(!smsZalo)}
+            className={`switch ${isSmsZaloEnabled ? '' : 'off'}`}
+            onClick={handleToggleSmsZalo}
           />
         </div>
 
@@ -76,8 +88,8 @@ export function NotificationChannelsCard() {
             </div>
           </div>
           <div
-            className={`switch ${emailNews ? '' : 'off'}`}
-            onClick={() => setEmailNews(!emailNews)}
+            className={`switch ${isEmailNewsEnabled ? '' : 'off'}`}
+            onClick={handleToggleEmailNews}
           />
         </div>
       </S.ChannelRowList>

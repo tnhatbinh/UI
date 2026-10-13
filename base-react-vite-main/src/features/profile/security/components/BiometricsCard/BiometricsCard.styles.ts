@@ -53,6 +53,17 @@ export const BiometricContent = styled.div`
     justify-content: space-between;
     gap: 12px;
 
+    &.bordered {
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .action-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     .info {
       display: flex;
       flex-direction: column;

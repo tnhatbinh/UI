@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { Star, MapPin } from 'lucide-react';
+import { Container as BaseContainer } from '@/shared/components/layout';
+import { media } from '@/styles/breakpoints';
 
 export const Section = styled.section`
   width: 100%;
@@ -10,11 +12,7 @@ export const Section = styled.section`
   background-color: var(--bg-primary);
 `;
 
-export const Container = styled.div`
-  width: 100%;
-  max-width: 1280px;
-  padding-left: 24px;
-  padding-right: 24px;
+export const Container = styled(BaseContainer)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,14 +20,13 @@ export const Container = styled.div`
 
 export const HeaderContainer = styled.div`
   width: 100%;
-  max-width: 1232px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
   padding-bottom: 24px;
 
-  @media (max-width: 1024px) {
+  @media ${media.lg} {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
@@ -62,7 +59,7 @@ export const Title = styled.h2`
   font-family: 'Be Vietnam Pro', sans-serif;
   margin: 0;
 
-  @media (max-width: 768px) {
+  @media ${media.md} {
     font-size: 28px;
     line-height: 36px;
   }
@@ -90,16 +87,19 @@ export const HeaderStatusText = styled.span`
 
 export const Grid = styled.div`
   width: 100%;
-  max-width: 1232px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
 
-  @media (max-width: 1100px) {
+  @media ${media.lg} {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
   }
-  @media (max-width: 680px) {
+  @media ${media.md} {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  @media ${media.sm} {
     grid-template-columns: 1fr;
   }
 `;
@@ -174,14 +174,15 @@ export const BrandBadge = styled.div`
   z-index: 10;
 `;
 
-export const BrandText = styled.span`
+export const BrandText = styled.span<{ $color?: string }>`
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.66px;
   font-family: 'Be Vietnam Pro', sans-serif;
+  color: ${({ $color }) => $color || 'inherit'};
 `;
 
-export const FormatBadge = styled.div`
+export const FormatBadge = styled.div<{ $bg?: string }>`
   position: absolute;
   bottom: 11px;
   right: 12px;
@@ -189,14 +190,16 @@ export const FormatBadge = styled.div`
   border-radius: 6px;
   z-index: 10;
   box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.2);
+  background-color: ${({ $bg }) => $bg || 'transparent'};
 `;
 
-export const FormatText = styled.span`
+export const FormatText = styled.span<{ $color?: string }>`
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.66px;
   text-transform: uppercase;
   font-family: 'Be Vietnam Pro', sans-serif;
+  color: ${({ $color }) => $color || 'inherit'};
 `;
 
 export const ContentContainer = styled.div`
@@ -264,12 +267,20 @@ export const ActionRow = styled.div`
   align-items: center;
   padding: 0 24px 24px 24px;
   margin-top: auto;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  @media (max-width: 480px) {
+    padding: 0 16px 16px 16px;
+    gap: 8px;
+  }
 `;
 
 export const StatusGroup = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
 `;
 
 export const StatusIndicator = styled.div`
@@ -278,6 +289,7 @@ export const StatusIndicator = styled.div`
   background-color: var(--secondary);
   border-radius: 9999px;
   box-shadow: 0px 0px 8px rgba(255, 185, 85, 0.6);
+  flex-shrink: 0;
 `;
 
 export const StatusText = styled.span`
@@ -286,13 +298,14 @@ export const StatusText = styled.span`
   color: var(--primary-text);
   letter-spacing: 0.66px;
   font-family: 'Be Vietnam Pro', sans-serif;
+  white-space: nowrap;
 `;
 
 export const ActionButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 14px;
   height: 32px;
   background-color: var(--bg-disabled);
   border-radius: 12px;
@@ -302,6 +315,7 @@ export const ActionButton = styled.button`
   transition-duration: 150ms;
   border: none;
   cursor: pointer;
+  flex-shrink: 0;
 
   &:hover {
     background-color: var(--bg-border-light);
@@ -314,4 +328,5 @@ export const ActionButtonText = styled.span`
   color: var(--primary-text);
   letter-spacing: 0.66px;
   font-family: 'Be Vietnam Pro', sans-serif;
+  white-space: nowrap;
 `;

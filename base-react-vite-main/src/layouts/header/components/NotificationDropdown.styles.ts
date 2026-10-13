@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from '@/styles/breakpoints';
 
 export const NotificationWrapper = styled.div`
   position: relative;
@@ -19,7 +20,7 @@ export const NotificationBtn = styled.button<{ $isOpen?: boolean }>`
   cursor: pointer;
   transition: all 0.2s ease;
 
-  @media (max-width: 520px) {
+  @media ${media.sm} {
     display: none;
   }
 
@@ -282,22 +283,21 @@ export const NotificationDropdownFooter = styled.div`
     border: none;
     font-family: 'Be Vietnam Pro', sans-serif;
     font-size: 11px;
-    font-weight: 500;
-    color: #ae8786;
+    font-weight: 600;
+    color: #ffb955;
     cursor: pointer;
     transition: color 0.15s ease;
-
-    &:hover {
-      color: #ffffff;
-    }
-  }
-
-  .view-all-link {
-    color: #ffb955;
-    font-weight: 600;
 
     &:hover {
       color: #ffd08a;
     }
   }
 `;
+
+export const EmptyNotification = styled.div`
+  padding: 24px 12px;
+  text-align: center;
+  color: #79767a;
+  font-size: 12px;
+`;
+

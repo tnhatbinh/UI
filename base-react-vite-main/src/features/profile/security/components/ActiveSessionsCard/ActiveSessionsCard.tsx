@@ -9,6 +9,14 @@ interface ActiveSessionsCardProps {
 export const ActiveSessionsCard: FC<ActiveSessionsCardProps> = ({
   onToast,
 }) => {
+  const handleLogoutAllOther = () => {
+    onToast('Đã ngắt kết nối an toàn với 2 thiết bị khác!');
+  };
+
+  const handleLogoutDevice = (deviceName: string) => () => {
+    onToast(`Đã đăng xuất ${deviceName}!`);
+  };
+
   return (
     <S.Card>
       <div className="card-top-bar">
@@ -24,9 +32,7 @@ export const ActiveSessionsCard: FC<ActiveSessionsCardProps> = ({
         <button
           type="button"
           className="logout-all-btn"
-          onClick={() =>
-            onToast('Đã ngắt kết nối an toàn với 2 thiết bị khác!')
-          }
+          onClick={handleLogoutAllOther}
         >
           <Power size={11} />
           <span>Đăng xuất tất cả thiết bị khác</span>
@@ -78,7 +84,7 @@ export const ActiveSessionsCard: FC<ActiveSessionsCardProps> = ({
               type="button"
               className="kill-btn"
               title="Đăng xuất thiết bị này"
-              onClick={() => onToast('Đã đăng xuất iPhone 15 Pro Max!')}
+              onClick={handleLogoutDevice('iPhone 15 Pro Max')}
             >
               <Power size={13} />
             </button>
@@ -105,7 +111,7 @@ export const ActiveSessionsCard: FC<ActiveSessionsCardProps> = ({
               type="button"
               className="kill-btn"
               title="Đăng xuất thiết bị này"
-              onClick={() => onToast('Đã đăng xuất Workstation Windows 11!')}
+              onClick={handleLogoutDevice('Workstation Windows 11')}
             >
               <Power size={13} />
             </button>

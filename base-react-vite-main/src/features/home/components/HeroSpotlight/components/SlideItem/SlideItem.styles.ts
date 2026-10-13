@@ -70,48 +70,59 @@ export const SlideContentContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding-left: 24px;
-  padding-right: 24px;
   pointer-events: none;
-
-  @media (max-width: 640px) {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
 `;
 
 export const SlideContentInner = styled.div`
   width: 100%;
-  max-width: 1280px;
+  max-width: var(--content-max-width, 1280px);
+  margin: 0 auto;
+  padding: 40px var(--page-gutter, 24px) 24px;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: flex-start;
-  padding-bottom: 100px;
   pointer-events: auto;
   user-select: text;
   -webkit-user-select: text;
   cursor: default;
 
   @media (max-width: 1024px) {
-    padding-bottom: 120px;
+    padding-top: 36px;
+    padding-bottom: 20px;
   }
 
-  @media (max-width: 640px) {
-    padding-bottom: 150px;
+  @media (max-width: 768px) {
+    padding: 32px var(--page-gutter-compact, 16px) 16px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 28px 12px 12px;
+  }
+
+  @media (max-width: 380px) {
+    padding: 24px 12px 10px;
   }
 `;
 
 export const HeroDetails = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   width: 100%;
-  max-width: 768px;
+  max-width: 680px;
+
+  @media (max-width: 1024px) {
+    gap: 8px;
+  }
 
   @media (max-width: 640px) {
-    gap: 12px;
+    gap: 6px;
+  }
+
+  @media (max-width: 380px) {
+    gap: 5px;
   }
 `;
 
@@ -127,7 +138,12 @@ export const FormatsBadgesRow = styled.div`
   flex-wrap: wrap;
   position: relative;
   width: 100%;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
+
+  @media (max-width: 640px) {
+    gap: 6px;
+    min-height: auto;
+  }
 `;
 
 export const ImaxBadge = styled.div`
@@ -140,6 +156,11 @@ export const ImaxBadge = styled.div`
   box-shadow:
     0px 10px 15px -3px rgba(220, 145, 0, 0.2),
     0px 4px 6px -4px rgba(220, 145, 0, 0.2);
+
+  @media (max-width: 640px) {
+    padding: 3px 10px;
+    height: 22px;
+  }
 `;
 
 export const ImaxText = styled.span`
@@ -149,6 +170,12 @@ export const ImaxText = styled.span`
   letter-spacing: 0.55px;
   text-transform: uppercase;
   font-family: 'Be Vietnam Pro', sans-serif;
+  white-space: nowrap;
+
+  @media (max-width: 640px) {
+    font-size: 10px;
+    letter-spacing: 0.2px;
+  }
 `;
 
 export const AgeBadge = styled.div`
@@ -159,6 +186,11 @@ export const AgeBadge = styled.div`
   background-color: rgba(42, 42, 43, 0.8);
   backdrop-filter: blur(6px);
   border-radius: 9999px;
+
+  @media (max-width: 640px) {
+    padding: 3px 8px;
+    height: 22px;
+  }
 `;
 
 export const AgeText = styled.span`
@@ -168,6 +200,23 @@ export const AgeText = styled.span`
   letter-spacing: 0.66px;
   text-transform: uppercase;
   font-family: 'Be Vietnam Pro', sans-serif;
+  white-space: nowrap;
+
+  .badge-short {
+    display: none;
+  }
+
+  @media (max-width: 1024px) {
+    font-size: 10px;
+    letter-spacing: 0.2px;
+
+    .badge-full {
+      display: none;
+    }
+    .badge-short {
+      display: inline;
+    }
+  }
 `;
 
 export const RatingBadge = styled.div`
@@ -179,6 +228,12 @@ export const RatingBadge = styled.div`
   background-color: rgba(42, 42, 43, 0.8);
   backdrop-filter: blur(6px);
   border-radius: 9999px;
+
+  @media (max-width: 640px) {
+    padding: 3px 8px;
+    height: 22px;
+    gap: 3px;
+  }
 `;
 
 export const RatingScore = styled.span`
@@ -187,6 +242,10 @@ export const RatingScore = styled.span`
   color: var(--primary-text);
   letter-spacing: 0.28px;
   font-family: 'Be Vietnam Pro', sans-serif;
+
+  @media (max-width: 640px) {
+    font-size: 11px;
+  }
 `;
 
 export const RatingCount = styled.span`
@@ -195,6 +254,26 @@ export const RatingCount = styled.span`
   color: var(--secondary);
   letter-spacing: 0.28px;
   font-family: 'Be Vietnam Pro', sans-serif;
+  white-space: nowrap;
+
+  .badge-short {
+    display: none;
+  }
+
+  @media (max-width: 1024px) {
+    font-size: 11px;
+
+    .badge-full {
+      display: none;
+    }
+    .badge-short {
+      display: inline;
+    }
+  }
+
+  @media (max-width: 640px) {
+    font-size: 10.5px;
+  }
 `;
 
 export const GenreBadge = styled.div`
@@ -206,6 +285,12 @@ export const GenreBadge = styled.div`
   backdrop-filter: blur(6px);
   border-radius: 9999px;
   margin-top: 4px;
+
+  @media (max-width: 640px) {
+    margin-top: 0;
+    height: 22px;
+    padding: 2px 8px;
+  }
 `;
 
 export const GenreText = styled.span`
@@ -214,6 +299,12 @@ export const GenreText = styled.span`
   color: var(--text-secondary-alt);
   letter-spacing: 0.66px;
   font-family: 'Be Vietnam Pro', sans-serif;
+  white-space: nowrap;
+
+  @media (max-width: 640px) {
+    font-size: 10px;
+    letter-spacing: 0.2px;
+  }
 `;
 
 // ─── Title Block ──────────────────────────────────────────────────────────────
@@ -232,54 +323,85 @@ export const TitleLabel = styled.span`
   letter-spacing: 2.75px;
   text-transform: uppercase;
   font-family: 'Be Vietnam Pro', sans-serif;
+
+  @media (max-width: 640px) {
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
 `;
 
 export const TitleGroup = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 4px;
-  gap: 10px;
+  padding-top: 2px;
+  gap: 6px;
+
+  @media (max-width: 640px) {
+    gap: 4px;
+    padding-top: 0;
+  }
 `;
 
 export const MainTitle = styled.h1`
-  font-size: 56px;
+  font-size: 44px;
   font-weight: 800;
   color: var(--primary-text);
-  line-height: 56px;
-  letter-spacing: -1.4px;
+  line-height: 48px;
+  letter-spacing: -1px;
   text-transform: uppercase;
   font-family: 'Be Vietnam Pro', sans-serif;
   margin: 0;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1280px) {
     font-size: 38px;
     line-height: 42px;
   }
 
+  @media (max-width: 1024px) {
+    font-size: 32px;
+    line-height: 36px;
+    letter-spacing: -0.6px;
+  }
+
   @media (max-width: 640px) {
-    font-size: 28px;
-    line-height: 32px;
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: -0.2px;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0;
   }
 `;
 
 export const SubTitle = styled.h2`
-  font-size: 36.4px;
+  font-size: 24px;
   font-weight: 300;
   color: var(--text-ternary-alt);
-  line-height: 36px;
-  letter-spacing: -1.4px;
+  line-height: 28px;
+  letter-spacing: -0.8px;
   text-transform: uppercase;
   font-family: 'Be Vietnam Pro', sans-serif;
   margin: 0;
 
   @media (max-width: 1024px) {
-    font-size: 24px;
-    line-height: 28px;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.4px;
   }
 
   @media (max-width: 640px) {
-    font-size: 18px;
-    line-height: 22px;
+    font-size: 15px;
+    line-height: 19px;
+    letter-spacing: 0;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 13px;
+    line-height: 17px;
+    letter-spacing: 0;
   }
 `;
 
@@ -287,22 +409,29 @@ export const SubTitle = styled.h2`
 
 export const Synopsis = styled.p`
   width: 100%;
-  max-width: 672px;
+  max-width: 640px;
   height: auto;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   color: var(--text-secondary-alt);
-  line-height: 26px;
+  line-height: 22px;
   font-family: 'Be Vietnam Pro', sans-serif;
   margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 
-  @media (max-width: 640px) {
-    font-size: 13.5px;
-    line-height: 20px;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  @media (max-width: 768px) {
+    font-size: 12.5px;
+    line-height: 18px;
+    -webkit-line-clamp: 2;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+    line-height: 16px;
+    -webkit-line-clamp: 2;
   }
 `;
 
@@ -318,14 +447,18 @@ export const KeyMetas = styled.div`
   flex-wrap: wrap;
 
   @media (max-width: 640px) {
-    gap: 8px 14px;
+    gap: 4px 10px;
   }
 `;
 
 export const MetaItem = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+
+  @media (max-width: 640px) {
+    gap: 4px;
+  }
 `;
 
 export const MetaText = styled.span`
@@ -336,6 +469,7 @@ export const MetaText = styled.span`
   font-family: 'Be Vietnam Pro', sans-serif;
 
   @media (max-width: 640px) {
-    font-size: 12px;
+    font-size: 11px;
+    letter-spacing: 0;
   }
 `;

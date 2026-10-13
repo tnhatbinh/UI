@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import { media } from '@/styles/breakpoints';
 
 export const LocationWrapper = styled.div`
   position: relative;
 
-  @media (max-width: 680px) {
+  @media ${media.md} {
     display: none;
   }
 `;

@@ -1,9 +1,9 @@
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Clock } from 'lucide-react';
-import { useBooking } from '../context/use-booking';
-import { useBookingTimer } from '../hooks/use-booking-timer';
+import { useBooking } from '../context/useBooking';
+import { useBookingTimer } from '../hooks/useBookingTimer';
 import { MOCK_SNACKS } from './data/snacks.data';
 import { SnackOfferBanner } from './components/SnackOfferBanner/SnackOfferBanner';
 import { SnackCategoryTabs } from './components/SnackCategoryTabs/SnackCategoryTabs';
@@ -15,6 +15,13 @@ import * as S from './SnacksServicesPage.styles';
 export const SnacksServicesPage: FC = () => {
   const navigate = useNavigate();
   const { state, updateSnackQuantity } = useBooking();
+
+  // Guard: Redirect to seat-selection if no seats are selected
+  useEffect(() => {
+    if (state.selectedSeats.length === 0) {
+      navigate('/booking/seat-selection', { replace: true });
+    }
+  }, [state.selectedSeats.length, navigate]);
 
   const [activeCategory, setActiveCategory] = useState('all');
   const { formattedTime } = useBookingTimer(524); // 08:44
@@ -32,6 +39,28 @@ export const SnacksServicesPage: FC = () => {
     navigate('/booking/checkout');
   };
 
+  const handleNavigateShowtimes = () => {
+    navigate('/movie-details');
+  };
+
+  const handleNavigateSeats = () => {
+    navigate('/booking/seat-selection');
+  };
+
+  const handleUpdateSnack =
+    (snack: (typeof MOCK_SNACKS)[number], qty: number) => (delta: number) => {
+      updateSnackQuantity(
+        {
+          id: snack.id,
+          name: snack.name,
+          price: snack.price,
+          quantity: qty,
+          image: snack.image,
+        },
+        delta,
+      );
+    };
+
   return (
     <S.PageContainer>
       <S.InnerWrapper>
@@ -40,7 +69,7 @@ export const SnacksServicesPage: FC = () => {
           <S.StepperRow>
             <div
               className="step-item completed"
-              onClick={() => navigate('/movie-details')}
+              onClick={handleNavigateShowtimes}
             >
               <div className="step-num">✓</div>
               <span>1. Suất chiếu</span>
@@ -49,7 +78,7 @@ export const SnacksServicesPage: FC = () => {
 
             <div
               className="step-item completed"
-              onClick={() => navigate('/booking/seat-selection')}
+              onClick={handleNavigateSeats}
             >
               <div className="step-num">✓</div>
               <span>2. Chọn ghế</span>
@@ -96,18 +125,7 @@ export const SnacksServicesPage: FC = () => {
                     key={snack.id}
                     snack={snack}
                     quantity={qty}
-                    onUpdateQuantity={(delta) =>
-                      updateSnackQuantity(
-                        {
-                          id: snack.id,
-                          name: snack.name,
-                          price: snack.price,
-                          quantity: qty,
-                          image: snack.image,
-                        },
-                        delta,
-                      )
-                    }
+                    onUpdateQuantity={handleUpdateSnack(snack, qty)}
                   />
                 );
               })}

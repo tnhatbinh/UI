@@ -44,13 +44,17 @@ export const UpcomingSection = styled.section`
 
 export const TicketStubContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 340px;
+  grid-template-columns: minmax(0, 1fr) 340px;
   background: #141317;
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
   position: relative;
+
+  > * {
+    min-width: 0;
+  }
 
   @media (max-width: 980px) {
     grid-template-columns: 1fr;
@@ -90,6 +94,7 @@ export const TicketLeftInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  min-width: 0;
 
   @media (max-width: 600px) {
     padding: 20px 18px;
@@ -213,6 +218,7 @@ export const TicketLeftInfo = styled.div`
           display: flex;
           flex-direction: column;
           gap: 2px;
+          min-width: 0;
 
           .label {
             font-size: 9.5px;
@@ -300,6 +306,13 @@ export const TicketLeftInfo = styled.div`
       color: #ae8786;
       margin-left: auto;
       cursor: pointer;
+
+      @media (max-width: 480px) {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+        margin-top: 6px;
+      }
 
       &:hover {
         color: #ff535a;

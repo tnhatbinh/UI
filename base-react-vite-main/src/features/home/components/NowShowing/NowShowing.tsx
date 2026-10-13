@@ -1,41 +1,7 @@
 import { useState, useMemo, type FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { Star, Ticket } from "lucide-react";
-import {
-  Section,
-  InnerContainer,
-  Header,
-  TitleArea,
-  SubtitleContainer,
-  RedDot,
-  SubtitleText,
-  MainTitle,
-  MainTitleHighlight,
-  CategoryPillsContainer,
-  TabButton,
-  TabText,
-  MoviesGrid,
-  MovieCard,
-  PosterContainer,
-  PosterImage,
-  PosterGradient,
-  TopLeftBadges,
-  RatingBadge,
-  RatingText,
-  AgeBadge,
-  AgeText,
-  FormatBadge,
-  FormatText,
-  BottomMetaContainer,
-  MetaText,
-  MovieTitle,
-  BottomInfoArea,
-  DetailButton,
-  DetailButtonText,
-  BuyButton,
-  TicketIconContainer,
-  BuyButtonText,
-} from "./NowShowing.styles";
+import * as S from "./NowShowing.styles";
 
 interface Movie {
   id: number;
@@ -60,7 +26,7 @@ const movies: Movie[] = [
     image:
       "https://arena.fpt.edu.vn/wp-content/uploads/2021/04/5-yeu-to-tao-nen-mot-poster-phim-an-tuong.jpeg",
     rating: "9.2",
-    age: "C18",
+    age: "T18",
     ageBg: "#93000A",
     ageText: "#FFDAD6",
     format: "2D PHỤ ĐỀ",
@@ -74,7 +40,7 @@ const movies: Movie[] = [
     title: "Hàm Cá Mập",
     image: "https://i.imgur.com/ZF2xgWi.jpg",
     rating: "8.9",
-    age: "IMAX 3D",
+    age: "T16",
     ageBg: "#DC9100",
     ageText: "#4F3100",
     format: "4DX HFR",
@@ -89,7 +55,7 @@ const movies: Movie[] = [
     image:
       "https://upload.wikimedia.org/wikipedia/vi/b/b4/Poster_phim_7_thi_th%E1%BB%83.jpg?utm_source=vi.wikipedia.org&utm_campaign=index&utm_content=original",
     rating: "8.6",
-    age: "C18",
+    age: "T18",
     ageBg: "#93000A",
     ageText: "#FFDAD6",
     format: "2D PHỤ ĐỀ",
@@ -119,7 +85,7 @@ const movies: Movie[] = [
     image:
       "https://www.thietkeposter.com.vn/wp-content/uploads/2017/06/23-poster-phim-dep-nhat-2013.jpg",
     rating: "8.4",
-    age: "C13",
+    age: "T13",
     ageBg: "#FF535A",
     ageText: "#5B000D",
     format: "SCREENX 4DX",
@@ -143,110 +109,122 @@ export const NowShowing: FC = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(0);
 
+  const handleSelectTab = (index: number) => () => {
+    setActiveTab(index);
+  };
+
+  const handleMovieCardClick = (id: number) => () => {
+    navigate(`/phim/${id}`);
+  };
+
+  const handleMovieDetailClick = (id: number) => (e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigate(`/phim/${id}`);
+  };
+
+  const handleMovieBuyClick = (id: number) => (e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigate(`/phim/${id}?booking=true`);
+  };
+
   const filteredMovies = useMemo(() => {
     if (activeTab === 0) return movies;
     return movies.filter((m) => m.categoryIndices.includes(activeTab));
   }, [activeTab]);
 
   return (
-    <Section>
-      <InnerContainer>
+    <S.Section>
+      <S.InnerContainer>
         {/* Header with tabs */}
-        <Header>
+        <S.Header>
           {/* Title Area */}
-          <TitleArea>
-            <SubtitleContainer>
-              <RedDot />
-              <SubtitleText>ĐANG PHỔ BIẾN RỘNG RÃI</SubtitleText>
-            </SubtitleContainer>
-            <MainTitle>
-              PHIM ĐANG CHIẾU <MainTitleHighlight>TẠI RẠP</MainTitleHighlight>
-            </MainTitle>
-          </TitleArea>
+          <S.TitleArea>
+            <S.SubtitleContainer>
+              <S.RedDot />
+              <S.SubtitleText>ĐANG PHỔ BIẾN RỘNG RÃI</S.SubtitleText>
+            </S.SubtitleContainer>
+            <S.MainTitle>
+              PHIM ĐANG CHIẾU <S.MainTitleHighlight>TẠI RẠP</S.MainTitleHighlight>
+            </S.MainTitle>
+          </S.TitleArea>
 
           {/* Quick Category Pills */}
-          <CategoryPillsContainer>
+          <S.CategoryPillsContainer>
             {tabs.map((tab, index) => (
-              <TabButton
+              <S.TabButton
                 key={index}
                 type="button"
                 $active={activeTab === index}
-                onClick={() => setActiveTab(index)}
+                onClick={handleSelectTab(index)}
               >
-                <TabText $active={activeTab === index}>{tab}</TabText>
-              </TabButton>
+                <S.TabText $active={activeTab === index}>{tab}</S.TabText>
+              </S.TabButton>
             ))}
-          </CategoryPillsContainer>
-        </Header>
+          </S.CategoryPillsContainer>
+        </S.Header>
 
         {/* Movies Grid */}
-        <MoviesGrid>
+        <S.MoviesGrid>
           {filteredMovies.map((movie) => (
-            <MovieCard
+            <S.MovieCard
               key={movie.id}
-              onClick={() => navigate(`/phim/${movie.id}`)}
+              onClick={handleMovieCardClick(movie.id)}
             >
               {/* Poster Container */}
-              <PosterContainer>
+              <S.PosterContainer>
                 {/* Image */}
-                <PosterImage src={movie.image} alt={movie.title} />
+                <S.PosterImage src={movie.image} alt={movie.title} />
                 {/* Gradient */}
-                <PosterGradient />
+                <S.PosterGradient />
 
                 {/* Top Left Badges */}
-                <TopLeftBadges>
-                  <RatingBadge>
+                <S.TopLeftBadges>
+                  <S.RatingBadge>
                     <Star color="#FFB955" fill="#FFB955" size={10} />
-                    <RatingText>{movie.rating}</RatingText>
-                  </RatingBadge>
-                  <AgeBadge $bgColor={movie.ageBg}>
-                    <AgeText $color={movie.ageText}>{movie.age}</AgeText>
-                  </AgeBadge>
-                </TopLeftBadges>
+                    <S.RatingText>{movie.rating}</S.RatingText>
+                  </S.RatingBadge>
+                  <S.AgeBadge $bgColor={movie.ageBg}>
+                    <S.AgeText $color={movie.ageText}>{movie.age}</S.AgeText>
+                  </S.AgeBadge>
+                </S.TopLeftBadges>
 
                 {/* Top Right Format Badge */}
-                <FormatBadge>
-                  <FormatText>{movie.format}</FormatText>
-                </FormatBadge>
+                <S.FormatBadge>
+                  <S.FormatText>{movie.format}</S.FormatText>
+                </S.FormatBadge>
 
                 {/* Bottom Meta Inside Poster */}
-                <BottomMetaContainer>
-                  <MetaText>{movie.meta}</MetaText>
-                  <MovieTitle>{movie.title}</MovieTitle>
-                </BottomMetaContainer>
-              </PosterContainer>
+                <S.BottomMetaContainer>
+                  <S.MetaText>{movie.meta}</S.MetaText>
+                  <S.MovieTitle>{movie.title}</S.MovieTitle>
+                </S.BottomMetaContainer>
+              </S.PosterContainer>
 
               {/* Bottom Info & Button */}
-              <BottomInfoArea>
+              <S.BottomInfoArea>
                 {/* Nút Chi Tiết */}
-                <DetailButton
+                <S.DetailButton
                   type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate(`/phim/${movie.id}`);
-                  }}
+                  onClick={handleMovieDetailClick(movie.id)}
                 >
-                  <DetailButtonText>Chi tiết</DetailButtonText>
-                </DetailButton>
+                  <S.DetailButtonText>Chi tiết</S.DetailButtonText>
+                </S.DetailButton>
 
                 {/* Nút Mua Vé */}
-                <BuyButton
+                <S.BuyButton
                   type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate(`/phim/${movie.id}?booking=true`);
-                  }}
+                  onClick={handleMovieBuyClick(movie.id)}
                 >
-                  <TicketIconContainer>
+                  <S.TicketIconContainer>
                     <Ticket color="#5B000D" size={14} />
-                  </TicketIconContainer>
-                  <BuyButtonText>MUA VÉ</BuyButtonText>
-                </BuyButton>
-              </BottomInfoArea>
-            </MovieCard>
+                  </S.TicketIconContainer>
+                  <S.BuyButtonText>MUA VÉ</S.BuyButtonText>
+                </S.BuyButton>
+              </S.BottomInfoArea>
+            </S.MovieCard>
           ))}
-        </MoviesGrid>
-      </InnerContainer>
-    </Section>
+        </S.MoviesGrid>
+      </S.InnerContainer>
+    </S.Section>
   );
 };

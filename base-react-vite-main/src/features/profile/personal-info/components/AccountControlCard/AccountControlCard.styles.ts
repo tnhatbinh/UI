@@ -68,4 +68,17 @@ export const Card = styled.div`
       }
     }
   }
+
+  @media (max-width: 380px) {
+    padding: 16px;
+
+    .btn-row {
+      grid-template-columns: 1fr;
+
+      button.device-logout,
+      button.lock-acc {
+        min-height: 40px;
+      }
+    }
+  }
 `;

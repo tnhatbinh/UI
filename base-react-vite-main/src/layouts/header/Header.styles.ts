@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from '@/styles/breakpoints';
 
 export const OuterHeader = styled.header`
   position: fixed;
@@ -6,43 +7,35 @@ export const OuterHeader = styled.header`
   left: 0;
   right: 0;
   width: 100%;
-  height: 80px;
-  z-index: 50;
+  height: var(--header-public-height, 80px);
+  z-index: 100;
   background: rgba(14, 14, 15, 0.8);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0px 16px 40px -8px rgba(0, 0, 0, 0.7);
 
-  @media (max-width: 768px) {
-    height: 68px;
+  @media ${media.md} {
+    height: var(--header-public-height, 68px);
   }
 `;
 
 export const InnerContainer = styled.div`
   width: 100%;
-  max-width: 1280px;
-  height: 80px;
+  max-width: var(--content-max-width, 1280px);
+  height: var(--header-public-height, 80px);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 var(--page-gutter, 24px);
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 1140px) {
-    padding-right: 68px;
+  @media ${media.md} {
+    padding: 0 var(--page-gutter-compact, 16px);
+    height: var(--header-public-height, 68px);
   }
 
-  @media (max-width: 768px) {
-    padding: 0 60px 0 16px;
-    height: 68px;
-  }
-
-  @media (max-width: 480px) {
-    padding: 0 48px 0 12px;
-  }
-
-  @media (max-width: 380px) {
-    padding: 0 54px 0 8px;
+  @media ${media.sm} {
+    padding: 0 12px;
   }
 `;
 
@@ -51,57 +44,108 @@ export const NavLeftGroup = styled.div`
   align-items: center;
   gap: 16px;
   height: 42px;
+  min-width: 0;
 `;
 
 
 export const EdgeMenuTrigger = styled.button<{ $isOpen?: boolean }>`
   display: none; /* Ẩn trên desktop/màn hình lớn */
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
   background: ${({ $isOpen }) =>
     $isOpen ? 'rgba(255, 185, 85, 0.2)' : 'rgba(28, 27, 28, 0.9)'};
   border: 1px solid
     ${({ $isOpen }) =>
       $isOpen ? 'rgba(255, 185, 85, 0.5)' : 'rgba(255, 255, 255, 0.12)'};
-  color: ${({ $isOpen }) => ($isOpen ? '#ffb955' : '#e5e2e3')};
+  color: ${({ $isOpen }) =>
+    $isOpen ? 'var(--secondary, #ffb955)' : 'var(--text-primary, #e5e2e3)'};
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 60;
+  flex-shrink: 0;
   backdrop-filter: blur(12px);
 
-  @media (max-width: 1140px) {
-    display: flex; /* Chỉ xuất hiện trên iPad hoặc màn hình nhỏ không đủ responsive */
+  @media ${media.lg} {
+    display: flex; /* Xuất hiện trên tablet và mobile */
   }
 
   &:hover {
     background: rgba(255, 83, 90, 0.2);
-    color: #ffb955;
+    color: var(--secondary, #ffb955);
     border-color: rgba(255, 185, 85, 0.45);
     box-shadow: 0px 0px 18px rgba(255, 185, 85, 0.35);
-    transform: translateY(-50%) scale(1.06);
+    transform: scale(1.05);
   }
 
   &:active {
-    transform: translateY(-50%) scale(0.96);
+    transform: scale(0.96);
   }
 
-  @media (max-width: 768px) {
-    right: 12px;
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-  }
-  @media (max-width: 480px) {
-    right: 10px;
-    width: 35px;
-    height: 35px;
+  @media ${media.sm} {
+    width: 34px;
+    height: 34px;
     border-radius: 8px;
   }
 `;
+
+export const ActionsGroup = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  height: 37px;
+
+  @media ${media.xl} {
+    gap: 8px;
+  }
+
+  @media ${media.md} {
+    gap: 8px;
+  }
+
+  @media ${media.sm} {
+    gap: 6px;
+  }
+`;
+
+export const TicketPassBtn = styled.button`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 6px 12px;
+  gap: 6px;
+  height: 28px;
+  background: var(--primary, #ff535a);
+  box-shadow: 0px 4px 20px rgba(255, 83, 90, 0.35);
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  @media ${media.lg} {
+    display: none;
+  }
+
+  span {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: 0.66px;
+    color: #5b000d;
+    white-space: nowrap;
+  }
+
+  .ticket-icon {
+    color: #5b000d;
+    font-size: 12px;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0px 6px 24px rgba(255, 83, 90, 0.45);
+  }
+`;
+

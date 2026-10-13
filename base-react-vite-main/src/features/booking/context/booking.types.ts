@@ -53,7 +53,7 @@ export interface BookingState {
     name: string;
     phone: string;
     email: string;
-    sendZalo: boolean;
+    isSendZalo: boolean;
   };
   paymentMethod: 'momo' | 'vnpay' | 'credit-card' | 'atm' | 'phimpoints';
 }

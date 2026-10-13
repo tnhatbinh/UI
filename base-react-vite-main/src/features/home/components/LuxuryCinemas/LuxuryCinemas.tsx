@@ -1,38 +1,7 @@
 import type { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import {
-  Section,
-  Container,
-  HeaderContainer,
-  TitleGroup,
-  Subtitle,
-  Title,
-  HeaderStatus,
-  HeaderStarIcon,
-  HeaderStatusText,
-  Grid,
-  Card,
-  ImageContainer,
-  CardImage,
-  ImageGradient,
-  BrandBadge,
-  BrandText,
-  FormatBadge,
-  FormatText,
-  ContentContainer,
-  CardTitle,
-  AddressGroup,
-  LocationIcon,
-  AddressText,
-  DescriptionText,
-  ActionRow,
-  StatusGroup,
-  StatusIndicator,
-  StatusText,
-  ActionButton,
-  ActionButtonText,
-} from './LuxuryCinemas.styles';
+import * as S from './LuxuryCinemas.styles';
 
 const cinemas = [
   {
@@ -59,24 +28,24 @@ const cinemas = [
     format: 'IMAX LASER • LA ROSA BED',
     formatBg: '#FF535A',
     formatText: '#5B000D',
-    name: 'Galaxy Cinema Sala Thủ Thiêm',
+    name: 'Galaxy Sala Thủ Thiêm',
     address:
-      'Tầng 3, Thiso Mall Sala, Số 10 Mai Chí Thọ, Thủ Thiêm, TP. Thủ Đức, TP.HCM',
-    desc: 'Khu phức hợp điện ảnh nghệ thuật đương đại, sở hữu phòng chiếu giường nằm La Rosa sang trọng và hệ thống âm thanh Dolby Atmos hàng đầu.',
+      'Tầng 3, TTTM Thiso Mall Sala, 10 Mai Chí Thọ, Thủ Thiêm, TP. Thủ Đức, TP.HCM',
+    desc: 'Cụm rạp tích hợp công nghệ chiếu Laser 4K thế hệ mới nhất với phòng chiếu La Rosa trang bị giường nằm bọc da cao cấp cùng quầy bar ẩm thực riêng.',
     shows: '34',
   },
   {
     id: 3,
     image:
-      'https://images.unsplash.com/photo-1595769816263-9b910be24d5f?q=80&w=800&auto=format&fit=crop',
-    brand: 'Lotte Cinema',
-    brandColor: '#C2C5DB',
-    format: 'CHARLOTTE SUITE • 4DX',
-    formatBg: '#353436',
+      'https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=800&auto=format&fit=crop',
+    brand: 'Lotte Diamond',
+    brandColor: '#FFB3B0',
+    format: 'CHARLOTTE • CINEUM LED',
+    formatBg: '#4F3100',
     formatText: '#FFB955',
-    name: 'Lotte Cinema Lotte Mall Tây Hồ',
+    name: 'Lotte Cinema Diamond Plaza',
     address:
-      'Tầng 4, Lotte Mall West Lake Hanoi, 272 Võ Chí Công, Tây Hồ, Hà Nội',
+      'Tầng 13, Diamond Plaza, 34 Lê Duẩn, Bến Nghé, Quận 1, TP.HCM',
     desc: 'Phòng chiếu Charlotte Suite đỉnh cao với phòng chờ riêng phục vụ rượu vang, ghế massage chỉnh điện đa điểm và màn hình công nghệ LED Cineum không viền.',
     shows: '42',
   },
@@ -85,77 +54,82 @@ const cinemas = [
 export const LuxuryCinemas: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const handleNavigateSchedule = () => {
+    navigate('/lich-chieu');
+  };
+
   return (
-    <Section>
-      <Container>
+    <S.Section>
+      <S.Container>
         {/* Header Section */}
-        <HeaderContainer>
-          <TitleGroup>
-            <Subtitle>{t('home:luxury.subtitle')}</Subtitle>
-            <Title>{t('home:luxury.title')}</Title>
-          </TitleGroup>
-          <HeaderStatus>
-            <HeaderStarIcon size={18} />
-            <HeaderStatusText>{t('home:luxury.status')}</HeaderStatusText>
-          </HeaderStatus>
-        </HeaderContainer>
+        <S.HeaderContainer>
+          <S.TitleGroup>
+            <S.Subtitle>{t('home:luxury.subtitle')}</S.Subtitle>
+            <S.Title>{t('home:luxury.title')}</S.Title>
+          </S.TitleGroup>
+          <S.HeaderStatus>
+            <S.HeaderStarIcon size={18} />
+            <S.HeaderStatusText>{t('home:luxury.status')}</S.HeaderStatusText>
+          </S.HeaderStatus>
+        </S.HeaderContainer>
 
         {/* Luxury Cinemas Grid */}
-        <Grid>
+        <S.Grid>
           {cinemas.map((cinema) => (
-            <Card key={cinema.id}>
+            <S.Card key={cinema.id}>
               {/* Image Container */}
-              <ImageContainer>
+              <S.ImageContainer>
                 {/* Image */}
-                <CardImage src={cinema.image} alt={cinema.name} />
+                <S.CardImage src={cinema.image} alt={cinema.name} />
 
                 {/* Gradient */}
-                <ImageGradient />
+                <S.ImageGradient />
 
                 {/* Top Left Badge */}
-                <BrandBadge>
-                  <BrandText style={{ color: cinema.brandColor }}>
+                <S.BrandBadge>
+                  <S.BrandText $color={cinema.brandColor}>
                     {cinema.brand}
-                  </BrandText>
-                </BrandBadge>
+                  </S.BrandText>
+                </S.BrandBadge>
 
                 {/* Bottom Right Badge */}
-                <FormatBadge style={{ backgroundColor: cinema.formatBg }}>
-                  <FormatText style={{ color: cinema.formatText }}>
+                <S.FormatBadge $bg={cinema.formatBg}>
+                  <S.FormatText $color={cinema.formatText}>
                     {cinema.format}
-                  </FormatText>
-                </FormatBadge>
-              </ImageContainer>
+                  </S.FormatText>
+                </S.FormatBadge>
+              </S.ImageContainer>
 
               {/* Content Container */}
-              <ContentContainer>
-                <CardTitle>{cinema.name}</CardTitle>
+              <S.ContentContainer>
+                <S.CardTitle>{cinema.name}</S.CardTitle>
 
-                <AddressGroup>
-                  <LocationIcon size={14} />
-                  <AddressText>{cinema.address}</AddressText>
-                </AddressGroup>
+                <S.AddressGroup>
+                  <S.LocationIcon size={14} />
+                  <S.AddressText>{cinema.address}</S.AddressText>
+                </S.AddressGroup>
 
-                <DescriptionText>{cinema.desc}</DescriptionText>
-              </ContentContainer>
+                <S.DescriptionText>{cinema.desc}</S.DescriptionText>
+              </S.ContentContainer>
 
               {/* Bottom Action Row */}
-              <ActionRow>
-                <StatusGroup>
-                  <StatusIndicator />
-                  <StatusText>
+              <S.ActionRow>
+                <S.StatusGroup>
+                  <S.StatusIndicator />
+                  <S.StatusText>
                     Đang chiếu: {cinema.shows} suất hôm nay
-                  </StatusText>
-                </StatusGroup>
+                  </S.StatusText>
+                </S.StatusGroup>
 
-                <ActionButton onClick={() => navigate('/lich-chieu')}>
-                  <ActionButtonText>Xem Lịch Rạp</ActionButtonText>
-                </ActionButton>
-              </ActionRow>
-            </Card>
+                <S.ActionButton onClick={handleNavigateSchedule}>
+                  <S.ActionButtonText>Xem Lịch Rạp</S.ActionButtonText>
+                </S.ActionButton>
+              </S.ActionRow>
+            </S.Card>
           ))}
-        </Grid>
-      </Container>
-    </Section>
+        </S.Grid>
+      </S.Container>
+    </S.Section>
   );
 };

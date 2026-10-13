@@ -11,7 +11,7 @@ export const AntdOverrides = createGlobalStyle`
   line-height: 1.5;
   font-weight: 500;
   list-style: none;
-  font-family: Roboto, sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
 }
 
 /* ===== _button.scss ===== */
@@ -34,7 +34,7 @@ export const AntdOverrides = createGlobalStyle`
 /* ===== PRIMARY ===== */
 .ant-btn-primary {
   background-color: var(--primary);
-  // color: var(--primary-text);
+  /* color: var(--primary-text); */
   border-color: var(--primary);
 
   &:hover,
@@ -233,9 +233,9 @@ export const AntdOverrides = createGlobalStyle`
 }
 
 /* ===== _icon.scss ===== */
-// .anticon {
-//   font-size: 2rem;
-// }
+/* .anticon {
+  font-size: 2rem;
+} */
 
 /* ===== _input.scss ===== */
 input.ant-input,
@@ -297,15 +297,15 @@ input.ant-input,
 .ant-card .ant-card-head {
   font-weight: 400 !important;
 }
-// .ant-input-group-wrapper {
-//     display: inline-block;
-//     /* width: 100%; */
-//     text-align: start;
-//     vertical-align: top;
-// }
-// .ant-input[disabled]::placeholder {
-//   color: var(--text-primary);
-// }
+/* .ant-input-group-wrapper {
+    display: inline-block;
+    width: 100%;
+    text-align: start;
+    vertical-align: top;
+}
+.ant-input[disabled]::placeholder {
+  color: var(--text-primary);
+} */
 
 .ant-select:not(.ant-select-customize-input) .ant-select-selector {
   border-width: 1px;
@@ -519,7 +519,7 @@ input.ant-input,
 /* ===== _popover.scss ===== */
 .ant-popover {
   .ant-popover-arrow {
-    // display: none;
+    /* display: none; */
   }
 
   .ant-popover-inner {
@@ -626,9 +626,9 @@ tr.ant-table-expanded-row:hover > td {
 .ant-table {
   border: 1px solid var(--border-primary);
   border-radius: 0;
-  // .ant-table-container table {
-  //   border-radius: 0;
-  // }
+  /* .ant-table-container table {
+    border-radius: 0;
+  } */
 }
 
 .ant-table-thead {
@@ -652,7 +652,7 @@ tr.ant-table-expanded-row:hover > td {
 }
 
 .ant-table-tbody > tr {
-  // height: var(--table-row-height);
+  /* height: var(--table-row-height); */
 
   &.--disabled td {
     background-color: var(--table-row-disabled) !important;
@@ -660,15 +660,15 @@ tr.ant-table-expanded-row:hover > td {
   }
 
   &.--return td {
-    background-color: rgba($color: #af52de, $alpha: 0.1);
+    background-color: rgba(175, 82, 222, 0.1);
   }
 
   &.--error td {
-    background-color: rgba($color: #e63232, $alpha: 0.1);
+    background-color: rgba(230, 50, 50, 0.1);
   }
 
   &.--warning td {
-    background-color: rgba($color: #ff9500, $alpha: 0.1);
+    background-color: rgba(255, 149, 0, 0.1);
   }
 
   &.--active {
@@ -685,7 +685,7 @@ tr.ant-table-expanded-row:hover > td {
   }
 
   &.--deleting {
-    background-color: rgba($color: #e63232, $alpha: 0.2);
+    background-color: rgba(230, 50, 50, 0.2);
     pointer-events: none;
   }
 

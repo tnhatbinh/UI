@@ -3,9 +3,21 @@ import { useState } from 'react';
 import * as S from './NotificationOptionsCard.styles';
 
 export const NotificationOptionsCard: FC = () => {
-  const [notify2h, setNotify2h] = useState(true);
-  const [notifyEarly, setNotifyEarly] = useState(true);
-  const [notifyVat, setNotifyVat] = useState(true);
+  const [isNotify2hEnabled, setIsNotify2hEnabled] = useState(true);
+  const [isNotifyEarlyEnabled, setIsNotifyEarlyEnabled] = useState(true);
+  const [isNotifyVatEnabled, setIsNotifyVatEnabled] = useState(true);
+
+  const handleToggleNotify2h = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsNotify2hEnabled(e.target.checked);
+  };
+
+  const handleToggleNotifyEarly = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsNotifyEarlyEnabled(e.target.checked);
+  };
+
+  const handleToggleNotifyVat = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsNotifyVatEnabled(e.target.checked);
+  };
 
   return (
     <S.Card>
@@ -21,8 +33,8 @@ export const NotificationOptionsCard: FC = () => {
         <label className="check-item">
           <input
             type="checkbox"
-            checked={notify2h}
-            onChange={(e) => setNotify2h(e.target.checked)}
+            checked={isNotify2hEnabled}
+            onChange={handleToggleNotify2h}
           />
           <div className="text">
             <span className="title">Nhắc lịch chiếu trước 2 giờ</span>
@@ -33,8 +45,8 @@ export const NotificationOptionsCard: FC = () => {
         <label className="check-item">
           <input
             type="checkbox"
-            checked={notifyEarly}
-            onChange={(e) => setNotifyEarly(e.target.checked)}
+            checked={isNotifyEarlyEnabled}
+            onChange={handleToggleNotifyEarly}
           />
           <div className="text">
             <span className="title">Ưu đãi suất chiếu sớm & Bom tấn</span>
@@ -45,8 +57,8 @@ export const NotificationOptionsCard: FC = () => {
         <label className="check-item">
           <input
             type="checkbox"
-            checked={notifyVat}
-            onChange={(e) => setNotifyVat(e.target.checked)}
+            checked={isNotifyVatEnabled}
+            onChange={handleToggleNotifyVat}
           />
           <div className="text">
             <span className="title">Email hóa đơn VAT điện tử</span>

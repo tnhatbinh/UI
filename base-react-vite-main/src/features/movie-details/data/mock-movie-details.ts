@@ -655,7 +655,7 @@ export const HAM_CA_MAP_DATA: MovieDetails = {
   rating: 8.9,
   ratingCount: '600k lượt',
   rottenTomatoes: '97%',
-  ageRating: 'IMAX 3D • 4DX HFR',
+  ageRating: 'T16 • 4DX HFR',
   runtime: "192'",
   releaseDate: 'Khởi chiếu cuối tuần',
   formatBadge: '4DX HFR',

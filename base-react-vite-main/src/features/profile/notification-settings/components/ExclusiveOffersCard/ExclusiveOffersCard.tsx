@@ -3,10 +3,26 @@ import { Sparkles } from 'lucide-react';
 import * as S from './ExclusiveOffersCard.styles';
 
 export function ExclusiveOffersCard() {
-  const [offerSneak, setOfferSneak] = useState(true);
-  const [offerVip, setOfferVip] = useState(true);
-  const [offerSnacks, setOfferSnacks] = useState(false);
-  const [offerDigest, setOfferDigest] = useState(true);
+  const [hasOfferSneak, setHasOfferSneak] = useState(true);
+  const [hasOfferVip, setHasOfferVip] = useState(true);
+  const [hasOfferSnacks, setHasOfferSnacks] = useState(false);
+  const [hasOfferDigest, setHasOfferDigest] = useState(true);
+
+  const handleToggleOfferSneak = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHasOfferSneak(e.target.checked);
+  };
+
+  const handleToggleOfferVip = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHasOfferVip(e.target.checked);
+  };
+
+  const handleToggleOfferSnacks = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHasOfferSnacks(e.target.checked);
+  };
+
+  const handleToggleOfferDigest = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHasOfferDigest(e.target.checked);
+  };
 
   return (
     <S.Card>
@@ -27,8 +43,8 @@ export function ExclusiveOffersCard() {
         <label className="check-card">
           <input
             type="checkbox"
-            checked={offerSneak}
-            onChange={(e) => setOfferSneak(e.target.checked)}
+            checked={hasOfferSneak}
+            onChange={handleToggleOfferSneak}
           />
           <div className="text">
             <div className="title-line">
@@ -46,8 +62,8 @@ export function ExclusiveOffersCard() {
         <label className="check-card">
           <input
             type="checkbox"
-            checked={offerVip}
-            onChange={(e) => setOfferVip(e.target.checked)}
+            checked={hasOfferVip}
+            onChange={handleToggleOfferVip}
           />
           <div className="text">
             <div className="title-line">
@@ -64,8 +80,8 @@ export function ExclusiveOffersCard() {
         <label className="check-card">
           <input
             type="checkbox"
-            checked={offerSnacks}
-            onChange={(e) => setOfferSnacks(e.target.checked)}
+            checked={hasOfferSnacks}
+            onChange={handleToggleOfferSnacks}
           />
           <div className="text">
             <div className="title-line">
@@ -83,8 +99,8 @@ export function ExclusiveOffersCard() {
         <label className="check-card">
           <input
             type="checkbox"
-            checked={offerDigest}
-            onChange={(e) => setOfferDigest(e.target.checked)}
+            checked={hasOfferDigest}
+            onChange={handleToggleOfferDigest}
           />
           <div className="text">
             <div className="title-line">

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from '@/styles/breakpoints';
 
 export const StickyBottomBar = styled.div<{ $visible: boolean }>`
   position: fixed;
@@ -18,7 +19,7 @@ export const StickyBottomBar = styled.div<{ $visible: boolean }>`
     $visible ? 'translateY(0)' : 'translateY(100%)'};
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
-  @media (max-width: 640px) {
+  @media ${media.sm} {
     height: auto;
     min-height: 72px;
     padding-top: 10px;
@@ -26,19 +27,19 @@ export const StickyBottomBar = styled.div<{ $visible: boolean }>`
   }
 
   .bar-inner {
-    max-width: 1280px;
+    max-width: var(--content-max-width, 1280px);
     width: 100%;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 var(--page-gutter, 24px);
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    @media (max-width: 768px) {
-      padding: 0 16px;
+    @media ${media.md} {
+      padding: 0 var(--page-gutter-compact, 16px);
     }
 
-    @media (max-width: 480px) {
+    @media ${media.xs} {
       padding: 0 12px;
       gap: 10px;
     }
@@ -50,7 +51,7 @@ export const StickyBottomBar = styled.div<{ $visible: boolean }>`
     gap: 14px;
     min-width: 0;
 
-    @media (max-width: 640px) {
+    @media ${media.sm} {
       gap: 8px;
       flex: 1;
     }
@@ -67,7 +68,7 @@ export const StickyBottomBar = styled.div<{ $visible: boolean }>`
       color: #ffb955;
       flex-shrink: 0;
 
-      @media (max-width: 640px) {
+      @media ${media.sm} {
         display: none;
       }
     }
@@ -91,13 +92,8 @@ export const StickyBottomBar = styled.div<{ $visible: boolean }>`
           overflow: hidden;
           text-overflow: ellipsis;
 
-          @media (max-width: 480px) {
+          @media ${media.xs} {
             font-size: 12.5px;
-            max-width: 140px;
-          }
-
-          @media (max-width: 360px) {
-            max-width: 110px;
           }
         }
 
@@ -110,7 +106,7 @@ export const StickyBottomBar = styled.div<{ $visible: boolean }>`
           border-radius: 4px;
           flex-shrink: 0;
 
-          @media (max-width: 480px) {
+          @media ${media.xs} {
             font-size: 8px;
             padding: 1px 4px;
           }
@@ -124,13 +120,8 @@ export const StickyBottomBar = styled.div<{ $visible: boolean }>`
         overflow: hidden;
         text-overflow: ellipsis;
 
-        @media (max-width: 480px) {
+        @media ${media.xs} {
           font-size: 10px;
-          max-width: 160px;
-        }
-
-        @media (max-width: 360px) {
-          max-width: 120px;
         }
       }
     }
@@ -142,11 +133,11 @@ export const StickyBottomBar = styled.div<{ $visible: boolean }>`
     gap: 20px;
     flex-shrink: 0;
 
-    @media (max-width: 640px) {
+    @media ${media.sm} {
       gap: 12px;
     }
 
-    @media (max-width: 480px) {
+    @media ${media.xs} {
       gap: 8px;
     }
 
@@ -161,7 +152,7 @@ export const StickyBottomBar = styled.div<{ $visible: boolean }>`
         text-transform: uppercase;
         white-space: nowrap;
 
-        @media (max-width: 480px) {
+        @media ${media.xs} {
           font-size: 9px;
         }
       }
@@ -172,11 +163,11 @@ export const StickyBottomBar = styled.div<{ $visible: boolean }>`
         color: #ffb955;
         white-space: nowrap;
 
-        @media (max-width: 640px) {
+        @media ${media.sm} {
           font-size: 17px;
         }
 
-        @media (max-width: 480px) {
+        @media ${media.xs} {
           font-size: 15px;
         }
       }
@@ -205,14 +196,14 @@ export const StickyBottomBar = styled.div<{ $visible: boolean }>`
         display: none;
       }
 
-      @media (max-width: 640px) {
+      @media ${media.sm} {
         padding: 10px 16px;
         font-size: 12.5px;
         border-radius: 10px;
         gap: 6px;
       }
 
-      @media (max-width: 480px) {
+      @media ${media.xs} {
         padding: 9px 12px;
         font-size: 12px;
 
@@ -228,6 +219,17 @@ export const StickyBottomBar = styled.div<{ $visible: boolean }>`
         transform: translateY(-2px);
         box-shadow: 0 6px 24px rgba(255, 83, 90, 0.6);
       }
+    }
+  }
+
+  @media (max-width: 380px) {
+    .bar-left .info-group .session-details,
+    .bar-right .price-group .label {
+      display: none;
+    }
+
+    .bar-right .cta-btn {
+      padding: 9px 10px;
     }
   }
 `;

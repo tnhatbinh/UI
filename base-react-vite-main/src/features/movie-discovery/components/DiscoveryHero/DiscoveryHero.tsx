@@ -22,7 +22,11 @@ export const DiscoveryHero: FC<DiscoveryHeroProps> = ({
     }
   };
 
-  const handleTagSelect = (tagId: string, label: string) => {
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
+
+  const handleTagSelect = (tagId: string, label: string) => () => {
     const nextTag = activeTag === tagId ? null : tagId;
     setActiveTag(nextTag);
     if (onTagClick) {
@@ -94,7 +98,7 @@ export const DiscoveryHero: FC<DiscoveryHeroProps> = ({
               <S.SearchInput
                 type="text"
                 value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
+                onChange={handleSearchInputChange}
                 placeholder="Tìm theo tên phim, đạo diễn, diễn viên chính hoặc cụm rạp yêu thích..."
               />
 
@@ -113,7 +117,7 @@ export const DiscoveryHero: FC<DiscoveryHeroProps> = ({
             <S.TagPill
               type="button"
               $isActive={activeTag === 'hot'}
-              onClick={() => handleTagSelect('hot', 'Phim hot phòng vé')}
+              onClick={handleTagSelect('hot', 'Phim hot phòng vé')}
             >
               <Flame size={12} className="tag-icon" />
               <S.TagPillText>Phim hot phòng vé</S.TagPillText>
@@ -123,7 +127,7 @@ export const DiscoveryHero: FC<DiscoveryHeroProps> = ({
             <S.TagPill
               type="button"
               $isActive={activeTag === 'vn'}
-              onClick={() => handleTagSelect('vn', 'Phim 4D chiếu rạp')}
+              onClick={handleTagSelect('vn', 'Phim 4D chiếu rạp')}
             >
               <Film size={12} className="tag-icon" />
               <S.TagPillText>Phim 4D chiếu rạp</S.TagPillText>
@@ -133,7 +137,7 @@ export const DiscoveryHero: FC<DiscoveryHeroProps> = ({
             <S.TagPill
               type="button"
               $isActive={activeTag === 'anime'}
-              onClick={() => handleTagSelect('anime', 'Anime & Cartoon')}
+              onClick={handleTagSelect('anime', 'Anime & Cartoon')}
             >
               <Sparkles size={12} className="tag-icon" />
               <S.TagPillText>Anime & Cartoon</S.TagPillText>
@@ -143,7 +147,7 @@ export const DiscoveryHero: FC<DiscoveryHeroProps> = ({
             <S.TagPill
               type="button"
               $isActive={activeTag === 'imax'}
-              onClick={() => handleTagSelect('imax', 'Bom tấn Hollywood IMAX')}
+              onClick={handleTagSelect('imax', 'Bom tấn Hollywood IMAX')}
             >
               <Tv size={12} className="tag-icon" />
               <S.TagPillText>Bom tấn Hollywood IMAX</S.TagPillText>

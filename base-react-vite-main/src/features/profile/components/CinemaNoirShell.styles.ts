@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Container } from '@/shared/components/layout';
+import { media } from '@/styles/breakpoints';
 
 export const ShellContainer = styled.div`
   min-height: 100vh;
@@ -14,20 +16,18 @@ export const ShellContainer = styled.div`
       rgba(255, 185, 85, 0.04) 0%,
       transparent 50%
     );
-  padding-top: 100px;
+  padding-top: var(--page-top-offset, calc(var(--header-public-height, 80px) + 20px));
   padding-bottom: 120px;
   color: #e5e2e3;
   font-family: 'Be Vietnam Pro', sans-serif;
+
+  @media ${media.md} {
+    padding-bottom: 96px;
+  }
 `;
 
-export const InnerWrapper = styled.div`
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 24px;
-
-  @media (max-width: 768px) {
-    padding: 0 16px;
-  }
+export const InnerWrapper = styled(Container)`
+  /* Inherits unified 1280px max-width, centering, and responsive gutters */
 `;
 
 export const BreadcrumbNav = styled.div`
@@ -38,6 +38,7 @@ export const BreadcrumbNav = styled.div`
   font-weight: 700;
   color: #7d6b6a;
   margin-bottom: 20px;
+  min-width: 0;
 
   span.link {
     cursor: pointer;
@@ -48,12 +49,16 @@ export const BreadcrumbNav = styled.div`
   }
 
   span.separator {
-    color: #443736;
+    color: rgba(255, 255, 255, 0.35);
   }
 
   span.current {
     color: #ff535a;
     font-weight: 800;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 `;
 
@@ -83,6 +88,13 @@ export const HeroBannerCard = styled.div`
       display: flex;
       align-items: center;
       gap: 20px;
+      min-width: 0;
+
+      @media (max-width: 480px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
 
       .avatar-wrapper {
         position: relative;
@@ -121,6 +133,7 @@ export const HeroBannerCard = styled.div`
         display: flex;
         flex-direction: column;
         gap: 6px;
+        min-width: 0;
 
         .name-row {
           display: flex;
@@ -133,6 +146,10 @@ export const HeroBannerCard = styled.div`
             font-weight: 900;
             color: #ffffff;
             letter-spacing: -0.3px;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
 
           .verified-badge {
@@ -224,6 +241,10 @@ export const HeroBannerCard = styled.div`
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.06);
 
+      @media (max-width: 600px) {
+        width: 100%;
+      }
+
       .circular-chart {
         width: 54px;
         height: 54px;
@@ -271,8 +292,17 @@ export const HeroBannerCard = styled.div`
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
 
+    > * {
+      min-width: 0;
+    }
+
     @media (max-width: 860px) {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+      gap: 10px;
     }
 
     .stat-card {

@@ -14,15 +14,15 @@ import { TasteBottomActionStrip } from './components/TasteBottomActionStrip';
 import * as S from './CinematicTastePage.styles';
 
 const INITIAL_GENRES: GenreItem[] = [
-  { id: 'scifi', label: '🚀 Sci-Fi Viễn Tưởng', selected: true },
-  { id: 'noir', label: '🕵️ Tâm Lý Tội Phạm Noir', selected: true },
-  { id: 'action', label: '💥 Hành Động Bom Tấn', selected: true },
-  { id: 'horror', label: '👻 Kinh Dị Siêu Nhiên', selected: false },
-  { id: 'adventure', label: '🪐 Phiêu Lưu Giả Tưởng', selected: false },
-  { id: 'anime', label: '🍥 Hoạt Hình Anime', selected: false },
-  { id: 'oscar', label: '🏆 Chính Kịch Oscar', selected: true },
-  { id: 'romance', label: '👩‍❤️‍👨 Lãng Mạn Tình Cảm', selected: false },
-  { id: 'psycho', label: '🧠 Giật Gân Tâm Lý (Psychological)', selected: true },
+  { id: 'scifi', label: '🚀 Sci-Fi Viễn Tưởng', isSelected: true },
+  { id: 'noir', label: '🕵️ Tâm Lý Tội Phạm Noir', isSelected: true },
+  { id: 'action', label: '💥 Hành Động Bom Tấn', isSelected: true },
+  { id: 'horror', label: '👻 Kinh Dị Siêu Nhiên', isSelected: false },
+  { id: 'adventure', label: '🪐 Phiêu Lưu Giả Tưởng', isSelected: false },
+  { id: 'anime', label: '🍥 Hoạt Hình Anime', isSelected: false },
+  { id: 'oscar', label: '🏆 Chính Kịch Oscar', isSelected: true },
+  { id: 'romance', label: '👩‍❤️‍👨 Lãng Mạn Tình Cảm', isSelected: false },
+  { id: 'psycho', label: '🧠 Giật Gân Tâm Lý (Psychological)', isSelected: true },
 ];
 
 export default function CinematicTastePage() {
@@ -36,7 +36,7 @@ export default function CinematicTastePage() {
 
   const toggleGenre = (id: string) => {
     setGenres((prev) =>
-      prev.map((g) => (g.id === id ? { ...g, selected: !g.selected } : g)),
+      prev.map((g) => (g.id === id ? { ...g, isSelected: !g.isSelected } : g)),
     );
   };
 

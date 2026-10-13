@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from '@/styles/breakpoints';
 
 export const SectionCard = styled.div`
   background: rgba(255, 255, 255, 0.03);
@@ -67,8 +68,20 @@ export const FormRowGrid = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1120px) {
+    grid-template-columns: repeat(2, 1fr);
+
+    > div:nth-child(3) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media ${media.sm} {
     grid-template-columns: 1fr;
+
+    > div:nth-child(3) {
+      grid-column: auto;
+    }
   }
 `;
 
@@ -76,6 +89,7 @@ export const FormField = styled.div`
   display: flex;
   flex-direction: column;
   gap: 6px;
+  min-width: 0;
 
   label {
     font-size: 10.5px;
@@ -83,6 +97,9 @@ export const FormField = styled.div`
     color: #ae8786;
     letter-spacing: 0.8px;
     text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .input-wrapper {
@@ -96,6 +113,8 @@ export const FormField = styled.div`
     border: 1px solid rgba(255, 255, 255, 0.09);
     color: #7d6b6a;
     transition: all 0.2s;
+    min-width: 0;
+    width: 100%;
 
     &:focus-within {
       border-color: #ffb955;
@@ -103,8 +122,14 @@ export const FormField = styled.div`
       color: #ffb955;
     }
 
+    svg {
+      flex-shrink: 0;
+    }
+
     input {
       flex: 1;
+      min-width: 0;
+      width: 100%;
       background: transparent;
       border: none;
       outline: none;

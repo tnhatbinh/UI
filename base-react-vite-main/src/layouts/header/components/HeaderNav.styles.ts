@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from '@/styles/breakpoints';
 
 export const NavigationMenu = styled.nav`
   display: flex;
@@ -10,7 +11,7 @@ export const NavigationMenu = styled.nav`
   background: rgba(28, 27, 28, 0.7);
   border-radius: 9999px;
 
-  @media (max-width: 1140px) {
+  @media ${media.lg} {
     display: none;
   }
 `;

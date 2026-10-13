@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { NAV_ITEMS } from '../data/header-data';
-import { NavigationMenu, NavItem } from './HeaderNav.styles';
+import * as S from './HeaderNav.styles';
 
 interface HeaderNavProps {
   onScrollOrNavigate: (sectionId: string) => void;
@@ -19,22 +19,26 @@ export const HeaderNav: FC<HeaderNavProps> = ({ onScrollOrNavigate }) => {
     return location.pathname.startsWith(path);
   };
 
+  const handleNavItemClick = (item: (typeof NAV_ITEMS)[number]) => () => {
+    if (item.path) {
+      navigate(item.path);
+    } else if (item.scrollTarget) {
+      onScrollOrNavigate(item.scrollTarget);
+    }
+  };
+
   return (
-    <NavigationMenu>
+    <S.NavigationMenu>
       {NAV_ITEMS.map((item) => (
-        <NavItem
+        <S.NavItem
           key={item.labelKey}
           $isActive={item.path ? isActive(item.path) : false}
-          onClick={() =>
-            item.path
-              ? navigate(item.path)
-              : onScrollOrNavigate(item.scrollTarget!)
-          }
+          onClick={handleNavItemClick(item)}
         >
           {item.hasAiDot && <div className="ai-dot" />}
           {t(item.labelKey)}
-        </NavItem>
+        </S.NavItem>
       ))}
-    </NavigationMenu>
+    </S.NavigationMenu>
   );
 };

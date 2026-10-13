@@ -11,6 +11,10 @@ export const SnackCategoryTabs: FC<SnackCategoryTabsProps> = ({
   activeCategory,
   onSelectCategory,
 }) => {
+  const handleSelectCategory = (id: string) => () => {
+    onSelectCategory(id);
+  };
+
   return (
     <S.CategoryTabsRow>
       {SNACK_CATEGORIES.map((cat) => (
@@ -18,7 +22,7 @@ export const SnackCategoryTabs: FC<SnackCategoryTabsProps> = ({
           key={cat.id}
           type="button"
           $isActive={activeCategory === cat.id}
-          onClick={() => onSelectCategory(cat.id)}
+          onClick={handleSelectCategory(cat.id)}
         >
           {cat.label}
         </S.CategoryTab>

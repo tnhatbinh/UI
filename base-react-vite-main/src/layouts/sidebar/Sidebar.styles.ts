@@ -6,7 +6,7 @@ export const Backdrop = styled.div<{ $isOpen: boolean }>`
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  z-index: 90;
+  z-index: 200;
   opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
   visibility: ${({ $isOpen }) => ($isOpen ? 'visible' : 'hidden')};
   pointer-events: ${({ $isOpen }) => ($isOpen ? 'auto' : 'none')};
@@ -24,7 +24,7 @@ export const SidebarWrapper = styled.aside<{ $isOpen: boolean }>`
   max-width: 88vw;
   height: 100vh;
   height: 100dvh;
-  z-index: 100;
+  z-index: 210;
   background: linear-gradient(180deg, #161517 0%, #100f11 100%);
   border-left: 1px solid rgba(255, 255, 255, 0.09);
   box-shadow: -16px 0px 50px rgba(0, 0, 0, 0.9);
@@ -69,7 +69,7 @@ export const SidebarHeaderTitle = styled.div`
   text-transform: uppercase;
 
   .header-icon {
-    color: #ffb955;
+    color: var(--secondary, #ffb955);
   }
 `;
 
@@ -89,7 +89,7 @@ export const CloseBtn = styled.button`
   &:hover {
     background: rgba(255, 83, 90, 0.2);
     border-color: rgba(255, 83, 90, 0.4);
-    color: #ffb955;
+    color: var(--secondary, #ffb955);
     transform: scale(1.05);
   }
 `;
@@ -125,6 +125,59 @@ export const ScrollContent = styled.div`
   }
 `;
 
+export const SidebarSearchForm = styled.form`
+  width: 100%;
+`;
+
+export const SidebarSearchBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+
+  &:focus-within {
+    border-color: rgba(255, 185, 85, 0.5);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 16px rgba(255, 185, 85, 0.15);
+  }
+
+  .search-icon {
+    color: var(--secondary, #ffb955);
+    flex-shrink: 0;
+  }
+
+  input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-size: 13px;
+    width: 100%;
+
+    &::placeholder {
+      color: #8c90a4;
+    }
+  }
+`;
+
+export const BadgePill = styled.span`
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 999px;
+  background: rgba(255, 83, 90, 0.2);
+  color: #ff535a;
+  border: 1px solid rgba(255, 83, 90, 0.4);
+  margin-left: auto;
+  margin-right: 6px;
+`;
+
 export const QuickLangBar = styled.div`
   display: flex;
   flex-direction: column;
@@ -149,7 +202,7 @@ export const QuickLangBar = styled.div`
       color: #e5e2e3;
 
       .icon {
-        color: #ffb955;
+        color: var(--secondary, #ffb955);
       }
     }
   }
@@ -172,7 +225,7 @@ export const LangChip = styled.button<{ $isSelected?: boolean }>`
       $isSelected ? 'rgba(255, 185, 85, 0.55)' : 'rgba(255, 255, 255, 0.07)'};
   background: ${({ $isSelected }) =>
     $isSelected ? 'rgba(255, 185, 85, 0.16)' : 'rgba(255, 255, 255, 0.03)'};
-  color: ${({ $isSelected }) => ($isSelected ? '#ffb955' : '#c5b8b8')};
+  color: ${({ $isSelected }) => ($isSelected ? 'var(--secondary, #ffb955)' : '#c5b8b8')};
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: 11px;
   font-weight: ${({ $isSelected }) => ($isSelected ? '700' : '500')};
@@ -213,7 +266,7 @@ export const QuickLocationBar = styled.div`
     color: #e5e2e3;
 
     .icon {
-      color: #ffb955;
+      color: var(--secondary, #ffb955);
     }
   }
 
@@ -231,7 +284,7 @@ export const CityChip = styled.button<{ $isSelected?: boolean }>`
       $isSelected ? 'rgba(255, 185, 85, 0.45)' : 'transparent'};
   background: ${({ $isSelected }) =>
     $isSelected ? 'rgba(255, 185, 85, 0.15)' : 'rgba(255, 255, 255, 0.04)'};
-  color: ${({ $isSelected }) => ($isSelected ? '#ffb955' : '#ae8786')};
+  color: ${({ $isSelected }) => ($isSelected ? 'var(--secondary, #ffb955)' : 'var(--text-secondary, #ae8786)')};
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: 10.5px;
   font-weight: ${({ $isSelected }) => ($isSelected ? '700' : '500')};
@@ -256,7 +309,7 @@ export const SectionHeader = styled.div`
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #ae8786;
+  color: var(--text-secondary, #ae8786);
   padding: 6px 12px;
   display: flex;
   align-items: center;
@@ -290,11 +343,15 @@ export const NavItemBtn = styled.button<{ $isActive?: boolean }>`
   .item-icon {
     width: 18px;
     height: 18px;
-    color: ${({ $isActive }) => ($isActive ? '#ffb955' : '#ae8786')};
+    color: ${({ $isActive }) => ($isActive ? 'var(--secondary, #ffb955)' : 'var(--text-secondary, #ae8786)')};
     transition:
       color 0.2s ease,
       transform 0.2s ease;
     flex-shrink: 0;
+
+    &.gold {
+      color: var(--secondary, #ffb955);
+    }
   }
 
   .item-title {
@@ -307,7 +364,7 @@ export const NavItemBtn = styled.button<{ $isActive?: boolean }>`
 
   .item-arrow {
     color: ${({ $isActive }) =>
-      $isActive ? '#ffb955' : 'rgba(255, 255, 255, 0.2)'};
+      $isActive ? 'var(--secondary, #ffb955)' : 'rgba(255, 255, 255, 0.2)'};
     font-size: 14px;
     transition:
       transform 0.2s ease,
@@ -319,14 +376,14 @@ export const NavItemBtn = styled.button<{ $isActive?: boolean }>`
     border-color: rgba(255, 255, 255, 0.12);
 
     .item-icon {
-      color: #ffb955;
+      color: var(--secondary, #ffb955);
       transform: scale(1.1);
     }
     .item-title {
       color: #ffffff;
     }
     .item-arrow {
-      color: #ffb955;
+      color: var(--secondary, #ffb955);
       transform: translateX(2px);
     }
   }
@@ -399,7 +456,7 @@ export const UserCard = styled.div`
       font-family: 'Be Vietnam Pro', sans-serif;
       font-size: 11px;
       font-weight: 500;
-      color: #ffb955;
+      color: var(--secondary, #ffb955);
       margin-top: 2px;
     }
   }
@@ -417,7 +474,7 @@ export const ActionBtn = styled.button<{ $isLogout?: boolean }>`
     ${({ $isLogout }) => ($isLogout ? 'rgba(255, 83, 90, 0.3)' : 'transparent')};
   background: ${({ $isLogout }) =>
     $isLogout ? 'rgba(255, 83, 90, 0.12)' : 'var(--primary)'};
-  color: ${({ $isLogout }) => ($isLogout ? '#ff535a' : '#ffffff')};
+  color: ${({ $isLogout }) => ($isLogout ? 'var(--primary, #ff535a)' : '#ffffff')};
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: 13px;
   font-weight: 700;

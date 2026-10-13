@@ -5,6 +5,10 @@ import * as S from './UserProfileCard.styles';
 export function UserProfileCard() {
   const navigate = useNavigate();
 
+  const handleNavigateTaste = () => {
+    navigate('/profile/cinematic-taste');
+  };
+
   return (
     <S.UserProfileCard>
       <div className="user-header">
@@ -66,7 +70,7 @@ export function UserProfileCard() {
         </div>
         <div
           className="detail-link"
-          onClick={() => navigate('/profile/cinematic-taste')}
+          onClick={handleNavigateTaste}
         >
           <span>Chi tiết hạng</span>
           <ChevronRight size={13} />

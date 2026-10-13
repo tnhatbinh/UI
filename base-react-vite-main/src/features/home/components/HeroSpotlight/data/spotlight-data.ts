@@ -2,6 +2,7 @@
 
 export interface SpotlightMovie {
   id: number;
+  detailMovieId: string;
   mainTitle: string;
   subTitle: string;
   exclusiveTitle: string;
@@ -22,13 +23,14 @@ export interface SpotlightMovie {
 export const SPOTLIGHT_MOVIES: SpotlightMovie[] = [
   {
     id: 1,
+    detailMovieId: '15',
     mainTitle: 'Minions & Monsters',
     subTitle: 'Những rắc rối tí hon (2026)',
     exclusiveTitle: 'SIÊU PHẨM ĐIỆN ẢNH ĐỘC QUYỀN',
     bgImage:
       'https://cdn.elle.vn/5s9UWYADPiC9UOvpVkQTeE_e_xULAkuGDnpsBfRJAbU/rs:fit:1280:0/sharpen:0.5/quality:82/2026/06/30/769840/elle-thumb-review-minions-and-monsters-minions-va-quai-vat-2026.jpg@webp',
     imaxBadge: 'IMAX 3D LASER',
-    ageBadge: 'C13 - PHỔ BIẾN TỪ 13 TUỔI',
+    ageBadge: 'T13 - PHỔ BIẾN TỪ 13 TUỔI',
     ratingScore: '8.8',
     ratingCount: '/10 (12.4k đánh giá)',
     genre: 'Khoa Học Viễn Tưởng • Hành Động',
@@ -40,13 +42,14 @@ export const SPOTLIGHT_MOVIES: SpotlightMovie[] = [
   },
   {
     id: 2,
+    detailMovieId: '5',
     mainTitle: 'Deadpool & Wolverine',
     subTitle: 'Đại chiến đa vũ trụ (2024)',
     exclusiveTitle: 'BOM TẤN HÀNH ĐỘNG MARVEL',
     bgImage:
       'https://image.tmdb.org/t/p/original/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg',
     imaxBadge: 'IMAX 3D',
-    ageBadge: 'C18 - DÀNH CHO KHÁN GIẢ TỪ 18 TUỔI',
+    ageBadge: 'T18 - DÀNH CHO KHÁN GIẢ TỪ 18 TUỔI',
     ratingScore: '9.2',
     ratingCount: '/10 (28.6k đánh giá)',
     genre: 'Hành Động • Hài Hước • Siêu Anh Hùng',
@@ -58,13 +61,14 @@ export const SPOTLIGHT_MOVIES: SpotlightMovie[] = [
   },
   {
     id: 3,
+    detailMovieId: '1',
     mainTitle: 'Dune: Part Two',
     subTitle: 'Hành Tinh Cát - Phần Hai (2024)',
     exclusiveTitle: 'KIỆT TÁC VIỄN TƯỞNG HOÀNH TRÁNG',
     bgImage:
       'https://image.tmdb.org/t/p/original/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg',
     imaxBadge: 'IMAX LASER 70MM',
-    ageBadge: 'C16 - PHỔ BIẾN TỪ 16 TUỔI',
+    ageBadge: 'T16 - PHỔ BIẾN TỪ 16 TUỔI',
     ratingScore: '9.5',
     ratingCount: '/10 (35.1k đánh giá)',
     genre: 'Khoa Học Viễn Tưởng • Sử Thi • Phiêu Lưu',
@@ -76,6 +80,7 @@ export const SPOTLIGHT_MOVIES: SpotlightMovie[] = [
   },
   {
     id: 4,
+    detailMovieId: '7',
     mainTitle: 'Inside Out 2',
     subTitle: 'Những Mảnh Ghép Cảm Xúc 2 (2024)',
     exclusiveTitle: 'SIÊU PHẨM HOẠT HÌNH TOÀN CẦU',

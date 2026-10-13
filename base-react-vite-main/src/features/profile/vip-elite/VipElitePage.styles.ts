@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Container } from '@/shared/components/layout';
+import { media } from '@/styles/breakpoints';
 
 export const PageContainer = styled.div`
   min-height: 100vh;
@@ -14,20 +16,18 @@ export const PageContainer = styled.div`
       rgba(255, 83, 90, 0.05) 0%,
       transparent 50%
     );
-  padding-top: 100px;
+  padding-top: var(--page-top-offset, calc(var(--header-public-height, 80px) + 20px));
   padding-bottom: 120px;
   color: #e5e2e3;
   font-family: 'Be Vietnam Pro', sans-serif;
+
+  @media ${media.md} {
+    padding-bottom: 96px;
+  }
 `;
 
-export const InnerWrapper = styled.div`
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 24px;
-
-  @media (max-width: 768px) {
-    padding: 0 16px;
-  }
+export const InnerWrapper = styled(Container)`
+  /* Inherits unified 1280px max-width, centering, and responsive gutters */
 `;
 
 export const Breadcrumb = styled.div`
@@ -68,6 +68,10 @@ export const HeaderRow = styled.div`
       font-weight: 900;
       color: #ffffff;
       letter-spacing: -0.5px;
+
+      @media (max-width: 480px) {
+        font-size: 24px;
+      }
     }
 
     .badge-icon {
@@ -79,6 +83,17 @@ export const HeaderRow = styled.div`
     display: flex;
     align-items: center;
     gap: 12px;
+
+    @media (max-width: 480px) {
+      width: 100%;
+      button.edit-btn,
+      button.reward-btn {
+        flex: 1;
+        justify-content: center;
+        padding: 9px 12px;
+        font-size: 11.5px;
+      }
+    }
 
     button.edit-btn {
       padding: 10px 18px;
@@ -126,9 +141,13 @@ export const HeaderRow = styled.div`
 
 export const HeroGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 400px;
+  grid-template-columns: minmax(0, 1fr) 400px;
   gap: 20px;
   margin-bottom: 24px;
+
+  > * {
+    min-width: 0;
+  }
 
   @media (max-width: 980px) {
     grid-template-columns: 1fr;
@@ -137,9 +156,13 @@ export const HeroGrid = styled.div`
 
 export const MainTwoColGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 400px;
+  grid-template-columns: minmax(0, 1fr) 400px;
   gap: 20px;
   margin-bottom: 32px;
+
+  > * {
+    min-width: 0;
+  }
 
   @media (max-width: 980px) {
     grid-template-columns: 1fr;
@@ -150,36 +173,7 @@ export const Column = styled.div<{ $gap?: string }>`
   display: flex;
   flex-direction: column;
   gap: ${(props) => props.$gap || '20px'};
+  min-width: 0;
 `;
 
-export const ToastNotification = styled.div`
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  z-index: 9999;
-  background: #1f1d24;
-  border: 1px solid #ffb955;
-  color: #ffffff;
-  padding: 12px 20px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.8),
-    0 0 20px rgba(255, 185, 85, 0.25);
-`;
-
-export const SectionCard = styled.div``;
-export const ChallengeItem = styled.div``;
-export const UserProfileCard = styled.div``;
-export const ToggleRow = styled.div``;
-export const QuickPayItem = styled.div``;
-export const VoucherMiniCard = styled.div``;
-export const AiInsightBox = styled.div``;
-export const TasteSubGrid = styled.div``;
-export const CinemaFavsList = styled.div``;
-export const SeatVisualizerBox = styled.div``;
-export const CinePassCard = styled.div``;
+export { ToastNotification } from '@shared/components/toast/ToastNotification.styles';

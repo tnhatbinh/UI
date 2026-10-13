@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { useBooking } from '../../../context/use-booking';
+import { useBooking } from '../../../context/useBooking';
 import * as S from './MobileStickyBar.styles';
 
 interface MobileStickyBarProps {

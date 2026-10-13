@@ -175,4 +175,75 @@ export const UserProfileCard = styled.div`
       }
     }
   }
+
+  @media (max-width: 600px) {
+    padding: 20px 16px;
+    border-radius: 16px;
+
+    .user-header {
+      gap: 14px;
+
+      .avatar-wrap {
+        width: 60px;
+        height: 60px;
+        border-radius: 14px;
+
+        img {
+          border-radius: 11px;
+        }
+      }
+
+      .info {
+        min-width: 0;
+
+        h2.name {
+          font-size: 20px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .meta-line {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    .stats-row {
+      gap: 10px;
+
+      .stat-col .value {
+        font-size: 18px;
+      }
+    }
+
+    .privilege-strip {
+      align-items: flex-start;
+
+      .desc {
+        min-width: 0;
+      }
+    }
+  }
+
+  @media (max-width: 380px) {
+    .stats-row {
+      grid-template-columns: 1fr;
+      gap: 12px;
+
+      .stat-col {
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px;
+      }
+    }
+
+    .privilege-strip {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
 `;

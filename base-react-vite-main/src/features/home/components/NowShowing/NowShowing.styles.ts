@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Container } from '@/shared/components/layout';
+import { media } from '@/styles/breakpoints';
 
 export const Section = styled.section`
   width: 100%;
@@ -9,11 +11,7 @@ export const Section = styled.section`
   background-color: var(--bg-primary);
 `;
 
-export const InnerContainer = styled.div`
-  width: 100%;
-  max-width: 1680px;
-  padding-left: 24px;
-  padding-right: 24px;
+export const InnerContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,14 +19,14 @@ export const InnerContainer = styled.div`
 
 export const Header = styled.div`
   width: 100%;
-  max-width: 1232px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
   padding-bottom: 24px;
+  gap: 20px;
 
-  @media (max-width: 1024px) {
+  @media ${media.lg} {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
@@ -39,6 +37,7 @@ export const TitleArea = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
+  flex-shrink: 0;
 `;
 
 export const SubtitleContainer = styled.div`
@@ -74,8 +73,15 @@ export const MainTitle = styled.h2`
   max-width: 430px;
 
   @media (max-width: 768px) {
-    font-size: 28px;
-    line-height: 36px;
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: -0.5px;
+  }
+
+  @media (max-width: 440px) {
+    font-size: 20px;
+    line-height: 26px;
+    letter-spacing: 0;
   }
 `;
 
@@ -89,8 +95,21 @@ export const CategoryPillsContainer = styled.div`
   align-items: center;
   gap: 12px;
   overflow-x: auto;
+  width: 100%;
   max-width: 100%;
+  min-width: 0;
+  flex: 1;
+  justify-content: flex-end;
   padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+
+  @media ${media.lg} {
+    justify-content: flex-start;
+  }
+
+  @media ${media.sm} {
+    gap: 8px;
+  }
 
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -139,24 +158,23 @@ export const TabText = styled.span<{ $active: boolean }>`
 
 export const MoviesGrid = styled.div`
   width: 100%;
-  max-width: 1232px;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 24px;
 
-  @media (max-width: 1200px) {
+  @media ${media.xl} {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 20px;
   }
-  @media (max-width: 960px) {
+  @media ${media.lg} {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
   }
-  @media (max-width: 680px) {
+  @media ${media.md} {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
   }
-  @media (max-width: 440px) {
+  @media ${media.sm} {
     grid-template-columns: 1fr;
   }
 `;
@@ -165,22 +183,18 @@ export const MovieCard = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 428.8px;
+  height: 100%;
   background-color: var(--bg-card);
   border-radius: 16px;
   box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   cursor: pointer;
-
-  @media (max-width: 680px) {
-    height: auto;
-  }
 `;
 
 export const PosterContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 340.8px;
+  height: 341px;
   overflow: hidden;
   isolation: isolate;
 
@@ -239,8 +253,11 @@ export const RatingBadge = styled.div`
   align-items: center;
   gap: 4px;
   padding: 2px 8px;
-  background-color: rgba(14, 14, 15, 0.8);
+  height: 22px;
+  background-color: rgba(14, 14, 15, 0.85);
   backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 185, 85, 0.2);
   border-radius: 6px;
 `;
 
@@ -254,6 +271,7 @@ export const RatingText = styled.span`
 
 export const AgeBadge = styled.div<{ $bgColor: string }>`
   padding: 2px 8px;
+  height: 22px;
   border-radius: 6px;
   display: flex;
   align-items: center;
@@ -274,14 +292,16 @@ export const FormatBadge = styled.div`
   position: absolute;
   top: 12px;
   right: 12px;
-  padding-left: 8px;
-  padding-right: 8px;
-  height: 16px;
-  background-color: rgba(42, 42, 43, 0.8);
+  padding: 2px 8px;
+  height: 22px;
+  background-color: rgba(42, 42, 43, 0.85);
   backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 6px;
   display: flex;
   align-items: center;
+  justify-content: center;
   z-index: 10;
 `;
 
@@ -291,7 +311,7 @@ export const FormatText = styled.span`
   color: var(--primary-text);
   letter-spacing: 0.66px;
   text-transform: uppercase;
-  font-family: 'Liberation Mono', monospace;
+  font-family: 'Be Vietnam Pro', sans-serif;
 `;
 
 export const BottomMetaContainer = styled.div`
@@ -309,7 +329,7 @@ export const MetaText = styled.span`
   font-weight: 700;
   color: var(--secondary);
   letter-spacing: 0.66px;
-  font-family: 'Liberation Mono', monospace;
+  font-family: 'Be Vietnam Pro', sans-serif;
 `;
 
 export const MovieTitle = styled.h3`
@@ -329,60 +349,30 @@ export const BottomInfoArea = styled.div`
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px;
-  height: 68px;
+  padding: 10px 10px;
+  height: 60px;
   background-color: var(--bg-elevated);
   position: relative;
+  margin-top: auto;
 
   @media (max-width: 680px) {
-    padding: 8px;
+    padding: 8px 6px;
     gap: 6px;
-    height: 56px;
+    height: 54px;
   }
-`;
-
-export const InfoColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-  flex: 1;
-
-  @media (max-width: 960px) {
-    width: 100%;
-    flex: none;
-    margin-bottom: 4px;
-  }
-`;
-
-export const InfoLabel = styled.span`
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--primary-subtitle);
-  letter-spacing: 0.66px;
-  font-family: 'Be Vietnam Pro', sans-serif;
-`;
-
-export const InfoValue = styled.span<{ $color?: string }>`
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
-  letter-spacing: 0.28px;
-  font-family: 'Be Vietnam Pro', sans-serif;
-  white-space: pre-line;
-  color: ${({ $color }) => $color || 'var(--primary-text)'};
 `;
 
 export const DetailButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 8px 10px;
-  height: 44px;
+  padding: 6px 8px;
+  height: 38px;
   flex: 1;
+  min-width: 0;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
 
@@ -397,8 +387,8 @@ export const DetailButton = styled.button`
   }
 
   @media (max-width: 680px) {
-    height: 38px;
-    padding: 6px 8px;
+    height: 36px;
+    padding: 4px 6px;
     border-radius: 8px;
   }
 `;
@@ -407,22 +397,25 @@ export const DetailButtonText = styled.span`
   font-size: 11px;
   font-weight: 700;
   color: var(--primary-text);
-  letter-spacing: 0.66px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
   font-family: 'Be Vietnam Pro', sans-serif;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const BuyButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  height: 44px;
+  gap: 4px;
+  padding: 6px 8px;
+  height: 38px;
   flex: 1;
+  min-width: 0;
   background-color: var(--primary);
-  border-radius: 12px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -439,8 +432,8 @@ export const BuyButton = styled.button`
   }
 
   @media (max-width: 680px) {
-    height: 38px;
-    padding: 6px 8px;
+    height: 36px;
+    padding: 4px 6px;
     border-radius: 8px;
   }
 `;
@@ -458,8 +451,10 @@ export const BuyButtonText = styled.span`
   font-size: 11px;
   font-weight: 700;
   color: var(--on-primary-darker);
-  letter-spacing: 0.66px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
   font-family: 'Be Vietnam Pro', sans-serif;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

@@ -13,6 +13,14 @@ export const SnackCard: FC<SnackCardProps> = ({
   quantity,
   onUpdateQuantity,
 }) => {
+  const handleDecreaseQuantity = () => {
+    onUpdateQuantity(-1);
+  };
+
+  const handleIncreaseQuantity = () => {
+    onUpdateQuantity(1);
+  };
+
   return (
     <S.SnackCard>
       <div className="card-top">
@@ -56,7 +64,7 @@ export const SnackCard: FC<SnackCardProps> = ({
             <button
               type="button"
               className="counter-btn"
-              onClick={() => onUpdateQuantity(-1)}
+              onClick={handleDecreaseQuantity}
             >
               -
             </button>
@@ -64,7 +72,7 @@ export const SnackCard: FC<SnackCardProps> = ({
             <button
               type="button"
               className="counter-btn plus"
-              onClick={() => onUpdateQuantity(1)}
+              onClick={handleIncreaseQuantity}
             >
               +
             </button>
@@ -73,7 +81,7 @@ export const SnackCard: FC<SnackCardProps> = ({
           <button
             type="button"
             className="add-btn"
-            onClick={() => onUpdateQuantity(1)}
+            onClick={handleIncreaseQuantity}
           >
             + Thêm
           </button>

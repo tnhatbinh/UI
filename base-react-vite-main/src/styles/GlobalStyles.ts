@@ -4,25 +4,22 @@ export const GlobalStyles = createGlobalStyle`
   @import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap");
 
   :root {
-    --zoom: 1;
-    --device-height: calc(100vh / var(--zoom));
-    
-    /* PhimBook Cinema Design Tokens */
-    --primary: #ff2a42;
+    /* PhimBook Cinema Design Tokens (Cinema Noir Theme) */
+    --primary: #ff535a;
     --primary-sub: #e01e35;
-    --primary-hover: #ff475c;
-    --secondary: #f5a623;
-    --secondary-hover: #ffb738;
+    --primary-hover: #ff7b54;
+    --secondary: #ffb955;
+    --secondary-hover: #ffc875;
     --tertiary: #8c90a4;
-    --primary-gold: #f5a623;
-    --primary-gold-bg: rgba(245, 166, 35, 0.12);
+    --primary-gold: #ffb955;
+    --primary-gold-bg: rgba(255, 185, 85, 0.12);
     --primary-text: #ffffff;
     --primary-title: #ffffff;
     --primary-subtitle: #ae8786;
-    --primary-bg-highlight: #ff2a42;
-    --primary-border: rgba(255, 255, 255, 0.1);
-    --primary-bg-hover: rgba(255, 42, 66, 0.12);
-    --gradient-primary: linear-gradient(135deg, #ff2a42 0%, #e01e35 100%);
+    --primary-bg-highlight: #ff535a;
+    --primary-border: rgba(255, 255, 255, 0.12);
+    --primary-bg-hover: rgba(255, 83, 90, 0.12);
+    --gradient-primary: linear-gradient(135deg, #ff535a 0%, #ff7b54 50%, #ffb955 100%);
     
     /* Backgrounds */
     --bg-primary: #0b0b0c;
@@ -35,12 +32,12 @@ export const GlobalStyles = createGlobalStyle`
     --bg-tooltip: #201f20;
 
     --bg-disabled: #2a2a2b;
-    --bg-hover-primary: rgba(255, 42, 66, 0.15);
+    --bg-hover-primary: rgba(255, 83, 90, 0.15);
     --bg-info: rgba(23, 143, 226, 0.15);
 
     --bg-success: rgba(52, 199, 89, 0.15);
-    --bg-danger: rgba(255, 42, 66, 0.15);
-    --bg-warning: rgba(245, 166, 35, 0.15);
+    --bg-danger: rgba(255, 83, 90, 0.15);
+    --bg-warning: rgba(255, 185, 85, 0.15);
 
     /* Typography */
     --text-primary: #ffffff;
@@ -50,37 +47,37 @@ export const GlobalStyles = createGlobalStyle`
     --text-disabled: #555558;
 
     --text-success: #34c759;
-    --text-warning: #f5a623;
-    --text-error: #ff2a42;
+    --text-warning: #ffb955;
+    --text-error: #ff535a;
 
     --btn-hover-primary: #5f172a;
-    --hover-primary: #e2f2fd;
+    --hover-primary: rgba(255, 83, 90, 0.15);
 
-    /* Tables */
-    --table-header-bg: #e7e7e7;
-    --table-row-hover-color: #e2f2fd;
-    --table-row-disabled: #e7e7e7;
+    /* Tables & Lists (Dark Cinema Themed) */
+    --table-header-bg: #201f20;
+    --table-row-hover-color: rgba(255, 83, 90, 0.08);
+    --table-row-disabled: #2a2a2b;
 
     /* Icons */
-    --icon-primary: #636567;
-    --icon-secondary: #bcbebe;
-    --icon-gray: #b3b5b5;
+    --icon-primary: #e5e2e3;
+    --icon-secondary: #ae8786;
+    --icon-gray: #8c90a4;
 
     /* Borders */
-    --border-primary: #bcbebe;
-    --border-secondary: #e7e7e7;
-    --border-success: rgba(21, 181, 74, 0.5);
-    --border-danger: rgba(230, 50, 50, 0.5);
-    --border-warning: #ff9500;
+    --border-primary: rgba(255, 255, 255, 0.12);
+    --border-secondary: rgba(255, 255, 255, 0.08);
+    --border-success: rgba(52, 199, 89, 0.5);
+    --border-danger: rgba(255, 83, 90, 0.5);
+    --border-warning: rgba(255, 185, 85, 0.5);
 
     /* Other Colors */
     --white: #ffffff;
-    --surface-elevated: #ffffff;
-    --error: #e63232;
-    --hover-error: rgb(255, 79, 79);
+    --surface-elevated: #201f20;
+    --error: #ff535a;
+    --hover-error: #ff7b54;
     --info: #178fe2;
-    --yellow: #ffcc00;
-    --warning: #ff9500;
+    --yellow: #ffb955;
+    --warning: #ffb955;
     --purple: #af52de;
     --success: #34c759;
 
@@ -89,25 +86,28 @@ export const GlobalStyles = createGlobalStyle`
     --sidebar-width: 32rem;
     --table-row-height: 4.8rem;
     --header-height: 4.8rem;
-    --header-admin-height: 6rem;
     --modal-max-height: calc(95vh - 7.2rem);
     --base-input-width: 100%;
     --breadcrumb-height: 6.4rem;
     --modal-width-lg: 107rem;
     --gap-global: 1.2rem;
 
-    --table-body-height-default: calc(var(--device-height) - var(--header-admin-height) - 26.8rem);
-    --table-tree: calc(var(--device-height) - (4.8rem + 6.4rem + 8.2rem + 11.4rem));
+    /* Shared responsive layout tokens */
+    --content-max-width: 1280px;
+    --page-gutter: 24px;
+    --page-gutter-compact: 16px;
+    --header-public-height: 80px;
+    --page-top-offset: calc(var(--header-public-height, 80px) + 20px);
 
     --shadow: 0px 2px 8px 1px #00000024;
 
     /* Charts */
     --chart-green: #34c759;
-    --chart-yellow: #ffcc00;
-    --chart-orange: #ff9500;
-    --chart-red: #ff3b30;
+    --chart-yellow: #ffb955;
+    --chart-orange: #ff7b54;
+    --chart-red: #ff535a;
 
-    /* New UI variables mapped from Figma Design */
+    /* UI variables mapped from Figma / Cinema Noir Design */
     --on-primary-dark: #680010;
     --on-primary-darker: #5b000d;
     --primary-tint: #ffb3b0;
@@ -120,39 +120,22 @@ export const GlobalStyles = createGlobalStyle`
     --bg-border-lightest: #4a494a;
   }
 
-  /* MEDIA QUERY MANAGER & BASE HTML FONT-SIZE */
+  /* BASE HTML FONT-SIZE */
   html {
     font-size: 62.5%; /* 1rem = 10px, 10/16 = 62.5% */
-  }
-
-  @media only screen and (max-width: 100em) {
-    html {
-      font-size: 62.5%;
-    }
-  }
-
-  @media only screen and (max-width: 56.25em) {
-    html {
-      font-size: 62.5%;
-    }
-  }
-
-  @media only screen and (max-width: 37.5em) {
-    html {
-      font-size: 62.5%;
-    }
-  }
-
-  @media only screen and (max-width: 20em) {
-    html {
-      font-size: 62.5%;
-      overflow-x: scroll;
-    }
+    max-width: 100%;
   }
 
   /* RESET */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   body, #root {
-    height: 100%;
+    min-height: 100%;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
     margin: 0;
     padding: 0;
     font-family: 'Be Vietnam Pro', sans-serif;
@@ -186,5 +169,16 @@ export const GlobalStyles = createGlobalStyle`
     -o-user-drag: none;
     -ms-user-drag: none;
   }
-`;
 
+  input, button, textarea, select {
+    font: inherit;
+  }
+
+  @media only screen and (max-width: 48em) {
+    :root {
+      --page-gutter: var(--page-gutter-compact);
+      --header-public-height: 68px;
+      --page-top-offset: calc(var(--header-public-height, 68px) + 12px);
+    }
+  }
+`;

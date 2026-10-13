@@ -1,8 +1,10 @@
 import styled from 'styled-components';
+import { Container } from '@/shared/components/layout';
+import { media } from '@/styles/breakpoints';
 
 export const PageContainer = styled.div`
   min-height: 100vh;
-  background: #0d0c0f;
+  background: var(--bg-primary, #0d0c0f);
   background-image:
     radial-gradient(
       ellipse at 50% 0%,
@@ -14,24 +16,18 @@ export const PageContainer = styled.div`
       rgba(255, 185, 85, 0.05) 0%,
       transparent 50%
     );
-  padding-top: 100px;
+  padding-top: var(--page-top-offset, calc(var(--header-public-height, 80px) + 20px));
   padding-bottom: 100px;
-  color: #e5e2e3;
+  color: var(--text-primary, #e5e2e3);
   font-family: 'Be Vietnam Pro', sans-serif;
 
-  @media (max-width: 1080px) {
+  @media ${media.lg} {
     padding-bottom: 130px;
   }
 `;
 
-export const InnerWrapper = styled.div`
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 24px;
-
-  @media (max-width: 768px) {
-    padding: 0 16px;
-  }
+export const InnerWrapper = styled(Container)`
+  /* Inherits unified 1280px max-width, centering, and responsive gutters */
 `;
 
 export const TopBar = styled.div`
@@ -47,18 +43,26 @@ export const TopBar = styled.div`
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: #ae8786;
+    color: var(--text-secondary, #ae8786);
+    min-width: 0;
+
+    > span:not(.sep) {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
     .back-btn {
       display: flex;
       align-items: center;
       gap: 6px;
-      color: #e5e2e3;
+      color: var(--text-primary, #e5e2e3);
       cursor: pointer;
       font-weight: 600;
 
       &:hover {
-        color: #ffb955;
+        color: var(--secondary, #ffb955);
       }
     }
 
@@ -67,7 +71,7 @@ export const TopBar = styled.div`
     }
 
     .current {
-      color: #ffb955;
+      color: var(--secondary, #ffb955);
       font-weight: 700;
     }
   }
@@ -76,6 +80,7 @@ export const TopBar = styled.div`
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-wrap: wrap;
 
     .timer-badge {
       display: flex;
@@ -85,7 +90,7 @@ export const TopBar = styled.div`
       border-radius: 999px;
       background: rgba(255, 185, 85, 0.12);
       border: 1px solid rgba(255, 185, 85, 0.3);
-      color: #ffb955;
+      color: var(--secondary, #ffb955);
       font-size: 12px;
       font-weight: 800;
       letter-spacing: 0.5px;
@@ -97,15 +102,38 @@ export const TopBar = styled.div`
       gap: 6px;
       font-size: 12px;
       font-weight: 600;
-      color: #ff535a;
+      color: var(--primary, #ff535a);
 
       .dot {
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        background: #ff535a;
-        box-shadow: 0 0 10px #ff535a;
+        background: var(--primary, #ff535a);
+        box-shadow: 0 0 10px var(--primary, #ff535a);
         animation: pulse 1.8s infinite;
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    align-items: flex-start;
+    gap: 12px;
+
+    .breadcrumbs {
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .status-badges {
+      gap: 8px;
+
+      .timer-badge {
+        padding: 6px 10px;
+        font-size: 11px;
+      }
+
+      .live-badge {
+        display: none;
       }
     }
   }
@@ -128,12 +156,18 @@ export const TopBar = styled.div`
 
 export const MainContentGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 380px;
+  grid-template-columns: minmax(0, 1fr) 380px;
   gap: 32px;
   align-items: flex-start;
 
-  @media (max-width: 1080px) {
-    grid-template-columns: 1fr;
+  /* The seat map owns its horizontal scroll. Without this, its intrinsic
+     width becomes the grid track's minimum and widens the whole page. */
+  > * {
+    min-width: 0;
+  }
+
+  @media ${media.lg} {
+    grid-template-columns: minmax(0, 1fr);
   }
 `;
 
@@ -145,8 +179,11 @@ export const SeatSelectionArea = styled.div`
   display: flex;
   flex-direction: column;
   gap: 28px;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
 
-  @media (max-width: 600px) {
+  @media ${media.sm} {
     padding: 20px 14px;
   }
 `;

@@ -27,6 +27,15 @@ export const MovieHero: FC<MovieHeroProps> = ({
   isBookmarked,
   onToggleBookmark,
 }) => {
+  // Format release status/date cleanly for compact key facts strip (avoid wrapping or repetition)
+  const formatReleaseDate = (dateStr: string) => {
+    if (!dateStr) return '';
+    if (dateStr.includes('Đang khởi chiếu')) return 'Đang chiếu';
+    if (dateStr.includes('Tái chiếu')) return 'Tái chiếu';
+    if (dateStr.toLowerCase().includes('cuối tuần')) return 'Cuối tuần';
+    return dateStr;
+  };
+
   return (
     <S.HeroSection>
       {/* Left Column: Poster & Key Facts */}
@@ -45,23 +54,23 @@ export const MovieHero: FC<MovieHeroProps> = ({
             <span className="fact-label">Thời lượng</span>
             <span className="fact-value">
               <Clock size={12} className="gold" />
-              {movie.runtime}
+              <span>{movie.runtime}</span>
             </span>
           </div>
           <div className="fact-divider" />
           <div className="fact-item">
             <span className="fact-label">Khởi chiếu</span>
-            <span className="fact-value">
+            <span className="fact-value" title={movie.releaseDate}>
               <Calendar size={12} className="gold" />
-              {movie.releaseDate}
+              <span>{formatReleaseDate(movie.releaseDate)}</span>
             </span>
           </div>
           <div className="fact-divider" />
           <div className="fact-item">
             <span className="fact-label">Định dạng</span>
-            <span className="fact-value">
+            <span className="fact-value" title={movie.formatBadge}>
               <Film size={12} className="gold" />
-              {movie.formatBadge}
+              <span>{movie.formatBadge}</span>
             </span>
           </div>
         </S.KeyFactsStrip>

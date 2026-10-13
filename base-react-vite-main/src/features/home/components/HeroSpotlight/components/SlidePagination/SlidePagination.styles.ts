@@ -38,6 +38,10 @@ export const SlideCounterText = styled.span`
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--primary-subtitle);
-  font-family: 'Liberation Mono', monospace;
+  font-family: 'Be Vietnam Pro', sans-serif;
   margin-left: 6px;
+
+  span {
+    opacity: 0.4;
+  }
 `;

@@ -11,7 +11,7 @@ import {
   Sparkles,
   X,
 } from 'lucide-react';
-import * as S from './MoviesFilter.styles';
+import * as S from './MovieFilter.styles';
 
 export interface FilterState {
   statusTab: string;
@@ -186,6 +186,40 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
     });
   };
 
+  const handleToggleDropdown =
+    (type: 'genre' | 'cinema' | 'format' | 'time' | 'sort') => () => {
+      setActiveDropdown((prev) => (prev === type ? null : type));
+    };
+
+  const handleSelectDropdownOption =
+    (
+      type: 'genre' | 'cinema' | 'format' | 'timeSlot' | 'sortBy',
+      value: string,
+    ) =>
+    () => {
+      handleDropdownSelect(type, value);
+    };
+
+  const handleSelectStatusTab = (tab: string) => () => {
+    handleStatusTab(tab);
+  };
+
+  const handleSelectViewMode = (mode: 'grid' | 'list') => () => {
+    handleViewMode(mode);
+  };
+
+  const handleRemoveBadge = (id: string) => () => {
+    removeBadge(id);
+  };
+
+  const handleClearAllBadges = () => {
+    clearAllBadges();
+  };
+
+  const handleStopPropagation = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   return (
     <S.SectionContainer ref={containerRef}>
       <S.InnerContainer>
@@ -195,7 +229,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
             <S.TabButton
               type="button"
               $isActive={statusTab === 'now-showing'}
-              onClick={() => handleStatusTab('now-showing')}
+              onClick={handleSelectStatusTab('now-showing')}
             >
               <S.TabIconBox $isActive={statusTab === 'now-showing'}>
                 <Flame size={15} />
@@ -208,7 +242,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
             <S.TabButton
               type="button"
               $isActive={statusTab === 'coming-soon'}
-              onClick={() => handleStatusTab('coming-soon')}
+              onClick={handleSelectStatusTab('coming-soon')}
             >
               <S.TabIconBox $isActive={statusTab === 'coming-soon'}>
                 <Calendar size={14} />
@@ -221,7 +255,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
             <S.TabButton
               type="button"
               $isActive={statusTab === 'sneak-show'}
-              onClick={() => handleStatusTab('sneak-show')}
+              onClick={handleSelectStatusTab('sneak-show')}
             >
               <S.TabIconBox $isActive={statusTab === 'sneak-show'}>
                 <Sparkles size={15} />
@@ -242,7 +276,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
               <S.ViewModeButton
                 type="button"
                 $isActive={viewMode === 'grid'}
-                onClick={() => handleViewMode('grid')}
+                onClick={handleSelectViewMode('grid')}
                 title="Chế độ lưới"
               >
                 <Grid size={14} />
@@ -250,7 +284,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
               <S.ViewModeButton
                 type="button"
                 $isActive={viewMode === 'list'}
-                onClick={() => handleViewMode('list')}
+                onClick={handleSelectViewMode('list')}
                 title="Chế độ danh sách"
               >
                 <List size={14} />
@@ -269,11 +303,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                 <S.FilterSelectBox
                   type="button"
                   $isOpen={activeDropdown === 'genre'}
-                  onClick={() =>
-                    setActiveDropdown(
-                      activeDropdown === 'genre' ? null : 'genre',
-                    )
-                  }
+                  onClick={handleToggleDropdown('genre')}
                 >
                   <S.FilterSelectText>{genre}</S.FilterSelectText>
                   <S.FilterChevron $isOpen={activeDropdown === 'genre'}>
@@ -282,12 +312,12 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                 </S.FilterSelectBox>
 
                 {activeDropdown === 'genre' && (
-                  <S.CustomDropdownMenu onClick={(e) => e.stopPropagation()}>
+                  <S.CustomDropdownMenu onClick={handleStopPropagation}>
                     {GENRE_OPTIONS.map((opt) => (
                       <S.CustomDropdownItem
                         key={opt}
                         $isSelected={genre === opt}
-                        onClick={() => handleDropdownSelect('genre', opt)}
+                        onClick={handleSelectDropdownOption('genre', opt)}
                       >
                         <span>{opt}</span>
                         {genre === opt && <Check size={14} color="#FF535A" />}
@@ -305,11 +335,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                 <S.FilterSelectBox
                   type="button"
                   $isOpen={activeDropdown === 'cinema'}
-                  onClick={() =>
-                    setActiveDropdown(
-                      activeDropdown === 'cinema' ? null : 'cinema',
-                    )
-                  }
+                  onClick={handleToggleDropdown('cinema')}
                 >
                   <S.FilterSelectText>{cinema}</S.FilterSelectText>
                   <S.FilterChevron $isOpen={activeDropdown === 'cinema'}>
@@ -318,12 +344,12 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                 </S.FilterSelectBox>
 
                 {activeDropdown === 'cinema' && (
-                  <S.CustomDropdownMenu onClick={(e) => e.stopPropagation()}>
+                  <S.CustomDropdownMenu onClick={handleStopPropagation}>
                     {CINEMA_OPTIONS.map((opt) => (
                       <S.CustomDropdownItem
                         key={opt}
                         $isSelected={cinema === opt}
-                        onClick={() => handleDropdownSelect('cinema', opt)}
+                        onClick={handleSelectDropdownOption('cinema', opt)}
                       >
                         <span>{opt}</span>
                         {cinema === opt && <Check size={14} color="#FF535A" />}
@@ -341,11 +367,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                 <S.FilterSelectBox
                   type="button"
                   $isOpen={activeDropdown === 'format'}
-                  onClick={() =>
-                    setActiveDropdown(
-                      activeDropdown === 'format' ? null : 'format',
-                    )
-                  }
+                  onClick={handleToggleDropdown('format')}
                 >
                   <S.FilterSelectText>{format}</S.FilterSelectText>
                   <S.FilterChevron $isOpen={activeDropdown === 'format'}>
@@ -354,12 +376,12 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                 </S.FilterSelectBox>
 
                 {activeDropdown === 'format' && (
-                  <S.CustomDropdownMenu onClick={(e) => e.stopPropagation()}>
+                  <S.CustomDropdownMenu onClick={handleStopPropagation}>
                     {FORMAT_OPTIONS.map((opt) => (
                       <S.CustomDropdownItem
                         key={opt}
                         $isSelected={format === opt}
-                        onClick={() => handleDropdownSelect('format', opt)}
+                        onClick={handleSelectDropdownOption('format', opt)}
                       >
                         <span>{opt}</span>
                         {format === opt && <Check size={14} color="#FF535A" />}
@@ -377,9 +399,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                 <S.FilterSelectBox
                   type="button"
                   $isOpen={activeDropdown === 'time'}
-                  onClick={() =>
-                    setActiveDropdown(activeDropdown === 'time' ? null : 'time')
-                  }
+                  onClick={handleToggleDropdown('time')}
                 >
                   <S.FilterSelectText>{timeSlot}</S.FilterSelectText>
                   <S.FilterChevron $isOpen={activeDropdown === 'time'}>
@@ -388,12 +408,12 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                 </S.FilterSelectBox>
 
                 {activeDropdown === 'time' && (
-                  <S.CustomDropdownMenu onClick={(e) => e.stopPropagation()}>
+                  <S.CustomDropdownMenu onClick={handleStopPropagation}>
                     {TIME_OPTIONS.map((opt) => (
                       <S.CustomDropdownItem
                         key={opt}
                         $isSelected={timeSlot === opt}
-                        onClick={() => handleDropdownSelect('timeSlot', opt)}
+                        onClick={handleSelectDropdownOption('timeSlot', opt)}
                       >
                         <span>{opt}</span>
                         {timeSlot === opt && (
@@ -413,9 +433,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                 <S.FilterSelectBox
                   type="button"
                   $isOpen={activeDropdown === 'sort'}
-                  onClick={() =>
-                    setActiveDropdown(activeDropdown === 'sort' ? null : 'sort')
-                  }
+                  onClick={handleToggleDropdown('sort')}
                 >
                   <S.FilterSelectText>{sortBy}</S.FilterSelectText>
                   <S.FilterChevron $isOpen={activeDropdown === 'sort'}>
@@ -424,12 +442,12 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                 </S.FilterSelectBox>
 
                 {activeDropdown === 'sort' && (
-                  <S.CustomDropdownMenu onClick={(e) => e.stopPropagation()}>
+                  <S.CustomDropdownMenu onClick={handleStopPropagation}>
                     {SORT_OPTIONS.map((opt) => (
                       <S.CustomDropdownItem
                         key={opt}
                         $isSelected={sortBy === opt}
-                        onClick={() => handleDropdownSelect('sortBy', opt)}
+                        onClick={handleSelectDropdownOption('sortBy', opt)}
                       >
                         <span>{opt}</span>
                         {sortBy === opt && <Check size={14} color="#FF535A" />}
@@ -441,7 +459,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
             </S.FilterItem>
           </S.FilterItemsContainer>
 
-          <S.ResetButton type="button" onClick={clearAllBadges}>
+          <S.ResetButton type="button" onClick={handleClearAllBadges}>
             <RotateCcw size={14} color="#E7BCBA" />
             <S.ResetText>Đặt lại</S.ResetText>
           </S.ResetButton>
@@ -457,7 +475,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                 <S.ActiveBadgeText>{badge.label}</S.ActiveBadgeText>
                 <S.RemoveBadgeBtn
                   type="button"
-                  onClick={() => removeBadge(badge.id)}
+                  onClick={handleRemoveBadge(badge.id)}
                   title="Xóa bộ lọc"
                 >
                   <X size={12} />
@@ -465,7 +483,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
               </S.ActiveBadgePill>
             ))}
 
-            <S.ClearAllBtn type="button" onClick={clearAllBadges}>
+            <S.ClearAllBtn type="button" onClick={handleClearAllBadges}>
               Xóa tất cả bộ lọc
             </S.ClearAllBtn>
           </S.ActiveBadgesRow>

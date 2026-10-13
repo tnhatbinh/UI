@@ -7,7 +7,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
-import { useBooking } from '@features/booking/context/use-booking';
+import { useBooking } from '@features/booking/context/useBooking';
 import {
   getMovieDetails,
   DAY_OPTIONS,
@@ -76,8 +76,24 @@ export const MovieDetailsPage: FC = () => {
     }
   }, [searchParams, location.hash, location.state]);
 
-  const scrollToBooking = () => {
+  const handleScrollToBooking = () => {
     showtimesRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleNavigateBack = () => {
+    navigate('/kham-pha');
+  };
+
+  const handleOpenTrailer = () => {
+    setIsTrailerOpen(true);
+  };
+
+  const handleCloseTrailer = () => {
+    setIsTrailerOpen(false);
+  };
+
+  const handleToggleBookmark = () => {
+    setIsBookmarked((prev) => !prev);
   };
 
   const handleSelectSlot = (
@@ -134,7 +150,7 @@ export const MovieDetailsPage: FC = () => {
       <S.InnerWrapper>
         {/* 1. Breadcrumbs */}
         <S.BreadcrumbNav>
-          <div className="back-btn" onClick={() => navigate('/kham-pha')}>
+          <div className="back-btn" onClick={handleNavigateBack}>
             <ChevronLeft size={16} />
             <span>Khám phá phim</span>
           </div>
@@ -147,10 +163,10 @@ export const MovieDetailsPage: FC = () => {
         {/* 2. Hero Section */}
         <MovieHero
           movie={movie}
-          onOpenTrailer={() => setIsTrailerOpen(true)}
-          onBookNow={scrollToBooking}
+          onOpenTrailer={handleOpenTrailer}
+          onBookNow={handleScrollToBooking}
           isBookmarked={isBookmarked}
-          onToggleBookmark={() => setIsBookmarked(!isBookmarked)}
+          onToggleBookmark={handleToggleBookmark}
         />
 
         {/* 3. Details Block (Synopsis + Critical Acclaim) */}
@@ -183,7 +199,7 @@ export const MovieDetailsPage: FC = () => {
       {/* 6. Trailer Modal */}
       <TrailerModal
         isOpen={isTrailerOpen}
-        onClose={() => setIsTrailerOpen(false)}
+        onClose={handleCloseTrailer}
         trailerUrl={movie.trailerUrl}
         title={movie.title}
       />

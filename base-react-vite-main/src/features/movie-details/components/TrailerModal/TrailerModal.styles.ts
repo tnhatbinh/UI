@@ -5,16 +5,22 @@ export const TrailerModal = styled.div`
   inset: 0;
   background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(10px);
-  z-index: 100;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
 
+  @media (max-width: 480px) {
+    align-items: flex-start;
+    padding: max(16px, env(safe-area-inset-top)) 12px 16px;
+  }
+
   .modal-content {
     position: relative;
     width: 100%;
     max-width: 900px;
+    max-height: calc(100dvh - 40px);
     aspect-ratio: 16 / 9;
     background: #000;
     border-radius: 16px;
@@ -47,6 +53,17 @@ export const TrailerModal = styled.div`
 
       &:hover {
         background: #ff535a;
+      }
+    }
+
+    @media (max-width: 480px) {
+      border-radius: 12px;
+
+      .close-btn {
+        top: 8px;
+        right: 8px;
+        width: 34px;
+        height: 34px;
       }
     }
   }

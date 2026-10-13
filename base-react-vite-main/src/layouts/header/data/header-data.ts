@@ -48,7 +48,7 @@ export interface NotificationItem {
   title: string;
   desc: string;
   time: string;
-  unread: boolean;
+  isUnread: boolean;
   link: string;
 }
 
@@ -60,7 +60,7 @@ export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
     title: 'Suất chiếu sắp diễn ra',
     desc: 'Vé xem phim Dune: Part Two sẽ bắt đầu lúc 19:30 tối nay tại IMAX Landmark 81.',
     time: '15 phút trước',
-    unread: true,
+    isUnread: true,
     link: '/ve-cua-toi',
   },
   {
@@ -70,7 +70,7 @@ export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
     title: 'Voucher ưu đãi VIP',
     desc: 'Tặng voucher giảm 50% Combo Bắp Nước CineLounge VIP cho hội viên Diamond.',
     time: '1 giờ trước',
-    unread: true,
+    isUnread: true,
     link: '/uu-dai',
   },
   {
@@ -80,7 +80,7 @@ export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
     title: 'Mở bán suất chiếu sớm',
     desc: 'Deadpool & Wolverine đã mở bán vé suất chiếu sớm Midnight Sneak-show.',
     time: 'Hôm qua',
-    unread: false,
+    isUnread: false,
     link: '/phim/5?booking=true',
   },
   {
@@ -90,7 +90,7 @@ export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
     title: 'Cộng điểm PhimPoints',
     desc: '+150 PhimPoints đã được tích lũy vào tài khoản hội viên VIP của bạn.',
     time: '2 ngày trước',
-    unread: false,
+    isUnread: false,
     link: '/profile/vip-elite',
   },
 ];

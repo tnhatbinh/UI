@@ -1,7 +1,12 @@
 import styled from 'styled-components';
+import { Container } from '@/shared/components/layout';
+import { media } from '@/styles/breakpoints';
 
 export const PageContainer = styled.div`
   min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   background: #0d0c0f;
   background-image:
     radial-gradient(
@@ -14,20 +19,18 @@ export const PageContainer = styled.div`
       rgba(255, 185, 85, 0.05) 0%,
       transparent 50%
     );
-  padding-top: 100px;
+  padding-top: var(--page-top-offset, calc(var(--header-public-height, 80px) + 20px));
   padding-bottom: 120px;
   color: #e5e2e3;
   font-family: 'Be Vietnam Pro', sans-serif;
+
+  @media ${media.md} {
+    padding-bottom: 100px;
+  }
 `;
 
-export const InnerWrapper = styled.div`
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 24px;
-
-  @media (max-width: 768px) {
-    padding: 0 16px;
-  }
+export const InnerWrapper = styled(Container)`
+  /* Inherits 1280px max-width, auto margins, and responsive gutters */
 `;
 
 export const BreadcrumbNav = styled.div`
@@ -37,6 +40,7 @@ export const BreadcrumbNav = styled.div`
   font-size: 13px;
   color: #ae8786;
   margin-bottom: 28px;
+  min-width: 0;
 
   .back-btn {
     display: flex;
@@ -59,5 +63,18 @@ export const BreadcrumbNav = styled.div`
   .current {
     color: #ffffff;
     font-weight: 600;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+    gap: 6px;
+
+    .back-btn span {
+      display: none;
+    }
   }
 `;

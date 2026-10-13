@@ -6,6 +6,14 @@ import * as S from './VoucherVault.styles';
 export function VoucherVault() {
   const navigate = useNavigate();
 
+  const handleNavigateTickets = () => {
+    navigate('/ve-cua-toi');
+  };
+
+  const handleUseVoucher = () => {
+    navigate('/movie-details');
+  };
+
   return (
     <S.SectionCard>
       <div className="card-title-bar">
@@ -15,12 +23,12 @@ export function VoucherVault() {
           </div>
           <div>
             <h3>Ví Voucher Của Bạn</h3>
-            <span style={{ fontSize: '11px', color: '#ae8786' }}>
+            <span className="sub-desc">
               3 ưu đãi sẵn sàng áp dụng khi thanh toán
             </span>
           </div>
         </div>
-        <span className="link-all" onClick={() => navigate('/ve-cua-toi')}>
+        <span className="link-all" onClick={handleNavigateTickets}>
           Xem tất cả (5)
         </span>
       </div>
@@ -28,24 +36,24 @@ export function VoucherVault() {
       {VOUCHERS.map((voucher) => (
         <S.VoucherMiniCard key={voucher.id}>
           <div className="left">
-            <div className="discount-box" style={voucher.discountBoxStyle}>
+            <div className={`discount-box ${voucher.id}`}>
               {voucher.discountLabel}
             </div>
             <div className="info">
               <span className="title">{voucher.title}</span>
               <span className="desc">{voucher.desc}</span>
-              <span className="hsd" style={voucher.hsdStyle}>
+              <span className={`hsd ${voucher.id === 'v2' ? 'urgent' : ''}`}>
                 {voucher.hsd}
               </span>
             </div>
           </div>
           <div className="right">
-            <span className="badge" style={voucher.badgeStyle}>
+            <span className={`badge ${voucher.id === 'v2' ? 'urgent' : ''}`}>
               {voucher.badge}
             </span>
             <span
               className="use-link"
-              onClick={() => navigate('/movie-details')}
+              onClick={handleUseVoucher}
             >
               <span>Dùng ngay</span>
               <ChevronRight size={12} />

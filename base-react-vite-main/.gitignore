@@ -25,4 +25,5 @@ dist-ssr
 # Biến môi trường bảo mật
 .env
 .env.*
+!.env.example
 *.zip

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from '@/styles/breakpoints';
 
 // ─── CTA Wrapper ──────────────────────────────────────────────────────────────
 
@@ -8,11 +9,13 @@ export const ActionCtas = styled.div`
   align-items: center;
   gap: 14px;
   width: 100%;
+  max-width: 100%;
   height: auto;
   padding-top: 4px;
 
-  @media (max-width: 640px) {
+  @media ${media.sm} {
     gap: 8px;
+    padding-top: 2px;
   }
 `;
 
@@ -24,10 +27,10 @@ export const BookButton = styled.button`
   align-items: center;
   justify-content: center;
   gap: 10px;
-  width: 320px;
+  width: 270px;
   max-width: 100%;
-  height: 48px;
-  padding: 12px 28px;
+  height: 44px;
+  padding: 10px 22px;
   background-image: linear-gradient(
     to right,
     var(--primary),
@@ -43,13 +46,14 @@ export const BookButton = styled.button`
     opacity: 0.9;
   }
 
-  @media (max-width: 640px) {
-    flex: 1;
+  @media ${media.sm} {
+    flex: 1 1 auto;
     min-width: 0;
     width: auto;
-    padding: 8px 10px;
-    height: 46px;
+    padding: 8px 12px;
+    height: 40px;
     gap: 6px;
+    box-shadow: 0px 0px 18px rgba(255, 83, 90, 0.4);
   }
 `;
 
@@ -62,21 +66,29 @@ export const BookButtonText = styled.span`
   font-family: 'Be Vietnam Pro', sans-serif;
   white-space: nowrap;
 
-  @media (max-width: 480px) {
-    font-size: 11px;
-    letter-spacing: 0;
-    white-space: normal;
-    line-height: 1.2;
-    text-align: center;
+  .btn-short {
+    display: none;
+  }
+
+  @media ${media.sm} {
+    font-size: 12px;
+    letter-spacing: 0.2px;
+
+    .btn-full {
+      display: none;
+    }
+    .btn-short {
+      display: inline;
+    }
   }
 
   @media (max-width: 380px) {
-    font-size: 10.5px;
-    line-height: 1.15;
+    font-size: 11px;
+    letter-spacing: 0;
   }
 `;
 
-// ─── Trailer Button ───────────────────────────────────────────────────────────
+// ─── Trailer Button (Cinema Noir Luxury Frosted Glass - Pill Shape) ───────────
 
 export const TrailerButton = styled.button`
   display: flex;
@@ -84,30 +96,46 @@ export const TrailerButton = styled.button`
   align-items: center;
   justify-content: center;
   gap: 10px;
-  width: 180px;
-  height: 48px;
-  padding: 12px 20px;
-  background-color: rgba(42, 42, 43, 0.7);
-  backdrop-filter: blur(12px);
-  border-radius: 12px;
-  border: none;
+  width: auto;
+  min-width: 164px;
+  height: 44px;
+  padding: 8px 20px 8px 10px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    background-color: rgba(42, 42, 43, 0.9);
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.5),
+      0 0 16px rgba(255, 83, 90, 0.25);
   }
 
-  @media (max-width: 640px) {
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  @media ${media.sm} {
     flex-shrink: 0;
     width: auto;
-    padding: 8px 12px;
-    height: 46px;
-    gap: 6px;
+    min-width: unset;
+    padding: 6px 16px 6px 8px;
+    height: 40px;
+    gap: 8px;
+    border-radius: 9999px;
   }
 
   @media (max-width: 380px) {
-    padding: 8px 8px;
+    padding: 6px 12px 6px 6px;
+    gap: 6px;
   }
 `;
 
@@ -117,26 +145,57 @@ export const PlayIconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 9999px;
-  background-color: rgba(255, 83, 90, 0.2);
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 83, 90, 0.35) 0%,
+    rgba(224, 30, 53, 0.2) 100%
+  );
+  border: 1.5px solid rgba(255, 83, 90, 0.65);
+  box-shadow: 0 0 10px rgba(255, 83, 90, 0.3);
+  transition: all 0.25s ease;
+  flex-shrink: 0;
 
-  @media (max-width: 480px) {
-    width: 22px;
-    height: 22px;
+  ${TrailerButton}:hover & {
+    transform: scale(1.08);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 83, 90, 0.5) 0%,
+      rgba(224, 30, 53, 0.35) 100%
+    );
+    border-color: rgba(255, 83, 90, 0.9);
+    box-shadow: 0 0 14px rgba(255, 83, 90, 0.55);
+  }
+
+  @media ${media.sm} {
+    width: 24px;
+    height: 24px;
   }
 `;
 
 export const TrailerButtonText = styled.span`
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--primary-text);
-  letter-spacing: 0.28px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.4px;
   font-family: 'Be Vietnam Pro', sans-serif;
   white-space: nowrap;
+  line-height: 1;
 
-  @media (max-width: 480px) {
-    font-size: 11.5px;
-    letter-spacing: 0;
+  .btn-short {
+    display: none;
+  }
+
+  @media ${media.sm} {
+    font-size: 12px;
+    letter-spacing: 0.1px;
+
+    .btn-full {
+      display: none;
+    }
+    .btn-short {
+      display: inline;
+    }
   }
 
   @media (max-width: 380px) {

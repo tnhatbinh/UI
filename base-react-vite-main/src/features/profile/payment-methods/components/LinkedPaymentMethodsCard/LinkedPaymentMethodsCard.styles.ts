@@ -231,6 +231,16 @@ export const WalletItemCard = styled.div`
         font-size: 11px;
         font-weight: 900;
         flex-shrink: 0;
+
+        &.momo {
+          background: #a50064;
+        }
+        &.zalopay {
+          background: #0068ff;
+        }
+        &.vcb {
+          background: #005a3c;
+        }
       }
 
       .text {
@@ -256,6 +266,16 @@ export const WalletItemCard = styled.div`
             background: rgba(255, 83, 90, 0.12);
             padding: 1px 6px;
             border-radius: 3px;
+
+            &.gold {
+              color: #ffb955;
+              background: rgba(255, 185, 85, 0.12);
+            }
+
+            &.neutral {
+              color: #ae8786;
+              background: rgba(255, 255, 255, 0.08);
+            }
           }
         }
 

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from '@/styles/breakpoints';
 
 // ─── Section Root ─────────────────────────────────────────────────────────────
 
@@ -8,8 +9,15 @@ export const SectionContainer = styled.section`
   background-color: var(--bg-primary);
   z-index: 10;
   overflow: visible;
-  padding-top: 104px;
+  padding-top: 0;
   padding-bottom: 40px;
+
+  @media ${media.md} {
+    padding-top: 0;
+    padding-bottom: 24px;
+    padding-left: 0;
+    padding-right: 0;
+  }
 `;
 
 export const BackgroundWrapper = styled.div`
@@ -21,22 +29,30 @@ export const BackgroundWrapper = styled.div`
 
 export const ImageContainer = styled.div`
   position: relative;
-  width: calc(100% - 32px);
-  max-width: 1232px;
-  height: 600px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+  height: 580px;
+  margin: 0;
   border-radius: 0;
   isolation: isolate;
   overflow: hidden;
 
-  @media (max-width: 1024px) {
+  @media ${media.xl} {
+    height: 550px;
+  }
+
+  @media ${media.lg} {
     height: 500px;
   }
 
-  @media (max-width: 640px) {
-    height: 650px;
+  @media ${media.md} {
+    height: 480px;
     border-radius: 0;
     width: 100%;
+  }
+
+  @media (max-width: 380px) {
+    height: 460px;
   }
 `;
 
@@ -63,10 +79,12 @@ export const SliderArrowButton = styled.button<{ $direction: 'prev' | 'next' }>`
   position: absolute;
   top: 45%;
   ${({ $direction }) =>
-    $direction === 'prev' ? 'left: 32px;' : 'right: 32px;'}
+    $direction === 'prev'
+      ? 'left: max(24px, calc((100% - var(--content-max-width, 1280px)) / 2 - 56px));'
+      : 'right: max(24px, calc((100% - var(--content-max-width, 1280px)) / 2 - 56px));'}
   transform: translateY(-50%);
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: rgba(14, 14, 15, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -93,14 +111,7 @@ export const SliderArrowButton = styled.button<{ $direction: 'prev' | 'next' }>`
     transform: translateY(-50%) scale(0.95);
   }
 
-  @media (max-width: 1024px) {
-    width: 44px;
-    height: 44px;
-    ${({ $direction }) =>
-      $direction === 'prev' ? 'left: 16px;' : 'right: 16px;'}
-  }
-
-  @media (max-width: 640px) {
+  @media ${media.lg} {
     display: none;
   }
 `;
@@ -108,39 +119,47 @@ export const SliderArrowButton = styled.button<{ $direction: 'prev' | 'next' }>`
 // ─── Quick Booking Bar ────────────────────────────────────────────────────────
 
 export const QuickBookingBar = styled.div`
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 100px;
+  position: relative;
+  margin: -42px auto 0;
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 0 16px;
-  width: 1232px;
-  max-width: calc(100% - 32px);
-  height: 92px;
-  background-color: rgba(28, 27, 28, 0.9);
+  width: 100%;
+  max-width: calc(var(--content-max-width, 1280px) - (var(--page-gutter, 24px) * 2));
+  height: 84px;
+  background-color: rgba(28, 27, 28, 0.95);
   backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   box-shadow: 0px 24px 60px -12px rgba(0, 0, 0, 0.9);
   gap: 12px;
-  z-index: 100;
+  z-index: 20;
 
-  @media (max-width: 1024px) {
+  @media ${media.lg} {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     height: auto;
     padding: 16px;
-    bottom: 20px;
+    margin: 20px auto 0;
+    width: 100%;
+    max-width: calc(100% - (var(--page-gutter-compact, 16px) * 2));
     gap: 10px;
   }
 
-  @media (max-width: 640px) {
+  @media ${media.md} {
+    margin: 16px auto 0;
+    width: 100%;
+    max-width: calc(100% - (var(--page-gutter-compact, 16px) * 2));
     grid-template-columns: 1fr;
-    bottom: 16px;
-    padding: 10px;
+    padding: 12px;
     gap: 8px;
     border-radius: 14px;
+  }
+
+  @media ${media.sm} {
+    margin: 16px auto 0;
+    width: 100%;
     max-width: calc(100% - 24px);
   }
 `;
@@ -153,11 +172,11 @@ export const StepItem = styled.div<{ $isOpen?: boolean }>`
   flex-direction: row;
   align-items: center;
   gap: 12px;
-  padding: 10px 16px;
+  padding: 8px 14px;
   flex: 1;
   min-width: 0;
   width: 100%;
-  height: 60px;
+  height: 54px;
   background-color: ${({ $isOpen }) =>
     $isOpen ? 'rgba(42, 42, 43, 0.75)' : 'rgba(42, 42, 43, 0.4)'};
   border: 1px solid
@@ -167,7 +186,7 @@ export const StepItem = styled.div<{ $isOpen?: boolean }>`
   transition: all 0.25s ease;
   user-select: none;
 
-  @media (max-width: 640px) {
+  @media ${media.sm} {
     height: 52px;
     padding: 6px 12px;
     gap: 10px;
@@ -179,69 +198,26 @@ export const StepItem = styled.div<{ $isOpen?: boolean }>`
   }
 `;
 
-export const IconBox1 = styled.div`
-  width: 40px;
-  height: 40px;
+export const StepIconBox = styled.div<{ $bg?: string }>`
+  width: 36px;
+  height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 83, 90, 0.15);
+  background-color: ${({ $bg }) => $bg || 'rgba(255, 83, 90, 0.15)'};
   border-radius: 8px;
 
-  @media (max-width: 640px) {
+  @media ${media.sm} {
     width: 34px;
     height: 34px;
     border-radius: 7px;
   }
 `;
 
-export const IconBox2 = styled.div`
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(255, 185, 85, 0.15);
-  border-radius: 8px;
-
-  @media (max-width: 640px) {
-    width: 34px;
-    height: 34px;
-    border-radius: 7px;
-  }
-`;
-
-export const IconBox3 = styled.div`
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(140, 144, 164, 0.2);
-  border-radius: 8px;
-
-  @media (max-width: 640px) {
-    width: 34px;
-    height: 34px;
-    border-radius: 7px;
-  }
-`;
-
-export const IconBox4 = styled.div`
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--bg-border-light);
-  border-radius: 8px;
-
-  @media (max-width: 640px) {
-    width: 34px;
-    height: 34px;
-    border-radius: 7px;
-  }
-`;
+export const IconBox1 = StepIconBox;
+export const IconBox2 = StepIconBox;
+export const IconBox3 = StepIconBox;
+export const IconBox4 = StepIconBox;
 
 export const StepContent = styled.div`
   display: flex;
@@ -250,7 +226,7 @@ export const StepContent = styled.div`
   flex: 1;
   min-width: 0;
 
-  @media (max-width: 640px) {
+  @media ${media.sm} {
     height: 34px;
     justify-content: center;
   }
@@ -264,7 +240,7 @@ export const StepLabel = styled.span`
   text-transform: uppercase;
   font-family: 'Be Vietnam Pro', sans-serif;
 
-  @media (max-width: 640px) {
+  @media ${media.sm} {
     font-size: 10px;
     letter-spacing: 0.5px;
   }
@@ -277,36 +253,15 @@ export const StepValueRow = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 20px;
+  gap: 8px;
 `;
 
-export const StepValue1 = styled.span`
+export const StepValue = styled.span<{ $color?: string }>`
+  flex: 1;
+  min-width: 0;
   font-size: 14px;
   font-weight: 600;
-  color: var(--primary-text);
-  letter-spacing: 0.28px;
-  font-family: 'Be Vietnam Pro', sans-serif;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
-`;
-
-export const StepValue2 = styled.span`
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--primary-text);
-  letter-spacing: 0.28px;
-  font-family: 'Be Vietnam Pro', sans-serif;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
-`;
-
-export const StepValue3 = styled.span`
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--primary-text);
+  color: ${({ $color }) => $color || 'var(--primary-text)'};
   letter-spacing: 0.28px;
   font-family: 'Be Vietnam Pro', sans-serif;
   white-space: nowrap;
@@ -314,31 +269,28 @@ export const StepValue3 = styled.span`
   text-overflow: ellipsis;
 `;
 
-export const StepValue4 = styled.span`
-  font-size: 14px;
-  font-weight: 600;
+export const StepValue1 = StepValue;
+export const StepValue2 = StepValue;
+export const StepValue3 = StepValue;
+export const StepValue4 = styled(StepValue)`
   color: var(--secondary);
-  letter-spacing: 0.28px;
-  font-family: 'Be Vietnam Pro', sans-serif;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
 
 export const DropdownChevron = styled.div<{ $isOpen?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   transition: transform 0.25s ease;
   transform: ${({ $isOpen }) => ($isOpen ? 'rotate(180deg)' : 'rotate(0deg)')};
 `;
 
 // ─── Booking Dropdown ─────────────────────────────────────────────────────────
 
-export const BookingDropdown = styled.div`
+export const BookingDropdown = styled.div<{ $alignRight?: boolean }>`
   position: absolute;
-  bottom: calc(100% + 12px);
-  left: 0;
+  top: calc(100% + 8px);
+  ${({ $alignRight }) => ($alignRight ? 'right: 0;' : 'left: 0;')}
   min-width: 100%;
   width: max-content;
   max-width: 320px;
@@ -351,16 +303,16 @@ export const BookingDropdown = styled.div`
   border-radius: 14px;
   box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.9);
   padding: 6px;
-  z-index: 100;
+  z-index: 40;
   display: flex;
   flex-direction: column;
   gap: 3px;
-  animation: slideUpFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideDownFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 
-  @keyframes slideUpFade {
+  @keyframes slideDownFade {
     from {
       opacity: 0;
-      transform: translateY(8px);
+      transform: translateY(-8px);
     }
     to {
       opacity: 1;
@@ -368,11 +320,14 @@ export const BookingDropdown = styled.div`
     }
   }
 
-  @media (max-width: 640px) {
+  @media ${media.md} {
+    left: 0;
+    right: 0;
     width: 100%;
     max-width: 100%;
     max-height: 220px;
-    bottom: calc(100% + 8px);
+    z-index: 40;
+    box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.95);
   }
 
   &::-webkit-scrollbar {
@@ -407,6 +362,10 @@ export const BookingDropdownItem = styled.div<{ $isSelected?: boolean }>`
     font-weight: ${({ $isSelected }) => ($isSelected ? 700 : 500)};
     color: ${({ $isSelected }) => ($isSelected ? '#FFFFFF' : '#E7BCBA')};
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
   }
 
   .check-icon {
@@ -423,7 +382,7 @@ export const QuickBookSubmitButton = styled.button`
   height: 60px;
   padding: 0 24px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #ff535a 0%, #ff2a42 100%);
+  background: linear-gradient(135deg, #ff535a 0%, #e01e35 100%);
   color: #ffffff;
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: 14px;
@@ -433,7 +392,7 @@ export const QuickBookSubmitButton = styled.button`
   cursor: pointer;
   border: none;
   flex-shrink: 0;
-  box-shadow: 0 4px 16px rgba(255, 42, 66, 0.4);
+  box-shadow: 0 4px 16px rgba(255, 83, 90, 0.4);
   transition: all 0.25s ease;
   user-select: none;
 
@@ -447,12 +406,12 @@ export const QuickBookSubmitButton = styled.button`
     transform: translateY(0);
   }
 
-  @media (max-width: 1024px) {
+  @media ${media.lg} {
     grid-column: span 2;
     height: 52px;
   }
 
-  @media (max-width: 640px) {
+  @media ${media.md} {
     grid-column: span 1;
     height: 48px;
     font-size: 13px;

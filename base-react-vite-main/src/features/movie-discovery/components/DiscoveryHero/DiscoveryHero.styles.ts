@@ -1,20 +1,25 @@
 import styled from 'styled-components';
+import { media } from '@/styles/breakpoints';
 
 export const SectionContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 24px;
+  padding: 40px var(--page-gutter, 24px);
   width: 100%;
-  max-width: 1680px;
+  max-width: var(--content-max-width, 1280px);
   margin: 0 auto;
   min-height: 418px;
   z-index: 2;
   position: relative;
 
-  @media (max-width: 1280px) {
-    padding: 32px 16px;
+  @media ${media.md} {
+    padding: 32px var(--page-gutter-compact, 16px);
     height: auto;
+  }
+
+  @media ${media.xs} {
+    padding: 24px 12px;
   }
 `;
 
@@ -26,7 +31,6 @@ export const MainCard = styled.div`
   gap: 24px;
   isolation: isolate;
   width: 100%;
-  max-width: 1232px;
   min-height: 338px;
   background: #1c1b1c;
   box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
@@ -34,13 +38,13 @@ export const MainCard = styled.div`
   position: relative;
   overflow: hidden;
 
-  @media (max-width: 1024px) {
+  @media ${media.lg} {
     padding: 24px;
     gap: 20px;
     height: auto;
   }
 
-  @media (max-width: 640px) {
+  @media ${media.sm} {
     padding: 20px 16px;
   }
 `;
@@ -67,12 +71,13 @@ export const HeaderRow = styled.div`
   justify-content: space-between;
   align-items: flex-end;
   padding: 0px;
-  gap: 54.39px;
+  gap: 48px;
   width: 100%;
   min-height: 132px;
   z-index: 1;
+  min-width: 0;
 
-  @media (max-width: 1024px) {
+  @media ${media.lg} {
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
@@ -88,8 +93,9 @@ export const TitleContainer = styled.div`
   gap: 4px;
   width: 100%;
   max-width: 672px;
+  min-width: 0;
 
-  @media (max-width: 1024px) {
+  @media ${media.lg} {
     max-width: 100%;
   }
 `;
@@ -136,17 +142,17 @@ export const HeadingTitle = styled.h1`
   font-weight: 800;
   font-size: 40px;
   line-height: 48px;
-  display: flex;
-  align-items: center;
+  display: block;
   letter-spacing: -1px;
   color: #e5e2e3;
+  overflow-wrap: anywhere;
 
-  @media (max-width: 768px) {
+  @media ${media.md} {
     font-size: 32px;
     line-height: 40px;
   }
 
-  @media (max-width: 480px) {
+  @media ${media.xs} {
     font-size: 26px;
     line-height: 34px;
   }
@@ -163,8 +169,9 @@ export const SubtitleText = styled.p`
   align-items: center;
   color: #e7bcba;
   max-width: 664px;
+  overflow-wrap: anywhere;
 
-  @media (max-width: 768px) {
+  @media ${media.md} {
     font-size: 14px;
     line-height: 22px;
   }
@@ -176,7 +183,8 @@ export const MetricSparklineCard = styled.div`
   align-items: center;
   padding: 16px;
   gap: 24px;
-  width: 425.61px;
+  width: 420px;
+  max-width: 100%;
   height: 74px;
   background: rgba(32, 31, 32, 0.8);
   box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.05);
@@ -184,10 +192,13 @@ export const MetricSparklineCard = styled.div`
   -webkit-backdrop-filter: blur(6px);
   border-radius: 12px;
   flex-shrink: 0;
+  overflow: hidden;
 
-  @media (max-width: 640px) {
+  @media ${media.sm} {
     width: 100%;
-    gap: 16px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px 16px;
     justify-content: space-between;
     height: auto;
     padding: 12px;
@@ -199,7 +210,8 @@ export const MetricColLeft = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 0px;
-  min-width: 136px;
+  min-width: 0;
+  max-width: 100%;
 `;
 
 export const MetricNumberGold = styled.span`
@@ -221,6 +233,8 @@ export const MetricLabel = styled.span`
   text-transform: uppercase;
   color: #e7bcba;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const SparklineBars = styled.div`
@@ -232,6 +246,10 @@ export const SparklineBars = styled.div`
   width: 96px;
   height: 40px;
   flex-shrink: 0;
+
+  @media ${media.sm} {
+    display: none;
+  }
 `;
 
 export const SparkBar = styled.div`
@@ -247,7 +265,14 @@ export const MetricColRight = styled.div`
   flex-direction: column;
   align-items: flex-end;
   padding: 0px;
-  min-width: 113px;
+  min-width: 0;
+  max-width: 100%;
+
+  @media ${media.sm} {
+    grid-column: 2;
+    grid-row: 1;
+    max-width: 42vw;
+  }
 `;
 
 export const MetricNumberPink = styled.span`
@@ -258,6 +283,9 @@ export const MetricNumberPink = styled.span`
   line-height: 26px;
   color: #ffb3b0;
   text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const SearchAndTagsSection = styled.div`
@@ -286,7 +314,7 @@ export const SearchBarWrapper = styled.div`
   position: relative;
   gap: 8px;
 
-  @media (max-width: 640px) {
+  @media ${media.sm} {
     flex-direction: column;
     padding: 12px;
     height: auto;
@@ -301,13 +329,14 @@ export const SearchIconContainer = styled.div`
   color: #ffb955;
   flex-shrink: 0;
 
-  @media (max-width: 640px) {
+  @media ${media.sm} {
     display: none;
   }
 `;
 
 export const SearchInput = styled.input`
   flex: 1;
+  min-width: 0;
   height: 42px;
   background: transparent;
   border: none;
@@ -324,7 +353,7 @@ export const SearchInput = styled.input`
     color: #ae8786;
   }
 
-  @media (max-width: 640px) {
+  @media ${media.sm} {
     width: 100%;
     font-size: 14px;
     padding: 0;
@@ -360,7 +389,7 @@ export const SearchButton = styled.button`
     transform: translateY(0);
   }
 
-  @media (max-width: 640px) {
+  @media ${media.sm} {
     width: 100%;
   }
 `;
@@ -433,4 +462,6 @@ export const TagPillText = styled.span`
   color: #e7bcba;
 `;
 
-export const SearchForm = styled.form``;
+export const SearchForm = styled.form`
+  width: 100%;
+`;

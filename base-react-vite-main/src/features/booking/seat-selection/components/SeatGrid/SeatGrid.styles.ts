@@ -2,9 +2,12 @@ import styled from 'styled-components';
 
 export const SeatMapGrid = styled.div`
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   padding: 10px 0 16px;
+  scrollbar-gutter: stable both-edges;
 
   &::-webkit-scrollbar {
     height: 4px;
@@ -20,6 +23,8 @@ export const SeatMapInner = styled.div`
   flex-direction: column;
   gap: 10px;
   align-items: center;
+  /* A cinema map must preserve a usable seat target; it scrolls locally on
+     small screens instead of forcing the whole document to overflow. */
   min-width: max-content;
   margin: 0 auto;
   padding: 0 16px;

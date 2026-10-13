@@ -7,9 +7,26 @@ export const LeftPanel = styled.div`
   flex-direction: column;
   justify-content: space-between;
   min-height: 720px;
-  background-image: url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=1200&auto=format&fit=crop');
-  background-size: cover;
-  background-position: center;
+  background-color: #0d0c0f;
+  background-image:
+    radial-gradient(
+      ellipse 90% 60% at 50% 0%,
+      rgba(255, 83, 90, 0.28) 0%,
+      transparent 75%
+    ),
+    radial-gradient(
+      ellipse 70% 50% at 80% 90%,
+      rgba(255, 185, 85, 0.16) 0%,
+      transparent 70%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 83, 90, 0.03) 0px,
+      rgba(255, 83, 90, 0.03) 24px,
+      rgba(0, 0, 0, 0.15) 24px,
+      rgba(0, 0, 0, 0.15) 48px
+    ),
+    linear-gradient(180deg, #181114 0%, #100f12 50%, #0a090b 100%);
   border-right: 1px solid rgba(255, 255, 255, 0.06);
 
   /* Dual dark overlay for readability */
@@ -19,9 +36,9 @@ export const LeftPanel = styled.div`
     inset: 0;
     background: linear-gradient(
       180deg,
-      rgba(14, 14, 15, 0.92) 0%,
-      rgba(14, 14, 15, 0.65) 45%,
-      rgba(14, 14, 15, 0.96) 100%
+      rgba(14, 14, 15, 0.75) 0%,
+      rgba(14, 14, 15, 0.45) 45%,
+      rgba(14, 14, 15, 0.9) 100%
     );
     z-index: 1;
   }
@@ -236,6 +253,16 @@ export const SocialProofGroup = styled.div`
 
       &:first-child {
         margin-left: 0;
+      }
+
+      &:nth-child(1) {
+        background: #ff535a;
+      }
+      &:nth-child(2) {
+        background: #ffb955;
+      }
+      &:nth-child(3) {
+        background: #c2c5db;
       }
     }
   }

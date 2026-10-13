@@ -1,9 +1,10 @@
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Clock, Lock } from 'lucide-react';
-import { useBooking } from '../context/use-booking';
-import { useBookingTimer } from '../hooks/use-booking-timer';
+import { message } from 'antd';
+import { useBooking } from '../context/useBooking';
+import { useBookingTimer } from '../hooks/useBookingTimer';
 import { RecipientForm } from './components/RecipientForm/RecipientForm';
 import { PaymentMethods } from './components/PaymentMethods/PaymentMethods';
 import { OrderSummary } from './components/OrderSummary/OrderSummary';
@@ -12,6 +13,14 @@ import * as S from './CheckoutPage.styles';
 export const CheckoutPage: FC = () => {
   const navigate = useNavigate();
   const { state, applyVoucher, calculateGrandTotal } = useBooking();
+
+  // Guard: Redirect if no seats are selected
+  useEffect(() => {
+    if (state.selectedSeats.length === 0) {
+      navigate('/booking/seat-selection', { replace: true });
+    }
+  }, [state.selectedSeats.length, navigate]);
+
   const { formattedTime } = useBookingTimer(433); // 07:13
 
   const [voucherCode, setVoucherCode] = useState('');
@@ -40,6 +49,10 @@ export const CheckoutPage: FC = () => {
 
   const handleCompleteOrder = () => {
     if (!isAgreed) return;
+    if (!state.recipient.name.trim() || !state.recipient.phone.trim()) {
+      message.warning('Vui lòng điền đầy đủ Họ tên và Số điện thoại nhận vé!');
+      return;
+    }
     setIsProcessing(true);
 
     setTimeout(() => {
@@ -55,11 +68,17 @@ export const CheckoutPage: FC = () => {
         showtime: state.session.time,
         date: state.session.date,
         format: state.session.format,
-        seats: seatNames || 'H8, H9',
-        seatsType: 'VIP Prime Center',
-        combo: '1x Combo Độc Quyền: Dune Sandworm Bucket & 02 Pepsi Zero 32oz',
-        totalAmount:
-          grandTotal + (state.selectedSnacks.length === 0 ? 189000 : 0),
+        seats: seatNames || 'Ghế tiêu chuẩn',
+        seatsType: state.selectedSeats.some((s) => s.type === 'vip')
+          ? 'VIP Prime Center'
+          : state.selectedSeats.some((s) => s.type === 'sweetbox')
+            ? 'Sweetbox Couple'
+            : 'Tiêu Chuẩn (Standard)',
+        combo:
+          state.selectedSnacks.length > 0
+            ? state.selectedSnacks.map((s) => `${s.quantity}x ${s.name}`).join(', ')
+            : 'Không kèm bắp nước',
+        totalAmount: grandTotal,
         qrCodeValue: 'PBK - 8849204',
       };
 
@@ -77,6 +96,18 @@ export const CheckoutPage: FC = () => {
     }, 1200);
   };
 
+  const handleNavigateToMovieDetails = () => {
+    navigate('/movie-details');
+  };
+
+  const handleNavigateToSeatSelection = () => {
+    navigate('/booking/seat-selection');
+  };
+
+  const handleNavigateToSnacks = () => {
+    navigate('/booking/snacks-services');
+  };
+
   return (
     <S.PageContainer>
       <S.InnerWrapper>
@@ -85,7 +116,7 @@ export const CheckoutPage: FC = () => {
           <S.StepperRow>
             <div
               className="step-item completed"
-              onClick={() => navigate('/movie-details')}
+              onClick={handleNavigateToMovieDetails}
             >
               <div className="step-num">✓</div>
               <span>1. Suất Chiếu</span>
@@ -94,7 +125,7 @@ export const CheckoutPage: FC = () => {
 
             <div
               className="step-item completed"
-              onClick={() => navigate('/booking/seat-selection')}
+              onClick={handleNavigateToSeatSelection}
             >
               <div className="step-num">✓</div>
               <span>2. Chọn Ghế</span>
@@ -103,7 +134,7 @@ export const CheckoutPage: FC = () => {
 
             <div
               className="step-item completed"
-              onClick={() => navigate('/booking/snacks-services')}
+              onClick={handleNavigateToSnacks}
             >
               <div className="step-num">✓</div>
               <span>3. Bắp Nước</span>

@@ -1,7 +1,12 @@
 import styled from 'styled-components';
+import { media } from '@/styles/breakpoints';
 
 export const LangWrapper = styled.div`
   position: relative;
+
+  @media ${media.sm} {
+    display: none;
+  }
 `;
 
 export const LangBadge = styled.div<{ $isOpen?: boolean }>`
@@ -19,16 +24,6 @@ export const LangBadge = styled.div<{ $isOpen?: boolean }>`
 
   &:hover {
     background: #2a2a2b;
-  }
-
-  @media (max-width: 380px) {
-    padding: 4px 6px;
-    gap: 4px;
-    height: 26px;
-
-    .chevron-icon {
-      display: none;
-    }
   }
 
   .flag-img {

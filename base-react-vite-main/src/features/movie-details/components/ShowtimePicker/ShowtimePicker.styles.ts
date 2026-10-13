@@ -4,6 +4,9 @@ export const ShowtimesSection = styled.section`
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 `;
 
 export const ShowtimesHeader = styled.div`
@@ -41,6 +44,8 @@ export const ShowtimesHeader = styled.div`
 
     @media (max-width: 600px) {
       width: 100%;
+      min-width: 0;
+      flex-direction: column;
     }
   }
 `;
@@ -58,6 +63,11 @@ export const CitySelect = styled.select`
   outline: none;
   cursor: pointer;
 
+  @media (max-width: 600px) {
+    width: 100%;
+    min-width: 0;
+  }
+
   option {
     background: #19181c;
     color: #ffffff;
@@ -74,6 +84,12 @@ export const SearchInput = styled.div`
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #ae8786;
+  min-width: 0;
+  flex: 1;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 
   input {
     background: transparent;
@@ -82,7 +98,8 @@ export const SearchInput = styled.div`
     color: #ffffff;
     font-family: 'Be Vietnam Pro', sans-serif;
     font-size: 12.5px;
-    width: 180px;
+    width: 100%;
+    min-width: 0;
 
     &::placeholder {
       color: #7d6b6a;
@@ -98,6 +115,9 @@ export const StepsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 `;
 
 export const StepLabel = styled.div`
@@ -113,6 +133,10 @@ export const DayTabsRow = styled.div`
   gap: 12px;
   overflow-x: auto;
   padding-bottom: 6px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  -webkit-overflow-scrolling: touch;
 
   &::-webkit-scrollbar {
     height: 4px;
@@ -211,7 +235,7 @@ export const CinemaCard = styled.div`
   gap: 20px;
 
   @media (max-width: 600px) {
-    padding: 16px 18px;
+    padding: 16px 14px;
   }
 
   .cinema-header {
@@ -221,20 +245,43 @@ export const CinemaCard = styled.div`
     gap: 16px;
     flex-wrap: wrap;
 
+    @media (max-width: 600px) {
+      flex-direction: column;
+      gap: 10px;
+    }
+
     .cinema-meta {
       display: flex;
       flex-direction: column;
       gap: 6px;
+      min-width: 0;
+      flex: 1;
+
+      @media (max-width: 600px) {
+        width: 100%;
+      }
 
       .name-row {
         display: flex;
         align-items: center;
         gap: 10px;
+        flex-wrap: wrap;
+        min-width: 0;
 
         .name {
           font-size: 16px;
           font-weight: 800;
           color: #ffffff;
+          min-width: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+
+          @media (max-width: 480px) {
+            font-size: 14.5px;
+            white-space: normal;
+            word-break: break-word;
+          }
         }
 
         .badge {
@@ -246,6 +293,7 @@ export const CinemaCard = styled.div`
           font-size: 10px;
           font-weight: 800;
           text-transform: uppercase;
+          flex-shrink: 0;
         }
       }
 
@@ -255,9 +303,23 @@ export const CinemaCard = styled.div`
         display: flex;
         align-items: center;
         gap: 6px;
+        min-width: 0;
+        flex-wrap: wrap;
+
+        span {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+
+          @media (max-width: 480px) {
+            white-space: normal;
+            word-break: break-word;
+          }
+        }
 
         .dist {
           color: #7d6b6a;
+          flex-shrink: 0;
         }
       }
     }
@@ -271,6 +333,7 @@ export const CinemaCard = styled.div`
       display: flex;
       align-items: center;
       gap: 4px;
+      flex-shrink: 0;
 
       &:hover {
         text-decoration: underline;
@@ -289,6 +352,8 @@ export const CinemaCard = styled.div`
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
+      min-width: 0;
 
       .format-title {
         font-size: 11px;
@@ -296,11 +361,13 @@ export const CinemaCard = styled.div`
         letter-spacing: 0.8px;
         color: #e5e2e3;
         text-transform: uppercase;
+        word-break: break-word;
       }
 
       .room-sub {
         font-size: 11px;
         color: #7d6b6a;
+        word-break: break-word;
       }
     }
 
@@ -308,6 +375,17 @@ export const CinemaCard = styled.div`
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+
+      @media (max-width: 600px) {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        width: 100%;
+      }
+
+      @media (max-width: 340px) {
+        grid-template-columns: 1fr;
+      }
     }
   }
 `;
@@ -330,10 +408,18 @@ export const ShowtimePill = styled.button<{
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 3px;
   cursor: pointer;
   transition: all 0.15s ease;
   min-width: 95px;
+
+  @media (max-width: 600px) {
+    min-width: 0;
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 10px;
+  }
 
   .pill-time {
     font-size: 16px;
@@ -348,13 +434,20 @@ export const ShowtimePill = styled.button<{
       $isSelected ? '#ffb955' : $isAlmostFull ? '#ff535a' : '#ae8786'};
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 4px;
+    white-space: nowrap;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     .dot {
       width: 4px;
       height: 4px;
       border-radius: 50%;
       background: currentColor;
+      flex-shrink: 0;
     }
   }
 

@@ -1,9 +1,18 @@
 import { useState } from 'react';
 import { Fingerprint } from 'lucide-react';
+import { message } from 'antd';
 import * as S from './BiometricsCard.styles';
 
 export function BiometricsCard() {
-  const [passkeyEnabled, setPasskeyEnabled] = useState(true);
+  const [isPasskeyEnabled, setIsPasskeyEnabled] = useState(true);
+
+  const handleTogglePasskey = () => {
+    setIsPasskeyEnabled((prev) => !prev);
+  };
+
+  const handleEditPin = () => {
+    message.info('Vui lòng nhập mã OTP để cài đặt mã PIN 6 số mới.');
+  };
 
   return (
     <S.Card>
@@ -26,31 +35,25 @@ export function BiometricsCard() {
             </span>
           </div>
           <S.ToggleSwitch
-            $active={passkeyEnabled}
-            onClick={() => setPasskeyEnabled(!passkeyEnabled)}
+            $active={isPasskeyEnabled}
+            onClick={handleTogglePasskey}
           >
             <div className="thumb" />
           </S.ToggleSwitch>
         </div>
 
-        <div
-          className="setting-item"
-          style={{
-            paddingTop: '12px',
-            borderTop: '1px solid rgba(255,255,255,0.05)',
-          }}
-        >
+        <div className="setting-item bordered">
           <div className="info">
             <span className="title">Mã PIN giao dịch rạp (6 số)</span>
             <span className="desc">
               Bắt buộc khi đặt combo phòng chiếu thượng lưu &gt; 2.000.000đ
             </span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div className="action-row">
             <div className="pin-dots">● ● ● ● ● ●</div>
             <span
               className="edit-pin-link"
-              onClick={() => alert('Nhập mã OTP để cài đặt mã PIN 6 số mới.')}
+              onClick={handleEditPin}
             >
               Đổi mã PIN
             </span>

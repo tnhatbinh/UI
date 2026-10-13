@@ -16,6 +16,7 @@ import {
   Tag,
   Star,
 } from 'lucide-react';
+import { message } from 'antd';
 import * as S from './CinemaNoirShell.styles';
 
 interface CinemaNoirShellProps {
@@ -63,16 +64,32 @@ export default function CinemaNoirShell({
   const navigate = useNavigate();
   const location = useLocation();
 
+  const handleNavigateHome = () => {
+    navigate('/');
+  };
+
+  const handleNavigateVipElite = () => {
+    navigate('/profile/vip-elite');
+  };
+
+  const handleAvatarAlert = () => {
+    message.info('Vui lòng tải lên ảnh chân dung định dạng JPG/PNG tối đa 5MB.');
+  };
+
+  const handleTabClick = (path: string) => () => {
+    navigate(path);
+  };
+
   return (
     <S.ShellContainer>
       <S.InnerWrapper>
         {/* Breadcrumb Navigation */}
         <S.BreadcrumbNav>
-          <span className="link" onClick={() => navigate('/')}>
+          <span className="link" onClick={handleNavigateHome}>
             Trang chủ
           </span>
           <span className="separator">&gt;</span>
-          <span className="link" onClick={() => navigate('/profile/vip-elite')}>
+          <span className="link" onClick={handleNavigateVipElite}>
             Tài khoản
           </span>
           <span className="separator">&gt;</span>
@@ -119,11 +136,7 @@ export default function CinemaNoirShell({
                 <div className="cta-buttons">
                   <button
                     className="avatar-btn"
-                    onClick={() =>
-                      alert(
-                        'Tải lên ảnh chân dung định dạng JPG/PNG tối đa 5MB.',
-                      )
-                    }
+                    onClick={handleAvatarAlert}
                   >
                     <Camera size={12} />
                     <span>Chỉnh sửa ảnh đại diện</span>
@@ -131,7 +144,7 @@ export default function CinemaNoirShell({
 
                   <button
                     className="upgrade-btn"
-                    onClick={() => navigate('/profile/vip-elite')}
+                    onClick={handleNavigateVipElite}
                   >
                     <Crown size={12} />
                     <span>Nâng cấp Diamond Member</span>
@@ -204,7 +217,7 @@ export default function CinemaNoirShell({
               <S.NavTabItem
                 key={tab.id}
                 $isActive={isActive}
-                onClick={() => navigate(tab.path)}
+                onClick={handleTabClick(tab.path)}
               >
                 <Icon size={15} className="icon" />
                 <span>{tab.label}</span>

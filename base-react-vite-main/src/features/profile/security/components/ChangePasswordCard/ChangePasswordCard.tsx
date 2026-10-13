@@ -1,6 +1,7 @@
 import type { FC, FormEvent } from 'react';
 import { useState } from 'react';
 import { Key, Lock, Eye, EyeOff, Shield, CheckCircle2 } from 'lucide-react';
+import { message } from 'antd';
 import * as S from './ChangePasswordCard.styles';
 
 interface ChangePasswordCardProps {
@@ -13,14 +14,48 @@ export const ChangePasswordCard: FC<ChangePasswordCardProps> = ({
   const [currentPass, setCurrentPass] = useState('PasswordVIP2024!');
   const [newPass, setNewPass] = useState('CinemaNoir_Elite99#');
   const [confirmPass, setConfirmPass] = useState('CinemaNoir_Elite99#');
-  const [showCurrent, setShowCurrent] = useState(false);
-  const [showNew, setShowNew] = useState(false);
-  const [reloginRequired, setReloginRequired] = useState(true);
+  const [isShowCurrentPassword, setIsShowCurrentPassword] = useState(false);
+  const [isShowNewPassword, setIsShowNewPassword] = useState(false);
+  const [isReloginRequired, setIsReloginRequired] = useState(true);
+
+  const handleForgotPassword = () => {
+    onSuccess('Hệ thống đã gửi liên kết khôi phục mật khẩu vào email của bạn.');
+  };
+
+  const handleCurrentPasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setCurrentPass(e.target.value);
+  };
+
+  const handleToggleCurrentPasswordVisibility = () => {
+    setIsShowCurrentPassword((prev) => !prev);
+  };
+
+  const handleNewPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewPass(e.target.value);
+  };
+
+  const handleToggleNewPasswordVisibility = () => {
+    setIsShowNewPassword((prev) => !prev);
+  };
+
+  const handleConfirmPasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setConfirmPass(e.target.value);
+  };
+
+  const handleReloginRequiredChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setIsReloginRequired(e.target.checked);
+  };
 
   const handlePasswordSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (newPass !== confirmPass) {
-      alert('Mật khẩu xác nhận không khớp!');
+      message.error('Mật khẩu xác nhận không khớp!');
       return;
     }
     onSuccess('Mật khẩu tài khoản đã được cập nhật thành công!');
@@ -48,11 +83,7 @@ export const ChangePasswordCard: FC<ChangePasswordCardProps> = ({
             <span>Mật khẩu hiện tại</span>
             <span
               className="forgot-link"
-              onClick={() =>
-                alert(
-                  'Hệ thống đã gửi liên kết khôi phục mật khẩu vào email của bạn.',
-                )
-              }
+              onClick={handleForgotPassword}
             >
               Quên mật khẩu?
             </span>
@@ -60,16 +91,16 @@ export const ChangePasswordCard: FC<ChangePasswordCardProps> = ({
           <div className="input-box">
             <Lock size={14} className="icon" />
             <input
-              type={showCurrent ? 'text' : 'password'}
+              type={isShowCurrentPassword ? 'text' : 'password'}
               value={currentPass}
-              onChange={(e) => setCurrentPass(e.target.value)}
+              onChange={handleCurrentPasswordChange}
               required
             />
             <span
               className="toggle-eye"
-              onClick={() => setShowCurrent(!showCurrent)}
+              onClick={handleToggleCurrentPasswordVisibility}
             >
-              {showCurrent ? <EyeOff size={14} /> : <Eye size={14} />}
+              {isShowCurrentPassword ? <EyeOff size={14} /> : <Eye size={14} />}
             </span>
           </div>
         </div>
@@ -79,13 +110,16 @@ export const ChangePasswordCard: FC<ChangePasswordCardProps> = ({
           <div className="input-box">
             <Lock size={14} className="icon" />
             <input
-              type={showNew ? 'text' : 'password'}
+              type={isShowNewPassword ? 'text' : 'password'}
               value={newPass}
-              onChange={(e) => setNewPass(e.target.value)}
+              onChange={handleNewPasswordChange}
               required
             />
-            <span className="toggle-eye" onClick={() => setShowNew(!showNew)}>
-              {showNew ? <EyeOff size={14} /> : <Eye size={14} />}
+            <span
+              className="toggle-eye"
+              onClick={handleToggleNewPasswordVisibility}
+            >
+              {isShowNewPassword ? <EyeOff size={14} /> : <Eye size={14} />}
             </span>
           </div>
         </div>
@@ -110,7 +144,7 @@ export const ChangePasswordCard: FC<ChangePasswordCardProps> = ({
             <input
               type="password"
               value={confirmPass}
-              onChange={(e) => setConfirmPass(e.target.value)}
+              onChange={handleConfirmPasswordChange}
               required
             />
             <CheckCircle2 size={15} className="check-ok" />
@@ -120,8 +154,8 @@ export const ChangePasswordCard: FC<ChangePasswordCardProps> = ({
         <label className="remember-check">
           <input
             type="checkbox"
-            checked={reloginRequired}
-            onChange={(e) => setReloginRequired(e.target.checked)}
+            checked={isReloginRequired}
+            onChange={handleReloginRequiredChange}
           />
           <span>Yêu cầu đăng nhập lại sau khi đổi</span>
         </label>

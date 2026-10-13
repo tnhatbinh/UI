@@ -21,6 +21,24 @@ export function ActiveTicket({ ticket, onToast }: ActiveTicketProps) {
     ticket.qrCodeValue || 'PBK-8849204',
   )}&color=0d0c0f&bgcolor=ffffff`;
 
+  const handleAddToWallet = () => {
+    onToast('Đã thêm vé vào Apple / Google Wallet thành công!');
+  };
+
+  const handleDownloadPdf = () => {
+    onToast('Đang tạo và tải file vé điện tử PDF độ phân giải cao...');
+  };
+
+  const handleShareTicket = () => {
+    onToast('Đã tạo liên kết vé quà tặng. Sẵn sàng chia sẻ qua Zalo/SMS!');
+  };
+
+  const handleRequestRefund = () => {
+    onToast(
+      'Hệ thống đã ghi nhận yêu cầu đổi/hoàn vé. Hotline sẽ liên hệ trong 5 phút.',
+    );
+  };
+
   return (
     <S.UpcomingSection>
       <div className="section-top-bar">
@@ -107,9 +125,7 @@ export function ActiveTicket({ ticket, onToast }: ActiveTicketProps) {
           <div className="ticket-actions-bar">
             <button
               className="action-chip"
-              onClick={() =>
-                onToast('Đã thêm vé vào Apple / Google Wallet thành công!')
-              }
+              onClick={handleAddToWallet}
             >
               <Wallet size={14} />
               <span>Thêm vào Apple / Google Wallet</span>
@@ -117,11 +133,7 @@ export function ActiveTicket({ ticket, onToast }: ActiveTicketProps) {
 
             <button
               className="action-chip"
-              onClick={() =>
-                onToast(
-                  'Đang tạo và tải file vé điện tử PDF độ phân giải cao...',
-                )
-              }
+              onClick={handleDownloadPdf}
             >
               <Download size={14} />
               <span>Tải vé PDF / Ảnh QR</span>
@@ -129,11 +141,7 @@ export function ActiveTicket({ ticket, onToast }: ActiveTicketProps) {
 
             <button
               className="action-chip"
-              onClick={() =>
-                onToast(
-                  'Đã tạo liên kết vé quà tặng. Sẵn sàng chia sẻ qua Zalo/SMS!',
-                )
-              }
+              onClick={handleShareTicket}
             >
               <Share2 size={14} />
               <span>Tặng vé bạn bè</span>
@@ -141,11 +149,7 @@ export function ActiveTicket({ ticket, onToast }: ActiveTicketProps) {
 
             <span
               className="refund-link"
-              onClick={() =>
-                onToast(
-                  'Hệ thống đã ghi nhận yêu cầu đổi/hoàn vé. Hotline sẽ liên hệ trong 5 phút.',
-                )
-              }
+              onClick={handleRequestRefund}
             >
               Đổi / Hoàn vé (Còn 1h 45p)
             </span>

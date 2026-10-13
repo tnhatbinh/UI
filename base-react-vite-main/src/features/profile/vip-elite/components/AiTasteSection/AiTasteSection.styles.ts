@@ -175,6 +175,15 @@ export const TasteSubGrid = styled.div`
       .badge {
         font-size: 9.5px;
         color: #ae8786;
+
+        &.action {
+          color: #ff535a;
+          cursor: pointer;
+        }
+
+        &.gold {
+          color: #ffb955;
+        }
       }
     }
 

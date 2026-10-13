@@ -11,6 +11,11 @@ export function EmailFrequencyCard({ onToast }: EmailFrequencyCardProps) {
     'instant' | 'friday' | 'tickets_only'
   >('friday');
 
+  const handleSelectFrequency =
+    (freq: 'instant' | 'friday' | 'tickets_only') => () => {
+      setEmailFreq(freq);
+    };
+
   const handleSave = () => {
     onToast?.('Đã lưu toàn bộ cài đặt thông báo & ưu đãi thành công!');
   };
@@ -36,7 +41,7 @@ export function EmailFrequencyCard({ onToast }: EmailFrequencyCardProps) {
       <S.FrequencyList>
         <div
           className={`radio-item ${emailFreq === 'instant' ? 'selected' : ''}`}
-          onClick={() => setEmailFreq('instant')}
+          onClick={handleSelectFrequency('instant')}
         >
           <div className="left-txt">
             <span className="title">Tức thì khi có sự kiện hot</span>
@@ -48,13 +53,13 @@ export function EmailFrequencyCard({ onToast }: EmailFrequencyCardProps) {
             type="radio"
             name="freq"
             checked={emailFreq === 'instant'}
-            onChange={() => setEmailFreq('instant')}
+            onChange={handleSelectFrequency('instant')}
           />
         </div>
 
         <div
           className={`radio-item ${emailFreq === 'friday' ? 'selected' : ''}`}
-          onClick={() => setEmailFreq('friday')}
+          onClick={handleSelectFrequency('friday')}
         >
           <div className="left-txt">
             <div className="title-row">
@@ -69,13 +74,13 @@ export function EmailFrequencyCard({ onToast }: EmailFrequencyCardProps) {
             type="radio"
             name="freq"
             checked={emailFreq === 'friday'}
-            onChange={() => setEmailFreq('friday')}
+            onChange={handleSelectFrequency('friday')}
           />
         </div>
 
         <div
           className={`radio-item ${emailFreq === 'tickets_only' ? 'selected' : ''}`}
-          onClick={() => setEmailFreq('tickets_only')}
+          onClick={handleSelectFrequency('tickets_only')}
         >
           <div className="left-txt">
             <span className="title">Chỉ nhận email xác nhận vé</span>
@@ -87,7 +92,7 @@ export function EmailFrequencyCard({ onToast }: EmailFrequencyCardProps) {
             type="radio"
             name="freq"
             checked={emailFreq === 'tickets_only'}
-            onChange={() => setEmailFreq('tickets_only')}
+            onChange={handleSelectFrequency('tickets_only')}
           />
         </div>
 

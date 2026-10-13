@@ -15,7 +15,7 @@ const queryClient = new QueryClient({
   },
 });
 export default queryClient;
-export const defaultAgricultureQueryOptions = {
+export const DEFAULT_QUERY_OPTIONS = {
   staleTime: 5 * 60 * 1000, // 5 phút - dữ liệu vẫn được coi là fresh trong 5 phút
   gcTime: 10 * 60 * 1000, // 10 phút - giữ dữ liệu trong cache 10 phút sau khi không còn component nào sử dụng
   refetchOnWindowFocus: false, // Không refetch khi focus vào window

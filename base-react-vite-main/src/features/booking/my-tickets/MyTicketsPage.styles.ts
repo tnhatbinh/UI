@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Container } from '@/shared/components/layout';
+import { media } from '@/styles/breakpoints';
 
 // ─── Layout tổng ─────────────────────────────────────────────────────────────
 
@@ -16,20 +18,18 @@ export const PageContainer = styled.div`
       rgba(255, 185, 85, 0.05) 0%,
       transparent 50%
     );
-  padding-top: 100px;
+  padding-top: var(--page-top-offset, calc(var(--header-public-height, 80px) + 20px));
   padding-bottom: 120px;
   color: #e5e2e3;
   font-family: 'Be Vietnam Pro', sans-serif;
+
+  @media ${media.md} {
+    padding-bottom: 100px;
+  }
 `;
 
-export const InnerWrapper = styled.div`
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 24px;
-
-  @media (max-width: 768px) {
-    padding: 0 16px;
-  }
+export const InnerWrapper = styled(Container)`
+  /* Inherits unified 1280px max-width, centering, and responsive gutters */
 `;
 
 // ─── Page Header & Tabs ───────────────────────────────────────────────────────
@@ -83,7 +83,7 @@ export const PageHeader = styled.div`
     border-radius: 999px;
     border: 1px solid rgba(255, 255, 255, 0.08);
 
-    @media (max-width: 600px) {
+    @media ${media.sm} {
       width: 100%;
       overflow-x: auto;
     }
@@ -220,38 +220,5 @@ export const UrgentSupportCard = styled.div`
 
 // ─── Toast Notification ───────────────────────────────────────────────────────
 
-export const ToastPill = styled.div`
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  z-index: 9999;
-  background: #1f1d24;
-  border: 1px solid #ffb955;
-  color: #ffffff;
-  padding: 12px 20px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.8),
-    0 0 20px rgba(255, 185, 85, 0.25);
-  animation: slideUp 0.3s ease-out;
-
-  @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .toast-icon {
-    color: #ffb955;
-  }
-`;
+export { ToastNotification } from '@/shared/components/toast/ToastNotification.styles';
+export { ToastNotification as ToastPill } from '@/shared/components/toast/ToastNotification.styles';

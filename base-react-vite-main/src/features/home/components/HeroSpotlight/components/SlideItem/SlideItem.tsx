@@ -47,12 +47,20 @@ export const SlideItem: FC<SlideItemProps> = ({
                 <S.ImaxText>{movie.imaxBadge}</S.ImaxText>
               </S.ImaxBadge>
               <S.AgeBadge>
-                <S.AgeText>{movie.ageBadge}</S.AgeText>
+                <S.AgeText>
+                  <span className="badge-full">{movie.ageBadge}</span>
+                  <span className="badge-short">{movie.ageBadge.split(' - ')[0]}</span>
+                </S.AgeText>
               </S.AgeBadge>
               <S.RatingBadge>
-                <Star className="text-[#FFB955] fill-[#FFB955]" size={12} />
+                <Star size={12} color="#FFB955" fill="#FFB955" />
                 <S.RatingScore>{movie.ratingScore}</S.RatingScore>
-                <S.RatingCount>{movie.ratingCount}</S.RatingCount>
+                <S.RatingCount>
+                  <span className="badge-full">{movie.ratingCount}</span>
+                  <span className="badge-short">
+                    {movie.ratingCount.match(/\((.*?)\)/)?.[0] || movie.ratingCount}
+                  </span>
+                </S.RatingCount>
               </S.RatingBadge>
               <S.GenreBadge>
                 <S.GenreText>{movie.genre}</S.GenreText>
@@ -74,15 +82,15 @@ export const SlideItem: FC<SlideItemProps> = ({
             {/* Key Metas */}
             <S.KeyMetas>
               <S.MetaItem>
-                <Clock className="text-[#FFB955]" size={15} />
+                <Clock size={15} color="#FFB955" />
                 <S.MetaText>{movie.duration}</S.MetaText>
               </S.MetaItem>
               <S.MetaItem>
-                <Globe className="text-[#FFB955]" size={15} />
+                <Globe size={15} color="#FFB955" />
                 <S.MetaText>{movie.audioSub}</S.MetaText>
               </S.MetaItem>
               <S.MetaItem>
-                <Clapperboard className="text-[#FFB955]" size={15} />
+                <Clapperboard size={15} color="#FFB955" />
                 <S.MetaText>
                   {t('home:hero.director_prefix', 'Đạo diễn:')} {movie.director}
                 </S.MetaText>
@@ -90,7 +98,7 @@ export const SlideItem: FC<SlideItemProps> = ({
             </S.KeyMetas>
 
             {/* Action CTAs */}
-            <SlideCTA movieId={movie.id} />
+            <SlideCTA movieId={movie.detailMovieId || movie.id} />
 
             {/* Slide Pagination Indicators */}
             <SlidePagination

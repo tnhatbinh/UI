@@ -61,9 +61,13 @@ interface IdolsCardProps {
 export function IdolsCard({ onToast }: IdolsCardProps) {
   const [idols, setIdols] = useState<IdolItem[]>(INITIAL_IDOLS);
 
-  const removeIdol = (id: string) => {
+  const handleRemoveIdol = (id: string) => () => {
     setIdols((prev) => prev.filter((item) => item.id !== id));
     onToast?.('Đã cập nhật danh sách nghệ sĩ quan tâm.');
+  };
+
+  const handleAddIdol = () => {
+    onToast?.('Tính năng thêm đạo diễn/diễn viên quan tâm đang được mở rộng.');
   };
 
   return (
@@ -80,9 +84,7 @@ export function IdolsCard({ onToast }: IdolsCardProps) {
         </div>
         <button
           className="add-idol-btn"
-          onClick={() =>
-            alert('Nhập tên diễn viên hoặc đạo diễn bạn muốn theo dõi...')
-          }
+          onClick={handleAddIdol}
         >
           <Plus size={12} />
           <span>Thêm thần tượng</span>
@@ -101,7 +103,7 @@ export function IdolsCard({ onToast }: IdolsCardProps) {
             </div>
             <button
               className="del-btn"
-              onClick={() => removeIdol(idol.id)}
+              onClick={handleRemoveIdol(idol.id)}
               title="Xóa khỏi danh sách"
             >
               <X size={13} />

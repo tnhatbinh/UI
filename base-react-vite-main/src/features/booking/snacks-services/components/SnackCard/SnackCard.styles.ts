@@ -40,6 +40,7 @@ export const SnackCard = styled.div`
       flex-direction: column;
       flex: 1;
       gap: 4px;
+      min-width: 0;
 
       .tags-line {
         display: flex;
@@ -73,6 +74,7 @@ export const SnackCard = styled.div`
         font-weight: 800;
         color: #ffffff;
         line-height: 1.25;
+        overflow-wrap: anywhere;
       }
 
       .snack-desc {
@@ -112,6 +114,7 @@ export const SnackCard = styled.div`
     justify-content: space-between;
     padding-top: 10px;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
+    gap: 8px;
 
     .note-text {
       font-size: 11px;
@@ -119,6 +122,7 @@ export const SnackCard = styled.div`
       display: flex;
       align-items: center;
       gap: 4px;
+      min-width: 0;
     }
 
     .counter-control {

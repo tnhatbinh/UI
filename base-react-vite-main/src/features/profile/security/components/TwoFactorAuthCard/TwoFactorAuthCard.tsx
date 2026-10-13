@@ -7,7 +7,19 @@ interface TwoFactorAuthCardProps {
 }
 
 export function TwoFactorAuthCard({ onToast }: TwoFactorAuthCardProps) {
-  const [twoFactorEnabled, setTwoFactorEnabled] = useState(true);
+  const [isTwoFactorEnabled, setIsTwoFactorEnabled] = useState(true);
+
+  const handleToggleTwoFactor = () => {
+    setIsTwoFactorEnabled((prev) => !prev);
+  };
+
+  const handleChangePhone = () => {
+    onToast?.('Chức năng đổi số điện thoại nhận OTP.');
+  };
+
+  const handleRegenCodes = () => {
+    onToast?.('Đã tạo mới 8 mã khôi phục khẩn cấp!');
+  };
 
   const handleCopyCodes = () => {
     const codes =
@@ -28,8 +40,8 @@ export function TwoFactorAuthCard({ onToast }: TwoFactorAuthCardProps) {
           </h3>
         </div>
         <S.ToggleSwitch
-          $active={twoFactorEnabled}
-          onClick={() => setTwoFactorEnabled(!twoFactorEnabled)}
+          $active={isTwoFactorEnabled}
+          onClick={handleToggleTwoFactor}
         >
           <div className="thumb" />
         </S.ToggleSwitch>
@@ -64,7 +76,7 @@ export function TwoFactorAuthCard({ onToast }: TwoFactorAuthCardProps) {
           </div>
           <span
             className="change-link"
-            onClick={() => alert('Chức năng đổi số điện thoại nhận OTP.')}
+            onClick={handleChangePhone}
           >
             Thay đổi
           </span>
@@ -98,7 +110,7 @@ export function TwoFactorAuthCard({ onToast }: TwoFactorAuthCardProps) {
             </span>
             <span
               className="regen-link"
-              onClick={() => onToast?.('Đã tạo mới 8 mã khôi phục khẩn cấp!')}
+              onClick={handleRegenCodes}
             >
               <RefreshCw size={12} />
               <span>Tạo mã mới</span>

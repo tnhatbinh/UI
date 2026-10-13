@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from '@/styles/breakpoints';
 
 export const SearchBox = styled.div`
   display: flex;
@@ -11,7 +12,7 @@ export const SearchBox = styled.div`
   border-radius: 9999px;
   transition: all 0.25s ease;
 
-  @media (max-width: 680px) {
+  @media ${media.md} {
     display: none;
   }
 

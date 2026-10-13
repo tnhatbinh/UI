@@ -1,7 +1,12 @@
 import { FileText, Edit } from 'lucide-react';
+import { message } from 'antd';
 import * as S from './VatInvoiceCard.styles';
 
 export function VatInvoiceCard() {
+  const handleEditVat = () => {
+    message.info('Cập nhật thông tin xuất hóa đơn VAT...');
+  };
+
   return (
     <S.MainCard>
       <div className="card-top-bar">
@@ -45,7 +50,7 @@ export function VatInvoiceCard() {
 
         <button
           className="edit-vat-btn"
-          onClick={() => alert('Cập nhật thông tin xuất hóa đơn VAT...')}
+          onClick={handleEditVat}
         >
           <Edit size={12} />
           <span>Chỉnh sửa thông tin công ty</span>

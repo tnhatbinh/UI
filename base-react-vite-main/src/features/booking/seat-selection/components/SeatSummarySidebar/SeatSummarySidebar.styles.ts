@@ -1,9 +1,15 @@
 import styled from 'styled-components';
+import { media } from '@/styles/breakpoints';
 
 export const BookingSummarySidebar = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18px;
+  min-width: 0;
+
+  @media ${media.lg} {
+    display: none;
+  }
 `;
 
 export const SummaryCard = styled.div`
@@ -14,6 +20,13 @@ export const SummaryCard = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  min-width: 0;
+
+  @media ${media.sm} {
+    padding: 20px 16px;
+    border-radius: 16px;
+    gap: 16px;
+  }
 
   .movie-header {
     display: flex;
@@ -33,6 +46,7 @@ export const SummaryCard = styled.div`
       display: flex;
       flex-direction: column;
       gap: 3px;
+      min-width: 0;
 
       .format-badge {
         font-size: 9px;
@@ -47,11 +61,17 @@ export const SummaryCard = styled.div`
         font-weight: 800;
         color: #ffffff;
         line-height: 1.2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .sub {
         font-size: 11.5px;
         color: #ae8786;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .rating-line {
@@ -78,16 +98,23 @@ export const SummaryCard = styled.div`
       align-items: center;
       justify-content: space-between;
       font-size: 12px;
+      gap: 12px;
 
       .label {
         color: #ae8786;
         display: flex;
         align-items: center;
         gap: 6px;
+        flex-shrink: 0;
       }
       .val {
         color: #ffffff;
         font-weight: 600;
+        min-width: 0;
+        text-align: right;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }
@@ -129,6 +156,11 @@ export const SummaryCard = styled.div`
       display: flex;
       flex-direction: column;
       gap: 6px;
+
+      .empty-hint {
+        font-size: 12px;
+        color: #7d6b6a;
+      }
     }
 
     .seat-item-row {
@@ -138,11 +170,13 @@ export const SummaryCard = styled.div`
       padding: 8px 10px;
       background: rgba(255, 255, 255, 0.03);
       border-radius: 8px;
+      gap: 8px;
 
       .left {
         display: flex;
         align-items: center;
         gap: 8px;
+        min-width: 0;
 
         .seat-badge {
           padding: 2px 6px;
@@ -156,6 +190,10 @@ export const SummaryCard = styled.div`
         .name {
           font-size: 11.5px;
           color: #e5e2e3;
+          min-width: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
 
@@ -163,6 +201,7 @@ export const SummaryCard = styled.div`
         font-size: 12px;
         font-weight: 700;
         color: #ffffff;
+        flex-shrink: 0;
       }
     }
   }
@@ -177,17 +216,21 @@ export const SummaryCard = styled.div`
       align-items: center;
       justify-content: space-between;
       font-size: 12px;
+      gap: 12px;
 
       .label {
         color: #ae8786;
+        flex-shrink: 0;
       }
       .val {
         color: #ffffff;
         font-weight: 600;
+        text-align: right;
       }
       .free-badge {
         color: #ffb955;
         font-weight: 700;
+        text-align: right;
       }
     }
 
@@ -250,6 +293,12 @@ export const SummaryCard = styled.div`
       transform: none;
       box-shadow: none;
     }
+
+    @media ${media.xs} {
+      padding: 12px 10px;
+      font-size: 12px;
+      gap: 6px;
+    }
   }
 
   .assurance-note {
@@ -271,11 +320,13 @@ export const UpsellCard = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-width: 0;
 
   .left {
     display: flex;
     align-items: center;
     gap: 12px;
+    min-width: 0;
 
     .icon-box {
       width: 36px;
@@ -286,20 +337,28 @@ export const UpsellCard = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
 
     .text {
       display: flex;
       flex-direction: column;
+      min-width: 0;
 
       .title {
         font-size: 12px;
         font-weight: 700;
         color: #ffffff;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .sub {
         font-size: 10.5px;
         color: #ae8786;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }
@@ -308,5 +367,6 @@ export const UpsellCard = styled.div`
     font-size: 14px;
     font-weight: 800;
     color: #ffb955;
+    flex-shrink: 0;
   }
 `;

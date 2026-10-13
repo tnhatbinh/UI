@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Search } from 'lucide-react';
-import { SearchBox } from './HeaderSearch.styles';
+import * as S from './HeaderSearch.styles';
 
 export const HeaderSearch: FC = () => {
   const { t } = useTranslation();
@@ -19,17 +19,21 @@ export const HeaderSearch: FC = () => {
     }
   };
 
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchVal(e.target.value);
+  };
+
   return (
     <form onSubmit={handleSearchSubmit}>
-      <SearchBox>
+      <S.SearchBox>
         <Search size={14} className="search-icon" />
         <input
           type="text"
           placeholder={t('header:search')}
           value={searchVal}
-          onChange={(e) => setSearchVal(e.target.value)}
+          onChange={handleSearchInputChange}
         />
-      </SearchBox>
+      </S.SearchBox>
     </form>
   );
 };

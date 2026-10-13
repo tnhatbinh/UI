@@ -1,12 +1,20 @@
 import styled from 'styled-components';
+import { media } from '@/styles/breakpoints';
 
 export const HeroSection = styled.section`
   display: grid;
-  grid-template-columns: 290px 1fr;
-  gap: 40px;
+  grid-template-columns: 310px 1fr;
+  gap: 36px;
   margin-bottom: 40px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 
-  @media (max-width: 992px) {
+  > * {
+    min-width: 0;
+  }
+
+  @media ${media.lg} {
     grid-template-columns: 1fr;
     gap: 28px;
   }
@@ -17,11 +25,16 @@ export const PosterColumn = styled.div`
   flex-direction: column;
   gap: 16px;
   width: 100%;
-  max-width: 300px;
+  max-width: 310px;
 
-  @media (max-width: 992px) {
-    max-width: 260px;
+  @media ${media.lg} {
+    max-width: 310px;
+    width: 100%;
     margin: 0 auto;
+  }
+
+  @media ${media.xs} {
+    max-width: 100%;
   }
 `;
 
@@ -54,7 +67,7 @@ export const PosterWrapper = styled.div`
     background: rgba(18, 17, 20, 0.85);
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 185, 85, 0.35);
-    color: #ffb955;
+    color: var(--secondary, #ffb955);
     font-size: 12px;
     font-weight: 700;
     padding: 4px 10px;
@@ -80,45 +93,79 @@ export const PosterWrapper = styled.div`
 `;
 
 export const KeyFactsStrip = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto 1.05fr auto 1.35fr;
   align-items: center;
-  justify-content: space-between;
-  padding: 12px 14px;
+  padding: 12px 10px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
+  border-radius: 14px;
+  gap: 6px;
+
+  @media ${media.xs} {
+    padding: 10px 8px;
+    gap: 4px;
+  }
 
   .fact-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2px;
+    justify-content: center;
+    gap: 3px;
+    min-width: 0;
+    text-align: center;
 
     .fact-label {
       font-size: 10px;
-      color: #ae8786;
+      font-weight: 600;
+      color: var(--text-secondary, #ae8786);
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      white-space: nowrap;
+      margin-bottom: 2px;
+
+      @media ${media.xs} {
+        font-size: 9.5px;
+        letter-spacing: 0.3px;
+      }
     }
 
     .fact-value {
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 700;
       color: #ffffff;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 4px;
+      width: 100%;
+      min-width: 0;
+      white-space: nowrap;
+
+      @media ${media.xs} {
+        font-size: 11.5px;
+        gap: 3px;
+      }
+
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
 
       .gold {
-        color: #ffb955;
+        color: var(--secondary, #ffb955);
+        flex-shrink: 0;
       }
     }
   }
 
   .fact-divider {
     width: 1px;
-    height: 24px;
-    background: rgba(255, 255, 255, 0.1);
+    height: 22px;
+    background: rgba(255, 255, 255, 0.12);
+    flex-shrink: 0;
   }
 `;
 
@@ -126,6 +173,9 @@ export const MovieInfoColumn = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 `;
 
 export const BadgesRow = styled.div`
@@ -148,13 +198,13 @@ export const BadgesRow = styled.div`
     &.gold {
       background: rgba(255, 185, 85, 0.15);
       border-color: rgba(255, 185, 85, 0.35);
-      color: #ffb955;
+      color: var(--secondary, #ffb955);
     }
 
     &.red {
       background: rgba(255, 83, 90, 0.15);
       border-color: rgba(255, 83, 90, 0.35);
-      color: #ff535a;
+      color: var(--primary, #ff535a);
     }
   }
 `;
@@ -171,7 +221,7 @@ export const TitleGroup = styled.div`
     line-height: 1.15;
     letter-spacing: -0.5px;
 
-    @media (max-width: 768px) {
+    @media ${media.md} {
       font-size: 26px;
     }
   }
@@ -179,7 +229,7 @@ export const TitleGroup = styled.div`
   span.movie-original-title {
     font-size: 16px;
     font-weight: 500;
-    color: #ae8786;
+    color: var(--text-secondary, #ae8786);
   }
 `;
 
@@ -220,15 +270,15 @@ export const GenresAndRatings = styled.div`
       color: #ffffff;
 
       .icon-star {
-        color: #ffb955;
+        color: var(--secondary, #ffb955);
       }
       .icon-heart {
-        color: #ff535a;
+        color: var(--primary, #ff535a);
       }
       .sub {
         font-size: 11px;
         font-weight: 500;
-        color: #ae8786;
+        color: var(--text-secondary, #ae8786);
       }
     }
   }
@@ -243,7 +293,7 @@ export const PeopleRow = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 14px;
 
-  @media (max-width: 640px) {
+  @media ${media.sm} {
     grid-template-columns: 1fr;
   }
 
@@ -258,16 +308,18 @@ export const PeopleRow = styled.div`
       border-radius: 50%;
       object-fit: cover;
       border: 1.5px solid rgba(255, 185, 85, 0.4);
+      flex-shrink: 0;
     }
 
     .person-info {
       display: flex;
       flex-direction: column;
+      min-width: 0;
 
       .person-role {
         font-size: 10px;
         font-weight: 800;
-        color: #ffb955;
+        color: var(--secondary, #ffb955);
         letter-spacing: 0.8px;
         text-transform: uppercase;
       }
@@ -278,7 +330,7 @@ export const PeopleRow = styled.div`
       }
       .person-sub {
         font-size: 11px;
-        color: #ae8786;
+        color: var(--text-secondary, #ae8786);
       }
     }
   }
@@ -291,7 +343,7 @@ export const PeopleRow = styled.div`
     .cast-title {
       font-size: 10px;
       font-weight: 800;
-      color: #ae8786;
+      color: var(--text-secondary, #ae8786);
       letter-spacing: 0.8px;
       text-transform: uppercase;
     }
@@ -313,11 +365,13 @@ export const PeopleRow = styled.div`
         border-radius: 50%;
         object-fit: cover;
         border: 1px solid rgba(255, 255, 255, 0.15);
+        flex-shrink: 0;
       }
 
       .member-info {
         display: flex;
         flex-direction: column;
+        min-width: 0;
         .name {
           font-size: 11.5px;
           font-weight: 700;
@@ -325,7 +379,7 @@ export const PeopleRow = styled.div`
         }
         .character {
           font-size: 10px;
-          color: #ae8786;
+          color: var(--text-secondary, #ae8786);
         }
       }
     }
@@ -335,12 +389,31 @@ export const PeopleRow = styled.div`
 export const ActionsCtaRow = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 16px;
   margin-top: 4px;
 
-  @media (max-width: 640px) {
-    flex-direction: column;
-    align-items: stretch;
+  @media ${media.sm} {
+    display: grid;
+    grid-template-columns: 1fr 48px;
+    gap: 12px;
+
+    .trailer-btn {
+      grid-column: 1 / -1;
+      width: 100%;
+    }
+
+    .book-now-btn {
+      grid-column: 1 / 2;
+      width: 100%;
+    }
+
+    .bookmark-btn {
+      grid-column: 2 / 3;
+      width: 48px;
+      height: 100%;
+      min-height: 48px;
+    }
   }
 
   .trailer-btn {
@@ -359,7 +432,7 @@ export const ActionsCtaRow = styled.div`
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: #ff535a;
+      background: var(--primary, #ff535a);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -378,7 +451,7 @@ export const ActionsCtaRow = styled.div`
       }
       .sub {
         font-size: 11px;
-        color: #ae8786;
+        color: var(--text-secondary, #ae8786);
       }
     }
 
@@ -396,7 +469,7 @@ export const ActionsCtaRow = styled.div`
     gap: 10px;
     padding: 14px 28px;
     border-radius: 12px;
-    background: linear-gradient(135deg, #ff535a 0%, #ff7b54 100%);
+    background: linear-gradient(135deg, var(--primary, #ff535a) 0%, var(--primary-hover, #ff7b54) 100%);
     color: #ffffff;
     font-size: 14px;
     font-weight: 800;
@@ -426,13 +499,13 @@ export const ActionsCtaRow = styled.div`
     transition: all 0.2s;
 
     &.bookmarked {
-      color: #ffb955;
+      color: var(--secondary, #ffb955);
       background: rgba(255, 185, 85, 0.15);
       border-color: rgba(255, 185, 85, 0.4);
     }
 
     &:hover {
-      color: #ffb955;
+      color: var(--secondary, #ffb955);
       background: rgba(255, 255, 255, 0.08);
     }
   }

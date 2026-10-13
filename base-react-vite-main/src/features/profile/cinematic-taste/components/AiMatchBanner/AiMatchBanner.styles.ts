@@ -76,5 +76,9 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     gap: 6px;
+
+    .dot {
+      color: #ffb955;
+    }
   }
 `;

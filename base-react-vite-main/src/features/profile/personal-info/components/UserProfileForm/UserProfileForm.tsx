@@ -30,6 +30,41 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
     'PhimBook IMAX Landmark 81',
   );
 
+  const handleFullNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFullName(e.target.value);
+  };
+
+  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNickname(e.target.value);
+  };
+
+  const handleDobChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDob(e.target.value);
+  };
+
+  const handleSelectGender =
+    (selectedGender: 'male' | 'female' | 'other') => () => {
+      setGender(selectedGender);
+    };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(e.target.value);
+  };
+
+  const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCity(e.target.value);
+  };
+
+  const handleFavoriteCinemaChange = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    setFavoriteCinema(e.target.value);
+  };
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     onSaveSuccess('Đã lưu cập nhật thông tin hồ sơ thành công!');
@@ -61,7 +96,7 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
             <input
               type="text"
               value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              onChange={handleFullNameChange}
               required
             />
           </div>
@@ -70,13 +105,11 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
         <S.FormGroup>
           <label>Biệt danh hiển thị</label>
           <div className="input-wrap">
-            <span className="icon" style={{ fontSize: '13px' }}>
-              @
-            </span>
+            <span className="icon">@</span>
             <input
               type="text"
               value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
+              onChange={handleNicknameChange}
             />
           </div>
         </S.FormGroup>
@@ -93,7 +126,7 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
             <input
               type="date"
               value={dob}
-              onChange={(e) => setDob(e.target.value)}
+              onChange={handleDobChange}
             />
           </div>
           <span className="helper-text">
@@ -107,21 +140,21 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
             <button
               type="button"
               className={`gender-btn ${gender === 'male' ? 'active' : ''}`}
-              onClick={() => setGender('male')}
+              onClick={handleSelectGender('male')}
             >
               ♂ Nam
             </button>
             <button
               type="button"
               className={`gender-btn ${gender === 'female' ? 'active' : ''}`}
-              onClick={() => setGender('female')}
+              onClick={handleSelectGender('female')}
             >
               ♀ Nữ
             </button>
             <button
               type="button"
               className={`gender-btn ${gender === 'other' ? 'active' : ''}`}
-              onClick={() => setGender('other')}
+              onClick={handleSelectGender('other')}
             >
               Khác
             </button>
@@ -136,7 +169,8 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
           <input
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
+            className="has-badge"
           />
           <span className="status-badge verified">✓ Đã xác minh</span>
         </div>
@@ -149,7 +183,8 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
           <input
             type="tel"
             value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            onChange={handlePhoneChange}
+            className="has-badge"
           />
           <span className="status-badge linked">Đã liên kết OTP</span>
         </div>
@@ -160,7 +195,7 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
           <label>Thành phố </label>
           <div className="input-wrap">
             <MapPin size={14} className="icon" />
-            <select value={city} onChange={(e) => setCity(e.target.value)}>
+            <select value={city} onChange={handleCityChange}>
               <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
               <option value="Hà Nội">Hà Nội</option>
               <option value="Đà Nẵng">Đà Nẵng</option>
@@ -175,7 +210,7 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
             <span className="icon">📽</span>
             <select
               value={favoriteCinema}
-              onChange={(e) => setFavoriteCinema(e.target.value)}
+              onChange={handleFavoriteCinemaChange}
             >
               <option value="PhimBook IMAX Landmark 81">
                 PhimBook IMAX Landmark 81

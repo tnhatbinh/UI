@@ -2,10 +2,26 @@ import { useState } from 'react';
 import * as S from './TicketShowtimesNotifCard.styles';
 
 export function TicketShowtimesNotifCard() {
-  const [notify2h, setNotify2h] = useState(true);
-  const [notify24h, setNotify24h] = useState(true);
-  const [notifyEmergency, setNotifyEmergency] = useState(true);
-  const [notifyReview, setNotifyReview] = useState(true);
+  const [isNotify2hEnabled, setIsNotify2hEnabled] = useState(true);
+  const [isNotify24hEnabled, setIsNotify24hEnabled] = useState(true);
+  const [isNotifyEmergencyEnabled, setIsNotifyEmergencyEnabled] = useState(true);
+  const [isNotifyReviewEnabled, setIsNotifyReviewEnabled] = useState(true);
+
+  const handleToggleNotify2h = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsNotify2hEnabled(e.target.checked);
+  };
+
+  const handleToggleNotify24h = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsNotify24hEnabled(e.target.checked);
+  };
+
+  const handleToggleNotifyEmergency = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsNotifyEmergencyEnabled(e.target.checked);
+  };
+
+  const handleToggleNotifyReview = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsNotifyReviewEnabled(e.target.checked);
+  };
 
   return (
     <S.Card>
@@ -25,8 +41,8 @@ export function TicketShowtimesNotifCard() {
         <label className="check-card">
           <input
             type="checkbox"
-            checked={notify2h}
-            onChange={(e) => setNotify2h(e.target.checked)}
+            checked={isNotify2hEnabled}
+            onChange={handleToggleNotify2h}
           />
           <div className="text">
             <div className="title-line">
@@ -43,8 +59,8 @@ export function TicketShowtimesNotifCard() {
         <label className="check-card">
           <input
             type="checkbox"
-            checked={notify24h}
-            onChange={(e) => setNotify24h(e.target.checked)}
+            checked={isNotify24hEnabled}
+            onChange={handleToggleNotify24h}
           />
           <div className="text">
             <div className="title-line">
@@ -60,8 +76,8 @@ export function TicketShowtimesNotifCard() {
         <label className="check-card">
           <input
             type="checkbox"
-            checked={notifyEmergency}
-            onChange={(e) => setNotifyEmergency(e.target.checked)}
+            checked={isNotifyEmergencyEnabled}
+            onChange={handleToggleNotifyEmergency}
           />
           <div className="text">
             <div className="title-line">
@@ -79,8 +95,8 @@ export function TicketShowtimesNotifCard() {
         <label className="check-card">
           <input
             type="checkbox"
-            checked={notifyReview}
-            onChange={(e) => setNotifyReview(e.target.checked)}
+            checked={isNotifyReviewEnabled}
+            onChange={handleToggleNotifyReview}
           />
           <div className="text">
             <div className="title-line">

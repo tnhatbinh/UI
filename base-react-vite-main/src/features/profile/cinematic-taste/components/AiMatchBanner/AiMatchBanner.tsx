@@ -20,7 +20,7 @@ export function AiMatchBanner() {
         </div>
       </div>
       <div className="model-pill">
-        <span style={{ color: '#ffb955' }}>●</span>
+        <span className="dot">●</span>
         <span>Mô hình AI: Noir-Omni 4.2</span>
       </div>
     </S.Container>

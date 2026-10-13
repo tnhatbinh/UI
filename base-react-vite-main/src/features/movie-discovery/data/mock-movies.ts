@@ -14,6 +14,34 @@ export interface DiscoveryMovie {
   formatColor?: string;
 }
 
+export const getAgeBadgeStyle = (age: string) => {
+  const cleanAge = age.trim().toUpperCase();
+  switch (cleanAge) {
+    case 'T18':
+      return { bg: '#93000A', color: '#FFDAD6' };
+    case 'T16':
+      return { bg: '#DC9100', color: '#4F3100' };
+    case 'T13':
+      return { bg: '#FF535A', color: '#5B000D' };
+    case 'K':
+      return { bg: '#205493', color: '#DCE4EF' };
+    case 'P':
+    default:
+      return { bg: '#8C90A4', color: '#252939' };
+  }
+};
+
+export const getFormatBadgeStyle = (formatTag: string) => {
+  const upper = formatTag.toUpperCase();
+  if (upper.includes('IMAX')) {
+    return { bg: 'rgba(255, 185, 85, 0.15)', color: '#FFB955', border: 'rgba(255, 185, 85, 0.4)' };
+  }
+  if (upper.includes('TOP 1') || upper.includes('SIÊU') || upper.includes('ĐẶC BIỆT')) {
+    return { bg: 'rgba(255, 83, 90, 0.15)', color: '#FF8A8F', border: 'rgba(255, 83, 90, 0.4)' };
+  }
+  return { bg: 'rgba(28, 27, 28, 0.85)', color: '#E5E2E3', border: 'rgba(255, 255, 255, 0.15)' };
+};
+
 export const MOCK_DISCOVERY_MOVIES: DiscoveryMovie[] = [
   // --- TRANG 1 (8 phim) ---
   {
@@ -372,9 +400,9 @@ export const MOCK_DISCOVERY_MOVIES: DiscoveryMovie[] = [
     genre: 'Anime / Lãng Mạn',
     description: 'Chuyện tình kỳ diệu của cô gái Sophie và pháp sư Howl...',
     rating: '9.1',
-    age: 'P ',
-    ageBg: '#2A2A2B',
-    ageColor: '#E5E2E3',
+    age: 'P',
+    ageBg: '#8C90A4',
+    ageColor: '#252939',
     formatTag: 'GHIBLI CLASSIC',
     formatBg: '#FFB955',
     formatColor: '#452B00',

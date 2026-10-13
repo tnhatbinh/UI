@@ -14,6 +14,11 @@ export const SlidePagination: FC<SlidePaginationProps> = ({
   selectedIndex,
   onDotClick,
 }) => {
+  const handleDotClick = (dotIdx: number) => (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDotClick(dotIdx);
+  };
+
   return (
     <S.SliderPagination className="no-drag">
       {SPOTLIGHT_MOVIES.map((movie, dotIdx) => (
@@ -21,10 +26,7 @@ export const SlidePagination: FC<SlidePaginationProps> = ({
           key={movie.id}
           type="button"
           $active={dotIdx === selectedIndex}
-          onClick={(e) => {
-            e.stopPropagation();
-            onDotClick(dotIdx);
-          }}
+          onClick={handleDotClick(dotIdx)}
           title={movie.mainTitle}
           aria-label={`Chuyển tới phim ${movie.mainTitle}`}
         />
@@ -32,7 +34,7 @@ export const SlidePagination: FC<SlidePaginationProps> = ({
 
       <S.SlideCounterText>
         {String(selectedIndex + 1).padStart(2, '0')}
-        <span style={{ opacity: 0.4 }}>
+        <span>
           {' '}
           / {String(SPOTLIGHT_MOVIES.length).padStart(2, '0')}
         </span>

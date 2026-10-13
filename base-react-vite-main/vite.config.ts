@@ -8,14 +8,24 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "src"),
       "@config": path.resolve(__dirname, "src/config"),
-      "@configs": path.resolve(__dirname, "src/config"),
       "@assets": path.resolve(__dirname, "src/assets"),
       "@constants": path.resolve(__dirname, "src/shared/constants"),
       "@layouts": path.resolve(__dirname, "src/layouts"),
       "@features": path.resolve(__dirname, "src/features"),
       "@guards": path.resolve(__dirname, "src/guards"),
-      "@utils": path.resolve(__dirname, "src/utils"),
       "@shared": path.resolve(__dirname, "src/shared"),
+    },
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-antd': ['antd', '@ant-design/cssinjs'],
+          'vendor-styled': ['styled-components'],
+          'vendor-icons': ['lucide-react', 'react-icons'],
+        },
+      },
     },
   },
 });

@@ -14,6 +14,10 @@ const TASTE_TAGS = [
 export const TasteSummaryCard: FC = () => {
   const navigate = useNavigate();
 
+  const handleNavigateTaste = () => {
+    navigate('/profile/cinematic-taste');
+  };
+
   return (
     <S.Card>
       <div className="card-header">
@@ -25,7 +29,7 @@ export const TasteSummaryCard: FC = () => {
         </div>
         <span
           className="edit-link"
-          onClick={() => navigate('/profile/cinematic-taste')}
+          onClick={handleNavigateTaste}
         >
           Chỉnh sửa sở thích
         </span>

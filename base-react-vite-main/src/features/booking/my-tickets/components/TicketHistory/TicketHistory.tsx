@@ -33,6 +33,24 @@ export function TicketHistory({
 }: TicketHistoryProps) {
   const navigate = useNavigate();
 
+  const handleFilterSelectChange = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    onFilterChange(e.target.value);
+  };
+
+  const handleExport = () => {
+    onToast(exportToast);
+  };
+
+  const handleRateTicket = (movieName: string) => () => {
+    onToast(`Cảm ơn bạn đã đánh giá 5 sao cho phim ${movieName}!`);
+  };
+
+  const handleRebookTicket = () => {
+    navigate('/movie-details');
+  };
+
   return (
     <S.HistorySection>
       <div className="history-header">
@@ -47,14 +65,14 @@ export function TicketHistory({
         <div className="right-tools">
           <select
             value={historyFilter}
-            onChange={(e) => onFilterChange(e.target.value)}
+            onChange={handleFilterSelectChange}
           >
             <option value="all">Tất cả thời gian</option>
             <option value="30days">30 ngày gần đây</option>
             <option value="2024">Năm 2024</option>
           </select>
 
-          <button className="export-btn" onClick={() => onToast(exportToast)}>
+          <button className="export-btn" onClick={handleExport}>
             <Download size={14} />
             <span>{exportLabel}</span>
           </button>
@@ -91,18 +109,14 @@ export function TicketHistory({
               <div className="actions">
                 <button
                   className="rate-btn"
-                  onClick={() =>
-                    onToast(
-                      `Cảm ơn bạn đã đánh giá 5 sao cho phim ${ticket.movieName}!`,
-                    )
-                  }
+                  onClick={handleRateTicket(ticket.movieName)}
                 >
                   <Star size={11} fill="#ffb955" />
                   <span>Đánh giá</span>
                 </button>
                 <button
                   className="rebook-btn"
-                  onClick={() => navigate('/movie-details')}
+                  onClick={handleRebookTicket}
                 >
                   Đặt lại vé
                 </button>

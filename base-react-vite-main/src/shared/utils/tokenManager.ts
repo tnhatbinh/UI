@@ -1,13 +1,13 @@
-import { localStorageKeys } from '../constants/storage-key';
-import { decryptDES, encryptDES } from './DES.encryt';
+import { LOCAL_STORAGE_KEYS } from '../constants/storage-key';
+import { decryptDES, encryptDES } from './desEncrypt';
 import { lcStorage } from './storage';
 
 const tokenManager = () => {
   let accessToken: string | undefined = lcStorage.get(
-    localStorageKeys.accessToken,
+    LOCAL_STORAGE_KEYS.accessToken,
   );
   let refreshToken: string | undefined = lcStorage.get(
-    localStorageKeys.refreshToken,
+    LOCAL_STORAGE_KEYS.refreshToken,
   );
 
   const isDev = import.meta.env.MODE === 'development';
@@ -23,12 +23,12 @@ const tokenManager = () => {
 
   const setAccessToken = (token: string): void => {
     accessToken = isDev ? token : encryptDES(token);
-    lcStorage.set(localStorageKeys.accessToken, accessToken);
+    lcStorage.set(LOCAL_STORAGE_KEYS.accessToken, accessToken);
   };
 
   const removeAccessToken = (): void => {
     accessToken = undefined;
-    localStorage.removeItem(localStorageKeys.accessToken);
+    localStorage.removeItem(LOCAL_STORAGE_KEYS.accessToken);
   };
 
   const getRefreshToken = (): string | undefined => {
@@ -38,12 +38,12 @@ const tokenManager = () => {
 
   const setRefreshToken = (token: string): void => {
     refreshToken = isDev ? token : encryptDES(token);
-    lcStorage.set(localStorageKeys.refreshToken, refreshToken);
+    lcStorage.set(LOCAL_STORAGE_KEYS.refreshToken, refreshToken);
   };
 
   const removeRefreshToken = (): void => {
     refreshToken = undefined;
-    localStorage.removeItem(localStorageKeys.refreshToken);
+    localStorage.removeItem(LOCAL_STORAGE_KEYS.refreshToken);
   };
 
   return {

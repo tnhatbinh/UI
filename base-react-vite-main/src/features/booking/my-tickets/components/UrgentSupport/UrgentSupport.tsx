@@ -6,6 +6,16 @@ interface UrgentSupportProps {
 }
 
 export function UrgentSupport({ onToast }: UrgentSupportProps) {
+  const handleCallHotline = () => {
+    onToast('Đang kết nối đến Tổng Đài Ưu Tiên PhimBook: 1900 8888...');
+  };
+
+  const handleChatAi = () => {
+    onToast(
+      'Trợ lý AI PhimBook Cine Concierge đã sẵn sàng kết nối hỗ trợ bạn!',
+    );
+  };
+
   return (
     <S.UrgentSupportCard>
       <div className="left-meta">
@@ -28,9 +38,7 @@ export function UrgentSupport({ onToast }: UrgentSupportProps) {
       <div className="cta-buttons">
         <button
           className="hotline-btn"
-          onClick={() =>
-            alert('Đang kết nối đến Tổng Đài Ưu Tiên PhimBook: 1900 8888...')
-          }
+          onClick={handleCallHotline}
         >
           <PhoneCall size={15} />
           <span>1900 8888 (Phím 1)</span>
@@ -38,11 +46,7 @@ export function UrgentSupport({ onToast }: UrgentSupportProps) {
 
         <button
           className="chat-btn"
-          onClick={() =>
-            onToast(
-              'Trợ lý AI PhimBook Cine Concierge đã sẵn sàng kết nối hỗ trợ bạn!',
-            )
-          }
+          onClick={handleChatAi}
         >
           <MessageSquare size={15} />
           <span>Chat Trực Tiếp Với AI</span>

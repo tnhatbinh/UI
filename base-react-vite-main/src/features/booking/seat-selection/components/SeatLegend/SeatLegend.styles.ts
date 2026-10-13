@@ -10,6 +10,14 @@ export const SeatLegendBar = styled.div`
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 12px;
+  width: 100%;
+  min-width: 0;
+
+  @media (max-width: 600px) {
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 14px;
+  }
 
   .legend-item {
     display: flex;
@@ -17,6 +25,7 @@ export const SeatLegendBar = styled.div`
     gap: 8px;
     font-size: 11.5px;
     color: #dedede;
+    min-width: 0;
 
     .sample-box {
       width: 18px;

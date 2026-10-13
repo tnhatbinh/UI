@@ -15,6 +15,7 @@ import {
   User,
   ChevronRight,
 } from 'lucide-react';
+import { message } from 'antd';
 import tokenManager from '@shared/utils/tokenManager';
 import * as S from './LoginForm.styles';
 
@@ -23,12 +24,66 @@ export const LoginForm: FC = () => {
 
   // Tab: 'phone' hoặc 'email'
   const [activeTab, setActiveTab] = useState<'phone' | 'email'>('phone');
-  const [showPassword, setShowPassword] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   // Form states
   const [identifier, setIdentifier] = useState('');
   const [credential, setCredential] = useState('');
-  const [rememberMe, setRememberMe] = useState(true);
+  const [isRememberMe, setIsRememberMe] = useState(true);
+
+  const handleSelectPhoneTab = () => setActiveTab('phone');
+  const handleSelectEmailTab = () => setActiveTab('email');
+
+  const handleIdentifierChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIdentifier(e.target.value);
+  };
+
+  const handleCredentialChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCredential(e.target.value);
+  };
+
+  const handleTogglePasswordVisibility = () => {
+    setIsPasswordVisible((prev) => !prev);
+  };
+
+  const handleRememberMeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsRememberMe(e.target.checked);
+  };
+
+  const handleForgotPassword = () => {
+    message.info(
+      'Tính năng quên mật khẩu đang được hỗ trợ qua Hotline 1900 8888 99',
+    );
+  };
+
+  const handleGoogleLogin = () => {
+    localStorage.setItem('user_name', 'Google User');
+    tokenManager.setAccessToken('token_google');
+    navigate('/');
+    window.location.reload();
+  };
+
+  const handleFacebookLogin = () => {
+    localStorage.setItem('user_name', 'Facebook User');
+    tokenManager.setAccessToken('token_fb');
+    navigate('/');
+    window.location.reload();
+  };
+
+  const handleZaloLogin = () => {
+    localStorage.setItem('user_name', 'Zalo User');
+    tokenManager.setAccessToken('token_zalo');
+    navigate('/');
+    window.location.reload();
+  };
+
+  const handleQrLogin = () => {
+    message.info('Mở app PhimBook và quét mã QR để đăng nhập tức thì!');
+  };
+
+  const handleRegisterRedirect = () => {
+    message.info('Chuyển đến màn đăng ký tài khoản PhimBook');
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,7 +124,7 @@ export const LoginForm: FC = () => {
           <S.TabButton
             type="button"
             $isActive={activeTab === 'phone'}
-            onClick={() => setActiveTab('phone')}
+            onClick={handleSelectPhoneTab}
           >
             <Smartphone size={15} />
             <span>Số điện thoại</span>
@@ -78,7 +133,7 @@ export const LoginForm: FC = () => {
           <S.TabButton
             type="button"
             $isActive={activeTab === 'email'}
-            onClick={() => setActiveTab('email')}
+            onClick={handleSelectEmailTab}
           >
             <Mail size={15} />
             <span>Email / Mật khẩu</span>
@@ -108,7 +163,7 @@ export const LoginForm: FC = () => {
                     : 'Ví dụ: vipmember@phimbook.vn'
                 }
                 value={identifier}
-                onChange={(e) => setIdentifier(e.target.value)}
+                onChange={handleIdentifierChange}
                 required
               />
             </S.InputBox>
@@ -124,11 +179,7 @@ export const LoginForm: FC = () => {
               </S.FieldLabel>
               <S.ForgotPassLink
                 type="button"
-                onClick={() =>
-                  alert(
-                    'Tính năng quên mật khẩu đang được hỗ trợ qua Hotline 1900 8888 99',
-                  )
-                }
+                onClick={handleForgotPassword}
               >
                 Quên mật khẩu?
               </S.ForgotPassLink>
@@ -137,23 +188,23 @@ export const LoginForm: FC = () => {
             <S.InputBox>
               <Lock size={16} className="field-icon" />
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={isPasswordVisible ? 'text' : 'password'}
                 placeholder={
                   activeTab === 'phone'
                     ? 'Nhập mã gồm 6 số hoặc mật khẩu'
                     : 'Nhập mật khẩu của bạn'
                 }
                 value={credential}
-                onChange={(e) => setCredential(e.target.value)}
+                onChange={handleCredentialChange}
                 required
               />
               <button
                 type="button"
                 className="toggle-eye"
-                onClick={() => setShowPassword(!showPassword)}
-                title={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
+                onClick={handleTogglePasswordVisibility}
+                title={isPasswordVisible ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
               >
-                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                {isPasswordVisible ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
             </S.InputBox>
           </S.FieldGroup>
@@ -163,8 +214,8 @@ export const LoginForm: FC = () => {
             <S.CheckboxLabel>
               <input
                 type="checkbox"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
+                checked={isRememberMe}
+                onChange={handleRememberMeChange}
               />
               <span>Duy trì đăng nhập 30 ngày</span>
             </S.CheckboxLabel>
@@ -193,12 +244,7 @@ export const LoginForm: FC = () => {
         <S.SocialButtonsRow>
           <S.SocialButton
             type="button"
-            onClick={() => {
-              localStorage.setItem('user_name', 'Google User');
-              tokenManager.setAccessToken('token_google');
-              navigate('/');
-              window.location.reload();
-            }}
+            onClick={handleGoogleLogin}
           >
             <svg width="15" height="15" viewBox="0 0 24 24">
               <path
@@ -223,12 +269,7 @@ export const LoginForm: FC = () => {
 
           <S.SocialButton
             type="button"
-            onClick={() => {
-              localStorage.setItem('user_name', 'Facebook User');
-              tokenManager.setAccessToken('token_fb');
-              navigate('/');
-              window.location.reload();
-            }}
+            onClick={handleFacebookLogin}
           >
             <svg width="15" height="15" viewBox="0 0 24 24" fill="#1877F2">
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
@@ -238,31 +279,16 @@ export const LoginForm: FC = () => {
 
           <S.SocialButton
             type="button"
-            onClick={() => {
-              localStorage.setItem('user_name', 'Zalo User');
-              tokenManager.setAccessToken('token_zalo');
-              navigate('/');
-              window.location.reload();
-            }}
+            onClick={handleZaloLogin}
           >
-            <span
-              style={{
-                color: '#0068FF',
-                fontWeight: 800,
-                fontSize: '13px',
-              }}
-            >
-              Z
-            </span>
+            <span className="zalo-text">Z</span>
             <span>Zalo</span>
           </S.SocialButton>
         </S.SocialButtonsRow>
 
         {/* Đăng nhập nhanh bằng QR */}
         <S.QrCodeBanner
-          onClick={() =>
-            alert('Mở app PhimBook và quét mã QR để đăng nhập tức thì!')
-          }
+          onClick={handleQrLogin}
         >
           <div className="left">
             <QrCode size={22} className="qr-icon" />
@@ -281,7 +307,7 @@ export const LoginForm: FC = () => {
           Chưa có tài khoản PhimBook?
           <button
             type="button"
-            onClick={() => alert('Chuyển đến màn đăng ký tài khoản PhimBook')}
+            onClick={handleRegisterRedirect}
           >
             Đăng ký ngay ↗
           </button>

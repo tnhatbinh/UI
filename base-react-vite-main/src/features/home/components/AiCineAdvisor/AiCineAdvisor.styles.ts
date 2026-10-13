@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Container as BaseContainer } from '@/shared/components/layout';
+import { media } from '@/styles/breakpoints';
 
 export const SectionWrapper = styled.section`
   width: 100%;
@@ -7,13 +9,14 @@ export const SectionWrapper = styled.section`
   align-items: center;
   padding-top: 80px;
   background-color: var(--bg-primary);
+  overflow: hidden;
+
+  @media ${media.md} {
+    padding-top: 40px;
+  }
 `;
 
-export const OuterContainer = styled.div`
-  width: 100%;
-  max-width: 1280px;
-  padding-left: 24px;
-  padding-right: 24px;
+export const OuterContainer = styled(BaseContainer)`
   display: flex;
   justify-content: center;
 `;
@@ -21,8 +24,8 @@ export const OuterContainer = styled.div`
 export const MainCard = styled.div`
   position: relative;
   width: 100%;
-  max-width: 1232px;
-  height: 612px;
+  min-height: 612px;
+  height: auto;
   border-radius: 24px;
   padding: 40px;
   background-image: linear-gradient(
@@ -36,6 +39,17 @@ export const MainCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media ${media.lg} {
+    padding: 28px 20px;
+    border-radius: 20px;
+    min-height: auto;
+  }
+
+  @media ${media.sm} {
+    padding: 20px 14px;
+    border-radius: 16px;
+  }
 `;
 
 export const TopRightGlow = styled.div`
@@ -67,13 +81,20 @@ export const BottomCenterGlow = styled.div`
 export const HeaderRow = styled.div`
   position: relative;
   width: 100%;
-  height: 152px;
+  min-height: auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
   padding-bottom: 24px;
   z-index: 10;
+  gap: 16px;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: stretch;
+    padding-bottom: 20px;
+  }
 `;
 
 export const LeftHeaderGroup = styled.div`
@@ -81,13 +102,21 @@ export const LeftHeaderGroup = styled.div`
   flex-direction: column;
   gap: 8px;
   max-width: 665px;
+  min-width: 0;
 `;
 
 export const EngineRow = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  height: 24px;
+  /* The subtext wraps on iPad portrait. A fixed height made the heading
+     below overlap the second line. */
+  min-height: 24px;
+  flex-wrap: wrap;
+
+  @media (max-width: 480px) {
+    align-items: flex-start;
+  }
 `;
 
 export const EngineBadge = styled.div`
@@ -123,6 +152,7 @@ export const Subtext = styled.span`
   letter-spacing: 0.66px;
   text-transform: uppercase;
   font-family: 'Be Vietnam Pro', sans-serif;
+  overflow-wrap: anywhere;
 `;
 
 export const MainHeading = styled.h2`
@@ -134,6 +164,16 @@ export const MainHeading = styled.h2`
   letter-spacing: -1px;
   font-family: 'Be Vietnam Pro', sans-serif;
   margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 20px;
+    line-height: 26px;
+  }
 `;
 
 export const RightControls = styled.div`
@@ -141,32 +181,60 @@ export const RightControls = styled.div`
   align-items: center;
   gap: 12px;
   margin-top: 32px;
+
+  @media (max-width: 1024px) {
+    margin-top: 0;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  @media (max-width: 480px) {
+    gap: 8px;
+  }
 `;
 
 export const TasteBadge = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  height: 56px;
+  gap: 10px;
+  padding: 10px 16px;
+  min-height: 56px;
+  height: auto;
   background-color: rgba(14, 14, 15, 0.8);
   backdrop-filter: blur(6px);
   border-radius: 12px;
+  min-width: 0;
+
+  @media (max-width: 640px) {
+    min-height: 48px;
+    padding: 8px 12px;
+  }
+
+  @media (max-width: 480px) {
+    flex: 1;
+    align-items: flex-start;
+    padding: 8px 10px;
+    gap: 8px;
+  }
 `;
 
 export const TasteIndicator = styled.div`
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   background-color: var(--secondary);
   border-radius: 9999px;
+  flex-shrink: 0;
+
+  @media (max-width: 480px) {
+    margin-top: 5px;
+  }
 `;
 
 export const TasteTextCol = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  flex: 1;
 `;
 
 export const TasteText = styled.span`
@@ -176,6 +244,12 @@ export const TasteText = styled.span`
   letter-spacing: 0.28px;
   font-family: 'Be Vietnam Pro', sans-serif;
   line-height: 20px;
+  overflow-wrap: anywhere;
+
+  @media (max-width: 480px) {
+    font-size: 12.5px;
+    line-height: 17px;
+  }
 `;
 
 export const TasteHighlight = styled.span`
@@ -203,31 +277,43 @@ export const RefreshButton = styled.button`
 export const GridContainer = styled.div`
   position: relative;
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
   gap: 24px;
   z-index: 10;
-  height: 380px;
+
+  @media ${media.lg} {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 `;
 
 export const MovieCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 368px;
-  height: 100%;
+  width: 100%;
+  height: auto;
+  min-height: 380px;
   padding: 24px;
   background-color: rgba(14, 14, 15, 0.6);
   backdrop-filter: blur(12px);
   border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  @media (max-width: 640px) {
+    padding: 18px 14px;
+    min-height: auto;
+    gap: 16px;
+  }
 `;
 
 export const CardTopGroup = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-width: 0;
 `;
 
 export const CardHeaderRow = styled.div`
@@ -235,7 +321,10 @@ export const CardHeaderRow = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 24px;
+  min-height: 24px;
+  height: auto;
+  flex-wrap: wrap;
+  gap: 8px;
 `;
 
 export const MatchBadge = styled.div`
@@ -249,6 +338,7 @@ export const MatchBadge = styled.div`
   height: 24px;
   background-color: rgba(255, 83, 90, 0.2);
   border-radius: 8px;
+  min-width: 0;
 `;
 
 export const MatchText = styled.span`
@@ -258,6 +348,7 @@ export const MatchText = styled.span`
   letter-spacing: 0.66px;
   text-transform: uppercase;
   font-family: 'Be Vietnam Pro', sans-serif;
+  overflow-wrap: anywhere;
 `;
 
 export const SourceText = styled.span`
@@ -266,7 +357,11 @@ export const SourceText = styled.span`
   color: var(--primary-subtitle);
   letter-spacing: 0.66px;
   text-transform: uppercase;
-  font-family: 'Liberation Mono', monospace;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const MovieTitle = styled.h3`
@@ -278,6 +373,12 @@ export const MovieTitle = styled.h3`
   font-family: 'Be Vietnam Pro', sans-serif;
   margin: 0;
   margin-top: 4px;
+  overflow-wrap: anywhere;
+
+  @media (max-width: 640px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
 `;
 
 export const MovieDescription = styled.p`
@@ -289,29 +390,35 @@ export const MovieDescription = styled.p`
   font-family: 'Be Vietnam Pro', sans-serif;
   margin: 0;
   margin-top: 8px;
+  overflow-wrap: anywhere;
 `;
 
 export const InfoBox = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 8px;
+  padding: 10px 12px;
   width: 100%;
-  height: 72px;
+  min-height: 64px;
+  height: auto;
   background-color: rgba(42, 42, 43, 0.6);
   border-radius: 12px;
   margin-top: 8px;
+  min-width: 0;
 `;
 
 export const IconContainer = styled.div`
   width: 20px;
   display: flex;
   justify-content: center;
+  flex-shrink: 0;
 `;
 
 export const InfoCol = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  flex: 1;
 `;
 
 export const InfoLabel = styled.span`
@@ -321,6 +428,7 @@ export const InfoLabel = styled.span`
   letter-spacing: 0.66px;
   text-transform: uppercase;
   font-family: 'Be Vietnam Pro', sans-serif;
+  overflow-wrap: anywhere;
 `;
 
 export const InfoValue = styled.span`
@@ -330,6 +438,7 @@ export const InfoValue = styled.span`
   letter-spacing: 0.28px;
   font-family: 'Be Vietnam Pro', sans-serif;
   line-height: 20px;
+  overflow-wrap: anywhere;
 `;
 
 export const CardBottomRow = styled.div`
@@ -337,13 +446,20 @@ export const CardBottomRow = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 52px;
+  min-height: 52px;
+  height: auto;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+  min-width: 0;
 `;
 
 export const PriceGroup = styled.div`
   display: flex;
   align-items: flex-end;
   gap: 4px;
+  min-width: 0;
+  flex-wrap: wrap;
 `;
 
 export const PriceValue = styled.span`
@@ -376,6 +492,7 @@ export const PrimaryButton = styled.button`
   transition: opacity 0.15s;
   border: none;
   cursor: pointer;
+  max-width: 100%;
 
   &:hover {
     opacity: 0.9;
@@ -388,6 +505,7 @@ export const PrimaryButtonText = styled.span`
   color: var(--on-primary-darker);
   letter-spacing: 0.28px;
   font-family: 'Be Vietnam Pro', sans-serif;
+  white-space: nowrap;
 `;
 
 export const SoonBadge = styled.div`
@@ -424,6 +542,7 @@ export const SecondaryButton = styled.button`
   transition: background-color 0.15s;
   border: none;
   cursor: pointer;
+  max-width: 100%;
 
   &:hover {
     background-color: var(--bg-border-lightest);
@@ -436,14 +555,16 @@ export const SecondaryButtonText = styled.span`
   color: var(--primary-text);
   letter-spacing: 0.28px;
   font-family: 'Be Vietnam Pro', sans-serif;
+  white-space: nowrap;
 `;
 
 export const AICard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 368px;
-  height: 100%;
+  width: 100%;
+  height: auto;
+  min-height: 380px;
   padding: 24px;
   background-image: linear-gradient(
     to bottom,
@@ -453,6 +574,13 @@ export const AICard = styled.div`
   );
   backdrop-filter: blur(12px);
   border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  @media (max-width: 640px) {
+    padding: 18px 14px;
+    min-height: auto;
+    gap: 16px;
+  }
 `;
 
 export const AICardTopGroup = styled.div`
@@ -482,6 +610,7 @@ export const BotAvatar = styled.div`
 export const BotNameCol = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 0;
 `;
 
 export const BotName = styled.span`
@@ -491,6 +620,9 @@ export const BotName = styled.span`
   letter-spacing: 0.28px;
   font-family: 'Be Vietnam Pro', sans-serif;
   line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const BotStatus = styled.span`
@@ -501,6 +633,9 @@ export const BotStatus = styled.span`
   text-transform: uppercase;
   font-family: 'Be Vietnam Pro', sans-serif;
   line-height: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const ChatBubblesCol = styled.div`
@@ -512,11 +647,15 @@ export const ChatBubblesCol = styled.div`
 
 export const UserMessageBubble = styled.div`
   align-self: flex-end;
-  max-width: 288px;
+  max-width: min(288px, 85%);
   padding: 10px;
   background-color: var(--bg-elevated);
   border-radius: 12px;
   border-top-right-radius: 2px;
+
+  @media (max-width: 480px) {
+    max-width: 90%;
+  }
 `;
 
 export const UserMessageText = styled.p`
@@ -527,15 +666,20 @@ export const UserMessageText = styled.p`
   letter-spacing: 0.18px;
   font-family: 'Be Vietnam Pro', sans-serif;
   margin: 0;
+  overflow-wrap: anywhere;
 `;
 
 export const BotMessageBubble = styled.div`
   align-self: flex-start;
-  max-width: 304px;
+  max-width: min(304px, 85%);
   padding: 10px;
   background-color: rgba(255, 83, 90, 0.2);
   border-radius: 12px;
   border-top-left-radius: 2px;
+
+  @media (max-width: 480px) {
+    max-width: 90%;
+  }
 `;
 
 export const BotMessageText = styled.p`
@@ -546,6 +690,7 @@ export const BotMessageText = styled.p`
   letter-spacing: 0.18px;
   font-family: 'Be Vietnam Pro', sans-serif;
   margin: 0;
+  overflow-wrap: anywhere;
 `;
 
 export const ChatInputArea = styled.div`
@@ -561,6 +706,7 @@ export const ChatInputArea = styled.div`
 
 export const ChatInput = styled.input`
   flex: 1;
+  min-width: 0;
   background-color: transparent;
   border: none;
   outline: none;

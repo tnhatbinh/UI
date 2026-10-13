@@ -64,15 +64,9 @@ export const AuthShowcase: FC = () => {
       <S.LeftBottomRow>
         <S.SocialProofGroup>
           <div className="avatar-cluster">
-            <div className="avatar-dot" style={{ background: '#FF535A' }}>
-              P
-            </div>
-            <div className="avatar-dot" style={{ background: '#FFB955' }}>
-              H
-            </div>
-            <div className="avatar-dot" style={{ background: '#C2C5DB' }}>
-              S
-            </div>
+            <div className="avatar-dot">P</div>
+            <div className="avatar-dot">H</div>
+            <div className="avatar-dot">S</div>
           </div>
           <span className="proof-text">
             +280,000 mọt phim đã gia nhập tuần này

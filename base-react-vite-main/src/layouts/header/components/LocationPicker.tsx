@@ -1,48 +1,53 @@
 import { useRef, useState } from 'react';
 import { Check, ChevronDown, MapPin } from 'lucide-react';
 import { CITIES } from '../data/header-data';
-import { useClickOutside } from '../hooks/use-click-outside';
-import {
-  LocationBadge,
-  LocationDropdown,
-  LocationItem,
-  LocationWrapper,
-} from './LocationPicker.styles';
+import { useClickOutside } from '../hooks/useClickOutside';
+import * as S from './LocationPicker.styles';
 
 export function LocationPicker() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState('TP. HCM');
   const ref = useRef<HTMLDivElement>(null);
 
-  useClickOutside([ref], [() => setIsOpen(false)]);
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleToggleOpen = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const handleSelectCity = (city: string) => () => {
+    setSelectedCity(city);
+    setIsOpen(false);
+  };
+
+  useClickOutside([ref], [handleClose]);
 
   return (
-    <LocationWrapper ref={ref}>
-      <LocationBadge $isOpen={isOpen} onClick={() => setIsOpen((v) => !v)}>
+    <S.LocationWrapper ref={ref}>
+      <S.LocationBadge $isOpen={isOpen} onClick={handleToggleOpen}>
         <MapPin size={12} className="loc-icon" />
         <span>{selectedCity}</span>
         <ChevronDown size={10} className="chevron-icon" />
-      </LocationBadge>
+      </S.LocationBadge>
 
       {isOpen && (
-        <LocationDropdown>
+        <S.LocationDropdown>
           {CITIES.map((city) => (
-            <LocationItem
+            <S.LocationItem
               key={city}
               $isSelected={selectedCity === city}
-              onClick={() => {
-                setSelectedCity(city);
-                setIsOpen(false);
-              }}
+              onClick={handleSelectCity(city)}
             >
               <span>{city}</span>
               {selectedCity === city && (
                 <Check size={12} className="check-icon" />
               )}
-            </LocationItem>
+            </S.LocationItem>
           ))}
-        </LocationDropdown>
+        </S.LocationDropdown>
       )}
-    </LocationWrapper>
+    </S.LocationWrapper>
   );
 }

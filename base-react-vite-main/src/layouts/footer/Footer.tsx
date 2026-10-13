@@ -6,6 +6,11 @@ import * as S from './Footer.styles';
 
 export const Footer: FC = () => {
   const { t } = useTranslation();
+
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <S.FooterContainer>
       <S.FooterInner>
@@ -15,7 +20,7 @@ export const Footer: FC = () => {
           <S.BrandColumn>
             {/* Logo */}
             <S.LogoWrapper
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={handleScrollToTop}
             >
               <S.LogoIconBadge>
                 <Film size={20} strokeWidth={2.2} />
@@ -35,12 +40,12 @@ export const Footer: FC = () => {
             {/* Contacts */}
             <S.ContactsList>
               <S.ContactItem>
-                <BiPhone style={{ color: '#FFB955' }} size={14} />
+                <BiPhone color="var(--secondary, #ffb955)" size={14} />
                 <S.ContactLabel>{t('footer:hotline_label')}</S.ContactLabel>
                 <S.ContactHotline>1900 8888 99</S.ContactHotline>
               </S.ContactItem>
               <S.ContactItem>
-                <Mail style={{ color: '#AE8786' }} size={12} />
+                <Mail color="var(--text-secondary, #ae8786)" size={12} />
                 <S.ContactEmail>support@phimbook.vn</S.ContactEmail>
               </S.ContactItem>
             </S.ContactsList>
@@ -82,14 +87,12 @@ export const Footer: FC = () => {
 
           {/* Col 4 */}
           <S.AppColumn>
-            <S.ColumnTitle style={{ marginBottom: '4px' }}>
-              {t('footer:app_title')}
-            </S.ColumnTitle>
+            <S.ColumnTitle>{t('footer:app_title')}</S.ColumnTitle>
             <S.AppDescription>{t('footer:app_desc')}</S.AppDescription>
 
             {/* App download */}
             <S.AppDownloadBox>
-              <Smartphone size={24} style={{ color: '#FFB955' }} />
+              <Smartphone size={24} color="var(--secondary, #ffb955)" />
               <S.AppDownloadTextCol>
                 <S.AppDownloadSub>{t('footer:download_on')}</S.AppDownloadSub>
                 <S.AppDownloadTitle>App Store & Google Play</S.AppDownloadTitle>

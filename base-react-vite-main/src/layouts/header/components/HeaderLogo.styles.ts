@@ -9,6 +9,10 @@ export const LogoWrapper = styled.div`
   height: 42px;
   transition: transform 0.2s ease;
 
+  @media (max-width: 380px) {
+    gap: 6px;
+  }
+
   &:hover {
     transform: scale(1.02);
 
@@ -37,6 +41,12 @@ export const LogoWrapper = styled.div`
       height: 34px;
       border-radius: 9px;
     }
+
+    @media (max-width: 380px) {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+    }
   }
 
   .logo-text {
@@ -59,6 +69,11 @@ export const LogoWrapper = styled.div`
       @media (max-width: 480px) {
         font-size: 18px;
         line-height: 19px;
+      }
+
+      @media (max-width: 380px) {
+        font-size: 16px;
+        line-height: 17px;
       }
 
       .brand-phim {

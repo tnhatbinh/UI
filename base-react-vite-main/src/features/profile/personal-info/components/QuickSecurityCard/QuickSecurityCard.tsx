@@ -6,7 +6,15 @@ import * as S from './QuickSecurityCard.styles';
 
 export const QuickSecurityCard: FC = () => {
   const navigate = useNavigate();
-  const [biometricLogin, setBiometricLogin] = useState(true);
+  const [isBiometricLoginEnabled, setIsBiometricLoginEnabled] = useState(true);
+
+  const handleNavigateSecurity = () => {
+    navigate('/profile/security');
+  };
+
+  const handleToggleBiometricLogin = () => {
+    setIsBiometricLoginEnabled((prev) => !prev);
+  };
 
   return (
     <S.Card>
@@ -46,7 +54,7 @@ export const QuickSecurityCard: FC = () => {
           </div>
           <button
             className="action-btn"
-            onClick={() => navigate('/profile/security')}
+            onClick={handleNavigateSecurity}
           >
             Đổi mã
           </button>
@@ -63,8 +71,8 @@ export const QuickSecurityCard: FC = () => {
             </div>
           </div>
           <S.ToggleSwitch
-            $active={biometricLogin}
-            onClick={() => setBiometricLogin(!biometricLogin)}
+            $active={isBiometricLoginEnabled}
+            onClick={handleToggleBiometricLogin}
             title="Bật/Tắt đăng nhập sinh trắc học"
           >
             <div className="thumb" />

@@ -9,6 +9,14 @@ interface AiTasteSectionProps {
 export function AiTasteSection({ onRefresh }: AiTasteSectionProps) {
   const navigate = useNavigate();
 
+  const handleNavigateMovieDetails = () => {
+    navigate('/movie-details');
+  };
+
+  const handleNavigateTaste = () => {
+    navigate('/profile/cinematic-taste');
+  };
+
   return (
     <S.SectionCard>
       <div className="card-title-bar">
@@ -36,7 +44,7 @@ export function AiTasteSection({ onRefresh }: AiTasteSectionProps) {
           </p>
           <span className="recommend">
             Gợi ý tác phẩm hot tuần này:{' '}
-            <strong onClick={() => navigate('/movie-details')}>
+            <strong onClick={handleNavigateMovieDetails}>
               Dune: Part Two (IMAX Re-run) ↗
             </strong>
           </span>
@@ -77,11 +85,7 @@ export function AiTasteSection({ onRefresh }: AiTasteSectionProps) {
         <div className="sub-block">
           <div className="block-header">
             <span className="title">RẠP QUEN THUỘC (ƯU TIÊN LỊCH)</span>
-            <span
-              className="badge"
-              style={{ color: '#ff535a', cursor: 'pointer' }}
-              onClick={() => navigate('/profile/cinematic-taste')}
-            >
+            <span className="badge action" onClick={handleNavigateTaste}>
               Thêm rạp
             </span>
           </div>
@@ -108,9 +112,7 @@ export function AiTasteSection({ onRefresh }: AiTasteSectionProps) {
         <div className="sub-block">
           <div className="block-header">
             <span className="title">KHU VỰC GHẾ HOÀN HẢO</span>
-            <span className="badge" style={{ color: '#ffb955' }}>
-              Hàng F, G, H (7 - 10)
-            </span>
+            <span className="badge gold">Hàng F, G, H (7 - 10)</span>
           </div>
 
           <S.SeatVisualizerBox>

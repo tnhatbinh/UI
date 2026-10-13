@@ -4,7 +4,7 @@ import * as S from './PreferredGenresCard.styles';
 export interface GenreItem {
   id: string;
   label: string;
-  selected: boolean;
+  isSelected: boolean;
 }
 
 interface PreferredGenresCardProps {
@@ -16,7 +16,11 @@ export function PreferredGenresCard({
   genres,
   onToggleGenre,
 }: PreferredGenresCardProps) {
-  const selectedCount = genres.filter((g) => g.selected).length;
+  const selectedCount = genres.filter((g) => g.isSelected).length;
+
+  const handleToggleGenre = (id: string) => () => {
+    onToggleGenre(id);
+  };
 
   return (
     <S.Card>
@@ -39,8 +43,8 @@ export function PreferredGenresCard({
           <button
             key={g.id}
             type="button"
-            className={`genre-chip ${g.selected ? 'selected' : ''}`}
-            onClick={() => onToggleGenre(g.id)}
+            className={`genre-chip ${g.isSelected ? 'selected' : ''}`}
+            onClick={handleToggleGenre(g.id)}
           >
             <span>{g.label}</span>
           </button>

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from '@/styles/breakpoints';
 
 export const MobileStickySeatBar = styled.div<{ $visible: boolean }>`
   display: none;
@@ -18,7 +19,7 @@ export const MobileStickySeatBar = styled.div<{ $visible: boolean }>`
     $visible ? 'translateY(0)' : 'translateY(100%)'};
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
-  @media (max-width: 1080px) {
+  @media ${media.lg} {
     display: block;
   }
 

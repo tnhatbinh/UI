@@ -1,9 +1,10 @@
 import { Headphones, ChevronRight } from 'lucide-react';
 import * as S from './ConciergeHelpCard.styles';
+import { message } from 'antd';
 
 export function ConciergeHelpCard() {
   const handleClick = () => {
-    alert('Đang kết nối tổng đài VIP concierge: 1900 8888...');
+    message.info('Đang kết nối tổng đài VIP concierge: 1900 8888...');
   };
 
   return (

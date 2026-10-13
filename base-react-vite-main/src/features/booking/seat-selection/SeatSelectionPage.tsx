@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, Clock } from 'lucide-react';
-import { useBooking } from "../context/use-booking";
-import type { SeatItem } from "../context/booking.types";;
-import { useBookingTimer } from '../hooks/use-booking-timer';
+import { useBooking } from "../context/useBooking";
+import type { SeatItem } from "../context/booking.types";
+import { useBookingTimer } from '../hooks/useBookingTimer';
 import {
   SOLD_SEATS,
   SOLD_SWEETBOX,
@@ -63,6 +63,10 @@ export const SeatSelectionPage: FC = () => {
     navigate('/booking/snacks-services');
   };
 
+  const handleNavigateBack = () => {
+    navigate('/movie-details');
+  };
+
   return (
     <S.PageContainer>
       <S.InnerWrapper>
@@ -71,7 +75,7 @@ export const SeatSelectionPage: FC = () => {
           <div className="breadcrumbs">
             <div
               className="back-btn"
-              onClick={() => navigate('/movie-details')}
+              onClick={handleNavigateBack}
             >
               <ChevronLeft size={16} />
               <span>Lịch chiếu</span>

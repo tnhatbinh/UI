@@ -64,6 +64,7 @@ export const SideItemList = styled.div`
       display: flex;
       align-items: center;
       gap: 12px;
+      min-width: 0;
 
       .icon-box {
         width: 34px;
@@ -75,24 +76,44 @@ export const SideItemList = styled.div`
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
+
+        &.momo {
+          background: #a50064;
+          color: #ffffff;
+          font-weight: 800;
+          font-size: 10px;
+        }
       }
 
       .text {
         display: flex;
         flex-direction: column;
         gap: 2px;
+        min-width: 0;
 
         .name {
           font-size: 12.5px;
           font-weight: 800;
           color: #ffffff;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         .desc {
           font-size: 10.5px;
           color: #ae8786;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
+    }
+
+    .more-dots {
+      color: #7d6b6a;
+      font-size: 14px;
+      flex-shrink: 0;
     }
   }
 `;

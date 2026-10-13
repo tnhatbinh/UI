@@ -1,33 +1,33 @@
 import styled from 'styled-components';
+import { media } from '@/styles/breakpoints';
 
 export const ProfileContentGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 400px;
+  grid-template-columns: minmax(0, 1fr) 400px;
   gap: 24px;
   margin-bottom: 40px;
 
-  @media (max-width: 980px) {
+  > * {
+    min-width: 0;
+  }
+
+  @media ${media.lg} {
     grid-template-columns: 1fr;
   }
 `;
 
-export const ToastNotification = styled.div`
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  z-index: 9999;
-  background: #1f1d24;
-  border: 1px solid #ff535a;
-  color: #ffffff;
-  padding: 12px 20px;
-  border-radius: 999px;
-  font-family: 'Be Vietnam Pro', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
+export const LeftCol = styled.div`
   display: flex;
-  align-items: center;
-  gap: 10px;
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.8),
-    0 0 20px rgba(255, 83, 90, 0.25);
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
 `;
+
+export const RightCol = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+`;
+
+export { ToastNotification } from '@shared/components/toast/ToastNotification.styles';

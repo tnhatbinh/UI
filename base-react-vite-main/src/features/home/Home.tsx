@@ -3,11 +3,13 @@ import { NowShowing } from './components/NowShowing/NowShowing';
 import { AiCineAdvisor } from './components/AiCineAdvisor/AiCineAdvisor';
 import { ExclusiveOffers } from './components/ExclusiveOffers/ExclusiveOffers';
 import { LuxuryCinemas } from './components/LuxuryCinemas/LuxuryCinemas';
-import { Newsletter } from './components/newsletter/newsletter';
+import { Newsletter } from './components/Newsletter/Newsletter';
+
+import * as S from './Home.styles';
 
 export default function Home() {
   return (
-    <main className="w-full flex flex-col bg-[#0E0E0F]">
+    <S.HomeContainer>
       <HeroSpotlight />
       <NowShowing />
       <div id="ai-tro-ly">
@@ -20,6 +22,6 @@ export default function Home() {
         <LuxuryCinemas />
       </div>
       <Newsletter />
-    </main>
+    </S.HomeContainer>
   );
 }

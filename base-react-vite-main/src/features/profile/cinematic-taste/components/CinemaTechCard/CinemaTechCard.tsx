@@ -3,10 +3,26 @@ import { Tv, Volume2, Sliders, Armchair } from 'lucide-react';
 import * as S from './CinemaTechCard.styles';
 
 export function CinemaTechCard() {
-  const [techImax, setTechImax] = useState(true);
-  const [techAtmos, setTechAtmos] = useState(true);
-  const [tech4dx, setTech4dx] = useState(true);
-  const [techLounge, setTechLounge] = useState(true);
+  const [hasTechImax, setHasTechImax] = useState(true);
+  const [hasTechAtmos, setHasTechAtmos] = useState(true);
+  const [hasTech4dx, setHasTech4dx] = useState(true);
+  const [hasTechLounge, setHasTechLounge] = useState(true);
+
+  const handleToggleTechImax = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHasTechImax(e.target.checked);
+  };
+
+  const handleToggleTechAtmos = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHasTechAtmos(e.target.checked);
+  };
+
+  const handleToggleTech4dx = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHasTech4dx(e.target.checked);
+  };
+
+  const handleToggleTechLounge = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHasTechLounge(e.target.checked);
+  };
 
   return (
     <S.Card>
@@ -38,8 +54,8 @@ export function CinemaTechCard() {
           </div>
           <input
             type="checkbox"
-            checked={techImax}
-            onChange={(e) => setTechImax(e.target.checked)}
+            checked={hasTechImax}
+            onChange={handleToggleTechImax}
           />
         </label>
 
@@ -55,8 +71,8 @@ export function CinemaTechCard() {
           </div>
           <input
             type="checkbox"
-            checked={techAtmos}
-            onChange={(e) => setTechAtmos(e.target.checked)}
+            checked={hasTechAtmos}
+            onChange={handleToggleTechAtmos}
           />
         </label>
 
@@ -74,8 +90,8 @@ export function CinemaTechCard() {
           </div>
           <input
             type="checkbox"
-            checked={tech4dx}
-            onChange={(e) => setTech4dx(e.target.checked)}
+            checked={hasTech4dx}
+            onChange={handleToggleTech4dx}
           />
         </label>
 
@@ -93,8 +109,8 @@ export function CinemaTechCard() {
           </div>
           <input
             type="checkbox"
-            checked={techLounge}
-            onChange={(e) => setTechLounge(e.target.checked)}
+            checked={hasTechLounge}
+            onChange={handleToggleTechLounge}
           />
         </label>
       </S.TechCheckList>

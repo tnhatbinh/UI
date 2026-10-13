@@ -4,19 +4,23 @@ import { QUICK_PAY_METHODS } from '../../data/vip-elite-data';
 import * as S from './VipSettingsPanel.styles';
 
 interface VipSettingsPanelProps {
-  notify2h: boolean;
-  autoAiTaste: boolean;
+  isNotify2hEnabled: boolean;
+  isAutoAiTasteEnabled: boolean;
   onToggleNotify2h: () => void;
   onToggleAutoAiTaste: () => void;
 }
 
 export function VipSettingsPanel({
-  notify2h,
-  autoAiTaste,
+  isNotify2hEnabled,
+  isAutoAiTasteEnabled,
   onToggleNotify2h,
   onToggleAutoAiTaste,
 }: VipSettingsPanelProps) {
   const navigate = useNavigate();
+
+  const handleNavigatePaymentMethods = () => {
+    navigate('/profile/payment-methods');
+  };
 
   return (
     <S.SectionCard>
@@ -27,9 +31,7 @@ export function VipSettingsPanel({
           </div>
           <h3>Tiện Ích & Thiết Lập</h3>
         </div>
-        <span style={{ fontSize: '11px', color: '#ae8786' }}>
-          Tự động đồng bộ
-        </span>
+        <span className="auto-sync">Tự động đồng bộ</span>
       </div>
 
       {/* Notification Toggles */}
@@ -45,7 +47,7 @@ export function VipSettingsPanel({
             </span>
           </div>
           <div
-            className={`switch ${notify2h ? '' : 'off'}`}
+            className={`switch ${isNotify2hEnabled ? '' : 'off'}`}
             onClick={onToggleNotify2h}
           />
         </S.ToggleRow>
@@ -62,67 +64,45 @@ export function VipSettingsPanel({
             </span>
           </div>
           <div
-            className={`switch ${autoAiTaste ? '' : 'off'}`}
+            className={`switch ${isAutoAiTasteEnabled ? '' : 'off'}`}
             onClick={onToggleAutoAiTaste}
           />
         </S.ToggleRow>
       </div>
 
       {/* 1-Click Payments */}
-      <div style={{ marginTop: '6px' }}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '10px',
-          }}
-        >
+      <S.QuickPaySection>
+        <S.QuickPayHeader>
+          <span className="title">PHƯƠNG THỨC THANH TOÁN 1-CLICK</span>
           <span
-            style={{
-              fontSize: '10px',
-              fontWeight: 800,
-              color: '#7d6b6a',
-              letterSpacing: '0.5px',
-            }}
-          >
-            PHƯƠNG THỨC THANH TOÁN 1-CLICK
-          </span>
-          <span
-            style={{
-              fontSize: '11px',
-              fontWeight: 700,
-              color: '#ff535a',
-              cursor: 'pointer',
-            }}
-            onClick={() => navigate('/profile/PaymentMethods')}
+            className="add-link"
+            onClick={handleNavigatePaymentMethods}
           >
             + Thêm thẻ
           </span>
-        </div>
+        </S.QuickPayHeader>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <S.QuickPayList>
           {QUICK_PAY_METHODS.map((method) => (
             <S.QuickPayItem key={method.id}>
               <div className="left">
-                <div
-                  className="brand-icon"
-                  style={{ background: method.brandColor }}
-                >
+                <S.BrandIcon $bg={method.brandColor}>
                   {method.brandLabel}
-                </div>
+                </S.BrandIcon>
                 <div className="info">
                   <span className="name">{method.name}</span>
                   <span className="sub">{method.sub}</span>
                 </div>
               </div>
-              <span className="badge" style={method.badgeStyle}>
+              <span
+                className={`badge${method.id === 'visa' ? ' verified' : ''}`}
+              >
                 {method.badge}
               </span>
             </S.QuickPayItem>
           ))}
-        </div>
-      </div>
+        </S.QuickPayList>
+      </S.QuickPaySection>
     </S.SectionCard>
   );
 }

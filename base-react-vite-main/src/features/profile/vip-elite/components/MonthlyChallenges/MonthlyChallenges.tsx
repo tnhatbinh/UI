@@ -3,15 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './MonthlyChallenges.styles';
 
 interface MonthlyChallengesProps {
-  claimedReward: boolean;
+  hasClaimedReward: boolean;
   onClaimMission: () => void;
 }
 
 export function MonthlyChallenges({
-  claimedReward,
+  hasClaimedReward,
   onClaimMission,
 }: MonthlyChallengesProps) {
   const navigate = useNavigate();
+
+  const handleNavigateMovieDetails = () => {
+    navigate('/movie-details');
+  };
 
   return (
     <S.SectionCard>
@@ -22,19 +26,13 @@ export function MonthlyChallenges({
           </div>
           <div>
             <h3>Thử Thách Điện Ảnh Săn Vé Tháng 11</h3>
-            <p
-              style={{
-                fontSize: '11.5px',
-                color: '#ae8786',
-                margin: '2px 0 0',
-              }}
-            >
+            <p className="sub-desc">
               Hoàn thành nhiệm vụ nhận vé xem phim & combo bắp nước thượng hạng
               hoàn toàn miễn phí
             </p>
           </div>
         </div>
-        <span className="tag-pill" style={{ color: '#ff535a' }}>
+        <span className="tag-pill urgent">
           Còn 18 ngày
         </span>
       </div>
@@ -56,7 +54,7 @@ export function MonthlyChallenges({
             </span>
             <div className="progress-line">
               <div className="bar">
-                <div className="fill" style={{ width: '66.6%' }} />
+                <div className="fill fill-two-thirds" />
               </div>
               <span className="txt">2 / 3 phim (Còn 1 suất chiếu)</span>
             </div>
@@ -67,7 +65,7 @@ export function MonthlyChallenges({
           <span className="reward-tag">🎟 1 Vé 2D Miễn Phí</span>
           <button
             className="book-btn"
-            onClick={() => navigate('/movie-details')}
+            onClick={handleNavigateMovieDetails}
           >
             Đặt phim còn lại
           </button>
@@ -77,10 +75,7 @@ export function MonthlyChallenges({
       {/* Challenge 2 */}
       <S.ChallengeItem>
         <div className="left-meta">
-          <div
-            className="icon-box"
-            style={{ background: 'rgba(74, 222, 128, 0.12)', color: '#4ade80' }}
-          >
+          <div className="icon-box success">
             <CheckCircle size={20} />
           </div>
           <div className="info">
@@ -94,12 +89,9 @@ export function MonthlyChallenges({
             </span>
             <div className="progress-line">
               <div className="bar">
-                <div
-                  className="fill"
-                  style={{ width: '100%', background: '#4ade80' }}
-                />
+                <div className="fill success" />
               </div>
-              <span className="txt" style={{ color: '#4ade80' }}>
+              <span className="txt success">
                 5 / 5 review (100%)
               </span>
             </div>
@@ -109,16 +101,10 @@ export function MonthlyChallenges({
         <div className="right-action">
           <span className="reward-tag">🍿 Combo Bắp Nước 0đ</span>
           <button
-            className="claim-btn"
-            style={{
-              background: claimedReward
-                ? 'rgba(255, 255, 255, 0.1)'
-                : '#ff535a',
-              cursor: claimedReward ? 'default' : 'pointer',
-            }}
-            onClick={claimedReward ? undefined : onClaimMission}
+            className={`claim-btn ${hasClaimedReward ? 'claimed' : ''}`}
+            onClick={hasClaimedReward ? undefined : onClaimMission}
           >
-            {claimedReward ? 'Đã nhận thưởng ✓' : 'Nhận thưởng ngay'}
+            {hasClaimedReward ? 'Đã nhận thưởng ✓' : 'Nhận thưởng ngay'}
           </button>
         </div>
       </S.ChallengeItem>

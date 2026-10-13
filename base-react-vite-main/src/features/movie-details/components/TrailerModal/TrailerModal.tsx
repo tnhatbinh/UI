@@ -17,10 +17,19 @@ export const TrailerModal: FC<TrailerModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
+  const handleContentClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   return (
     <S.TrailerModal onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button type="button" className="close-btn" onClick={onClose}>
+      <div className="modal-content" onClick={handleContentClick}>
+        <button
+          type="button"
+          className="close-btn"
+          onClick={onClose}
+          aria-label="Đóng trailer"
+        >
           <X size={18} />
         </button>
         <iframe

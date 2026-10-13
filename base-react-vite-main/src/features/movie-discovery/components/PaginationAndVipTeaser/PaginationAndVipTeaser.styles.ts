@@ -1,20 +1,21 @@
 import styled from 'styled-components';
+import { media } from '@/styles/breakpoints';
 
 export const SectionContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0px 24px 40px;
+  padding: 0px var(--page-gutter, 24px) 40px;
   gap: 24px;
   width: 100%;
-  max-width: 1680px;
+  max-width: var(--content-max-width, 1280px);
   margin: 0 auto;
   min-height: 220px;
   z-index: 5;
   position: relative;
 
-  @media (max-width: 1280px) {
-    padding: 0 16px 32px;
+  @media ${media.md} {
+    padding: 0 var(--page-gutter-compact, 16px) 32px;
     height: auto;
   }
 `;
@@ -25,7 +26,6 @@ export const InnerContainer = styled.div`
   align-items: center;
   gap: 24px;
   width: 100%;
-  max-width: 1232px;
   margin: 0 auto;
 `;
 
@@ -105,6 +105,17 @@ export const PaginationNumbersWrapper = styled.div`
   height: 44px;
   background: #1c1b1c;
   border-radius: 9999px;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (max-width: 440px) {
+    gap: 4px;
+    padding: 3px;
+  }
 `;
 
 export const PageArrowButton = styled.button<{ $disabled?: boolean }>`
@@ -173,7 +184,6 @@ export const ExclusiveLoungeBanner = styled.div`
   align-items: center;
   padding: 24px;
   width: 100%;
-  max-width: 1232px;
   min-height: 96px;
   background: linear-gradient(90deg, #1c1b1c 0%, #201f20 50%, #1c1b1c 100%);
   border-radius: 12px;
@@ -181,7 +191,7 @@ export const ExclusiveLoungeBanner = styled.div`
   box-shadow: 0px 10px 25px -5px rgba(0, 0, 0, 0.3);
   gap: 24px;
 
-  @media (max-width: 900px) {
+  @media ${media.lg} {
     flex-direction: column;
     align-items: flex-start;
     height: auto;
@@ -195,6 +205,7 @@ export const LoungeInfoGroup = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 16px;
+  min-width: 0;
 
   @media (max-width: 640px) {
     align-items: flex-start;
@@ -218,6 +229,7 @@ export const LoungeTextCol = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 2px;
+  min-width: 0;
 `;
 
 export const LoungeTitle = styled.h4`
@@ -228,6 +240,7 @@ export const LoungeTitle = styled.h4`
   font-size: 18px;
   line-height: 26px;
   color: #e5e2e3;
+  overflow-wrap: anywhere;
 
   @media (max-width: 640px) {
     font-size: 16px;
@@ -244,6 +257,7 @@ export const LoungeSubtitle = styled.p`
   line-height: 22px;
   letter-spacing: 0.14px;
   color: #e7bcba;
+  overflow-wrap: anywhere;
 
   @media (max-width: 640px) {
     font-size: 13px;

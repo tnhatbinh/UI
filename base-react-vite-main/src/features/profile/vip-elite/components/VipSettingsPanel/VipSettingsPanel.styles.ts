@@ -36,6 +36,11 @@ export const SectionCard = styled.div`
         color: #ffffff;
       }
     }
+
+    .auto-sync {
+      font-size: 11px;
+      color: #ae8786;
+    }
   }
 `;
 
@@ -147,5 +152,55 @@ export const QuickPayItem = styled.div`
     background: rgba(255, 185, 85, 0.12);
     padding: 2px 6px;
     border-radius: 4px;
+
+    &.verified {
+      color: #4ade80;
+      background: rgba(74, 222, 128, 0.12);
+    }
   }
 `;
+
+export const QuickPaySection = styled.div`
+  margin-top: 6px;
+`;
+
+export const QuickPayHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+
+  .title {
+    font-size: 10px;
+    font-weight: 800;
+    color: #7d6b6a;
+    letter-spacing: 0.5px;
+  }
+
+  .add-link {
+    font-size: 11px;
+    font-weight: 700;
+    color: #ff535a;
+    cursor: pointer;
+  }
+`;
+
+export const QuickPayList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+export const BrandIcon = styled.div<{ $bg?: string }>`
+  width: 32px;
+  height: 22px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 900;
+  color: #ffffff;
+  background: ${({ $bg }) => $bg || '#ff535a'};
+`;
+

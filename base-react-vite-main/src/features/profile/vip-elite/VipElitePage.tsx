@@ -12,9 +12,9 @@ import { VipBottomSecurityStrip } from './components/VipBottomSecurityStrip';
 
 export default function VipElitePage() {
   const navigate = useNavigate();
-  const [notify2h, setNotify2h] = useState(true);
-  const [autoAiTaste, setAutoAiTaste] = useState(true);
-  const [claimedReward, setClaimedReward] = useState(false);
+  const [isNotify2hEnabled, setIsNotify2hEnabled] = useState(true);
+  const [isAutoAiTasteEnabled, setIsAutoAiTasteEnabled] = useState(true);
+  const [hasClaimedReward, setHasClaimedReward] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
@@ -23,10 +23,45 @@ export default function VipElitePage() {
   };
 
   const handleClaimMission = () => {
-    setClaimedReward(true);
+    setHasClaimedReward(true);
     showToast(
       'Chúc mừng! Đã cộng 01 Voucher Combo Bắp Nước 0đ vào ví của bạn!',
     );
+  };
+
+  const handleNavigateToPersonalInfo = () => {
+    navigate('/profile/personal-info');
+  };
+
+  const handleRewardClick = () => {
+    showToast(
+      'Bạn đang có 1.250 PhimPoints. Sẵn sàng đổi vé IMAX 2D miễn phí!',
+    );
+  };
+
+  const handleRefreshAiTaste = () => {
+    showToast('Đã đồng bộ khẩu vị điện ảnh với dữ liệu rạp mới nhất!');
+  };
+
+  const handleToggleNotify2h = () => {
+    setIsNotify2hEnabled((v) => !v);
+  };
+
+  const handleToggleAutoAiTaste = () => {
+    setIsAutoAiTasteEnabled((v) => !v);
+  };
+
+  const handleNavigateTickets = () => {
+    navigate('/ve-cua-toi');
+  };
+
+  const handleShowPrivilegeTerms = () => {
+    showToast('Đang mở điều khoản quyền lợi VIP...');
+  };
+
+  const handleLogout = () => {
+    showToast('Đã đăng xuất an toàn.');
+    navigate('/login');
   };
 
   return (
@@ -49,7 +84,7 @@ export default function VipElitePage() {
           <div className="action-buttons">
             <button
               className="edit-btn"
-              onClick={() => navigate('/profile/personal-info')}
+              onClick={handleNavigateToPersonalInfo}
             >
               <Edit3 size={14} />
               <span>Chỉnh sửa hồ sơ</span>
@@ -57,11 +92,7 @@ export default function VipElitePage() {
 
             <button
               className="reward-btn"
-              onClick={() =>
-                showToast(
-                  'Bạn đang có 1.250 PhimPoints. Sẵn sàng đổi vé IMAX 2D miễn phí!',
-                )
-              }
+              onClick={handleRewardClick}
             >
               <Gift size={15} />
               <span>Đổi quà & Thưởng điểm</span>
@@ -80,14 +111,10 @@ export default function VipElitePage() {
           {/* Left Column */}
           <S.Column $gap="20px">
             <AiTasteSection
-              onRefresh={() =>
-                showToast(
-                  'Đã đồng bộ khẩu vị điện ảnh với dữ liệu rạp mới nhất!',
-                )
-              }
+              onRefresh={handleRefreshAiTaste}
             />
             <MonthlyChallenges
-              claimedReward={claimedReward}
+              hasClaimedReward={hasClaimedReward}
               onClaimMission={handleClaimMission}
             />
           </S.Column>
@@ -96,24 +123,19 @@ export default function VipElitePage() {
           <S.Column $gap="20px">
             <VoucherVault />
             <VipSettingsPanel
-              notify2h={notify2h}
-              autoAiTaste={autoAiTaste}
-              onToggleNotify2h={() => setNotify2h((v) => !v)}
-              onToggleAutoAiTaste={() => setAutoAiTaste((v) => !v)}
+              isNotify2hEnabled={isNotify2hEnabled}
+              isAutoAiTasteEnabled={isAutoAiTasteEnabled}
+              onToggleNotify2h={handleToggleNotify2h}
+              onToggleAutoAiTaste={handleToggleAutoAiTaste}
             />
           </S.Column>
         </S.MainTwoColGrid>
 
         {/* Bottom Security & Policy Strip */}
         <VipBottomSecurityStrip
-          onNavigateTickets={() => navigate('/ve-cua-toi')}
-          onShowPrivilegeTerms={() =>
-            showToast('Đang mở điều khoản quyền lợi VIP...')
-          }
-          onLogout={() => {
-            showToast('Đã đăng xuất an toàn.');
-            navigate('/login');
-          }}
+          onNavigateTickets={handleNavigateTickets}
+          onShowPrivilegeTerms={handleShowPrivilegeTerms}
+          onLogout={handleLogout}
         />
 
         {/* Floating Toast Notification */}

@@ -1,6 +1,6 @@
-import type { FC } from 'react';
+import { Fragment, type FC } from 'react';
 import { MoveHorizontal, Heart } from 'lucide-react';
-import { useBooking } from '../../../context/use-booking';
+import { useBooking } from '../../../context/useBooking';
 import {
   SEAT_ROWS,
   SEAT_CLUSTERS,
@@ -22,6 +22,14 @@ export const SeatGrid: FC<SeatGridProps> = ({
 }) => {
   const { state } = useBooking();
 
+  const handleSeatClick = (row: string, number: number) => () => {
+    onSeatClick(row, number);
+  };
+
+  const handleSweetboxClick = (id: string, number: number) => () => {
+    onSweetboxClick(id, number);
+  };
+
   return (
     <>
       <S.MobileScrollHint>
@@ -37,7 +45,7 @@ export const SeatGrid: FC<SeatGridProps> = ({
               <span className="row-label">{row}</span>
 
               {SEAT_CLUSTERS.map((cluster, clusterIdx) => (
-                <div key={clusterIdx} style={{ display: 'contents' }}>
+                <Fragment key={clusterIdx}>
                   <div className="seats-cluster">
                     {cluster.map((num) => {
                       const id = `${row}${num}`;
@@ -54,7 +62,7 @@ export const SeatGrid: FC<SeatGridProps> = ({
                           $isSelected={isSelected}
                           $isSold={isSold}
                           disabled={isSold}
-                          onClick={() => onSeatClick(row, num)}
+                          onClick={handleSeatClick(row, num)}
                           title={`${id} - ${type.toUpperCase()}`}
                         >
                           {isSold ? '✕' : num}
@@ -66,7 +74,7 @@ export const SeatGrid: FC<SeatGridProps> = ({
                   {clusterIdx < SEAT_CLUSTERS.length - 1 && (
                     <div className="aisle-gap" />
                   )}
-                </div>
+                </Fragment>
               ))}
 
               <span className="row-label">{row}</span>
@@ -89,7 +97,7 @@ export const SeatGrid: FC<SeatGridProps> = ({
                     $isSelected={isSelected}
                     $isSold={isSold}
                     disabled={isSold}
-                    onClick={() => onSweetboxClick(pair.id, pair.num)}
+                    onClick={handleSweetboxClick(pair.id, pair.num)}
                     title={`Sweetbox đôi ${pair.id}`}
                   >
                     <Heart size={10} fill={isSelected ? '#fff' : 'none'} />

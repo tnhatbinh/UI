@@ -5,18 +5,8 @@ import {
   INITIAL_NOTIFICATIONS,
   type NotificationItem,
 } from '../data/header-data';
-import { useClickOutside } from '../hooks/use-click-outside';
-import {
-  NotificationBtn,
-  NotificationDropdown,
-  NotificationDropdownFooter,
-  NotificationDropdownHeader,
-  NotificationItem as StyledNotificationItem,
-  NotificationList,
-  NotificationTab,
-  NotificationTabs,
-  NotificationWrapper,
-} from './NotificationDropdown.styles';
+import { useClickOutside } from '../hooks/useClickOutside';
+import * as S from './NotificationDropdown.styles';
 
 interface NotificationDropdownProps {
   onCloseOthers: () => void;
@@ -42,42 +32,53 @@ export function NotificationDropdownMenu({
 
   useClickOutside([ref], [() => setIsOpen(false)]);
 
-  const unreadCount = notifications.filter((n) => n.unread).length;
+  const unreadCount = notifications.filter((n) => n.isUnread).length;
 
   const filteredNotifications =
     notifTab === 'offers'
       ? notifications.filter((n) => n.category === 'offers')
       : notifications;
 
-  const markAllAsRead = () => {
-    setNotifications((prev) => prev.map((n) => ({ ...n, unread: false })));
+  const handleMarkAllAsRead = () => {
+    setNotifications((prev) => prev.map((n) => ({ ...n, isUnread: false })));
   };
 
-  const handleItemClick = (item: NotificationItem) => {
+  const handleItemClick = (item: NotificationItem) => () => {
     setNotifications((prev) =>
-      prev.map((n) => (n.id === item.id ? { ...n, unread: false } : n)),
+      prev.map((n) => (n.id === item.id ? { ...n, isUnread: false } : n)),
     );
     setIsOpen(false);
     navigate(item.link);
   };
 
+  const handleToggleOpen = () => {
+    setIsOpen((v) => !v);
+    onCloseOthers();
+  };
+
+  const handleSelectTab = (tab: 'all' | 'offers') => () => {
+    setNotifTab(tab);
+  };
+
+  const handleViewAllOffers = () => {
+    setIsOpen(false);
+    onScrollOrNavigate('uu-dai');
+  };
+
   return (
-    <NotificationWrapper ref={ref}>
-      <NotificationBtn
+    <S.NotificationWrapper ref={ref}>
+      <S.NotificationBtn
         title="Thông báo"
         $isOpen={isOpen}
-        onClick={() => {
-          setIsOpen((v) => !v);
-          onCloseOthers();
-        }}
+        onClick={handleToggleOpen}
       >
         <Bell size={14} className="bell-icon" />
         {unreadCount > 0 && <span className="badge-dot" />}
-      </NotificationBtn>
+      </S.NotificationBtn>
 
       {isOpen && (
-        <NotificationDropdown>
-          <NotificationDropdownHeader>
+        <S.NotificationDropdown>
+          <S.NotificationDropdownHeader>
             <div className="header-left">
               <span className="title">Thông báo</span>
               {unreadCount > 0 && (
@@ -88,49 +89,42 @@ export function NotificationDropdownMenu({
               <button
                 type="button"
                 className="mark-read-btn"
-                onClick={markAllAsRead}
+                onClick={handleMarkAllAsRead}
               >
                 <CheckCheck size={12} />
                 <span>Đã đọc hết</span>
               </button>
             )}
-          </NotificationDropdownHeader>
+          </S.NotificationDropdownHeader>
 
-          <NotificationTabs>
-            <NotificationTab
+          <S.NotificationTabs>
+            <S.NotificationTab
               type="button"
               $isActive={notifTab === 'all'}
-              onClick={() => setNotifTab('all')}
+              onClick={handleSelectTab('all')}
             >
               Tất cả
-            </NotificationTab>
-            <NotificationTab
+            </S.NotificationTab>
+            <S.NotificationTab
               type="button"
               $isActive={notifTab === 'offers'}
-              onClick={() => setNotifTab('offers')}
+              onClick={handleSelectTab('offers')}
             >
               Ưu đãi & Quà tặng
-            </NotificationTab>
-          </NotificationTabs>
+            </S.NotificationTab>
+          </S.NotificationTabs>
 
-          <NotificationList>
+          <S.NotificationList>
             {filteredNotifications.length === 0 ? (
-              <div
-                style={{
-                  padding: '24px 12px',
-                  textAlign: 'center',
-                  color: '#79767a',
-                  fontSize: '12px',
-                }}
-              >
+              <S.EmptyNotification>
                 Không có thông báo nào
-              </div>
+              </S.EmptyNotification>
             ) : (
               filteredNotifications.map((item) => (
-                <StyledNotificationItem
+                <S.NotificationItem
                   key={item.id}
-                  $isUnread={item.unread}
-                  onClick={() => handleItemClick(item)}
+                  $isUnread={item.isUnread}
+                  onClick={handleItemClick(item)}
                 >
                   <div className={`item-icon-box ${item.type}`}>
                     {TYPE_ICON[item.type]}
@@ -140,26 +134,23 @@ export function NotificationDropdownMenu({
                     <span className="item-desc">{item.desc}</span>
                     <span className="item-time">{item.time}</span>
                   </div>
-                  {item.unread && <span className="unread-dot" />}
-                </StyledNotificationItem>
+                  {item.isUnread && <span className="unread-dot" />}
+                </S.NotificationItem>
               ))
             )}
-          </NotificationList>
+          </S.NotificationList>
 
-          <NotificationDropdownFooter>
+          <S.NotificationDropdownFooter>
             <button
               type="button"
               className="view-all-link"
-              onClick={() => {
-                setIsOpen(false);
-                onScrollOrNavigate('uu-dai');
-              }}
+              onClick={handleViewAllOffers}
             >
               Xem tất cả ưu đãi & sự kiện
             </button>
-          </NotificationDropdownFooter>
-        </NotificationDropdown>
+          </S.NotificationDropdownFooter>
+        </S.NotificationDropdown>
       )}
-    </NotificationWrapper>
+    </S.NotificationWrapper>
   );
 }

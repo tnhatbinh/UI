@@ -12,16 +12,7 @@ import { ProfileDropdownMenu } from './components/ProfileDropdown';
 import { HeaderLogo } from './components/HeaderLogo';
 import { HeaderNav } from './components/HeaderNav';
 import { HeaderSearch } from './components/HeaderSearch';
-import {
-  ActionsGroup,
-  TicketPassBtn,
-} from './components/HeaderActions.styles';
-import {
-  EdgeMenuTrigger,
-  InnerContainer,
-  NavLeftGroup,
-  OuterHeader,
-} from './Header.styles';
+import * as S from './Header.styles';
 
 export interface HeaderProps {
   isSidebarOpen?: boolean;
@@ -52,17 +43,28 @@ const Header: FC<HeaderProps> = ({
     }, 150);
   };
 
+  const handleNavigateMyTickets = () => {
+    navigate('/ve-cua-toi');
+  };
+
+  const handleCloseOthers = () => {};
+
+  const handleLogout = () => {
+    tokenManager.removeAccessToken();
+    setAuthTick((v) => v + 1);
+  };
+
   return (
-    <OuterHeader>
-      <InnerContainer>
+    <S.OuterHeader>
+      <S.InnerContainer>
         {/* Left Side: Logo + Navigation */}
-        <NavLeftGroup>
+        <S.NavLeftGroup>
           <HeaderLogo />
           <HeaderNav onScrollOrNavigate={handleScrollOrNavigate} />
-        </NavLeftGroup>
+        </S.NavLeftGroup>
 
         {/* Right Side: Actions */}
-        <ActionsGroup>
+        <S.ActionsGroup>
           {/* Language Switcher */}
           <LangSwitcher />
 
@@ -73,38 +75,35 @@ const Header: FC<HeaderProps> = ({
           <LocationPicker />
 
           {/* My Tickets */}
-          <TicketPassBtn onClick={() => navigate('/ve-cua-toi')}>
+          <S.TicketPassBtn onClick={handleNavigateMyTickets}>
             <BiCameraMovie className="ticket-icon" />
             <span>{t('header:my_tickets')}</span>
-          </TicketPassBtn>
+          </S.TicketPassBtn>
 
           {/* Notification Dropdown */}
           <NotificationDropdownMenu
-            onCloseOthers={() => {}} // each dropdown manages its own state
+            onCloseOthers={handleCloseOthers} // each dropdown manages its own state
             onScrollOrNavigate={handleScrollOrNavigate}
           />
 
           {/* Profile / Login */}
           <ProfileDropdownMenu
-            onLogout={() => {
-              tokenManager.removeAccessToken();
-              setAuthTick((v) => v + 1);
-            }}
+            onLogout={handleLogout}
           />
-        </ActionsGroup>
-      </InnerContainer>
 
-      {/* Sidebar Toggle Button */}
-      <EdgeMenuTrigger
-        type="button"
-        $isOpen={isSidebarOpen}
-        onClick={onToggleSidebar}
-        title="Menu hệ thống (Sidebar)"
-        aria-label="Mở menu hệ thống"
-      >
-        <MenuIcon size={20} />
-      </EdgeMenuTrigger>
-    </OuterHeader>
+          {/* Sidebar Toggle Button */}
+          <S.EdgeMenuTrigger
+            type="button"
+            $isOpen={isSidebarOpen}
+            onClick={onToggleSidebar}
+            title="Menu hệ thống (Sidebar)"
+            aria-label="Mở menu hệ thống"
+          >
+            <MenuIcon size={20} />
+          </S.EdgeMenuTrigger>
+        </S.ActionsGroup>
+      </S.InnerContainer>
+    </S.OuterHeader>
   );
 };
 

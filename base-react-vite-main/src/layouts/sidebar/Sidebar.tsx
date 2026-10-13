@@ -24,10 +24,15 @@ import {
   ChevronRight,
   Globe,
   Menu,
+  Search,
 } from 'lucide-react';
 import { BiCameraMovie } from 'react-icons/bi';
 import tokenManager from '@shared/utils/tokenManager';
-import * as S from './sidebar.styles';
+import {
+  LANGUAGES,
+  INITIAL_NOTIFICATIONS,
+} from '@layouts/header/data/header-data';
+import * as S from './Sidebar.styles';
 
 export interface SidebarProps {
   isOpen: boolean;
@@ -36,26 +41,26 @@ export interface SidebarProps {
 
 const CITIES = ['TP. HCM', 'Hà Nội', 'Đà Nẵng'];
 
-const LANGUAGES = [
-  {
-    code: 'vi',
-    label: 'Tiếng Việt',
-    flagUrl: 'https://flagcdn.com/w40/vn.png',
-  },
-  { code: 'en', label: 'English', flagUrl: 'https://flagcdn.com/w40/gb.png' },
-  { code: 'ko', label: '한국어', flagUrl: 'https://flagcdn.com/w40/kr.png' },
-  { code: 'ja', label: '日本語', flagUrl: 'https://flagcdn.com/w40/jp.png' },
-  { code: 'zh', label: '中文', flagUrl: 'https://flagcdn.com/w40/cn.png' },
-];
-
 export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const [selectedCity, setSelectedCity] = useState('TP. HCM');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const isLoggedIn = Boolean(tokenManager.getAccessToken());
   const userName = localStorage.getItem('user_name') || 'VIP Elite';
+  const unreadCount = INITIAL_NOTIFICATIONS.filter((n) => n.isUnread).length;
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/kham-pha?search=${encodeURIComponent(searchQuery.trim())}`);
+    } else {
+      navigate('/kham-pha');
+    }
+    onClose();
+  };
 
   // Đóng sidebar khi nhấn phím Escape
   useEffect(() => {
@@ -85,6 +90,10 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
     onClose();
   };
 
+  const handleNavigateTo = (path: string) => () => {
+    handleNavigate(path);
+  };
+
   const handleScrollOrNavigate = (sectionId: string) => {
     onClose();
     if (location.pathname === '/' || location.pathname === '/home') {
@@ -99,6 +108,18 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
       const el = document.getElementById(sectionId);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }, 150);
+  };
+
+  const handleScrollTo = (sectionId: string) => () => {
+    handleScrollOrNavigate(sectionId);
+  };
+
+  const handleSelectLang = (code: string) => () => {
+    i18n.changeLanguage(code);
+  };
+
+  const handleSelectCity = (city: string) => () => {
+    setSelectedCity(city);
   };
 
   const handleLogout = () => {
@@ -136,6 +157,19 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
         {/* Nội dung menu cuộn mượt */}
         <S.ScrollContent>
+          {/* Thanh tìm kiếm nhanh trên Mobile */}
+          <S.SidebarSearchForm onSubmit={handleSearchSubmit}>
+            <S.SidebarSearchBox>
+              <Search size={16} className="search-icon" />
+              <input
+                type="text"
+                placeholder={t('header:search', 'Tìm phim, rạp chiếu...')}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </S.SidebarSearchBox>
+          </S.SidebarSearchForm>
+
           {/* Bộ chọn đa ngôn ngữ */}
           <S.QuickLangBar>
             <div className="lang-title-row">
@@ -148,8 +182,8 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
               {LANGUAGES.map((lang) => (
                 <S.LangChip
                   key={lang.code}
-                  $isSelected={i18n.language === lang.code}
-                  onClick={() => i18n.changeLanguage(lang.code)}
+                  $isSelected={Boolean(i18n.language?.startsWith(lang.code))}
+                  onClick={handleSelectLang(lang.code)}
                 >
                   <img
                     src={lang.flagUrl}
@@ -173,7 +207,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
                 <S.CityChip
                   key={city}
                   $isSelected={selectedCity === city}
-                  onClick={() => setSelectedCity(city)}
+                  onClick={handleSelectCity(city)}
                 >
                   {city}
                 </S.CityChip>
@@ -187,7 +221,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
             <S.NavItemBtn
               $isActive={isActive('/')}
-              onClick={() => handleNavigate('/')}
+              onClick={handleNavigateTo('/')}
             >
               <div className="item-left">
                 <Home className="item-icon" />
@@ -198,7 +232,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
             <S.NavItemBtn
               $isActive={isActive('/kham-pha')}
-              onClick={() => handleNavigate('/kham-pha')}
+              onClick={handleNavigateTo('/kham-pha')}
             >
               <div className="item-left">
                 <Film className="item-icon" />
@@ -209,7 +243,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
             <S.NavItemBtn
               $isActive={isActive('/lich-chieu')}
-              onClick={() => handleNavigate('/lich-chieu')}
+              onClick={handleNavigateTo('/lich-chieu')}
             >
               <div className="item-left">
                 <Clapperboard className="item-icon" />
@@ -220,7 +254,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
             <S.NavItemBtn
               $isActive={false}
-              onClick={() => handleScrollOrNavigate('uu-dai')}
+              onClick={handleScrollTo('uu-dai')}
             >
               <div className="item-left">
                 <Tag className="item-icon" />
@@ -231,7 +265,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
             <S.NavItemBtn
               $isActive={false}
-              onClick={() => handleScrollOrNavigate('rap-chieu')}
+              onClick={handleScrollTo('rap-chieu')}
             >
               <div className="item-left">
                 <MapPin className="item-icon" />
@@ -242,10 +276,10 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
             <S.NavItemBtn
               $isActive={false}
-              onClick={() => handleScrollOrNavigate('ai-tro-ly')}
+              onClick={handleScrollTo('ai-tro-ly')}
             >
               <div className="item-left">
-                <Sparkles className="item-icon" style={{ color: '#ffb955' }} />
+                <Sparkles className="item-icon gold" />
                 <span className="item-title">{t('header:ai_assistant')}</span>
               </div>
               <ChevronRight className="item-arrow" />
@@ -253,7 +287,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
             <S.NavItemBtn
               $isActive={isActive('/ve-cua-toi')}
-              onClick={() => handleNavigate('/ve-cua-toi')}
+              onClick={handleNavigateTo('/ve-cua-toi')}
             >
               <div className="item-left">
                 <BiCameraMovie className="item-icon" />
@@ -271,7 +305,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
             <S.NavItemBtn
               $isActive={isActive('/movie-details')}
-              onClick={() => handleNavigate('/movie-details')}
+              onClick={handleNavigateTo('/movie-details')}
             >
               <div className="item-left">
                 <Calendar className="item-icon" />
@@ -282,7 +316,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
             <S.NavItemBtn
               $isActive={isActive('/booking/seat-selection')}
-              onClick={() => handleNavigate('/booking/seat-selection')}
+              onClick={handleNavigateTo('/booking/seat-selection')}
             >
               <div className="item-left">
                 <Armchair className="item-icon" />
@@ -293,7 +327,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
             <S.NavItemBtn
               $isActive={isActive('/booking/snacks-services')}
-              onClick={() => handleNavigate('/booking/snacks-services')}
+              onClick={handleNavigateTo('/booking/snacks-services')}
             >
               <div className="item-left">
                 <Coffee className="item-icon" />
@@ -304,7 +338,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
             <S.NavItemBtn
               $isActive={isActive('/booking/checkout')}
-              onClick={() => handleNavigate('/booking/checkout')}
+              onClick={handleNavigateTo('/booking/checkout')}
             >
               <div className="item-left">
                 <CreditCard className="item-icon" />
@@ -322,10 +356,10 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
             <S.NavItemBtn
               $isActive={isActive('/profile/vip-elite')}
-              onClick={() => handleNavigate('/profile/vip-elite')}
+              onClick={handleNavigateTo('/profile/vip-elite')}
             >
               <div className="item-left">
-                <Crown className="item-icon" style={{ color: '#ffb955' }} />
+                <Crown className="item-icon gold" />
                 <span className="item-title">Hồ sơ VIP Elite</span>
               </div>
               <ChevronRight className="item-arrow" />
@@ -333,7 +367,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
             <S.NavItemBtn
               $isActive={isActive('/profile/personal-info')}
-              onClick={() => handleNavigate('/profile/personal-info')}
+              onClick={handleNavigateTo('/profile/personal-info')}
             >
               <div className="item-left">
                 <User className="item-icon" />
@@ -344,7 +378,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
             <S.NavItemBtn
               $isActive={isActive('/profile/security')}
-              onClick={() => handleNavigate('/profile/security')}
+              onClick={handleNavigateTo('/profile/security')}
             >
               <div className="item-left">
                 <ShieldCheck className="item-icon" />
@@ -355,7 +389,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
             <S.NavItemBtn
               $isActive={isActive('/profile/payment-methods')}
-              onClick={() => handleNavigate('/profile/payment-methods')}
+              onClick={handleNavigateTo('/profile/payment-methods')}
             >
               <div className="item-left">
                 <Wallet className="item-icon" />
@@ -366,21 +400,22 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
             <S.NavItemBtn
               $isActive={isActive('/profile/notification-settings')}
-              onClick={() => handleNavigate('/profile/notification-settings')}
+              onClick={handleNavigateTo('/profile/notification-settings')}
             >
               <div className="item-left">
                 <Bell className="item-icon" />
                 <span className="item-title">Cài đặt thông báo & Ưu đãi</span>
               </div>
+              {unreadCount > 0 && <S.BadgePill>{unreadCount} mới</S.BadgePill>}
               <ChevronRight className="item-arrow" />
             </S.NavItemBtn>
 
             <S.NavItemBtn
               $isActive={isActive('/profile/cinematic-taste')}
-              onClick={() => handleNavigate('/profile/cinematic-taste')}
+              onClick={handleNavigateTo('/profile/cinematic-taste')}
             >
               <div className="item-left">
-                <Sparkles className="item-icon" style={{ color: '#ffb955' }} />
+                <Sparkles className="item-icon gold" />
                 <span className="item-title">Khẩu vị điện ảnh</span>
               </div>
               <ChevronRight className="item-arrow" />
@@ -412,7 +447,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
               </S.ActionBtn>
             </>
           ) : (
-            <S.ActionBtn onClick={() => handleNavigate('/login')}>
+            <S.ActionBtn onClick={handleNavigateTo('/login')}>
               <LogIn size={15} />
               <span>{t('header:login')}</span>
             </S.ActionBtn>

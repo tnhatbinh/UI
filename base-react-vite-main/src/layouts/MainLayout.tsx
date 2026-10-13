@@ -3,28 +3,38 @@ import { Outlet } from 'react-router-dom';
 import Header from './header/Header';
 import { Footer } from './footer/Footer';
 import Sidebar from './sidebar/Sidebar';
+import * as S from './MainLayout.styles';
 
 export default function MainLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  const handleToggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
+
+  const handleCloseSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
   return (
-    <div className="flex min-h-screen w-full flex-col bg-[#0B0B0C] text-white relative">
+    <S.LayoutWrapper>
       {/* 1. Header (Sticky Top, Full-width Glassmorphism với nút menu 3 gạch sát mép màn hình) */}
       <Header
         isSidebarOpen={isSidebarOpen}
-        onToggleSidebar={() => setIsSidebarOpen((prev) => !prev)}
+        onToggleSidebar={handleToggleSidebar}
       />
 
       {/* 2. Main Body Content */}
-      <main className="flex-1 w-full">
+      <S.MainContent>
         <Outlet />
-      </main>
+      </S.MainContent>
 
       {/* 3. Footer */}
       <Footer />
 
       {/* 4. Full Vertical Sidebar ở mép màn hình */}
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-    </div>
+      <Sidebar isOpen={isSidebarOpen} onClose={handleCloseSidebar} />
+    </S.LayoutWrapper>
   );
 }
+

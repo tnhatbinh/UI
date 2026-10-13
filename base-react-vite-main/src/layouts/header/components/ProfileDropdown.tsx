@@ -11,17 +11,8 @@ import {
 import { BiCameraMovie } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import tokenManager from '@shared/utils/tokenManager';
-import { useClickOutside } from '../hooks/use-click-outside';
-import {
-  LoginBtn,
-  ProfileDivider,
-  ProfileDropdown,
-  ProfileHeader,
-  ProfileLogoutItem,
-  ProfileMenuItem,
-  ProfileWrapper,
-  UserProfileBadge,
-} from './ProfileDropdown.styles';
+import { useClickOutside } from '../hooks/useClickOutside';
+import * as S from './ProfileDropdown.styles';
 
 // Map icon name → component (avoids importing all icons in data file)
 const MENU_ICONS: Record<string, React.ReactNode> = {
@@ -81,7 +72,24 @@ export function ProfileDropdownMenu({ onLogout }: ProfileDropdownMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  useClickOutside([ref], [() => setIsOpen(false)]);
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleToggleOpen = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const handleNavigateLogin = () => {
+    navigate('/login');
+  };
+
+  const handleMenuItemClick = (path: string) => () => {
+    setIsOpen(false);
+    navigate(path);
+  };
+
+  useClickOutside([ref], [handleClose]);
 
   const isLoggedIn = Boolean(tokenManager.getAccessToken());
   const userName = localStorage.getItem('user_name') || 'VIP Elite';
@@ -96,16 +104,16 @@ export function ProfileDropdownMenu({ onLogout }: ProfileDropdownMenuProps) {
 
   if (!isLoggedIn) {
     return (
-      <LoginBtn onClick={() => navigate('/login')}>
+      <S.LoginBtn onClick={handleNavigateLogin}>
         <LogIn size={13} />
         <span>Đăng nhập</span>
-      </LoginBtn>
+      </S.LoginBtn>
     );
   }
 
   return (
-    <ProfileWrapper ref={ref}>
-      <UserProfileBadge $isOpen={isOpen} onClick={() => setIsOpen((v) => !v)}>
+    <S.ProfileWrapper ref={ref}>
+      <S.UserProfileBadge $isOpen={isOpen} onClick={handleToggleOpen}>
         <div className="avatar-circle">
           <User size={12} strokeWidth={3} />
         </div>
@@ -114,38 +122,35 @@ export function ProfileDropdownMenu({ onLogout }: ProfileDropdownMenuProps) {
           <span className="points-text">1.250 Điểm</span>
         </div>
         <ChevronDown size={10} className="profile-chevron" />
-      </UserProfileBadge>
+      </S.UserProfileBadge>
 
       {isOpen && (
-        <ProfileDropdown>
-          <ProfileHeader>
+        <S.ProfileDropdown>
+          <S.ProfileHeader>
             <div className="profile-name">{userName}</div>
             <div className="profile-membership">VIP Elite • 1.250 Điểm</div>
-          </ProfileHeader>
+          </S.ProfileHeader>
 
-          <ProfileDivider />
+          <S.ProfileDivider />
 
           {PROFILE_MENU.map((item) => (
-            <ProfileMenuItem
+            <S.ProfileMenuItem
               key={item.id}
-              onClick={() => {
-                setIsOpen(false);
-                navigate(item.path);
-              }}
+              onClick={handleMenuItemClick(item.path)}
             >
               {MENU_ICONS[item.icon]}
               <span>{item.label}</span>
-            </ProfileMenuItem>
+            </S.ProfileMenuItem>
           ))}
 
-          <ProfileDivider />
+          <S.ProfileDivider />
 
-          <ProfileLogoutItem onClick={handleLogout}>
+          <S.ProfileLogoutItem onClick={handleLogout}>
             <LogOut size={13} />
             <span>Đăng xuất</span>
-          </ProfileLogoutItem>
-        </ProfileDropdown>
+          </S.ProfileLogoutItem>
+        </S.ProfileDropdown>
       )}
-    </ProfileWrapper>
+    </S.ProfileWrapper>
   );
 }

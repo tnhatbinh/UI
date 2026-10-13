@@ -8,6 +8,11 @@ export const SectionCard = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18px;
+  min-width: 0;
+
+  @media (max-width: 600px) {
+    padding: 18px 16px;
+  }
 
   .card-header-row {
     display: flex;
@@ -19,6 +24,7 @@ export const SectionCard = styled.div`
       display: flex;
       gap: 12px;
       align-items: flex-start;
+      min-width: 0;
 
       .icon-box {
         width: 36px;
@@ -36,11 +42,15 @@ export const SectionCard = styled.div`
         display: flex;
         flex-direction: column;
         gap: 2px;
+        min-width: 0;
 
         .title {
           font-size: 15px;
           font-weight: 800;
           color: #ffffff;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
         .sub {
           font-size: 11px;
@@ -58,6 +68,7 @@ export const SectionCard = styled.div`
       border: 1px solid rgba(255, 185, 85, 0.35);
       color: #ffb955;
       white-space: nowrap;
+      flex-shrink: 0;
     }
   }
 `;
@@ -91,6 +102,7 @@ export const PaymentMethodItem = styled.div<{ $isSelected: boolean }>`
     display: flex;
     align-items: center;
     gap: 14px;
+    min-width: 0;
 
     .radio-circle {
       width: 18px;
@@ -149,16 +161,20 @@ export const PaymentMethodItem = styled.div<{ $isSelected: boolean }>`
       display: flex;
       flex-direction: column;
       gap: 2px;
+      min-width: 0;
 
       .title-row {
         display: flex;
         align-items: center;
         gap: 8px;
+        min-width: 0;
+        flex-wrap: wrap;
 
         .name {
           font-size: 13.5px;
           font-weight: 700;
           color: #ffffff;
+          min-width: 0;
         }
 
         .promo-badge {
@@ -183,6 +199,9 @@ export const PaymentMethodItem = styled.div<{ $isSelected: boolean }>`
       .desc {
         font-size: 11px;
         color: #ae8786;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }
@@ -194,6 +213,7 @@ export const PaymentMethodItem = styled.div<{ $isSelected: boolean }>`
     display: flex;
     align-items: center;
     gap: 4px;
+    flex-shrink: 0;
   }
 `;
 
@@ -208,6 +228,7 @@ export const VouchersBlock = styled.div`
 
     input {
       flex: 1;
+      min-width: 0;
       height: 42px;
       border-radius: 10px;
       background: rgba(255, 255, 255, 0.04);
@@ -270,6 +291,7 @@ export const VoucherCard = styled.div<{ $isSelected: boolean }>`
     display: flex;
     align-items: center;
     gap: 10px;
+    min-width: 0;
 
     .icon-percent {
       width: 28px;
@@ -287,6 +309,7 @@ export const VoucherCard = styled.div<{ $isSelected: boolean }>`
     .meta {
       display: flex;
       flex-direction: column;
+      min-width: 0;
 
       .code {
         font-size: 12.5px;
@@ -296,6 +319,9 @@ export const VoucherCard = styled.div<{ $isSelected: boolean }>`
       .desc {
         font-size: 10.5px;
         color: #ae8786;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }

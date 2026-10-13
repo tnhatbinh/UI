@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { MapPin, Calendar, Lock, ShieldCheck, Ticket } from 'lucide-react';
-import { useBooking } from '../../../context/use-booking';
+import { useBooking } from '../../../context/useBooking';
 import * as S from './OrderSummary.styles';
 
 export interface OrderSummaryProps {
@@ -19,9 +19,8 @@ export const OrderSummary: FC<OrderSummaryProps> = ({
   const seatsTotal = calculateSeatsTotal();
   const grandTotal = calculateGrandTotal();
   const points = Math.round(grandTotal / 10000);
-  const seatNames = state.selectedSeats.map((s: any) => s.id).join(', ');
-  const snacksExtra = state.selectedSnacks.length === 0 ? 189000 : 0;
-  const finalTotal = grandTotal + snacksExtra;
+  const seatNames = state.selectedSeats.map((s) => s.id).join(', ');
+  const finalTotal = grandTotal;
 
   return (
     <S.OrderSummaryContainer>
@@ -72,14 +71,14 @@ export const OrderSummary: FC<OrderSummaryProps> = ({
         <div className="items-list-breakdown">
           <div className="item-line">
             <span className="item-name">
-              ● Ghế VIP ({seatNames || 'H8, H9'})
+              ● Ghế đã chọn ({seatNames || 'Chưa chọn ghế'})
             </span>
             <span className="item-price">
               {seatsTotal.toLocaleString('vi-VN')}đ
             </span>
           </div>
 
-          {state.selectedSnacks.map((s: any) => (
+          {state.selectedSnacks.map((s) => (
             <div key={s.id} className="item-line">
               <span className="item-name">
                 ● {s.quantity}x {s.name}
@@ -91,9 +90,9 @@ export const OrderSummary: FC<OrderSummaryProps> = ({
           ))}
 
           {state.selectedSnacks.length === 0 && (
-            <div className="item-line">
-              <span className="item-name">● 1x Combo Dune Sandworm</span>
-              <span className="item-price">189.000đ</span>
+            <div className="item-line muted">
+              <span className="item-name">● Bắp &amp; nước: Không chọn</span>
+              <span className="item-price">0đ</span>
             </div>
           )}
 
@@ -140,7 +139,7 @@ export const OrderSummary: FC<OrderSummaryProps> = ({
         </button>
 
         <div className="pci-dss-note">
-          <ShieldCheck size={14} color="#ffb955" style={{ flexShrink: 0 }} />
+          <ShieldCheck size={14} color="#ffb955" />
           <span>
             Bảo Mật Giao Dịch Chuẩn PCI-DSS Level 1. Mọi thông tin thanh toán
             được mã hóa SSL 256-bit theo tiêu chuẩn ngân hàng quốc tế.

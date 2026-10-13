@@ -12,15 +12,12 @@
     "ignoreDeprecations": "5.0",
 
     "paths": {
-      "@/*": ["src/*"],
+      "@/*": ["*"],
       "@config/*": ["config/*"],
-      "@configs/*": ["config/*"],
       "@assets/*": ["assets/*"],
-      "@components/*": ["components/*"],
       "@layouts/*": ["layouts/*"],
       "@features/*": ["features/*"],
       "@guards/*": ["guards/*"],
-      "@utils/*": ["utils/*"],
       "@shared/*": ["shared/*"],
       "@constants/*": ["shared/constants/*"]
     },

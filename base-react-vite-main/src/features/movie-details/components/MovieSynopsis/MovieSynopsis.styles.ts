@@ -5,6 +5,13 @@ export const DetailsGrid = styled.div`
   grid-template-columns: 1.4fr 1fr;
   gap: 24px;
   margin-bottom: 50px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  > * {
+    min-width: 0;
+  }
 
   @media (max-width: 880px) {
     grid-template-columns: 1fr;
@@ -19,6 +26,10 @@ export const SynopsisCard = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  @media (max-width: 600px) {
+    padding: 20px 16px;
+  }
 
   .card-header {
     display: flex;
@@ -100,6 +111,10 @@ export const CriticCard = styled.div`
   justify-content: space-between;
   gap: 20px;
 
+  @media (max-width: 600px) {
+    padding: 20px 16px;
+  }
+
   .score-row {
     display: flex;
     align-items: center;
@@ -144,6 +159,7 @@ export const CriticCard = styled.div`
       align-items: center;
       justify-content: center;
       box-shadow: 0 0 16px rgba(255, 185, 85, 0.25);
+      flex-shrink: 0;
 
       .percent {
         font-size: 15px;

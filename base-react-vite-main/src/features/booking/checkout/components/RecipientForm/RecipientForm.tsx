@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import type { BookingState } from '../../../context/booking.types';
 import { User, Phone, Mail, Lock } from 'lucide-react';
-import { useBooking } from '../../../context/use-booking';
+import { useBooking } from '../../../context/useBooking';
 import * as S from './RecipientForm.styles';
 
 export interface RecipientFormProps {
@@ -17,6 +17,22 @@ export const RecipientForm: FC<RecipientFormProps> = ({
 
   const recipient = propRecipient ?? state.recipient;
   const handleChange = onRecipientChange ?? setRecipient;
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleChange({ name: e.target.value });
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleChange({ phone: e.target.value });
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleChange({ email: e.target.value });
+  };
+
+  const handleSendZaloChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleChange({ isSendZalo: e.target.checked });
+  };
 
   return (
     <S.SectionCard>
@@ -44,7 +60,7 @@ export const RecipientForm: FC<RecipientFormProps> = ({
             <input
               type="text"
               value={recipient.name}
-              onChange={(e) => handleChange({ name: e.target.value })}
+              onChange={handleNameChange}
               placeholder="Nguyễn Thanh Tùng"
             />
           </div>
@@ -57,7 +73,7 @@ export const RecipientForm: FC<RecipientFormProps> = ({
             <input
               type="text"
               value={recipient.phone}
-              onChange={(e) => handleChange({ phone: e.target.value })}
+              onChange={handlePhoneChange}
               placeholder="0988 123 456"
             />
           </div>
@@ -70,7 +86,7 @@ export const RecipientForm: FC<RecipientFormProps> = ({
             <input
               type="email"
               value={recipient.email}
-              onChange={(e) => handleChange({ email: e.target.value })}
+              onChange={handleEmailChange}
               placeholder="tung.nguyen@gmail.com"
             />
           </div>
@@ -81,8 +97,8 @@ export const RecipientForm: FC<RecipientFormProps> = ({
         <label>
           <input
             type="checkbox"
-            checked={recipient.sendZalo}
-            onChange={(e) => handleChange({ sendZalo: e.target.checked })}
+            checked={recipient.isSendZalo}
+            onChange={handleSendZaloChange}
           />
           <span>
             Gửi vé điện tử qua Zalo / SMS miễn phí kèm nhắc nhở lịch chiếu

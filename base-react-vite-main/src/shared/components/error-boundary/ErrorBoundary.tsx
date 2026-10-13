@@ -1,5 +1,6 @@
 import { Button, Result } from 'antd';
 import { Component, type ErrorInfo, type ReactNode } from 'react';
+import { ErrorWrapper } from './ErrorBoundary.styles';
 
 interface Props {
   children: ReactNode;
@@ -50,14 +51,7 @@ class ErrorBoundary extends Component<Props, State> {
       console.log(this.state.error?.message);
 
       return (
-        <div
-          style={{
-            minHeight: '100vh',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
+        <ErrorWrapper>
           <Result
             status="500"
             title="Đã xảy ra lỗi"
@@ -68,7 +62,7 @@ class ErrorBoundary extends Component<Props, State> {
               </Button>
             }
           />
-        </div>
+        </ErrorWrapper>
       );
     }
 

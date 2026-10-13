@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Gift, ArrowRight, ShieldCheck, X } from 'lucide-react';
-import { useBooking } from '../../../context/use-booking';
+import { useBooking } from '../../../context/useBooking';
 import * as S from './SnackOrderSummary.styles';
 
 interface SnackOrderSummaryProps {
@@ -23,6 +23,12 @@ export const SnackOrderSummary: FC<SnackOrderSummaryProps> = ({
   } = useBooking();
 
   const [voucherInput, setVoucherInput] = useState('VIPMEMBER');
+
+  const handleVoucherInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setVoucherInput(e.target.value);
+  };
 
   const handleApplyVoucher = () => {
     if (voucherInput.trim().toUpperCase() === 'VIPMEMBER') {
@@ -85,7 +91,7 @@ export const SnackOrderSummary: FC<SnackOrderSummaryProps> = ({
 
           <div className="snack-items">
             {state.selectedSnacks.length === 0 ? (
-              <span style={{ fontSize: '11.5px', color: '#7d6b6a' }}>
+              <span className="empty-hint">
                 Chưa chọn combo hoặc bắp nước nào.
               </span>
             ) : (
@@ -111,7 +117,7 @@ export const SnackOrderSummary: FC<SnackOrderSummaryProps> = ({
               type="text"
               placeholder="Nhập mã ưu đãi..."
               value={voucherInput}
-              onChange={(e) => setVoucherInput(e.target.value)}
+              onChange={handleVoucherInputChange}
             />
             <button
               type="button"
@@ -184,11 +190,7 @@ export const SnackOrderSummary: FC<SnackOrderSummaryProps> = ({
         </button>
 
         <div className="assurance-line">
-          <ShieldCheck
-            size={13}
-            color="#ffb955"
-            style={{ display: 'inline', verticalAlign: 'middle' }}
-          />{' '}
+          <ShieldCheck size={13} color="#ffb955" />{' '}
           Giữ chỗ tức thời • Đổi trả bắp nước trước 30 phút
         </div>
       </S.SummaryCard>

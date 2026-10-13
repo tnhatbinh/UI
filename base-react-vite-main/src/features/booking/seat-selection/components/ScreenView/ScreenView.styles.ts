@@ -6,16 +6,19 @@ export const ScreenHeader = styled.div`
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
+  min-width: 0;
 
   .header-left {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    min-width: 0;
 
     .cinema-title-row {
       display: flex;
       align-items: center;
       gap: 10px;
+      min-width: 0;
 
       .badge {
         padding: 3px 8px;
@@ -32,6 +35,10 @@ export const ScreenHeader = styled.div`
         font-size: 20px;
         font-weight: 800;
         color: #ffffff;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
 
@@ -41,6 +48,9 @@ export const ScreenHeader = styled.div`
       display: flex;
       align-items: center;
       gap: 6px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 

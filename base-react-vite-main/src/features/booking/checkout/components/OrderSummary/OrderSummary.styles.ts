@@ -4,6 +4,7 @@ export const OrderSummaryContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  min-width: 0;
 `;
 
 export const TicketConfirmationCard = styled.div`
@@ -14,6 +15,12 @@ export const TicketConfirmationCard = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18px;
+  min-width: 0;
+
+  @media (max-width: 600px) {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
 
   .card-top-title {
     display: flex;
@@ -50,12 +57,14 @@ export const TicketConfirmationCard = styled.div`
       height: 80px;
       object-fit: cover;
       border-radius: 8px;
+      flex-shrink: 0;
     }
 
     .meta {
       display: flex;
       flex-direction: column;
       gap: 3px;
+      min-width: 0;
 
       .age-runtime {
         font-size: 10px;
@@ -67,11 +76,17 @@ export const TicketConfirmationCard = styled.div`
         font-size: 14.5px;
         font-weight: 800;
         color: #ffffff;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .sub {
         font-size: 11px;
         color: #ae8786;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .format {
@@ -93,17 +108,23 @@ export const TicketConfirmationCard = styled.div`
       align-items: center;
       justify-content: space-between;
       font-size: 12px;
+      gap: 12px;
 
       .item-name {
         color: #e5e2e3;
         display: flex;
         align-items: center;
         gap: 6px;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .item-price {
         color: #ffffff;
         font-weight: 700;
+        flex-shrink: 0;
       }
 
       &.free .item-price {
@@ -118,6 +139,10 @@ export const TicketConfirmationCard = styled.div`
         .item-price {
           color: #ff535a;
         }
+      }
+
+      &.muted {
+        opacity: 0.65;
       }
     }
   }
@@ -153,9 +178,11 @@ export const TicketConfirmationCard = styled.div`
     }
 
     .amount {
-      font-size: 28px;
+      font-size: clamp(22px, 7vw, 28px);
       font-weight: 900;
       color: #ffffff;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
   }
 
@@ -198,6 +225,10 @@ export const TicketConfirmationCard = styled.div`
     align-items: center;
     justify-content: center;
     gap: 6px;
+
+    svg {
+      flex-shrink: 0;
+    }
   }
 `;
 
@@ -216,26 +247,54 @@ export const SessionRecapBox = styled.div`
     gap: 6px;
     font-size: 12px;
     color: #e5e2e3;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .address-line {
     font-size: 11px;
     color: #ae8786;
     padding-left: 19px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .time-line {
     display: flex;
     align-items: center;
-    gap: 6px;
+    flex-wrap: wrap;
+    gap: 4px 8px;
     font-size: 12px;
     color: #e5e2e3;
     margin-top: 4px;
+    min-width: 0;
+
+    svg {
+      flex-shrink: 0;
+    }
+
+    > span:not(.room-badge) {
+      min-width: 0;
+    }
 
     .room-badge {
       margin-left: auto;
-      color: #ffb955;
+      color: var(--secondary, #ffb955);
       font-weight: 700;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 480px) {
+      .room-badge {
+        margin-left: 0;
+        width: 100%;
+        padding-left: 19px;
+        white-space: normal;
+        word-break: break-word;
+      }
     }
   }
 `;

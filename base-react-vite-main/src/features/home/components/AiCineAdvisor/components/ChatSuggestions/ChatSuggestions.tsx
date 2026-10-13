@@ -6,6 +6,10 @@ import * as S from '../../AiCineAdvisor.styles';
 export const ChatSuggestions: FC = () => {
   const navigate = useNavigate();
 
+  const handleNavigateBooking = () => {
+    navigate('/dat-ve');
+  };
+
   return (
     <>
       {/* Card 1: Oppenheimer */}
@@ -41,7 +45,7 @@ export const ChatSuggestions: FC = () => {
             <S.PriceValue>140.000đ</S.PriceValue>
             <S.PriceUnit>/vé VIP</S.PriceUnit>
           </S.PriceGroup>
-          <S.PrimaryButton onClick={() => navigate('/dat-ve')}>
+          <S.PrimaryButton onClick={handleNavigateBooking}>
             <S.PrimaryButtonText>Chọn Ghế Này</S.PrimaryButtonText>
           </S.PrimaryButton>
         </S.CardBottomRow>
@@ -77,7 +81,7 @@ export const ChatSuggestions: FC = () => {
             <S.PriceValue>220.000đ</S.PriceValue>
             <S.PriceUnit>/cặp ghế</S.PriceUnit>
           </S.PriceGroup>
-          <S.SecondaryButton onClick={() => navigate('/dat-ve')}>
+          <S.SecondaryButton onClick={handleNavigateBooking}>
             <S.SecondaryButtonText>Đặt Ngay Kẻo Lỡ</S.SecondaryButtonText>
           </S.SecondaryButton>
         </S.CardBottomRow>

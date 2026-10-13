@@ -9,7 +9,31 @@ interface LinkedPaymentMethodsCardProps {
 export function LinkedPaymentMethodsCard({
   onToast,
 }: LinkedPaymentMethodsCardProps) {
-  const [quickPay, setQuickPay] = useState(true);
+  const [isQuickPayEnabled, setIsQuickPayEnabled] = useState(true);
+
+  const handleAddNewMethod = () => {
+    onToast?.('Mở giao diện liên kết thẻ / ví điện tử mới...');
+  };
+
+  const handleEditCard = () => {
+    onToast?.('Chỉnh sửa thông tin thẻ Techcombank...');
+  };
+
+  const handleSetDefaultMethod = (name: string) => () => {
+    onToast?.(`Đã đặt ${name} làm phương thức mặc định!`);
+  };
+
+  const handleUnlinkMethod = (name: string) => () => {
+    onToast?.(`Đã gửi yêu cầu hủy liên kết ví ${name}!`);
+  };
+
+  const handleToggleQuickPay = () => {
+    setIsQuickPayEnabled((prev) => !prev);
+  };
+
+  const handleChangeLimit = () => {
+    onToast?.('Tùy chỉnh hạn mức Quick-Pay...');
+  };
 
   return (
     <S.MainCard>
@@ -25,7 +49,7 @@ export function LinkedPaymentMethodsCard({
         </div>
         <button
           className="add-btn"
-          onClick={() => alert('Mở giao diện liên kết thẻ / ví điện tử mới...')}
+          onClick={handleAddNewMethod}
         >
           <Plus size={14} />
           <span>Thêm liên kết phương thức mới</span>
@@ -67,7 +91,7 @@ export function LinkedPaymentMethodsCard({
           <div className="actions">
             <button
               className="edit-btn"
-              onClick={() => alert('Chỉnh sửa thông tin thẻ Techcombank...')}
+              onClick={handleEditCard}
             >
               <Edit size={12} />
               <span>Chỉnh sửa</span>
@@ -80,9 +104,7 @@ export function LinkedPaymentMethodsCard({
       <S.WalletItemCard>
         <div className="item-top">
           <div className="left-brand">
-            <div className="brand-box" style={{ background: '#a50064' }}>
-              M
-            </div>
+            <div className="brand-box momo">M</div>
             <div className="text">
               <div className="name-row">
                 <span className="name">Ví Điện Tử MoMo</span>
@@ -102,13 +124,13 @@ export function LinkedPaymentMethodsCard({
           <div className="links">
             <span
               className="link"
-              onClick={() => onToast?.('Đã đặt MoMo làm phương thức mặc định!')}
+              onClick={handleSetDefaultMethod('MoMo')}
             >
               Đặt làm mặc định
             </span>
             <span
               className="unlink"
-              onClick={() => alert('Hủy liên kết ví MoMo?')}
+              onClick={handleUnlinkMethod('MoMo')}
             >
               Hủy liên kết
             </span>
@@ -120,19 +142,11 @@ export function LinkedPaymentMethodsCard({
       <S.WalletItemCard>
         <div className="item-top">
           <div className="left-brand">
-            <div className="brand-box" style={{ background: '#0068ff' }}>
-              Z
-            </div>
+            <div className="brand-box zalopay">Z</div>
             <div className="text">
               <div className="name-row">
                 <span className="name">Ví ZaloPay</span>
-                <span
-                  className="badge"
-                  style={{
-                    color: '#ffb955',
-                    background: 'rgba(255, 185, 85, 0.12)',
-                  }}
-                >
+                <span className="badge gold">
                   Ưu đãi Thứ 4 tặng bắp nước
                 </span>
               </div>
@@ -150,15 +164,13 @@ export function LinkedPaymentMethodsCard({
           <div className="links">
             <span
               className="link"
-              onClick={() =>
-                onToast?.('Đã đặt ZaloPay làm phương thức mặc định!')
-              }
+              onClick={handleSetDefaultMethod('ZaloPay')}
             >
               Đặt làm mặc định
             </span>
             <span
               className="unlink"
-              onClick={() => alert('Hủy liên kết ví ZaloPay?')}
+              onClick={handleUnlinkMethod('ZaloPay')}
             >
               Hủy liên kết
             </span>
@@ -170,21 +182,11 @@ export function LinkedPaymentMethodsCard({
       <S.WalletItemCard>
         <div className="item-top">
           <div className="left-brand">
-            <div className="brand-box" style={{ background: '#005a3c' }}>
-              VCB
-            </div>
+            <div className="brand-box vcb">VCB</div>
             <div className="text">
               <div className="name-row">
                 <span className="name">Thẻ ATM Napas Nội Địa Vietcombank</span>
-                <span
-                  className="badge"
-                  style={{
-                    color: '#ae8786',
-                    background: 'rgba(255,255,255,0.08)',
-                  }}
-                >
-                  Smart OTP
-                </span>
+                <span className="badge neutral">Smart OTP</span>
               </div>
               <span className="meta">
                 Thẻ ghi nợ nội địa • Số thẻ: •••• •••• •••• 8832
@@ -200,15 +202,13 @@ export function LinkedPaymentMethodsCard({
           <div className="links">
             <span
               className="link"
-              onClick={() =>
-                onToast?.('Đã đặt Vietcombank ATM làm phương thức mặc định!')
-              }
+              onClick={handleSetDefaultMethod('Vietcombank ATM')}
             >
               Đặt làm mặc định
             </span>
             <span
               className="unlink"
-              onClick={() => alert('Hủy liên kết thẻ Vietcombank?')}
+              onClick={handleUnlinkMethod('thẻ Vietcombank')}
             >
               Hủy liên kết
             </span>
@@ -233,8 +233,8 @@ export function LinkedPaymentMethodsCard({
             </div>
           </div>
           <S.ToggleSwitch
-            $active={quickPay}
-            onClick={() => setQuickPay(!quickPay)}
+            $active={isQuickPayEnabled}
+            onClick={handleToggleQuickPay}
           >
             <div className="thumb" />
           </S.ToggleSwitch>
@@ -248,7 +248,7 @@ export function LinkedPaymentMethodsCard({
             <span className="amount">500.000 đ</span>
             <span
               className="change-link"
-              onClick={() => alert('Tùy chỉnh hạn mức Quick-Pay...')}
+              onClick={handleChangeLimit}
             >
               Thay đổi
             </span>

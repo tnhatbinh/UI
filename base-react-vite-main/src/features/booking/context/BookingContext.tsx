@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BookingContext } from './use-booking';
+import { BookingContext } from './useBooking';
 import type { BookingState, SeatItem, SnackItem, VoucherItem } from './booking.types';
 
 const defaultState: BookingState = {
@@ -41,7 +41,7 @@ const defaultState: BookingState = {
     name: 'Nguyễn Thanh Tùng',
     phone: '0988 123 456',
     email: 'tung.nguyen@gmail.com',
-    sendZalo: true,
+    isSendZalo: true,
   },
   paymentMethod: 'momo',
 };

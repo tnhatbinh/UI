@@ -40,6 +40,11 @@ export const MovieDiscoveryPage: FC = () => {
     setDisplayedLimit(ITEMS_PER_PAGE);
   };
 
+  const handleFilterChange = (filters: FilterState) => {
+    setFilterState(filters);
+    setCurrentPage(1);
+  };
+
   // Lọc danh sách phim dựa trên tìm kiếm và tiêu chí
   const filteredMovies = useMemo(() => {
     let result = [...MOCK_DISCOVERY_MOVIES];
@@ -137,6 +142,13 @@ export const MovieDiscoveryPage: FC = () => {
     navigate('/profile/vip-elite');
   };
 
+  const handleResetFilters = () => {
+    setUserQuery('');
+    setFilterState(null);
+    setCurrentPage(1);
+    navigate('/kham-pha');
+  };
+
   return (
     <S.PageWrapper>
       {/* Ambient Atmospheric Backdrop */}
@@ -150,29 +162,30 @@ export const MovieDiscoveryPage: FC = () => {
         <MoviesFilter
           displayingCount={paginatedMovies.length}
           totalCount={filteredMovies.length}
-          onFilterChange={(filters) => {
-            setFilterState(filters);
-            setCurrentPage(1);
-          }}
+          onFilterChange={handleFilterChange}
         />
 
         {/* SECTION 3: Movie Showcase Grid (Cinematic Cards) */}
         <MovieShowcaseGrid
           movies={paginatedMovies}
+          viewMode={filterState?.viewMode || 'grid'}
+          onResetFilters={handleResetFilters}
           onMovieClick={handleMovieDetail}
           onBookClick={handleBookMovie}
         />
 
         {/* SECTION 4: Pagination & VIP Concierge Teaser */}
-        <PaginationAndVipTeaser
-          currentPage={currentPage}
-          totalPages={totalPages}
-          totalMovies={filteredMovies.length}
-          currentShowingCount={paginatedMovies.length}
-          onLoadMore={handleLoadMore}
-          onPageChange={handlePageChange}
-          onVipBookingClick={handleVipBooking}
-        />
+        {filteredMovies.length > 0 && (
+          <PaginationAndVipTeaser
+            currentPage={currentPage}
+            totalPages={totalPages}
+            totalMovies={filteredMovies.length}
+            currentShowingCount={paginatedMovies.length}
+            onLoadMore={handleLoadMore}
+            onPageChange={handlePageChange}
+            onVipBookingClick={handleVipBooking}
+          />
+        )}
       </S.MainContainer>
     </S.PageWrapper>
   );

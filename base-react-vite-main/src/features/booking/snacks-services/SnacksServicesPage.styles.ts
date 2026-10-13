@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Container } from '@/shared/components/layout';
+import { media } from '@/styles/breakpoints';
 
 export const PageContainer = styled.div`
   min-height: 100vh;
@@ -14,20 +16,18 @@ export const PageContainer = styled.div`
       rgba(255, 185, 85, 0.05) 0%,
       transparent 50%
     );
-  padding-top: 100px;
+  padding-top: var(--page-top-offset, calc(var(--header-public-height, 80px) + 20px));
   padding-bottom: 100px;
   color: #e5e2e3;
   font-family: 'Be Vietnam Pro', sans-serif;
+
+  @media ${media.md} {
+    padding-bottom: 80px;
+  }
 `;
 
-export const InnerWrapper = styled.div`
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 24px;
-
-  @media (max-width: 768px) {
-    padding: 0 16px;
-  }
+export const InnerWrapper = styled(Container)`
+  /* Inherits unified 1280px max-width, centering, and responsive gutters */
 `;
 
 export const TopBar = styled.div`
@@ -45,6 +45,11 @@ export const StepperRow = styled.div`
   gap: 8px;
   font-size: 13px;
   flex-wrap: wrap;
+
+  @media (max-width: 480px) {
+    gap: 6px;
+    font-size: 11.5px;
+  }
 
   .step-item {
     display: flex;
@@ -111,7 +116,11 @@ export const MainGrid = styled.div`
   gap: 32px;
   align-items: flex-start;
 
-  @media (max-width: 1080px) {
+  > * {
+    min-width: 0;
+  }
+
+  @media ${media.lg} {
     grid-template-columns: 1fr;
   }
 `;
@@ -127,7 +136,7 @@ export const SnackCardsGrid = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 
-  @media (max-width: 680px) {
+  @media ${media.md} {
     grid-template-columns: 1fr;
   }
 `;

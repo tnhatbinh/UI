@@ -1,13 +1,17 @@
 import type { FC } from 'react';
 import { Film } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { LogoWrapper } from './HeaderLogo.styles';
+import * as S from './HeaderLogo.styles';
 
 export const HeaderLogo: FC = () => {
   const navigate = useNavigate();
 
+  const handleNavigateHome = () => {
+    navigate('/');
+  };
+
   return (
-    <LogoWrapper onClick={() => navigate('/')}>
+    <S.LogoWrapper onClick={handleNavigateHome}>
       <div className="logo-icon">
         <Film size={20} strokeWidth={2.2} />
       </div>
@@ -18,6 +22,6 @@ export const HeaderLogo: FC = () => {
         </div>
         <span className="brand-tag">CINEMATIC LOUNGE</span>
       </div>
-    </LogoWrapper>
+    </S.LogoWrapper>
   );
 };

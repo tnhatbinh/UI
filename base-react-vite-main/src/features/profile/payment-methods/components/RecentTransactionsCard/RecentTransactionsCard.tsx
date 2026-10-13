@@ -5,6 +5,10 @@ import * as S from './RecentTransactionsCard.styles';
 export function RecentTransactionsCard() {
   const navigate = useNavigate();
 
+  const handleNavigateTickets = () => {
+    navigate('/ve-cua-toi');
+  };
+
   return (
     <S.MainCard>
       <div className="card-top-bar">
@@ -14,7 +18,7 @@ export function RecentTransactionsCard() {
             <span>Giao dịch gần nhất</span>
           </h3>
         </div>
-        <span className="see-all-link" onClick={() => navigate('/ve-cua-toi')}>
+        <span className="see-all-link" onClick={handleNavigateTickets}>
           Xem tất cả
         </span>
       </div>

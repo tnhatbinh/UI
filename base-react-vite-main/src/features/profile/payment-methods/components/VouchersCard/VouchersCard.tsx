@@ -11,6 +11,14 @@ export function VouchersCard({ onToast }: VouchersCardProps) {
   const navigate = useNavigate();
   const [voucherCode, setVoucherCode] = useState('');
 
+  const handleVoucherCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVoucherCode(e.target.value);
+  };
+
+  const handleUseVoucher = () => {
+    navigate('/movie-details');
+  };
+
   const handleApplyGift = () => {
     if (!voucherCode.trim()) return;
     onToast?.(
@@ -36,7 +44,7 @@ export function VouchersCard({ onToast }: VouchersCardProps) {
           type="text"
           placeholder="NHẬP MÃ THẺ QUÀ TẶNG HOẶC GIFTVOUCHER..."
           value={voucherCode}
-          onChange={(e) => setVoucherCode(e.target.value)}
+          onChange={handleVoucherCodeChange}
         />
         <button className="apply-btn" type="button" onClick={handleApplyGift}>
           Áp dụng
@@ -56,7 +64,7 @@ export function VouchersCard({ onToast }: VouchersCardProps) {
           </div>
           <button
             className="use-btn"
-            onClick={() => navigate('/movie-details')}
+            onClick={handleUseVoucher}
           >
             Dùng ngay
           </button>
@@ -64,13 +72,7 @@ export function VouchersCard({ onToast }: VouchersCardProps) {
 
         <S.VoucherMiniItem>
           <div className="left">
-            <div
-              className="icon-box"
-              style={{
-                background: 'rgba(255,185,85,0.15)',
-                color: '#ffb955',
-              }}
-            >
+            <div className="icon-box gold">
               <Ticket size={16} />
             </div>
             <div className="info">
@@ -80,7 +82,7 @@ export function VouchersCard({ onToast }: VouchersCardProps) {
           </div>
           <button
             className="use-btn"
-            onClick={() => navigate('/movie-details')}
+            onClick={handleUseVoucher}
           >
             Dùng ngay
           </button>
@@ -88,13 +90,7 @@ export function VouchersCard({ onToast }: VouchersCardProps) {
 
         <S.VoucherMiniItem>
           <div className="left">
-            <div
-              className="icon-box"
-              style={{
-                background: 'rgba(74,222,128,0.15)',
-                color: '#4ade80',
-              }}
-            >
+            <div className="icon-box green">
               <Popcorn size={16} />
             </div>
             <div className="info">
@@ -104,7 +100,7 @@ export function VouchersCard({ onToast }: VouchersCardProps) {
           </div>
           <button
             className="use-btn"
-            onClick={() => navigate('/movie-details')}
+            onClick={handleUseVoucher}
           >
             Dùng ngay
           </button>

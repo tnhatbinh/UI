@@ -104,6 +104,11 @@ export const SummaryCard = styled.div`
       display: flex;
       flex-direction: column;
       gap: 6px;
+
+      .empty-hint {
+        font-size: 11.5px;
+        color: #7d6b6a;
+      }
     }
 
     .snack-line {
@@ -304,6 +309,11 @@ export const SummaryCard = styled.div`
     font-size: 11px;
     color: #7d6b6a;
     text-align: center;
+
+    svg {
+      display: inline;
+      vertical-align: middle;
+    }
   }
 `;
 

@@ -51,6 +51,10 @@ export const PaginationAndVipTeaser: FC<PaginationAndVipTeaserProps> = ({
     onPageChange?.(page);
   };
 
+  const handleSelectPage = (pageNum: number) => () => {
+    handlePageClick(pageNum);
+  };
+
   const handlePrev = () => {
     if (currentPage > 1) {
       handlePageClick(currentPage - 1);
@@ -85,7 +89,7 @@ export const PaginationAndVipTeaser: FC<PaginationAndVipTeaserProps> = ({
           )}
 
           {/* Dãy số trang */}
-          {totalPages >= 1 && (
+          {totalMovies > 0 && totalPages >= 1 && (
             <S.PaginationNumbersWrapper>
               {/* Trang trước */}
               <S.PageArrowButton
@@ -111,7 +115,7 @@ export const PaginationAndVipTeaser: FC<PaginationAndVipTeaserProps> = ({
                     key={`page-${pageNum}`}
                     type="button"
                     $isActive={currentPage === pageNum}
-                    onClick={() => handlePageClick(pageNum)}
+                    onClick={handleSelectPage(pageNum)}
                     title={`Trang ${pageNum}`}
                   >
                     <span>{pageNum}</span>

@@ -113,6 +113,7 @@ export const VoucherMiniItem = styled.div`
     display: flex;
     align-items: center;
     gap: 10px;
+    min-width: 0;
 
     .icon-box {
       width: 32px;
@@ -124,17 +125,31 @@ export const VoucherMiniItem = styled.div`
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+
+      &.gold {
+        background: rgba(255, 185, 85, 0.15);
+        color: #ffb955;
+      }
+
+      &.green {
+        background: rgba(74, 222, 128, 0.15);
+        color: #4ade80;
+      }
     }
 
     .info {
       display: flex;
       flex-direction: column;
       gap: 2px;
+      min-width: 0;
 
       .title {
         font-size: 12px;
         font-weight: 800;
         color: #ffffff;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .hsd {
         font-size: 10.5px;
@@ -154,6 +169,7 @@ export const VoucherMiniItem = styled.div`
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s;
+    flex-shrink: 0;
 
     &:hover {
       background: #ff7b54;

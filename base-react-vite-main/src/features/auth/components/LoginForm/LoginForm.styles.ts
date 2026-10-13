@@ -6,6 +6,7 @@ export const RightPanel = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-width: 0;
 
   @media (max-width: 600px) {
     padding: 32px 20px;
@@ -27,7 +28,7 @@ export const GateBadge = styled.div`
   border-radius: 9999px;
   padding: 4px 12px;
   width: fit-content;
-  color: #ff535a;
+  color: var(--primary, #ff535a);
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: 10.5px;
   font-weight: 700;
@@ -48,11 +49,11 @@ export const FormSubtitle = styled.p`
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: 13px;
   line-height: 1.5;
-  color: #ae8786;
+  color: var(--text-secondary, #ae8786);
   margin: 0;
 
   .gold-highlight {
-    color: #ffb955;
+    color: var(--secondary, #ffb955);
     font-weight: 600;
   }
 `;
@@ -78,8 +79,8 @@ export const TabButton = styled.button<{ $isActive: boolean }>`
   padding: 8px 14px;
   border-radius: 8px;
   border: none;
-  background: ${({ $isActive }) => ($isActive ? '#ff535a' : 'transparent')};
-  color: ${({ $isActive }) => ($isActive ? '#ffffff' : '#ae8786')};
+  background: ${({ $isActive }) => ($isActive ? 'var(--primary, #ff535a)' : 'transparent')};
+  color: ${({ $isActive }) => ($isActive ? '#ffffff' : 'var(--text-secondary, #ae8786)')};
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: 12.5px;
   font-weight: 700;
@@ -111,7 +112,7 @@ export const FieldLabel = styled.label`
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.6px;
-  color: #ae8786;
+  color: var(--text-secondary, #ae8786);
   text-transform: uppercase;
 `;
 
@@ -122,7 +123,7 @@ export const ForgotPassLink = styled.button`
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: 11.5px;
   font-weight: 600;
-  color: #ff535a;
+  color: var(--primary, #ff535a);
   cursor: pointer;
   transition: color 0.15s ease;
 
@@ -144,18 +145,19 @@ export const InputBox = styled.div`
   transition: all 0.2s ease;
 
   &:focus-within {
-    border-color: #ff535a;
+    border-color: var(--primary, #ff535a);
     background: rgba(255, 83, 90, 0.05);
     box-shadow: 0 0 0 3px rgba(255, 83, 90, 0.15);
   }
 
   .field-icon {
-    color: #ae8786;
+    color: var(--text-secondary, #ae8786);
     flex-shrink: 0;
   }
 
   input {
     flex: 1;
+    min-width: 0;
     background: transparent;
     border: none;
     outline: none;
@@ -172,7 +174,7 @@ export const InputBox = styled.div`
   .toggle-eye {
     background: transparent;
     border: none;
-    color: #ae8786;
+    color: var(--text-secondary, #ae8786);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -191,6 +193,12 @@ export const ExtraOptionsRow = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 4px 0 16px 0;
+
+  @media (max-width: 380px) {
+    align-items: flex-start;
+    gap: 10px;
+    flex-direction: column;
+  }
 `;
 
 export const CheckboxLabel = styled.label`
@@ -204,7 +212,7 @@ export const CheckboxLabel = styled.label`
   user-select: none;
 
   input[type='checkbox'] {
-    accent-color: #ff535a;
+    accent-color: var(--primary, #ff535a);
     width: 14px;
     height: 14px;
     cursor: pointer;
@@ -217,10 +225,10 @@ export const SecurityTag = styled.div`
   gap: 5px;
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: 11.5px;
-  color: #ae8786;
+  color: var(--text-secondary, #ae8786);
 
   .lock-icon {
-    color: #ffb955;
+    color: var(--secondary, #ffb955);
   }
 `;
 
@@ -229,7 +237,7 @@ export const SubmitButton = styled.button`
   height: 48px;
   border-radius: 12px;
   border: none;
-  background: linear-gradient(90deg, #ff535a 0%, #e0353c 100%);
+  background: linear-gradient(90deg, var(--primary, #ff535a) 0%, var(--primary-sub, #e01e35) 100%);
   color: #ffffff;
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: 13.5px;
@@ -278,8 +286,12 @@ export const OrDivider = styled.div`
 
 export const SocialButtonsRow = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
+
+  @media (max-width: 380px) {
+    gap: 6px;
+  }
 `;
 
 export const SocialButton = styled.button`
@@ -297,11 +309,35 @@ export const SocialButton = styled.button`
   gap: 6px;
   cursor: pointer;
   transition: all 0.15s ease;
+  min-width: 0;
+  padding: 0 6px;
+
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 360px) {
+    font-size: 11px;
+    gap: 4px;
+    padding: 0 4px;
+  }
 
   &:hover {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.15);
     color: #ffffff;
+  }
+
+  .zalo-text {
+    color: #0068ff;
+    font-weight: 800;
+    font-size: 13px;
   }
 `;
 
@@ -317,6 +353,11 @@ export const QrCodeBanner = styled.div`
   cursor: pointer;
   transition: all 0.2s ease;
 
+  .left,
+  .text-col {
+    min-width: 0;
+  }
+
   &:hover {
     background: rgba(255, 255, 255, 0.05);
     border-color: rgba(255, 185, 85, 0.3);
@@ -328,7 +369,7 @@ export const QrCodeBanner = styled.div`
     gap: 12px;
 
     .qr-icon {
-      color: #ffb955;
+      color: var(--secondary, #ffb955);
     }
 
     .text-col {
@@ -341,17 +382,23 @@ export const QrCodeBanner = styled.div`
         font-size: 12px;
         font-weight: 700;
         color: #ffffff;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .desc {
         font-family: 'Be Vietnam Pro', sans-serif;
         font-size: 11px;
-        color: #ae8786;
+        color: var(--text-secondary, #ae8786);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }
 
   .chevron {
-    color: #ae8786;
+    color: var(--text-secondary, #ae8786);
   }
 `;
 
@@ -366,14 +413,14 @@ export const FormFooter = styled.div`
 export const RegisterLinkText = styled.div`
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: 12.5px;
-  color: #ae8786;
+  color: var(--text-secondary, #ae8786);
 
   button {
     background: transparent;
     border: none;
     padding: 0;
     margin-left: 4px;
-    color: #ff535a;
+    color: var(--primary, #ff535a);
     font-weight: 700;
     cursor: pointer;
 

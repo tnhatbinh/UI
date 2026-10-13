@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { Volume2, Ticket } from 'lucide-react';
-import { useBooking } from '../../../context/use-booking';
+import { useBooking } from '../../../context/useBooking';
 import * as S from './ScreenView.styles';
 
 export const ScreenView: FC = () => {

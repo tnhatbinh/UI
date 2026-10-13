@@ -6,6 +6,10 @@ import * as S from './QuickPaymentCard.styles';
 export const QuickPaymentCard: FC = () => {
   const navigate = useNavigate();
 
+  const handleNavigatePaymentMethods = () => {
+    navigate('/profile/payment-methods');
+  };
+
   return (
     <S.Card>
       <div className="card-header">
@@ -17,7 +21,7 @@ export const QuickPaymentCard: FC = () => {
         </div>
         <span
           className="edit-link"
-          onClick={() => navigate('/profile/PaymentMethods')}
+          onClick={handleNavigatePaymentMethods}
         >
           + Thêm mới
         </span>
@@ -26,17 +30,7 @@ export const QuickPaymentCard: FC = () => {
       <S.SideItemList>
         <div className="side-item">
           <div className="left-info">
-            <div
-              className="icon-box"
-              style={{
-                background: '#a50064',
-                color: '#ffffff',
-                fontWeight: 800,
-                fontSize: '10px',
-              }}
-            >
-              M
-            </div>
+            <div className="icon-box momo">M</div>
             <div className="text">
               <span className="name">Ví Điện Tử MoMo</span>
               <span className="desc">•••• 9988 • Liên kết tự động</span>
@@ -55,7 +49,7 @@ export const QuickPaymentCard: FC = () => {
               <span className="desc">•••• 4421 • Hết hạn 11/28</span>
             </div>
           </div>
-          <span style={{ color: '#7d6b6a', fontSize: '14px' }}>•••</span>
+          <span className="more-dots">•••</span>
         </div>
       </S.SideItemList>
     </S.Card>

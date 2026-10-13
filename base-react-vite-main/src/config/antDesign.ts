@@ -3,20 +3,20 @@ import viVN from 'antd/locale/vi_VN';
 
 const palette = {
   bgPrimary: '#0B0B0C',
-  borderPrimary: 'rgba(255, 255, 255, 0.15)',
+  borderPrimary: 'rgba(255, 255, 255, 0.12)',
   borderSecondary: 'rgba(255, 255, 255, 0.08)',
-  error: '#FF2A42',
-  goldSoft: 'rgba(245, 166, 35, 0.15)',
-  hoverPrimary: 'rgba(255, 42, 66, 0.15)',
+  error: '#FF535A',
+  goldSoft: 'rgba(255, 185, 85, 0.15)',
+  hoverPrimary: 'rgba(255, 83, 90, 0.15)',
   info: '#178fe2',
-  primary: '#FF2A42',
+  primary: '#FF535A',
   primarySub: '#E01E35',
   success: '#34c759',
   surface: '#1C1B1C',
   tableHeader: '#201F20',
   textPrimary: '#FFFFFF',
   textSecondary: '#AE8786',
-  warning: '#F5A623',
+  warning: '#FFB955',
 } as const;
 
 const theme: ThemeConfig = {
@@ -42,7 +42,7 @@ const theme: ThemeConfig = {
   },
   components: {
     Button: {
-      borderRadius: 6,
+      borderRadius: 8,
       colorPrimary: palette.primary,
       colorPrimaryHover: palette.primarySub,
       colorPrimaryActive: palette.primarySub,
@@ -68,7 +68,7 @@ const theme: ThemeConfig = {
       popupBg: palette.surface,
     },
     Modal: {
-      borderRadiusLG: 10,
+      borderRadiusLG: 16,
     },
     Select: {
       optionSelectedBg: palette.goldSoft,

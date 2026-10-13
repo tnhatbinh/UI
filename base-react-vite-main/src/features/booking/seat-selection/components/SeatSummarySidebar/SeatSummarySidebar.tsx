@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { ArrowRight, ShieldCheck, Gift } from 'lucide-react';
-import { useBooking } from '../../../context/use-booking';
+import { useBooking } from '../../../context/useBooking';
 import * as S from './SeatSummarySidebar.styles';
 
 interface SeatSummarySidebarProps {
@@ -69,7 +69,7 @@ export const SeatSummarySidebar: FC<SeatSummarySidebarProps> = ({
 
           <div className="seat-items-list">
             {state.selectedSeats.length === 0 ? (
-              <span style={{ fontSize: '12px', color: '#7d6b6a' }}>
+              <span className="empty-hint">
                 Vui lòng chọn ít nhất 1 vị trí ghế trên sơ đồ.
               </span>
             ) : (

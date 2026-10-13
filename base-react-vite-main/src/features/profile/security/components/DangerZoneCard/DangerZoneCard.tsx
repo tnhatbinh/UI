@@ -1,7 +1,18 @@
 import { AlertTriangle } from 'lucide-react';
+import { message } from 'antd';
 import * as S from './DangerZoneCard.styles';
 
 export function DangerZoneCard() {
+  const handleLockAccount = () => {
+    message.warning('Bạn có chắc chắn muốn tạm khóa tài khoản? Vui lòng xác thực bảo mật.');
+  };
+
+  const handleDeleteAccount = () => {
+    message.error(
+      'Cảnh báo: Hành động này sẽ xóa vĩnh viễn tài khoản và không thể phục hồi!',
+    );
+  };
+
   return (
     <S.Container>
       <div className="header-line">
@@ -21,7 +32,7 @@ export function DangerZoneCard() {
         </div>
         <button
           className="btn gray"
-          onClick={() => alert('Bạn có chắc chắn muốn tạm khóa tài khoản?')}
+          onClick={handleLockAccount}
         >
           Tạm khóa
         </button>
@@ -36,11 +47,7 @@ export function DangerZoneCard() {
         </div>
         <button
           className="btn red"
-          onClick={() =>
-            alert(
-              'Cảnh báo: Hành động này sẽ xóa vĩnh viễn tài khoản và không thể phục hồi!',
-            )
-          }
+          onClick={handleDeleteAccount}
         >
           Xóa tài khoản
         </button>

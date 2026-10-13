@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Container as BaseContainer } from '@/shared/components/layout';
+import { media } from '@/styles/breakpoints';
 
 export const ExclusiveOffersSection = styled.section`
   width: 100%;
@@ -9,11 +11,7 @@ export const ExclusiveOffersSection = styled.section`
   background-color: var(--bg-primary);
 `;
 
-export const Container = styled.div`
-  width: 100%;
-  max-width: 1280px;
-  padding-left: 24px;
-  padding-right: 24px;
+export const Container = styled(BaseContainer)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,14 +19,13 @@ export const Container = styled.div`
 
 export const HeaderWrapper = styled.div`
   width: 100%;
-  max-width: 1232px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
   padding-bottom: 24px;
 
-  @media (max-width: 1024px) {
+  @media ${media.lg} {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
@@ -61,7 +58,7 @@ export const HeaderTitle = styled.h2`
   font-family: 'Be Vietnam Pro', sans-serif;
   margin: 0;
 
-  @media (max-width: 768px) {
+  @media ${media.md} {
     font-size: 28px;
     line-height: 36px;
   }
@@ -91,16 +88,19 @@ export const HeaderButtonText = styled.span`
 
 export const CardsGrid = styled.div`
   width: 100%;
-  max-width: 1232px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
 
-  @media (max-width: 1100px) {
+  @media ${media.lg} {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
   }
-  @media (max-width: 680px) {
+  @media ${media.md} {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  @media ${media.sm} {
     grid-template-columns: 1fr;
   }
 `;
@@ -108,7 +108,7 @@ export const CardsGrid = styled.div`
 export const CardWrapper = styled.div`
   position: relative;
   width: 100%;
-  min-height: 368.5px;
+  min-height: 368px;
   height: auto;
   background-color: var(--bg-card);
   box-shadow:
@@ -121,6 +121,10 @@ export const CardWrapper = styled.div`
   justify-content: space-between;
   overflow: hidden;
   isolation: isolate;
+
+  @media (max-width: 480px) {
+    padding: 20px 16px;
+  }
 `;
 
 export const GradientCardWrapper = styled(CardWrapper)`
@@ -167,7 +171,10 @@ export const CardHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 24px;
+  min-height: 24px;
+  height: auto;
+  flex-wrap: wrap;
+  gap: 8px;
 `;
 
 export const Badge = styled.div<{ $bg: string }>`
@@ -243,7 +250,7 @@ export const BankIconText = styled.span`
   font-weight: 700;
   color: var(--primary-text);
   letter-spacing: 0.66px;
-  font-family: 'Liberation Mono', monospace;
+  font-family: 'Be Vietnam Pro', sans-serif;
 `;
 
 export const CheckmarkItem = styled.div`
@@ -256,7 +263,7 @@ export const CheckmarkItem = styled.div`
 export const CheckmarkList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5.5px;
+  gap: 6px;
   margin-top: 4px;
 `;
 
@@ -283,7 +290,9 @@ export const CardButton = styled.button<{
   align-items: center;
   gap: 8px;
   width: 100%;
-  height: 44px;
+  min-height: 44px;
+  height: auto;
+  padding: 10px 16px;
   border-radius: 12px;
   z-index: 10;
   margin-top: 24px;

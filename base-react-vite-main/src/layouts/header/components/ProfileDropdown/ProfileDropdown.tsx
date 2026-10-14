@@ -11,7 +11,7 @@ import {
 import { BiCameraMovie } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import tokenManager from '@shared/utils/tokenManager';
-import { useClickOutside } from '../hooks/useClickOutside';
+import { useClickOutside } from '../../hooks/useClickOutside';
 import * as S from './ProfileDropdown.styles';
 
 // Map icon name → component (avoids importing all icons in data file)

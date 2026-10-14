@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { LANGUAGES } from '../data/header-data';
-import { useClickOutside } from '../hooks/useClickOutside';
+import { LANGUAGES } from '../../data/header-data';
+import { useClickOutside } from '../../hooks/useClickOutside';
 import * as S from './LangSwitcher.styles';
 
 export function LangSwitcher() {

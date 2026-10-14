@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { Check, ChevronDown, MapPin } from 'lucide-react';
-import { CITIES } from '../data/header-data';
-import { useClickOutside } from '../hooks/useClickOutside';
+import { CITIES } from '../../data/header-data';
+import { useClickOutside } from '../../hooks/useClickOutside';
 import * as S from './LocationPicker.styles';
 
 export function LocationPicker() {

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { NAV_ITEMS } from '../data/header-data';
+import { NAV_ITEMS } from '../../data/header-data';
 import * as S from './HeaderNav.styles';
 
 interface HeaderNavProps {

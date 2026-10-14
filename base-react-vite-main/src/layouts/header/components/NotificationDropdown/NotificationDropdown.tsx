@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import {
   INITIAL_NOTIFICATIONS,
   type NotificationItem,
-} from '../data/header-data';
-import { useClickOutside } from '../hooks/useClickOutside';
+} from '../../data/header-data';
+import { useClickOutside } from '../../hooks/useClickOutside';
 import * as S from './NotificationDropdown.styles';
 
 interface NotificationDropdownProps {

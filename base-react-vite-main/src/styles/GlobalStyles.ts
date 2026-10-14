@@ -174,6 +174,11 @@ export const GlobalStyles = createGlobalStyle`
     font: inherit;
   }
 
+  select option {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+  }
+
   @media only screen and (max-width: 48em) {
     :root {
       --page-gutter: var(--page-gutter-compact);

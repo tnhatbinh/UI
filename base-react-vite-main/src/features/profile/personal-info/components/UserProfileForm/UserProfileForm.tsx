@@ -1,5 +1,5 @@
 import type { FC, FormEvent } from 'react';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   User,
   Lock,
@@ -8,8 +8,19 @@ import {
   Calendar,
   Sparkles,
   MapPin,
+  Film,
+  ChevronDown,
+  Check,
 } from 'lucide-react';
 import * as S from './UserProfileForm.styles';
+
+const CITIES = ['TP. Hồ Chí Minh', 'Hà Nội', 'Đà Nẵng', 'Bình Dương'];
+const CINEMAS = [
+  'PhimBook IMAX Landmark 81',
+  'CGV Vincom Đồng Khởi',
+  'Galaxy Sala Thủ Thiêm',
+  'Lotte Cinema Diamond Plaza',
+];
 
 interface UserProfileFormProps {
   onSaveSuccess: (message: string) => void;
@@ -29,6 +40,31 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
   const [favoriteCinema, setFavoriteCinema] = useState(
     'PhimBook IMAX Landmark 81',
   );
+  const [activeDropdown, setActiveDropdown] = useState<'city' | 'cinema' | null>(null);
+
+  const cityDropdownRef = useRef<HTMLDivElement>(null);
+  const cinemaDropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as Node;
+      if (
+        cityDropdownRef.current &&
+        !cityDropdownRef.current.contains(target) &&
+        cinemaDropdownRef.current &&
+        !cinemaDropdownRef.current.contains(target)
+      ) {
+        setActiveDropdown(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+    document.addEventListener('touchstart', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('touchstart', handleOutsideClick);
+    };
+  }, []);
 
   const handleFullNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFullName(e.target.value);
@@ -55,14 +91,22 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
     setPhone(e.target.value);
   };
 
-  const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCity(e.target.value);
+  const handleToggleCityDropdown = () => {
+    setActiveDropdown((prev) => (prev === 'city' ? null : 'city'));
   };
 
-  const handleFavoriteCinemaChange = (
-    e: React.ChangeEvent<HTMLSelectElement>,
-  ) => {
-    setFavoriteCinema(e.target.value);
+  const handleToggleCinemaDropdown = () => {
+    setActiveDropdown((prev) => (prev === 'cinema' ? null : 'cinema'));
+  };
+
+  const handleSelectCity = (selectedCity: string) => () => {
+    setCity(selectedCity);
+    setActiveDropdown(null);
+  };
+
+  const handleSelectCinema = (selectedCinema: string) => () => {
+    setFavoriteCinema(selectedCinema);
+    setActiveDropdown(null);
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -193,36 +237,73 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
       <S.FormRow>
         <S.FormGroup>
           <label>Thành phố </label>
-          <div className="input-wrap">
+          <div className="input-wrap" ref={cityDropdownRef}>
             <MapPin size={14} className="icon" />
-            <select value={city} onChange={handleCityChange}>
-              <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
-              <option value="Hà Nội">Hà Nội</option>
-              <option value="Đà Nẵng">Đà Nẵng</option>
-              <option value="Bình Dương">Bình Dương</option>
-            </select>
+            <S.SelectTrigger
+              type="button"
+              $isOpen={activeDropdown === 'city'}
+              onClick={handleToggleCityDropdown}
+              aria-haspopup="listbox"
+              aria-expanded={activeDropdown === 'city'}
+            >
+              <span className="selected-text">{city}</span>
+              <ChevronDown size={14} className="chevron" />
+            </S.SelectTrigger>
+
+            {activeDropdown === 'city' && (
+              <S.DropdownMenu role="listbox">
+                {CITIES.map((c) => (
+                  <S.DropdownItem
+                    key={c}
+                    type="button"
+                    role="option"
+                    aria-selected={city === c}
+                    $isSelected={city === c}
+                    onClick={handleSelectCity(c)}
+                  >
+                    <span>{c}</span>
+                    {city === c && <Check size={14} className="check-icon" />}
+                  </S.DropdownItem>
+                ))}
+              </S.DropdownMenu>
+            )}
           </div>
         </S.FormGroup>
 
         <S.FormGroup>
           <label>Cụm rạp yêu thích nhất</label>
-          <div className="input-wrap">
-            <span className="icon">📽</span>
-            <select
-              value={favoriteCinema}
-              onChange={handleFavoriteCinemaChange}
+          <div className="input-wrap" ref={cinemaDropdownRef}>
+            <Film size={14} className="icon" />
+            <S.SelectTrigger
+              type="button"
+              $isOpen={activeDropdown === 'cinema'}
+              onClick={handleToggleCinemaDropdown}
+              aria-haspopup="listbox"
+              aria-expanded={activeDropdown === 'cinema'}
             >
-              <option value="PhimBook IMAX Landmark 81">
-                PhimBook IMAX Landmark 81
-              </option>
-              <option value="CGV Vincom Đồng Khởi">CGV Vincom Đồng Khởi</option>
-              <option value="Galaxy Sala Thủ Thiêm">
-                Galaxy Sala Thủ Thiêm
-              </option>
-              <option value="Lotte Cinema Diamond Plaza">
-                Lotte Cinema Diamond Plaza
-              </option>
-            </select>
+              <span className="selected-text">{favoriteCinema}</span>
+              <ChevronDown size={14} className="chevron" />
+            </S.SelectTrigger>
+
+            {activeDropdown === 'cinema' && (
+              <S.DropdownMenu role="listbox">
+                {CINEMAS.map((cin) => (
+                  <S.DropdownItem
+                    key={cin}
+                    type="button"
+                    role="option"
+                    aria-selected={favoriteCinema === cin}
+                    $isSelected={favoriteCinema === cin}
+                    onClick={handleSelectCinema(cin)}
+                  >
+                    <span>{cin}</span>
+                    {favoriteCinema === cin && (
+                      <Check size={14} className="check-icon" />
+                    )}
+                  </S.DropdownItem>
+                ))}
+              </S.DropdownMenu>
+            )}
           </div>
         </S.FormGroup>
       </S.FormRow>

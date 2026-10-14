@@ -83,8 +83,7 @@ export const FormGroup = styled.div`
       font-size: 13px;
     }
 
-    input,
-    select {
+    input {
       width: 100%;
       height: 42px;
       padding: 0 12px 0 36px;
@@ -109,23 +108,6 @@ export const FormGroup = styled.div`
 
     &:has(.status-badge) input {
       padding-right: 115px;
-    }
-
-    select {
-      cursor: pointer;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23ae8786' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 38px;
-
-      option {
-        background-color: #1c1b20;
-        color: #ffffff;
-        padding: 8px 12px;
-      }
     }
 
     .status-badge {
@@ -219,3 +201,125 @@ export const FormFooter = styled.div`
     }
   }
 `;
+
+export const SelectTrigger = styled.button<{ $isOpen?: boolean }>`
+  width: 100%;
+  height: 42px;
+  padding: 0 14px 0 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid
+    ${({ $isOpen }) => ($isOpen ? '#ff535a' : 'rgba(255, 255, 255, 0.09)')};
+  color: #ffffff;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+  text-align: left;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .selected-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #ffffff;
+    font-weight: 500;
+  }
+
+  .chevron {
+    color: #ae8786;
+    flex-shrink: 0;
+    margin-left: 8px;
+    transition: transform 0.2s ease;
+    transform: ${({ $isOpen }) => ($isOpen ? 'rotate(180deg)' : 'rotate(0deg)')};
+  }
+`;
+
+export const DropdownMenu = styled.div`
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background: rgba(22, 21, 24, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
+  padding: 4px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  animation: selectDropdownFade 0.15s ease-out;
+
+  @keyframes selectDropdownFade {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Compact scrollbar */
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+  }
+`;
+
+export const DropdownItem = styled.button<{ $isSelected?: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  background: ${({ $isSelected }) =>
+    $isSelected ? 'rgba(255, 83, 90, 0.15)' : 'transparent'};
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+
+  span {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 12.5px;
+    font-weight: ${({ $isSelected }) => ($isSelected ? '700' : '500')};
+    color: ${({ $isSelected }) => ($isSelected ? '#ffb955' : '#e5e2e3')};
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .check-icon {
+    color: #ffb955;
+    flex-shrink: 0;
+    margin-left: 8px;
+  }
+
+  &:hover {
+    background: rgba(255, 83, 90, 0.12);
+    span {
+      color: #ffb955;
+    }
+  }
+`;
+

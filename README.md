@@ -63,12 +63,9 @@ cd "booking app"
 # Bước 2: Di chuyển vào thư mục ứng dụng
 cd base-react-vite-main
 
-# Bước 3: Tạo file biến môi trường từ file mẫu
-cp .env.example .env
-
-# Bước 4: Cài đặt các thư viện phụ thuộc
+# Bước 3: Cài đặt các thư viện phụ thuộc
 npm install
 
-# Bước 5: Khởi động server phát triển (Dev server)
+# Bước 4: Khởi động server phát triển (Dev server)
 npm run dev
 ```

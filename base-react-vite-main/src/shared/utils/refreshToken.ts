@@ -48,7 +48,7 @@ export const handleRefreshToken = async (originalRequest: IOriginRequest) => {
     if (refreshToken) {
       axios
         .post(
-          `${import.meta.env.VITE_API_URL}/auth/refresh-token`,
+          `${import.meta.env.VITE_API_URL || '/api/v1'}/auth/refresh-token`,
           { refreshToken },
           {
             headers: { 'Content-Type': 'application/json' },

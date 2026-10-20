@@ -1,7 +1,7 @@
 ## 🔑 1. Thông Tin Trải Nghiệm Nhanh
 
 - **Tài khoản test:**
-  - **Email:** `vip.cinenoir@gmail.com`
+  - **Email:** `testuser@phimbook.vn` (hoặc bấm nhanh nút **"Điền tài khoản Demo"** ngay tại form đăng nhập)
   - **Mật khẩu:** `Password123@`
 - **Backend Live:** Ứng dụng đã được cấu hình proxy tự động trỏ về Backend Railway (`https://be-bookphim-production.up.railway.app`). Không cần cấu hình môi trường phức tạp hay chạy server local.
 

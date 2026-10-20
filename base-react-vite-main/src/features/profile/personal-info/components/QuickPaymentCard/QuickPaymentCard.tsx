@@ -1,9 +1,11 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { CreditCard, CheckCircle2 } from 'lucide-react';
 import * as S from './QuickPaymentCard.styles';
 
 export const QuickPaymentCard: FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleNavigatePaymentMethods = () => {
@@ -16,14 +18,14 @@ export const QuickPaymentCard: FC = () => {
         <div className="title-group">
           <h3>
             <CreditCard size={16} color="#ff535a" />
-            <span>Phương thức thanh toán</span>
+            <span>{t('profile:quick_payment_title')}</span>
           </h3>
         </div>
         <span
           className="edit-link"
           onClick={handleNavigatePaymentMethods}
         >
-          + Thêm mới
+          {t('profile:add_new_payment')}
         </span>
       </div>
 

@@ -1,10 +1,13 @@
+import { useTranslation } from 'react-i18next';
 import { ChevronRight, Gift } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { VOUCHERS } from '../../data/vip-elite-data';
+import { getVouchers } from '../../data/vip-elite-data';
 import * as S from './VoucherVault.styles';
 
 export function VoucherVault() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
+  const vouchers = getVouchers(t);
 
   const handleNavigateTickets = () => {
     navigate('/ve-cua-toi');
@@ -22,18 +25,18 @@ export function VoucherVault() {
             <Gift size={18} />
           </div>
           <div>
-            <h3>Ví Voucher Của Bạn</h3>
+            <h3>{t('profile:voucher_vault_title')}</h3>
             <span className="sub-desc">
-              3 ưu đãi sẵn sàng áp dụng khi thanh toán
+              {t('profile:voucher_vault_sub')}
             </span>
           </div>
         </div>
         <span className="link-all" onClick={handleNavigateTickets}>
-          Xem tất cả (5)
+          {t('profile:view_all_vouchers')}
         </span>
       </div>
 
-      {VOUCHERS.map((voucher) => (
+      {vouchers.map((voucher) => (
         <S.VoucherMiniCard key={voucher.id}>
           <div className="left">
             <div className={`discount-box ${voucher.id}`}>
@@ -55,7 +58,7 @@ export function VoucherVault() {
               className="use-link"
               onClick={handleUseVoucher}
             >
-              <span>Dùng ngay</span>
+              <span>{t('profile:use_now_btn')}</span>
               <ChevronRight size={12} />
             </span>
           </div>

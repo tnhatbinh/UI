@@ -20,7 +20,7 @@ export const SlideCTA: FC<SlideCTAProps> = ({ movieId }) => {
 
   const handleBookNow = (e: React.MouseEvent) => {
     e.stopPropagation();
-    navigate(`/phim/${targetMovieId}?booking=true`);
+    navigate(`/phim/${targetMovieId}`);
   };
 
   const handleWatchTrailer = (e: React.MouseEvent) => {

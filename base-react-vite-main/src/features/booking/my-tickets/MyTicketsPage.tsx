@@ -1,26 +1,27 @@
+import { useTranslation } from 'react-i18next';
 import { Sparkles } from 'lucide-react';
 import * as S from './MyTicketsPage.styles';
 import { useMyTickets } from './hooks/useMyTickets';
-import {
-  PAST_TICKETS,
-  RECENT_PAST_TICKETS,
-  VOUCHERS,
-} from './data/past-tickets.data';
+import { VOUCHERS } from './data/past-tickets.data';
 import { ActiveTicket } from './components/ActiveTicket/ActiveTicket';
 import { TicketHistory } from './components/TicketHistory/TicketHistory';
 import { VouchersSection } from './components/VouchersSection/VouchersSection';
 import { UrgentSupport } from './components/UrgentSupport/UrgentSupport';
 
 export default function MyTicketsPage() {
+  const { t } = useTranslation();
   const {
     activeTab,
     setActiveTab,
     historyFilter,
     setHistoryFilter,
     activeTicket,
+    pastTickets,
     toastMessage,
     triggerToast,
     handleCopyCode,
+    handleTurnstileCheckIn,
+    handleRefund,
   } = useMyTickets();
 
   const handleSelectTab = (tab: 'upcoming' | 'history' | 'vouchers') => () => {
@@ -39,7 +40,7 @@ export default function MyTicketsPage() {
           <div className="title-meta">
             <span className="sub-tag">CINEPASS LUXURY SERVICE</span>
             <div className="title-row">
-              <h1>Vé Của Tôi</h1>
+              <h1>{t('booking:my_tickets_title')}</h1>
               <span className="eng-sub">/ My Tickets &amp; Passes</span>
             </div>
           </div>
@@ -49,19 +50,19 @@ export default function MyTicketsPage() {
               $isActive={activeTab === 'upcoming'}
               onClick={handleSelectTab('upcoming')}
             >
-              Vé Sắp Xem ( 1 )
+              {t('booking:tickets_upcoming')} ( 1 )
             </S.TabPill>
             <S.TabPill
               $isActive={activeTab === 'history'}
               onClick={handleSelectTab('history')}
             >
-              Lịch Sử Đặt Vé ( 8 )
+              {t('booking:tickets_history')} ( {pastTickets.length} )
             </S.TabPill>
             <S.TabPill
               $isActive={activeTab === 'vouchers'}
               onClick={handleSelectTab('vouchers')}
             >
-              Voucher &amp; Ưu Đãi ( 3 )
+              {t('booking:tickets_vouchers')} ( 3 )
             </S.TabPill>
           </div>
         </S.PageHeader>
@@ -69,11 +70,16 @@ export default function MyTicketsPage() {
         {/* TAB 1: VÉ SẮP XEM */}
         {activeTab === 'upcoming' && (
           <>
-            <ActiveTicket ticket={activeTicket} onToast={triggerToast} />
+            <ActiveTicket
+              ticket={activeTicket}
+              onToast={triggerToast}
+              onCheckIn={handleTurnstileCheckIn}
+              onRefund={handleRefund}
+            />
 
             {/* Teaser lịch sử gần đây */}
             <TicketHistory
-              tickets={RECENT_PAST_TICKETS}
+              tickets={pastTickets.slice(0, 3)}
               title="Lịch Sử Đặt Vé Gần Đây"
               subtitle="Các tác phẩm điện ảnh đỉnh cao bạn đã thưởng thức tại hệ thống PhimBook"
               historyFilter={historyFilter}
@@ -87,8 +93,8 @@ export default function MyTicketsPage() {
         {/* TAB 2: LỊCH SỬ ĐẶT VÉ TOÀN DIỆN */}
         {activeTab === 'history' && (
           <TicketHistory
-            tickets={PAST_TICKETS}
-            title="Toàn Bộ Lịch Sử Đặt Vé ( 8 Buổi Chiếu )"
+            tickets={pastTickets}
+            title={`Toàn Bộ Lịch Sử Đặt Vé ( ${pastTickets.length} Buổi Chiếu )`}
             subtitle="Lưu trữ vĩnh viễn các giao dịch, đánh giá phim và điểm thưởng CinePass"
             historyFilter={historyFilter}
             onFilterChange={setHistoryFilter}

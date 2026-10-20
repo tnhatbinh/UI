@@ -1,13 +1,19 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ArrowRight } from 'lucide-react';
 import { useBooking } from '../../../context/useBooking';
 import * as S from './MobileStickyBar.styles';
 
 interface MobileStickyBarProps {
   onContinue: () => void;
+  isLocking?: boolean;
 }
 
-export const MobileStickyBar: FC<MobileStickyBarProps> = ({ onContinue }) => {
+export const MobileStickyBar: FC<MobileStickyBarProps> = ({
+  onContinue,
+  isLocking = false,
+}) => {
+  const { t } = useTranslation();
   const { state, calculateSeatsTotal } = useBooking();
   const seatsTotal = calculateSeatsTotal();
 
@@ -16,7 +22,7 @@ export const MobileStickyBar: FC<MobileStickyBarProps> = ({ onContinue }) => {
       <div className="bar-content">
         <div className="seat-info">
           <span className="seats-label">
-            Ghế:{' '}
+            {t('booking:mobile_seats_label')}{' '}
             <strong>{state.selectedSeats.map((s) => s.id).join(', ')}</strong>
           </span>
           <span className="total-price">
@@ -24,8 +30,17 @@ export const MobileStickyBar: FC<MobileStickyBarProps> = ({ onContinue }) => {
           </span>
         </div>
 
-        <button type="button" className="action-btn" onClick={onContinue}>
-          <span>Tiếp tục</span>
+        <button
+          type="button"
+          className="action-btn"
+          disabled={isLocking}
+          onClick={onContinue}
+        >
+          <span>
+            {isLocking
+              ? t('booking:mobile_locking')
+              : t('booking:mobile_continue')}
+          </span>
           <ArrowRight size={15} />
         </button>
       </div>

@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MapPin, Calendar, Lock, ShieldCheck, Ticket } from 'lucide-react';
 import { useBooking } from '../../../context/useBooking';
 import * as S from './OrderSummary.styles';
@@ -14,6 +15,7 @@ export const OrderSummary: FC<OrderSummaryProps> = ({
   isProcessing,
   onCompleteOrder,
 }) => {
+  const { t } = useTranslation();
   const { state, calculateSeatsTotal, calculateGrandTotal } = useBooking();
 
   const seatsTotal = calculateSeatsTotal();
@@ -26,7 +28,7 @@ export const OrderSummary: FC<OrderSummaryProps> = ({
     <S.OrderSummaryContainer>
       <S.TicketConfirmationCard>
         <div className="card-top-title">
-          <span className="title">PHIẾU XÁC NHẬN VÉ</span>
+          <span className="title">{t('booking:ticket_confirmation_title')}</span>
           <span className="badge-format">
             {state.session.format || 'IMAX Laser'}
           </span>
@@ -46,7 +48,9 @@ export const OrderSummary: FC<OrderSummaryProps> = ({
             <span className="name">{state.movie.title}</span>
             <span className="sub">{state.movie.originalTitle}</span>
             <span className="format">
-              Phụ đề Tiếng Việt • {state.movie.format}
+              {t('booking:subtitle_vietnamese', {
+                format: state.movie.format || 'IMAX Laser',
+              })}
             </span>
           </div>
         </div>
@@ -71,7 +75,9 @@ export const OrderSummary: FC<OrderSummaryProps> = ({
         <div className="items-list-breakdown">
           <div className="item-line">
             <span className="item-name">
-              ● Ghế đã chọn ({seatNames || 'Chưa chọn ghế'})
+              {t('booking:selected_seats_item', {
+                seats: seatNames || t('common:noData'),
+              })}
             </span>
             <span className="item-price">
               {seatsTotal.toLocaleString('vi-VN')}đ
@@ -91,20 +97,28 @@ export const OrderSummary: FC<OrderSummaryProps> = ({
 
           {state.selectedSnacks.length === 0 && (
             <div className="item-line muted">
-              <span className="item-name">● Bắp &amp; nước: Không chọn</span>
+              <span className="item-name">
+                {t('booking:no_snacks_selected')}
+              </span>
               <span className="item-price">0đ</span>
             </div>
           )}
 
           <div className="item-line free">
-            <span className="item-name">Phí dịch vụ trực tuyến</span>
-            <span className="item-price">0đ (VIP Elite Free)</span>
+            <span className="item-name">
+              {t('booking:online_service_fee')}
+            </span>
+            <span className="item-price">
+              {t('booking:free_vip_fee')}
+            </span>
           </div>
 
           {state.appliedVoucher && (
             <div className="item-line discount">
               <span className="item-name">
-                🏷 Ưu đãi {state.appliedVoucher.code}
+                {t('booking:applied_promo_item', {
+                  code: state.appliedVoucher.code,
+                })}
               </span>
               <span className="item-price">
                 -{state.appliedVoucher.discount.toLocaleString('vi-VN')}đ
@@ -116,9 +130,11 @@ export const OrderSummary: FC<OrderSummaryProps> = ({
         {/* Grand Total */}
         <div className="total-block">
           <div className="label-group">
-            <span className="title">TỔNG THANH TOÁN</span>
-            <span className="tax-note">(Đã bao gồm thuế GTGT)</span>
-            <span className="points-note">+{points} PhimPoints tích lũy</span>
+            <span className="title">{t('booking:total_checkout_amount')}</span>
+            <span className="tax-note">{t('booking:vat_note')}</span>
+            <span className="points-note">
+              {t('booking:points_accumulate_checkout', { points })}
+            </span>
           </div>
           <span className="amount">{finalTotal.toLocaleString('vi-VN')}đ</span>
         </div>
@@ -133,17 +149,16 @@ export const OrderSummary: FC<OrderSummaryProps> = ({
           <Lock size={16} />
           <span>
             {isProcessing
-              ? 'Đang xử lý giao dịch...'
-              : `Xác Nhận & Thanh Toán ${finalTotal.toLocaleString('vi-VN')}đ`}
+              ? t('booking:btn_processing')
+              : t('booking:btn_confirm_pay', {
+                  amount: finalTotal.toLocaleString('vi-VN'),
+                })}
           </span>
         </button>
 
         <div className="pci-dss-note">
           <ShieldCheck size={14} color="#ffb955" />
-          <span>
-            Bảo Mật Giao Dịch Chuẩn PCI-DSS Level 1. Mọi thông tin thanh toán
-            được mã hóa SSL 256-bit theo tiêu chuẩn ngân hàng quốc tế.
-          </span>
+          <span>{t('booking:pci_dss_note')}</span>
         </div>
       </S.TicketConfirmationCard>
 
@@ -153,10 +168,11 @@ export const OrderSummary: FC<OrderSummaryProps> = ({
           <Ticket size={24} />
         </div>
         <div className="text">
-          <span className="title">Đảm bảo giữ ghế 100%</span>
+          <span className="title">
+            {t('booking:seat_hold_assurance_title')}
+          </span>
           <span className="sub">
-            Vé vào phòng chiếu quét trực tiếp tại cổng soát vé không cần in vé
-            giấy.
+            {t('booking:seat_hold_assurance_desc')}
           </span>
         </div>
       </S.DigitalPassAssurance>

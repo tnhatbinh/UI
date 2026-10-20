@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { BookingState } from '../../../context/booking.types';
 import { User, Phone, Mail, Lock } from 'lucide-react';
 import { useBooking } from '../../../context/useBooking';
@@ -13,6 +14,7 @@ export const RecipientForm: FC<RecipientFormProps> = ({
   recipient: propRecipient,
   onRecipientChange,
 }) => {
+  const { t } = useTranslation();
   const { state, setRecipient } = useBooking();
 
   const recipient = propRecipient ?? state.recipient;
@@ -42,19 +44,19 @@ export const RecipientForm: FC<RecipientFormProps> = ({
             <User size={18} />
           </div>
           <div className="text-meta">
-            <span className="title">Thông Tin Người Nhận Vé</span>
+            <span className="title">{t('booking:recipient_form_title')}</span>
             <span className="sub">
-              Mã QR và thông tin xác thực rạp sẽ được chuyển đến bạn ngay lập
-              tức
+              {t('booking:recipient_form_sub')}
+
             </span>
           </div>
         </div>
-        <span className="badge-tag">👑 Khách VIP Elite</span>
+        <span className="badge-tag">{t('booking:vip_elite_badge')}</span>
       </div>
 
       <S.FormRowGrid>
         <S.FormField>
-          <label>Họ và tên</label>
+          <label>{t('booking:recipient_name')}</label>
           <div className="input-wrapper">
             <User size={15} />
             <input
@@ -67,7 +69,7 @@ export const RecipientForm: FC<RecipientFormProps> = ({
         </S.FormField>
 
         <S.FormField>
-          <label>Số điện thoại</label>
+          <label>{t('booking:recipient_phone')}</label>
           <div className="input-wrapper">
             <Phone size={15} />
             <input
@@ -80,7 +82,7 @@ export const RecipientForm: FC<RecipientFormProps> = ({
         </S.FormField>
 
         <S.FormField>
-          <label>Email nhận vé QR</label>
+          <label>{t('booking:recipient_email')}</label>
           <div className="input-wrapper">
             <Mail size={15} />
             <input
@@ -101,12 +103,12 @@ export const RecipientForm: FC<RecipientFormProps> = ({
             onChange={handleSendZaloChange}
           />
           <span>
-            Gửi vé điện tử qua Zalo / SMS miễn phí kèm nhắc nhở lịch chiếu
+            {t('booking:zalo_sms_notice')}
           </span>
         </label>
         <span className="secure-tag">
           <Lock size={12} />
-          <span>Bảo mật e-Ticket 256-bit</span>
+          <span>{t('booking:eticket_secure_badge')}</span>
         </span>
       </S.CheckboxLine>
     </S.SectionCard>

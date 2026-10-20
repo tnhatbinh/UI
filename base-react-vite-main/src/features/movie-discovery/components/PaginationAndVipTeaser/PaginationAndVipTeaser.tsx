@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   ChevronLeft,
   ChevronRight,
@@ -43,6 +44,7 @@ export const PaginationAndVipTeaser: FC<PaginationAndVipTeaserProps> = ({
   totalMovies = 0,
   currentShowingCount = 0,
 }) => {
+  const { t } = useTranslation();
   const pageNumbers = getPageNumbers(currentPage, totalPages);
   const remainingCount = Math.max(0, totalMovies - currentShowingCount);
 
@@ -77,13 +79,13 @@ export const PaginationAndVipTeaser: FC<PaginationAndVipTeaserProps> = ({
             <S.LoadMoreButton
               type="button"
               onClick={onLoadMore}
-              title="Tải thêm phim"
+              title={t('discovery:load_more', { count: remainingCount })}
             >
               <S.LoadMoreIconContainer>
                 <RotateCcw size={14} />
               </S.LoadMoreIconContainer>
               <S.LoadMoreText>
-                Xem Thêm {remainingCount} Phim Khác
+                {t('discovery:load_more', { count: remainingCount })}
               </S.LoadMoreText>
             </S.LoadMoreButton>
           )}
@@ -97,7 +99,7 @@ export const PaginationAndVipTeaser: FC<PaginationAndVipTeaserProps> = ({
                 onClick={handlePrev}
                 disabled={currentPage <= 1}
                 $disabled={currentPage <= 1}
-                title="Trang trước"
+                title={t('discovery:prev_page')}
               >
                 <ChevronLeft size={16} />
               </S.PageArrowButton>
@@ -116,7 +118,7 @@ export const PaginationAndVipTeaser: FC<PaginationAndVipTeaserProps> = ({
                     type="button"
                     $isActive={currentPage === pageNum}
                     onClick={handleSelectPage(pageNum)}
-                    title={`Trang ${pageNum}`}
+                    title={t('discovery:page_number', { number: pageNum })}
                   >
                     <span>{pageNum}</span>
                   </S.PageNumberButton>
@@ -129,7 +131,7 @@ export const PaginationAndVipTeaser: FC<PaginationAndVipTeaserProps> = ({
                 onClick={handleNext}
                 disabled={currentPage >= totalPages}
                 $disabled={currentPage >= totalPages}
-                title="Trang sau"
+                title={t('discovery:next_page')}
               >
                 <ChevronRight size={16} />
               </S.PageArrowButton>
@@ -146,11 +148,10 @@ export const PaginationAndVipTeaser: FC<PaginationAndVipTeaserProps> = ({
 
             <S.LoungeTextCol>
               <S.LoungeTitle>
-                PhimBook Gold Class & Suite Screening
+                {t('discovery:vip_lounge_title')}
               </S.LoungeTitle>
               <S.LoungeSubtitle>
-                Trải nghiệm sảnh chờ phục vụ rượu vang, ghế ngả nệm lông vũ và
-                tai nghe chống ồn riêng biệt.
+                {t('discovery:vip_lounge_desc')}
               </S.LoungeSubtitle>
             </S.LoungeTextCol>
           </S.LoungeInfoGroup>
@@ -158,9 +159,9 @@ export const PaginationAndVipTeaser: FC<PaginationAndVipTeaserProps> = ({
           <S.BookingLoungeButton
             type="button"
             onClick={onVipBookingClick}
-            title="Đặt phòng chiếu VIP"
+            title={t('discovery:book_vip_room')}
           >
-            <S.BookingLoungeText>Đặt Phòng Chiếu Riêng</S.BookingLoungeText>
+            <S.BookingLoungeText>{t('discovery:book_vip_room')}</S.BookingLoungeText>
             <ExternalLink size={14} color="#FFB955" strokeWidth={2.2} />
           </S.BookingLoungeButton>
         </S.ExclusiveLoungeBanner>

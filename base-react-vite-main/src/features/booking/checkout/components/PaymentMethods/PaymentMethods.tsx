@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { BookingState } from '../../../context/booking.types';
 import {
   CreditCard,
@@ -38,6 +39,57 @@ export const PaymentMethods: FC<PaymentMethodsProps> = ({
 }) => {
   const { state, setPaymentMethod, applyVoucher, calculateGrandTotal } =
     useBooking();
+  const { t } = useTranslation();
+
+  const getMethodName = (id: PaymentMethodId, fallback: string) => {
+    switch (id) {
+      case 'momo':
+        return t('booking:method_momo_name');
+      case 'vnpay':
+        return t('booking:method_vnpay_name');
+      case 'credit-card':
+        return t('booking:method_card_name');
+      case 'atm':
+        return t('booking:method_atm_name');
+      case 'phimpoints':
+        return t('booking:method_points_name');
+      default:
+        return fallback;
+    }
+  };
+
+  const getMethodDesc = (id: PaymentMethodId, fallback: string) => {
+    switch (id) {
+      case 'momo':
+        return t('booking:method_momo_desc');
+      case 'vnpay':
+        return t('booking:method_vnpay_desc');
+      case 'credit-card':
+        return t('booking:method_card_desc');
+      case 'atm':
+        return t('booking:method_atm_desc');
+      case 'phimpoints':
+        return t('booking:method_points_desc');
+      default:
+        return fallback;
+    }
+  };
+
+  const getRightTag = (tag?: string) => {
+    if (!tag) return undefined;
+    if (tag.includes('Tức thì') || tag.includes('Instant')) {
+      return t('booking:tag_instant');
+    }
+    return tag;
+  };
+
+  const getVipBadge = (badge?: string) => {
+    if (!badge) return undefined;
+    if (badge.includes('Khuyên Dùng') || badge.includes('Recommended')) {
+      return t('booking:badge_recommended');
+    }
+    return badge;
+  };
 
   const selectedMethod = propSelectedMethod ?? state.paymentMethod;
   const handleSelectMethod = onSelectMethod ?? setPaymentMethod;
@@ -110,13 +162,13 @@ export const PaymentMethods: FC<PaymentMethodsProps> = ({
               <CreditCard size={18} />
             </div>
             <div className="text-meta">
-              <span className="title">Phương Thức Thanh Toán</span>
+              <span className="title">{t('booking:payment_methods_title')}</span>
               <span className="sub">
-                Cổng thanh toán mã hóa an toàn đạt chuẩn PCI-DSS Level 1
+                {t('booking:payment_methods_sub')}
               </span>
             </div>
           </div>
-          <span className="badge-tag">Không phụ phí giao dịch</span>
+          <span className="badge-tag">{t('booking:no_transaction_fee')}</span>
         </div>
 
         <S.PaymentMethodsList>
@@ -137,23 +189,23 @@ export const PaymentMethods: FC<PaymentMethodsProps> = ({
                   </div>
                   <div className="title-details">
                     <div className="title-row">
-                      <span className="name">{method.name}</span>
+                      <span className="name">{getMethodName(method.id, method.name)}</span>
                       {method.promoBadge && (
                         <span className="promo-badge">{method.promoBadge}</span>
                       )}
                       {method.vipBadge && (
-                        <span className="vip-balance">{method.vipBadge}</span>
+                        <span className="vip-balance">{getVipBadge(method.vipBadge)}</span>
                       )}
                       {method.subtitle && (
                         <span className="desc">{method.subtitle}</span>
                       )}
                     </div>
-                    <span className="desc">{method.desc}</span>
+                    <span className="desc">{getMethodDesc(method.id, method.desc)}</span>
                   </div>
                 </div>
 
                 {method.rightTag && (
-                  <span className="right-tag">{method.rightTag}</span>
+                  <span className="right-tag">{getRightTag(method.rightTag)}</span>
                 )}
                 {method.hasLock && <Lock size={15} color="#ae8786" />}
               </S.PaymentMethodItem>
@@ -170,11 +222,13 @@ export const PaymentMethods: FC<PaymentMethodsProps> = ({
               <Ticket size={18} />
             </div>
             <div className="text-meta">
-              <span className="title">Chương Trình Khuyến Mãi & Giảm Giá</span>
+              <span className="title">{t('booking:promotions_and_vouchers')}</span>
             </div>
           </div>
           <span className="badge-tag">
-            {CHECKOUT_VOUCHERS.length} Voucher khả dụng
+            {t('booking:available_vouchers_count', {
+              count: CHECKOUT_VOUCHERS.length,
+            })}
           </span>
         </div>
 
@@ -182,7 +236,7 @@ export const PaymentMethods: FC<PaymentMethodsProps> = ({
           <div className="input-row">
             <input
               type="text"
-              placeholder="Nhập mã voucher hoặc giftcode..."
+              placeholder={t('booking:voucher_input_placeholder')}
               value={voucherCode}
               onChange={handleVoucherInputChange}
             />
@@ -191,7 +245,7 @@ export const PaymentMethods: FC<PaymentMethodsProps> = ({
               className="apply-btn"
               onClick={handleApplyVoucherClick}
             >
-              Áp Dụng
+              {t('booking:apply_code_btn')}
             </button>
           </div>
 
@@ -212,7 +266,9 @@ export const PaymentMethods: FC<PaymentMethodsProps> = ({
                     </div>
                   </div>
                   <span className="status-text">
-                    {isSelected ? 'Đã chọn' : 'Chọn'}
+                    {isSelected
+                      ? t('booking:voucher_selected')
+                      : t('booking:voucher_select')}
                   </span>
                 </S.VoucherCard>
               );
@@ -229,9 +285,9 @@ export const PaymentMethods: FC<PaymentMethodsProps> = ({
           onChange={handleAgreedChange}
         />
         <span>
-          Tôi xác nhận thông tin vé đã chính xác và đồng ý với Quy chế hoạt động
-          rạp &amp; Chính sách hoàn/đổi vé trước 60 phút của PhimBook. Vé đã mua
-          không thể quy đổi thành tiền mặt.
+          {t('booking:terms_consent_notice')}
+
+
         </span>
       </S.ConsentCheckbox>
     </>

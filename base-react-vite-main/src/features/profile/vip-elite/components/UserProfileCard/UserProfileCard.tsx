@@ -1,21 +1,40 @@
+import { useTranslation } from 'react-i18next';
 import { Award, ChevronRight, Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { getProfileApi } from '@features/auth/api/auth.api';
 import * as S from './UserProfileCard.styles';
 
 export function UserProfileCard() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const { data: profile } = useQuery({
+    queryKey: ['user-profile'],
+    queryFn: getProfileApi,
+    staleTime: 60000,
+  });
 
   const handleNavigateTaste = () => {
     navigate('/profile/cinematic-taste');
   };
+
+  const displayName = profile?.fullName || t('profile:default_username');
+  const tier = profile?.membershipTier || 'VIP_ELITE';
+  const moviesCount = profile?.moviesWatchedCount ?? 0;
+  const theatersCount = profile?.theatersVisitedCount ?? 0;
+  const points = profile?.totalPoints ?? 100;
 
   return (
     <S.UserProfileCard>
       <div className="user-header">
         <div className="avatar-wrap">
           <img
-            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80"
-            alt="Nguyễn Thanh Tùng"
+            src={
+              profile?.avatarUrl ||
+              'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80'
+            }
+            alt={displayName}
           />
           <div className="star-badge">
             <Star size={12} fill="#ffb955" />
@@ -24,39 +43,42 @@ export function UserProfileCard() {
 
         <div className="info">
           <div className="badge-row">
-            <span className="vip-pill">VIP ELITE MEMBER</span>
-            <span className="active-dot">Hội viên tích cực</span>
+            <span className="vip-pill">{tier.replace('_', ' ')} MEMBER</span>
+            <span className="active-dot">{t('profile:active_member')}</span>
           </div>
-          <h2 className="name">Nguyễn Thanh Tùng</h2>
+          <h2 className="name">{displayName}</h2>
           <div className="meta-line">
-            Thành viên thân thiết từ 04/2021 • Mã: PB-VN-094182
+            {profile?.email || 'testuser@phimbook.vn'} •{' '}
+            {profile?.phone || '0988 123 456'}
           </div>
         </div>
       </div>
 
       <div className="stats-row">
         <div className="stat-col">
-          <span className="label">PHIM ĐÃ XEM</span>
+          <span className="label">{t('profile:movies_watched_label')}</span>
           <span className="value">
-            48 <span className="unit">tác phẩm</span>
+            {t('profile:works_count', { count: moviesCount })}
           </span>
-          <span className="sub">📈 +6 tháng này</span>
+          <span className="sub">{t('profile:regular_member')}</span>
         </div>
 
         <div className="stat-col">
-          <span className="label">RẠP ĐÃ GHÉ THĂM</span>
+          <span className="label">{t('profile:theaters_visited_label')}</span>
           <span className="value">
-            12 <span className="unit">cụm rạp</span>
+            {t('profile:theaters_count', { count: theatersCount })}
           </span>
-          <span className="sub">📍 3 cụm thường xuyên</span>
+          <span className="sub">{t('profile:phimbook_theaters_sub')}</span>
         </div>
 
         <div className="stat-col">
-          <span className="label">TIẾT KIỆM NĂM NAY</span>
+          <span className="label">{t('profile:accumulated_points_label')}</span>
           <span className="value">
-            1.45M <span className="unit">VND</span>
+            {points.toLocaleString('vi-VN')} <span className="unit">pts</span>
           </span>
-          <span className="sub">🏷️ Từ voucher VIP</span>
+          <span className="sub">
+            {t('profile:reward_estimate', { amount: `${(points * 1000).toLocaleString('vi-VN')}đ` })}
+          </span>
         </div>
       </div>
 
@@ -64,15 +86,11 @@ export function UserProfileCard() {
         <div className="desc">
           <Award size={16} className="icon" />
           <span>
-            Đặc quyền hạng hiện tại: Giảm 15% bắp nước, ưu tiên giữ chỗ ghế
-            trung tâm trước 24h.
+            {t('profile:current_tier_privilege')}
           </span>
         </div>
-        <div
-          className="detail-link"
-          onClick={handleNavigateTaste}
-        >
-          <span>Chi tiết hạng</span>
+        <div className="detail-link" onClick={handleNavigateTaste}>
+          <span>{t('profile:tier_details_link')}</span>
           <ChevronRight size={13} />
         </div>
       </div>

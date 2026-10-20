@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { SPOTLIGHT_MOVIES } from '../../data/spotlight-data';
 import * as S from './SlidePagination.styles';
 
@@ -14,6 +15,8 @@ export const SlidePagination: FC<SlidePaginationProps> = ({
   selectedIndex,
   onDotClick,
 }) => {
+  const { t } = useTranslation();
+
   const handleDotClick = (dotIdx: number) => (e: React.MouseEvent) => {
     e.stopPropagation();
     onDotClick(dotIdx);
@@ -28,7 +31,10 @@ export const SlidePagination: FC<SlidePaginationProps> = ({
           $active={dotIdx === selectedIndex}
           onClick={handleDotClick(dotIdx)}
           title={movie.mainTitle}
-          aria-label={`Chuyển tới phim ${movie.mainTitle}`}
+          aria-label={t('home:hero.go_to_movie', {
+            defaultValue: `Chuyển tới phim ${movie.mainTitle}`,
+            title: movie.mainTitle,
+          })}
         />
       ))}
 

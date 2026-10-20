@@ -21,8 +21,12 @@ export const PageContainer = styled.div`
   color: #e5e2e3;
   font-family: 'Be Vietnam Pro', sans-serif;
 
+  @media ${media.lg} {
+    padding-bottom: 110px;
+  }
+
   @media ${media.md} {
-    padding-bottom: 80px;
+    padding-bottom: 110px;
   }
 `;
 

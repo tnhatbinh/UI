@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Award, CheckCircle, Film } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './MonthlyChallenges.styles';
@@ -11,6 +12,7 @@ export function MonthlyChallenges({
   hasClaimedReward,
   onClaimMission,
 }: MonthlyChallengesProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleNavigateMovieDetails = () => {
@@ -25,15 +27,14 @@ export function MonthlyChallenges({
             <Award size={18} />
           </div>
           <div>
-            <h3>Thử Thách Điện Ảnh Săn Vé Tháng 11</h3>
+            <h3>{t('profile:monthly_challenges_title')}</h3>
             <p className="sub-desc">
-              Hoàn thành nhiệm vụ nhận vé xem phim & combo bắp nước thượng hạng
-              hoàn toàn miễn phí
+              {t('profile:monthly_challenges_desc')}
             </p>
           </div>
         </div>
         <span className="tag-pill urgent">
-          Còn 18 ngày
+          {t('profile:days_remaining', { count: 18 })}
         </span>
       </div>
 
@@ -45,29 +46,28 @@ export function MonthlyChallenges({
           </div>
           <div className="info">
             <div className="title-row">
-              <span className="name">Mọt phim IMAX Laser</span>
-              <span className="badge">Tháng 11</span>
+              <span className="name">{t('profile:challenge_imax_title')}</span>
+              <span className="badge">{t('profile:challenge_month_badge')}</span>
             </div>
             <span className="desc">
-              Xem 3 suất chiếu định dạng IMAX trong tháng để kích hoạt vé 2D
-              miễn phí.
+              {t('profile:challenge_imax_desc')}
             </span>
             <div className="progress-line">
               <div className="bar">
                 <div className="fill fill-two-thirds" />
               </div>
-              <span className="txt">2 / 3 phim (Còn 1 suất chiếu)</span>
+              <span className="txt">{t('profile:challenge_imax_progress')}</span>
             </div>
           </div>
         </div>
 
         <div className="right-action">
-          <span className="reward-tag">🎟 1 Vé 2D Miễn Phí</span>
+          <span className="reward-tag">{t('profile:reward_free_2d')}</span>
           <button
             className="book-btn"
             onClick={handleNavigateMovieDetails}
           >
-            Đặt phim còn lại
+            {t('profile:book_remaining_movie')}
           </button>
         </div>
       </S.ChallengeItem>
@@ -80,31 +80,30 @@ export function MonthlyChallenges({
           </div>
           <div className="info">
             <div className="title-row">
-              <span className="name">Đánh giá chân thực (CineCritic)</span>
-              <span className="badge done">Đã hoàn thành!</span>
+              <span className="name">{t('profile:challenge_review_title')}</span>
+              <span className="badge done">{t('profile:challenge_completed_badge')}</span>
             </div>
             <span className="desc">
-              Viết 5 review có tâm sau khi xem phim tại rạp có đính kèm ảnh vé
-              xem.
+              {t('profile:challenge_review_desc')}
             </span>
             <div className="progress-line">
               <div className="bar">
                 <div className="fill success" />
               </div>
               <span className="txt success">
-                5 / 5 review (100%)
+                {t('profile:challenge_review_progress')}
               </span>
             </div>
           </div>
         </div>
 
         <div className="right-action">
-          <span className="reward-tag">🍿 Combo Bắp Nước 0đ</span>
+          <span className="reward-tag">{t('profile:reward_popcorn_combo')}</span>
           <button
             className={`claim-btn ${hasClaimedReward ? 'claimed' : ''}`}
             onClick={hasClaimedReward ? undefined : onClaimMission}
           >
-            {hasClaimedReward ? 'Đã nhận thưởng ✓' : 'Nhận thưởng ngay'}
+            {hasClaimedReward ? t('profile:claimed_reward_btn') : t('profile:claim_reward_now')}
           </button>
         </div>
       </S.ChallengeItem>

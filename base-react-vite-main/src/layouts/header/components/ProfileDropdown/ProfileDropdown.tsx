@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   ChevronDown,
   CreditCard,
@@ -27,37 +28,43 @@ const PROFILE_MENU = [
   {
     id: 'vip',
     icon: 'user',
-    label: 'Hồ sơ VIP Elite & Đặc quyền',
+    labelKey: 'header:menu_vip',
+    defaultLabel: 'Hồ sơ VIP Elite & Đặc quyền',
     path: '/profile/vip-elite',
   },
   {
     id: 'personal',
     icon: 'user',
-    label: 'Thông tin cá nhân',
+    labelKey: 'header:menu_personal',
+    defaultLabel: 'Thông tin cá nhân',
     path: '/profile/personal-info',
   },
   {
     id: 'security',
     icon: 'shield',
-    label: 'Bảo mật & Mật khẩu',
+    labelKey: 'header:menu_security',
+    defaultLabel: 'Bảo mật & Mật khẩu',
     path: '/profile/security',
   },
   {
     id: 'payment',
     icon: 'creditcard',
-    label: 'Phương thức thanh toán',
+    labelKey: 'header:menu_payment',
+    defaultLabel: 'Phương thức thanh toán',
     path: '/profile/payment-methods',
   },
   {
     id: 'taste',
     icon: 'film',
-    label: 'Khẩu vị điện ảnh',
+    labelKey: 'header:menu_taste',
+    defaultLabel: 'Khẩu vị điện ảnh',
     path: '/profile/cinematic-taste',
   },
   {
     id: 'tickets',
     icon: 'camera',
-    label: 'Vé đã đặt & Lịch sử',
+    labelKey: 'header:menu_tickets',
+    defaultLabel: 'Vé đã đặt & Lịch sử',
     path: '/ve-cua-toi',
   },
 ];
@@ -68,6 +75,7 @@ interface ProfileDropdownMenuProps {
 }
 
 export function ProfileDropdownMenu({ onLogout }: ProfileDropdownMenuProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -106,7 +114,7 @@ export function ProfileDropdownMenu({ onLogout }: ProfileDropdownMenuProps) {
     return (
       <S.LoginBtn onClick={handleNavigateLogin}>
         <LogIn size={13} />
-        <span>Đăng nhập</span>
+        <span>{t('header:login', 'Đăng nhập')}</span>
       </S.LoginBtn>
     );
   }
@@ -119,7 +127,7 @@ export function ProfileDropdownMenu({ onLogout }: ProfileDropdownMenuProps) {
         </div>
         <div className="user-info">
           <span className="vip-tag">{userName}</span>
-          <span className="points-text">1.250 Điểm</span>
+          <span className="points-text">1.250 {t('header:points_suffix', 'Điểm')}</span>
         </div>
         <ChevronDown size={10} className="profile-chevron" />
       </S.UserProfileBadge>
@@ -128,7 +136,9 @@ export function ProfileDropdownMenu({ onLogout }: ProfileDropdownMenuProps) {
         <S.ProfileDropdown>
           <S.ProfileHeader>
             <div className="profile-name">{userName}</div>
-            <div className="profile-membership">VIP Elite • 1.250 Điểm</div>
+            <div className="profile-membership">
+              VIP Elite • 1.250 {t('header:points_suffix', 'Điểm')}
+            </div>
           </S.ProfileHeader>
 
           <S.ProfileDivider />
@@ -139,7 +149,7 @@ export function ProfileDropdownMenu({ onLogout }: ProfileDropdownMenuProps) {
               onClick={handleMenuItemClick(item.path)}
             >
               {MENU_ICONS[item.icon]}
-              <span>{item.label}</span>
+              <span>{t(item.labelKey, item.defaultLabel)}</span>
             </S.ProfileMenuItem>
           ))}
 
@@ -147,7 +157,7 @@ export function ProfileDropdownMenu({ onLogout }: ProfileDropdownMenuProps) {
 
           <S.ProfileLogoutItem onClick={handleLogout}>
             <LogOut size={13} />
-            <span>Đăng xuất</span>
+            <span>{t('header:logout', 'Đăng xuất')}</span>
           </S.ProfileLogoutItem>
         </S.ProfileDropdown>
       )}

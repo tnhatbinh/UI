@@ -23,26 +23,26 @@ export interface SpotlightMovie {
 export const SPOTLIGHT_MOVIES: SpotlightMovie[] = [
   {
     id: 1,
-    detailMovieId: '15',
-    mainTitle: 'Minions & Monsters',
-    subTitle: 'Những rắc rối tí hon (2026)',
-    exclusiveTitle: 'SIÊU PHẨM ĐIỆN ẢNH ĐỘC QUYỀN',
+    detailMovieId: 'dune-phan-hai',
+    mainTitle: 'Dune: Part Two',
+    subTitle: 'Hành Tinh Cát - Phần Hai (2024)',
+    exclusiveTitle: 'KIỆT TÁC VIỄN TƯỞNG HOÀNH TRÁNG',
     bgImage:
-      'https://cdn.elle.vn/5s9UWYADPiC9UOvpVkQTeE_e_xULAkuGDnpsBfRJAbU/rs:fit:1280:0/sharpen:0.5/quality:82/2026/06/30/769840/elle-thumb-review-minions-and-monsters-minions-va-quai-vat-2026.jpg@webp',
-    imaxBadge: 'IMAX 3D LASER',
-    ageBadge: 'T13 - PHỔ BIẾN TỪ 13 TUỔI',
-    ratingScore: '8.8',
-    ratingCount: '/10 (12.4k đánh giá)',
-    genre: 'Khoa Học Viễn Tưởng • Hành Động',
+      'https://image.tmdb.org/t/p/original/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg',
+    imaxBadge: 'IMAX LASER 70MM',
+    ageBadge: 'T16 - PHỔ BIẾN TỪ 16 TUỔI',
+    ratingScore: '9.5',
+    ratingCount: '/10 (35.1k đánh giá)',
+    genre: 'Khoa Học Viễn Tưởng • Sử Thi • Phiêu Lưu',
     synopsis:
-      'Nắm trong tay cuốn sách triệu hồi lấy được từ chú cũ là một phù thủy, James, Ed và Henry bắt đầu hành trình tìm kiếm quái vật thực thụ để hiện thực hóa tham vọng, với sự tiếp tay của Goomi – chú quái vật Cthulhu bản mini đáng yêu hơn là đáng sợ.',
+      'Paul Atreides liên minh cùng Chani và tộc người Fremen khi anh bắt đầu cuộc chiến trả thù những kẻ đã hủy diệt gia tộc của mình, đồng thời đối mặt với lựa chọn nghiệt ngã giữa tình yêu và số phận toàn vũ trụ.',
     duration: '166 Phút',
     audioSub: 'Tiếng Anh • Phụ đề Tiếng Việt',
-    director: 'Pierre Coffin',
+    director: 'Denis Villeneuve',
   },
   {
     id: 2,
-    detailMovieId: '5',
+    detailMovieId: 'deadpool-va-wolverine',
     mainTitle: 'Deadpool & Wolverine',
     subTitle: 'Đại chiến đa vũ trụ (2024)',
     exclusiveTitle: 'BOM TẤN HÀNH ĐỘNG MARVEL',
@@ -61,28 +61,28 @@ export const SPOTLIGHT_MOVIES: SpotlightMovie[] = [
   },
   {
     id: 3,
-    detailMovieId: '1',
-    mainTitle: 'Dune: Part Two',
-    subTitle: 'Hành Tinh Cát - Phần Hai (2024)',
-    exclusiveTitle: 'KIỆT TÁC VIỄN TƯỞNG HOÀNH TRÁNG',
+    detailMovieId: 'nhim-sonic-3',
+    mainTitle: 'Nhím Sonic 3',
+    subTitle: 'Sonic The Hedgehog 3 (2024)',
+    exclusiveTitle: 'SIÊU PHẨM HÀNH ĐỘNG GIA ĐÌNH',
     bgImage:
-      'https://image.tmdb.org/t/p/original/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg',
-    imaxBadge: 'IMAX LASER 70MM',
-    ageBadge: 'T16 - PHỔ BIẾN TỪ 16 TUỔI',
-    ratingScore: '9.5',
-    ratingCount: '/10 (35.1k đánh giá)',
-    genre: 'Khoa Học Viễn Tưởng • Sử Thi • Phiêu Lưu',
+      'https://image.tmdb.org/t/p/original/d8Ryb8AunYAuycVKDp5HpdWPKgC.jpg',
+    imaxBadge: 'DOLBY ATMOS 2D',
+    ageBadge: 'P - PHỔ BIẾN MỌI ĐỘ TUỔI',
+    ratingScore: '9.0',
+    ratingCount: '/10 (15.2k đánh giá)',
+    genre: 'Hành Động • Phiêu Lưu • Hoạt Hình',
     synopsis:
-      'Paul Atreides liên minh cùng Chani và tộc người Fremen khi anh bắt đầu cuộc chiến trả thù những kẻ đã hủy diệt gia tộc của mình, đồng thời đối mặt với lựa chọn nghiệt ngã giữa tình yêu và số phận toàn vũ trụ.',
-    duration: '166 Phút',
+      'Sonic, Tails và Knuckles tái hợp để chống lại một kẻ thù bí ẩn và mạnh mẽ mới mang tên Shadow the Hedgehog, một nhân vật có sức mạnh vượt xa mọi thứ họ từng đối mặt trước đây.',
+    duration: '110 Phút',
     audioSub: 'Tiếng Anh • Phụ đề Tiếng Việt',
-    director: 'Denis Villeneuve',
+    director: 'Jeff Fowler',
   },
   {
     id: 4,
-    detailMovieId: '7',
-    mainTitle: 'Inside Out 2',
-    subTitle: 'Những Mảnh Ghép Cảm Xúc 2 (2024)',
+    detailMovieId: 'nhung-manh-ghep-cam-xuc-2',
+    mainTitle: 'Những Mảnh Ghép Cảm Xúc 2',
+    subTitle: 'Inside Out 2 (2024)',
     exclusiveTitle: 'SIÊU PHẨM HOẠT HÌNH TOÀN CẦU',
     bgImage:
       'https://image.tmdb.org/t/p/original/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg',
@@ -102,11 +102,11 @@ export const SPOTLIGHT_MOVIES: SpotlightMovie[] = [
 // ─── Quick Booking Bar Dropdown Data ─────────────────────────────────────────
 
 export const BOOKING_MOVIES = [
-  'Minions & Monsters',
-  'Inside Out 2',
-  'Deadpool & Wolverine',
   'Dune: Part Two',
-  'Kẻ Trộm Mặt Trăng 4',
+  'Nhím Sonic 3',
+  'Deadpool & Wolverine',
+  'Mai',
+  'Lật Mặt 7: Một Điều Ước',
 ];
 
 export const BOOKING_CINEMAS = [
@@ -117,18 +117,28 @@ export const BOOKING_CINEMAS = [
   'Galaxy Cinema Nguyễn Du',
 ];
 
-export const BOOKING_DATES = [
-  'Hôm nay, 24 Tháng 10',
-  'Ngày mai, 25 Tháng 10',
-  'Thứ Bảy, 26 Tháng 10',
-  'Chủ Nhật, 27 Tháng 10',
-  'Thứ Hai, 28 Tháng 10',
+export interface BookingDateOption {
+  key: string;
+  defaultLabel: string;
+}
+
+export interface BookingShowtimeOption {
+  key: string;
+  defaultLabel: string;
+}
+
+export const BOOKING_DATES: BookingDateOption[] = [
+  { key: 'today', defaultLabel: 'Hôm nay, 24 Tháng 10' },
+  { key: 'tomorrow', defaultLabel: 'Ngày mai, 25 Tháng 10' },
+  { key: 'sat', defaultLabel: 'Thứ Bảy, 26 Tháng 10' },
+  { key: 'sun', defaultLabel: 'Chủ Nhật, 27 Tháng 10' },
+  { key: 'mon', defaultLabel: 'Thứ Hai, 28 Tháng 10' },
 ];
 
-export const BOOKING_SHOWTIMES = [
-  '10:15 • 2D Phụ đề',
-  '14:30 • 3D Lồng tiếng',
-  '17:00 • 2D Phụ đề',
-  '19:45 • Phòng IMAX',
-  '22:15 • IMAX Laser',
+export const BOOKING_SHOWTIMES: BookingShowtimeOption[] = [
+  { key: 'time_1', defaultLabel: '10:15 • 2D Phụ đề' },
+  { key: 'time_2', defaultLabel: '14:30 • 3D Lồng tiếng' },
+  { key: 'time_3', defaultLabel: '17:00 • 2D Phụ đề' },
+  { key: 'time_4', defaultLabel: '19:45 • Phòng IMAX' },
+  { key: 'time_5', defaultLabel: '22:15 • IMAX Laser' },
 ];

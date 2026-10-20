@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Shield, Smartphone, Key, Copy, RefreshCw } from 'lucide-react';
 import * as S from './TwoFactorAuthCard.styles';
 
@@ -7,6 +8,7 @@ interface TwoFactorAuthCardProps {
 }
 
 export function TwoFactorAuthCard({ onToast }: TwoFactorAuthCardProps) {
+  const { t } = useTranslation();
   const [isTwoFactorEnabled, setIsTwoFactorEnabled] = useState(true);
 
   const handleToggleTwoFactor = () => {
@@ -14,11 +16,11 @@ export function TwoFactorAuthCard({ onToast }: TwoFactorAuthCardProps) {
   };
 
   const handleChangePhone = () => {
-    onToast?.('Chức năng đổi số điện thoại nhận OTP.');
+    onToast?.(t('profile:toast_change_phone_2fa'));
   };
 
   const handleRegenCodes = () => {
-    onToast?.('Đã tạo mới 8 mã khôi phục khẩn cấp!');
+    onToast?.(t('profile:toast_regen_backup_codes'));
   };
 
   const handleCopyCodes = () => {
@@ -27,7 +29,7 @@ export function TwoFactorAuthCard({ onToast }: TwoFactorAuthCardProps) {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(codes);
     }
-    onToast?.('Đã sao chép 8 mã khôi phục khẩn cấp vào clipboard!');
+    onToast?.(t('profile:toast_copy_backup_codes'));
   };
 
   return (
@@ -36,7 +38,7 @@ export function TwoFactorAuthCard({ onToast }: TwoFactorAuthCardProps) {
         <div className="title-left">
           <h3>
             <Shield size={16} color="#ff535a" />
-            <span>Xác thực 2 bước (2FA)</span>
+            <span>{t('profile:two_fa_name')}</span>
           </h3>
         </div>
         <S.ToggleSwitch
@@ -49,21 +51,20 @@ export function TwoFactorAuthCard({ onToast }: TwoFactorAuthCardProps) {
 
       <S.TwoFactorContent>
         <p className="desc">
-          Mỗi lần đăng nhập từ trình duyệt lạ hoặc thanh toán giao dịch VIP, hệ
-          thống sẽ yêu cầu thêm mã xác thực dùng một lần (OTP).
+          {t('profile:two_fa_desc_full')}
         </p>
 
         <div className="method-box">
           <div className="left">
             <Smartphone size={16} className="icon" />
             <div className="text">
-              <span className="name">Google Authenticator / Authy</span>
+              <span className="name">{t('profile:two_fa_auth_name')}</span>
               <span className="sub">
-                Khuyên dùng • Mã tức thì không cần mạng
+                {t('profile:two_fa_auth_sub')}
               </span>
             </div>
           </div>
-          <span className="badge-primary">Mặc định</span>
+          <span className="badge-primary">{t('profile:badge_default')}</span>
         </div>
 
         <div className="method-box">
@@ -71,14 +72,14 @@ export function TwoFactorAuthCard({ onToast }: TwoFactorAuthCardProps) {
             <Shield size={16} className="icon" />
             <div className="text">
               <span className="name">Zalo OTP / SMS Điện Thoại</span>
-              <span className="sub">Gửi về số: +84 *** *** 456</span>
+              <span className="sub">{t('profile:two_fa_sms_sub')}</span>
             </div>
           </div>
           <span
             className="change-link"
             onClick={handleChangePhone}
           >
-            Thay đổi
+            {t('profile:change_btn')}
           </span>
         </div>
 
@@ -87,9 +88,9 @@ export function TwoFactorAuthCard({ onToast }: TwoFactorAuthCardProps) {
           <div className="top-meta">
             <span className="title">
               <Key size={12} />
-              <span>Mã khôi phục khẩn cấp</span>
+              <span>{t('profile:backup_codes_title')}</span>
             </span>
-            <span className="count">Còn 8 mã chưa dùng</span>
+            <span className="count">{t('profile:backup_codes_count')}</span>
           </div>
 
           <div className="codes-grid">
@@ -106,14 +107,14 @@ export function TwoFactorAuthCard({ onToast }: TwoFactorAuthCardProps) {
           <div className="actions-row">
             <span className="copy-link" onClick={handleCopyCodes}>
               <Copy size={12} />
-              <span>Sao chép tất cả</span>
+              <span>{t('profile:copy_all_btn')}</span>
             </span>
             <span
               className="regen-link"
               onClick={handleRegenCodes}
             >
               <RefreshCw size={12} />
-              <span>Tạo mã mới</span>
+              <span>{t('profile:regen_codes_btn')}</span>
             </span>
           </div>
         </div>

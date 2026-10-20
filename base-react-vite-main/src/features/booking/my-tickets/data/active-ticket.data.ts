@@ -1,5 +1,6 @@
 export interface ActiveTicketData {
   orderId: string;
+  orderCode?: string;
   status: string;
   movieTitle: string;
   movieOriginalTitle: string;

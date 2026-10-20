@@ -11,7 +11,7 @@ export const SectionContainer = styled.section`
   max-width: var(--content-max-width, 1280px);
   margin: 0 auto;
   min-height: 220px;
-  z-index: 5;
+  z-index: 2;
   position: relative;
 
   @media ${media.md} {

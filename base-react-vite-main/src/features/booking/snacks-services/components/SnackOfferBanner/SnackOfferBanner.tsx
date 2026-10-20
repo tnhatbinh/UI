@@ -1,8 +1,11 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Sparkles } from 'lucide-react';
 import * as S from './SnackOfferBanner.styles';
 
 export const SnackOfferBanner: FC = () => {
+  const { t } = useTranslation();
+
   return (
     <S.OfferBanner>
       <div className="banner-left">
@@ -11,15 +14,14 @@ export const SnackOfferBanner: FC = () => {
         </div>
         <div className="banner-text">
           <span className="title">
-            Ưu đãi đặt trước online: Giảm đến 25% so với mua trực tiếp tại quầy
+            {t('booking:snack_offer_title')}
           </span>
           <span className="sub">
-            Nhận thức ăn tức thì tại quầy Fast-Track riêng hoặc phục vụ trực
-            tiếp vào phòng chiếu IMAX.
+            {t('booking:snack_offer_desc')}
           </span>
         </div>
       </div>
-      <div className="badge-hot">🍿 Chuẩn Bỏng Ngô Nóng 100%</div>
+      <div className="badge-hot">{t('booking:snack_offer_badge')}</div>
     </S.OfferBanner>
   );
 };

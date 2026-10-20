@@ -1,8 +1,10 @@
 import type { FC } from 'react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as S from './NotificationOptionsCard.styles';
 
 export const NotificationOptionsCard: FC = () => {
+  const { t } = useTranslation();
   const [isNotify2hEnabled, setIsNotify2hEnabled] = useState(true);
   const [isNotifyEarlyEnabled, setIsNotifyEarlyEnabled] = useState(true);
   const [isNotifyVatEnabled, setIsNotifyVatEnabled] = useState(true);
@@ -24,7 +26,7 @@ export const NotificationOptionsCard: FC = () => {
       <div className="card-header">
         <div className="title-group">
           <h3>
-            <span>Tùy chọn thông báo</span>
+            <span>{t('profile:notification_options_title')}</span>
           </h3>
         </div>
       </div>
@@ -37,8 +39,8 @@ export const NotificationOptionsCard: FC = () => {
             onChange={handleToggleNotify2h}
           />
           <div className="text">
-            <span className="title">Nhắc lịch chiếu trước 2 giờ</span>
-            <span className="sub">Gửi thông báo đẩy về mã QR vào rạp</span>
+            <span className="title">{t('profile:notif_2h_title')}</span>
+            <span className="sub">{t('profile:notif_2h_desc')}</span>
           </div>
         </label>
 
@@ -49,8 +51,8 @@ export const NotificationOptionsCard: FC = () => {
             onChange={handleToggleNotifyEarly}
           />
           <div className="text">
-            <span className="title">Ưu đãi suất chiếu sớm & Bom tấn</span>
-            <span className="sub">Mở bán vé IMAX / Sneak Show sớm 24h</span>
+            <span className="title">{t('profile:notif_early_title')}</span>
+            <span className="sub">{t('profile:notif_early_desc')}</span>
           </div>
         </label>
 
@@ -61,10 +63,8 @@ export const NotificationOptionsCard: FC = () => {
             onChange={handleToggleNotifyVat}
           />
           <div className="text">
-            <span className="title">Email hóa đơn VAT điện tử</span>
-            <span className="sub">
-              Gửi tự động hóa đơn sau khi hoàn tất thanh toán
-            </span>
+            <span className="title">{t('profile:notif_vat_title')}</span>
+            <span className="sub">{t('profile:notif_vat_desc')}</span>
           </div>
         </label>
       </S.NotificationCheckGroup>

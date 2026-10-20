@@ -30,13 +30,12 @@ export const HeroSpotlight: FC = () => {
     useSpotlightCarousel();
 
   // ── Quick Booking Bar State ───────────────────────────────────────────────
-  const [selectedMovie, setSelectedMovie] = useState('Minions & Monsters');
+  const [selectedMovie, setSelectedMovie] = useState('Dune: Part Two');
   const [selectedCinema, setSelectedCinema] = useState(
     'CGV Landmark 81 (IMAX Laser)',
   );
-  const [selectedDate, setSelectedDate] = useState('Hôm nay, 24 Tháng 10');
-  const [selectedShowtime, setSelectedShowtime] =
-    useState('19:45 • Phòng IMAX');
+  const [selectedDateKey, setSelectedDateKey] = useState('today');
+  const [selectedShowtimeKey, setSelectedShowtimeKey] = useState('time_4');
   const [activeDropdown, setActiveDropdown] = useState<
     'movie' | 'cinema' | 'date' | 'showtime' | null
   >(null);
@@ -114,30 +113,30 @@ export const HeroSpotlight: FC = () => {
       }
     };
 
-  const handleSelectDate = (date: string) => () => {
-    setSelectedDate(date);
+  const handleSelectDate = (dateKey: string) => () => {
+    setSelectedDateKey(dateKey);
     setActiveDropdown(null);
   };
 
   const handleSelectDateKeyDown =
-    (date: string) => (e: React.KeyboardEvent) => {
+    (dateKey: string) => (e: React.KeyboardEvent) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        setSelectedDate(date);
+        setSelectedDateKey(dateKey);
         setActiveDropdown(null);
       }
     };
 
-  const handleSelectShowtime = (time: string) => () => {
-    setSelectedShowtime(time);
+  const handleSelectShowtime = (timeKey: string) => () => {
+    setSelectedShowtimeKey(timeKey);
     setActiveDropdown(null);
   };
 
   const handleSelectShowtimeKeyDown =
-    (time: string) => (e: React.KeyboardEvent) => {
+    (timeKey: string) => (e: React.KeyboardEvent) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        setSelectedShowtime(time);
+        setSelectedShowtimeKey(timeKey);
         setActiveDropdown(null);
       }
     };
@@ -174,7 +173,7 @@ export const HeroSpotlight: FC = () => {
             type="button"
             $direction="prev"
             onClick={handlePrev}
-            aria-label="Phim trước"
+            aria-label={t('home:hero.prev_movie', 'Phim trước')}
             className="no-drag"
           >
             <ChevronLeft size={24} />
@@ -184,7 +183,7 @@ export const HeroSpotlight: FC = () => {
             type="button"
             $direction="next"
             onClick={handleNext}
-            aria-label="Phim kế tiếp"
+            aria-label={t('home:hero.next_movie', 'Phim kế tiếp')}
             className="no-drag"
           >
             <ChevronRight size={24} />
@@ -292,7 +291,13 @@ export const HeroSpotlight: FC = () => {
           <S.StepContent>
             <S.StepLabel>{t('home:hero.step_date')}</S.StepLabel>
             <S.StepValueRow>
-              <S.StepValue>{selectedDate}</S.StepValue>
+              <S.StepValue>
+                {t(
+                  `home:hero.dates.${selectedDateKey}`,
+                  BOOKING_DATES.find((d) => d.key === selectedDateKey)
+                    ?.defaultLabel || 'Hôm nay, 24 Tháng 10',
+                )}
+              </S.StepValue>
               <S.DropdownChevron $isOpen={activeDropdown === 'date'}>
                 <ChevronDown color="#AE8786" size={14} />
               </S.DropdownChevron>
@@ -303,15 +308,15 @@ export const HeroSpotlight: FC = () => {
             <S.BookingDropdown onClick={handleStopPropagation}>
               {BOOKING_DATES.map((date) => (
                 <S.BookingDropdownItem
-                  key={date}
+                  key={date.key}
                   role="button"
                   tabIndex={0}
-                  $isSelected={selectedDate === date}
-                  onClick={handleSelectDate(date)}
-                  onKeyDown={handleSelectDateKeyDown(date)}
+                  $isSelected={selectedDateKey === date.key}
+                  onClick={handleSelectDate(date.key)}
+                  onKeyDown={handleSelectDateKeyDown(date.key)}
                 >
-                  <span>{date}</span>
-                  {selectedDate === date && (
+                  <span>{t(`home:hero.dates.${date.key}`, date.defaultLabel)}</span>
+                  {selectedDateKey === date.key && (
                     <Check className="check-icon" size={14} />
                   )}
                 </S.BookingDropdownItem>
@@ -334,7 +339,13 @@ export const HeroSpotlight: FC = () => {
           <S.StepContent>
             <S.StepLabel>{t('home:hero.step_showtime')}</S.StepLabel>
             <S.StepValueRow>
-              <S.StepValue $color="var(--secondary)">{selectedShowtime}</S.StepValue>
+              <S.StepValue $color="var(--secondary)">
+                {t(
+                  `home:hero.showtimes.${selectedShowtimeKey}`,
+                  BOOKING_SHOWTIMES.find((s) => s.key === selectedShowtimeKey)
+                    ?.defaultLabel || '19:45 • Phòng IMAX',
+                )}
+              </S.StepValue>
               <S.DropdownChevron $isOpen={activeDropdown === 'showtime'}>
                 <ChevronDown color="#AE8786" size={14} />
               </S.DropdownChevron>
@@ -345,15 +356,15 @@ export const HeroSpotlight: FC = () => {
             <S.BookingDropdown $alignRight onClick={handleStopPropagation}>
               {BOOKING_SHOWTIMES.map((time) => (
                 <S.BookingDropdownItem
-                  key={time}
+                  key={time.key}
                   role="button"
                   tabIndex={0}
-                  $isSelected={selectedShowtime === time}
-                  onClick={handleSelectShowtime(time)}
-                  onKeyDown={handleSelectShowtimeKeyDown(time)}
+                  $isSelected={selectedShowtimeKey === time.key}
+                  onClick={handleSelectShowtime(time.key)}
+                  onKeyDown={handleSelectShowtimeKeyDown(time.key)}
                 >
-                  <span>{time}</span>
-                  {selectedShowtime === time && (
+                  <span>{t(`home:hero.showtimes.${time.key}`, time.defaultLabel)}</span>
+                  {selectedShowtimeKey === time.key && (
                     <Check className="check-icon" size={14} />
                   )}
                 </S.BookingDropdownItem>

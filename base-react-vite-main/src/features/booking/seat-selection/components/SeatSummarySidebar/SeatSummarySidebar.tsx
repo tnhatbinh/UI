@@ -1,15 +1,19 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ArrowRight, ShieldCheck, Gift } from 'lucide-react';
 import { useBooking } from '../../../context/useBooking';
 import * as S from './SeatSummarySidebar.styles';
 
 interface SeatSummarySidebarProps {
   onContinue: () => void;
+  isLocking?: boolean;
 }
 
 export const SeatSummarySidebar: FC<SeatSummarySidebarProps> = ({
   onContinue,
+  isLocking = false,
 }) => {
+  const { t } = useTranslation();
   const { state, clearSeats, calculateSeatsTotal } = useBooking();
   const seatsTotal = calculateSeatsTotal();
   const phimPoints = Math.round(seatsTotal / 10000);
@@ -31,7 +35,7 @@ export const SeatSummarySidebar: FC<SeatSummarySidebarProps> = ({
               {state.movie.originalTitle} • {state.movie.duration}
             </span>
             <div className="rating-line">
-              <span>★ {state.movie.rating} /10 (3.2k đánh giá)</span>
+              <span>★ {state.movie.rating} /10 {t('booking:seat_reviews_count', { total: '3.2k' })}</span>
             </div>
           </div>
         </div>
@@ -39,15 +43,15 @@ export const SeatSummarySidebar: FC<SeatSummarySidebarProps> = ({
         {/* Session Details */}
         <div className="session-info-table">
           <div className="row">
-            <span className="label">Rạp:</span>
+            <span className="label">{t('booking:cinema_label')}</span>
             <span className="val">{state.session.cinemaName}</span>
           </div>
           <div className="row">
-            <span className="label">Phòng:</span>
+            <span className="label">{t('booking:room_label')}</span>
             <span className="val">{state.session.room}</span>
           </div>
           <div className="row">
-            <span className="label">Suất chiếu:</span>
+            <span className="label">{t('booking:showtime_info')}:</span>
             <span className="val">
               {state.session.time} - {state.session.date}
             </span>
@@ -58,11 +62,13 @@ export const SeatSummarySidebar: FC<SeatSummarySidebarProps> = ({
         <div className="selected-seats-block">
           <div className="block-header">
             <span className="title">
-              Ghế đã chọn ({state.selectedSeats.length})
+              {t('booking:seats_selected_count', {
+                count: state.selectedSeats.length,
+              })}
             </span>
             {state.selectedSeats.length > 0 && (
               <button type="button" className="clear-btn" onClick={clearSeats}>
-                Bỏ chọn tất cả
+                {t('booking:deselect_all')}
               </button>
             )}
           </div>
@@ -70,7 +76,7 @@ export const SeatSummarySidebar: FC<SeatSummarySidebarProps> = ({
           <div className="seat-items-list">
             {state.selectedSeats.length === 0 ? (
               <span className="empty-hint">
-                Vui lòng chọn ít nhất 1 vị trí ghế trên sơ đồ.
+                {t('booking:empty_seats_hint')}
               </span>
             ) : (
               state.selectedSeats.map((seat) => (
@@ -79,11 +85,11 @@ export const SeatSummarySidebar: FC<SeatSummarySidebarProps> = ({
                     <span className="seat-badge">{seat.id}</span>
                     <span className="name">
                       {seat.type === 'vip'
-                        ? 'Ghế VIP'
+                        ? t('booking:seat_vip')
                         : seat.type === 'sweetbox'
-                          ? 'Sweetbox Đôi'
-                          : 'Ghế Thường'}{' '}
-                      (Đã xác nhận vị trí)
+                          ? t('booking:seat_sweetbox')
+                          : t('booking:seat_standard')}{' '}
+                      {t('booking:position_confirmed')}
                     </span>
                   </div>
                   <span className="price">
@@ -98,17 +104,19 @@ export const SeatSummarySidebar: FC<SeatSummarySidebarProps> = ({
         {/* Price Calculation */}
         <div className="pricing-calculation">
           <div className="calc-row">
-            <span className="label">Tạm tính vé ghế:</span>
+            <span className="label">{t('booking:subtotal_seats')}</span>
             <span className="val">{seatsTotal.toLocaleString('vi-VN')}đ</span>
           </div>
           <div className="calc-row">
-            <span className="label">Phí tiện ích & Bảo hiểm:</span>
-            <span className="free-badge">Miễn phí (VIP Elite)</span>
+            <span className="label">{t('booking:convenience_fee')}</span>
+            <span className="free-badge">{t('booking:free_vip_elite')}</span>
           </div>
           <div className="grand-total-row">
             <div className="label-group">
-              <span className="label">TỔNG CỘNG:</span>
-              <span className="bonus">Tích luỹ +{phimPoints} PhimPoints</span>
+              <span className="label">{t('booking:grand_total')}</span>
+              <span className="bonus">
+                {t('booking:points_earn', { points: phimPoints })}
+              </span>
             </div>
             <span className="total-amount">
               {seatsTotal.toLocaleString('vi-VN')}đ
@@ -120,16 +128,20 @@ export const SeatSummarySidebar: FC<SeatSummarySidebarProps> = ({
         <button
           type="button"
           className="continue-cta-btn"
-          disabled={state.selectedSeats.length === 0}
+          disabled={state.selectedSeats.length === 0 || isLocking}
           onClick={onContinue}
         >
-          <span>Tiếp tục: Chọn bắp nước & Thanh toán</span>
+          <span>
+            {isLocking
+              ? t('booking:btn_locking_seats')
+              : t('booking:btn_continue_to_snacks')}
+          </span>
           <ArrowRight size={16} />
         </button>
 
         <div className="assurance-note">
           <ShieldCheck size={14} color="#ffb955" />
-          <span>Giữ chỗ tức thời & Hoàn vé trước 60 phút miễn phí</span>
+          <span>{t('booking:assurance_note')}</span>
         </div>
       </S.SummaryCard>
 
@@ -140,8 +152,8 @@ export const SeatSummarySidebar: FC<SeatSummarySidebarProps> = ({
             <Gift size={18} />
           </div>
           <div className="text">
-            <span className="title">Ưu đãi Combo Bắp Lắc Phô Mai</span>
-            <span className="sub">Tiết kiệm 25% khi đặt kèm vé ngay</span>
+            <span className="title">{t('booking:upsell_title')}</span>
+            <span className="sub">{t('booking:upsell_sub')}</span>
           </div>
         </div>
         <span className="price-tag">89k</span>

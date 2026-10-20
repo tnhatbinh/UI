@@ -147,10 +147,10 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
         <S.SidebarHeader>
           <S.SidebarHeaderTitle>
             <Menu size={18} className="header-icon" />
-            <span>MENU</span>
+            <span>{t('sidebar:menu_title', 'MENU')}</span>
           </S.SidebarHeaderTitle>
 
-          <S.CloseBtn onClick={onClose} title="Đóng menu">
+          <S.CloseBtn onClick={onClose} title={t('sidebar:close_menu', 'Đóng menu')}>
             <X size={18} />
           </S.CloseBtn>
         </S.SidebarHeader>
@@ -175,7 +175,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
             <div className="lang-title-row">
               <div className="title-left">
                 <Globe size={13} className="icon" />
-                <span>Ngôn ngữ / Language</span>
+                <span>{t('sidebar:lang_title', 'Ngôn ngữ / Language')}</span>
               </div>
             </div>
             <div className="lang-chips-grid">
@@ -200,7 +200,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
           <S.QuickLocationBar>
             <div className="loc-title">
               <MapPin size={13} className="icon" />
-              <span>Khu vực</span>
+              <span>{t('sidebar:location_title', 'Khu vực')}</span>
             </div>
             <div className="city-chips">
               {CITIES.map((city) => (
@@ -217,7 +217,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
           {/* NHÓM 1: KHÁM PHÁ & ĐIỀU HƯỚNG CHÍNH */}
           <S.SectionGroup>
-            <S.SectionHeader>Khám Phá & Điều Hướng</S.SectionHeader>
+            <S.SectionHeader>{t('sidebar:group_discovery', 'Khám Phá & Điều Hướng')}</S.SectionHeader>
 
             <S.NavItemBtn
               $isActive={isActive('/')}
@@ -301,7 +301,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
           {/* NHÓM 2: ĐẶT VÉ & DỊCH VỤ */}
           <S.SectionGroup>
-            <S.SectionHeader>Đặt Vé & Dịch Vụ</S.SectionHeader>
+            <S.SectionHeader>{t('sidebar:group_booking', 'Đặt Vé & Dịch Vụ')}</S.SectionHeader>
 
             <S.NavItemBtn
               $isActive={isActive('/movie-details')}
@@ -309,7 +309,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
             >
               <div className="item-left">
                 <Calendar className="item-icon" />
-                <span className="item-title">Chi tiết phim & Lịch chiếu</span>
+                <span className="item-title">{t('sidebar:nav_movie_details', 'Chi tiết phim & Lịch chiếu')}</span>
               </div>
               <ChevronRight className="item-arrow" />
             </S.NavItemBtn>
@@ -320,7 +320,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
             >
               <div className="item-left">
                 <Armchair className="item-icon" />
-                <span className="item-title">Chọn ghế xem phim</span>
+                <span className="item-title">{t('sidebar:nav_seat_selection', 'Chọn ghế xem phim')}</span>
               </div>
               <ChevronRight className="item-arrow" />
             </S.NavItemBtn>
@@ -331,7 +331,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
             >
               <div className="item-left">
                 <Coffee className="item-icon" />
-                <span className="item-title">Bắp nước & Dịch vụ</span>
+                <span className="item-title">{t('sidebar:nav_snacks', 'Bắp nước & Dịch vụ')}</span>
               </div>
               <ChevronRight className="item-arrow" />
             </S.NavItemBtn>
@@ -342,7 +342,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
             >
               <div className="item-left">
                 <CreditCard className="item-icon" />
-                <span className="item-title">Thanh toán vé</span>
+                <span className="item-title">{t('sidebar:nav_checkout', 'Thanh toán vé')}</span>
               </div>
               <ChevronRight className="item-arrow" />
             </S.NavItemBtn>
@@ -352,7 +352,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
           {/* NHÓM 3: HỒ SƠ & CÁ NHÂN */}
           <S.SectionGroup>
-            <S.SectionHeader>Hồ Sơ & Cá Nhân</S.SectionHeader>
+            <S.SectionHeader>{t('sidebar:group_profile', 'Hồ Sơ & Cá Nhân')}</S.SectionHeader>
 
             <S.NavItemBtn
               $isActive={isActive('/profile/vip-elite')}
@@ -360,7 +360,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
             >
               <div className="item-left">
                 <Crown className="item-icon gold" />
-                <span className="item-title">Hồ sơ VIP Elite</span>
+                <span className="item-title">{t('sidebar:nav_vip_elite', 'Hồ sơ VIP Elite')}</span>
               </div>
               <ChevronRight className="item-arrow" />
             </S.NavItemBtn>
@@ -371,7 +371,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
             >
               <div className="item-left">
                 <User className="item-icon" />
-                <span className="item-title">Hồ sơ cá nhân</span>
+                <span className="item-title">{t('sidebar:nav_personal_info', 'Hồ sơ cá nhân')}</span>
               </div>
               <ChevronRight className="item-arrow" />
             </S.NavItemBtn>
@@ -382,7 +382,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
             >
               <div className="item-left">
                 <ShieldCheck className="item-icon" />
-                <span className="item-title">Bảo mật & Mật khẩu</span>
+                <span className="item-title">{t('sidebar:nav_security', 'Bảo mật & Mật khẩu')}</span>
               </div>
               <ChevronRight className="item-arrow" />
             </S.NavItemBtn>
@@ -393,7 +393,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
             >
               <div className="item-left">
                 <Wallet className="item-icon" />
-                <span className="item-title">Phương thức thanh toán</span>
+                <span className="item-title">{t('sidebar:nav_payment_methods', 'Phương thức thanh toán')}</span>
               </div>
               <ChevronRight className="item-arrow" />
             </S.NavItemBtn>
@@ -404,9 +404,13 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
             >
               <div className="item-left">
                 <Bell className="item-icon" />
-                <span className="item-title">Cài đặt thông báo & Ưu đãi</span>
+                <span className="item-title">{t('sidebar:nav_notif_settings', 'Cài đặt thông báo & Ưu đãi')}</span>
               </div>
-              {unreadCount > 0 && <S.BadgePill>{unreadCount} mới</S.BadgePill>}
+              {unreadCount > 0 && (
+                <S.BadgePill>
+                  {unreadCount} {t('sidebar:new_badge', 'mới')}
+                </S.BadgePill>
+              )}
               <ChevronRight className="item-arrow" />
             </S.NavItemBtn>
 
@@ -416,7 +420,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
             >
               <div className="item-left">
                 <Sparkles className="item-icon gold" />
-                <span className="item-title">Khẩu vị điện ảnh</span>
+                <span className="item-title">{t('sidebar:nav_taste', 'Khẩu vị điện ảnh')}</span>
               </div>
               <ChevronRight className="item-arrow" />
             </S.NavItemBtn>
@@ -435,7 +439,10 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
                   <div className="user-details">
                     <span className="name">{userName}</span>
                     <span className="status">
-                      Hội viên VIP Elite • 1.250 Điểm
+                      {t('sidebar:vip_status', {
+                        defaultValue: 'Hội viên VIP Elite • {{points}} Điểm',
+                        points: '1.250',
+                      })}
                     </span>
                   </div>
                 </div>
@@ -443,7 +450,7 @@ export const Sidebar: FC<SidebarProps> = ({ isOpen, onClose }) => {
 
               <S.ActionBtn $isLogout onClick={handleLogout}>
                 <LogOut size={15} />
-                <span>Đăng xuất</span>
+                <span>{t('sidebar:logout', 'Đăng xuất')}</span>
               </S.ActionBtn>
             </>
           ) : (

@@ -1,18 +1,23 @@
 import type { FC } from 'react';
 import { useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Loader2 } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
+import { getMoviesApi } from './api/movie.api';
 import { DiscoveryHero } from './components/DiscoveryHero/DiscoveryHero';
 import { MoviesFilter } from './components/MovieFilter/MovieFilter';
 import type { FilterState } from './components/MovieFilter/MovieFilter';
 import { MovieShowcaseGrid } from './components/MovieShowcaseGrid/MovieShowcaseGrid';
 import { PaginationAndVipTeaser } from './components/PaginationAndVipTeaser/PaginationAndVipTeaser';
 import type { DiscoveryMovie } from './data/mock-movies';
-import { MOCK_DISCOVERY_MOVIES } from './data/mock-movies';
+import { getAgeBadgeStyle, getFormatBadgeStyle } from './data/mock-movies';
 import * as S from './MovieDiscoveryPage.styles';
 
 const ITEMS_PER_PAGE = 8;
 
 export const MovieDiscoveryPage: FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -26,6 +31,92 @@ export const MovieDiscoveryPage: FC = () => {
   // State phân trang thực tế
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [displayedLimit, setDisplayedLimit] = useState<number>(ITEMS_PER_PAGE);
+
+  const statusParam =
+    filterState?.statusTab === 'coming-soon'
+      ? 'COMING_SOON'
+      : filterState?.statusTab === 'now-showing'
+        ? 'NOW_SHOWING'
+        : undefined;
+
+  const genreParam =
+    filterState?.genre && filterState.genre !== 'Tất cả thể loại'
+      ? filterState.genre
+      : undefined;
+
+  const formatParam =
+    filterState?.format && filterState.format !== 'Tất cả định dạng'
+      ? filterState.format.split(' ')[0]
+      : undefined;
+
+  const sortByParam =
+    filterState?.sortBy === 'Được đánh giá cao nhất'
+      ? 'RATING_DESC'
+      : filterState?.sortBy === 'Mới nhất'
+        ? 'RELEASE_DATE_DESC'
+        : filterState?.sortBy === 'Tên phim A-Z'
+          ? 'TITLE_ASC'
+          : 'RATING_DESC';
+
+  const { data: moviesResponse, isLoading } = useQuery({
+    queryKey: [
+      'movies-discovery',
+      statusParam,
+      genreParam,
+      formatParam,
+      sortByParam,
+      searchQuery,
+      currentPage,
+      displayedLimit,
+    ],
+    queryFn: () =>
+      getMoviesApi({
+        Status: statusParam,
+        Genre: genreParam,
+        Format: formatParam,
+        SortBy: sortByParam,
+        Search: searchQuery.trim() || undefined,
+        Page: currentPage,
+        PageSize: displayedLimit,
+      }),
+    staleTime: 3 * 60 * 1000,
+  });
+
+  const moviesData = moviesResponse?.data;
+  const movies: DiscoveryMovie[] = useMemo(() => {
+    if (!moviesData) return [];
+    return moviesData.map((m) => {
+      const genresStr =
+        m.genres && m.genres.length > 0 ? m.genres.join(', ') : 'Điện ảnh';
+      const formatTag =
+        m.formats && m.formats.length > 0 ? m.formats[0] : '2D KỸ THUẬT SỐ';
+      const ageBadge = getAgeBadgeStyle(m.ageRating || 'P');
+      const formatBadge = getFormatBadgeStyle(formatTag);
+
+      return {
+        id: m.id,
+        slug: m.slug,
+        title: m.title,
+        poster: m.posterUrl || m.bannerUrl,
+        duration: `${m.durationMinutes} ${t('common:minutes', 'phút')}`,
+        genre: genresStr,
+        description: m.isNowShowing
+          ? t('discovery:now_showing_desc')
+          : t('discovery:coming_soon_desc'),
+        rating: m.imdbRating ? m.imdbRating.toFixed(1) : '8.8',
+        age: m.ageRating || 'P',
+        ageBg: ageBadge.bg,
+        ageColor: ageBadge.color,
+        formatTag: formatTag,
+        formatBg: formatBadge.bg,
+        formatColor: formatBadge.color,
+      };
+    });
+  }, [moviesData, t]);
+
+  // Tổng số phim & tính toán số trang
+  const totalMovies = moviesResponse?.metaData?.total ?? movies.length;
+  const totalPages = Math.max(1, Math.ceil(totalMovies / ITEMS_PER_PAGE));
 
   // Xử lý tìm kiếm và tag nhanh
   const handleSearch = (query: string) => {
@@ -45,84 +136,9 @@ export const MovieDiscoveryPage: FC = () => {
     setCurrentPage(1);
   };
 
-  // Lọc danh sách phim dựa trên tìm kiếm và tiêu chí
-  const filteredMovies = useMemo(() => {
-    let result = [...MOCK_DISCOVERY_MOVIES];
-
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase().trim();
-      result = result.filter(
-        (m) =>
-          m.title.toLowerCase().includes(q) ||
-          m.genre.toLowerCase().includes(q) ||
-          m.formatTag.toLowerCase().includes(q),
-      );
-    }
-
-    if (filterState) {
-      // 1. Lọc theo tab trạng thái
-      if (filterState.statusTab === 'coming-soon') {
-        result = result.filter((m) => m.id > 16);
-      } else if (filterState.statusTab === 'sneak-show') {
-        result = result.filter(
-          (m) =>
-            m.formatTag.includes('IMAX') ||
-            m.formatTag.includes('GHIBLI') ||
-            m.formatTag.includes('TOP') ||
-            m.formatTag.includes('OSCAR'),
-        );
-      }
-      // 'NowShowing' hiển thị tất cả các phim trong danh mục khám phá
-
-      // 2. Lọc theo thể loại
-      if (filterState.genre !== 'Tất cả thể loại') {
-        result = result.filter((m) =>
-          m.genre.toLowerCase().includes(filterState.genre.toLowerCase()),
-        );
-      }
-
-      // 3. Lọc theo định dạng
-      if (filterState.format !== 'Tất cả định dạng') {
-        const fmt = filterState.format.split(' ')[0].toLowerCase();
-        result = result.filter((m) => m.formatTag.toLowerCase().includes(fmt));
-      }
-
-      // 4. Sắp xếp danh sách
-      if (filterState.sortBy === 'Được đánh giá cao nhất') {
-        result.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
-      } else if (filterState.sortBy === 'Mới nhất') {
-        result.sort((a, b) => b.id - a.id);
-      } else if (filterState.sortBy === 'Phổ biến nhất') {
-        result.sort((a, b) => parseFloat(b.rating) * 10 - a.id);
-      } else if (filterState.sortBy === 'Tên phim A-Z') {
-        result.sort((a, b) => a.title.localeCompare(b.title, 'vi'));
-      }
-    }
-
-    return result;
-  }, [searchQuery, filterState]);
-
-  // Tính toán số trang thực tế
-  const totalPages = Math.max(
-    1,
-    Math.ceil(filteredMovies.length / ITEMS_PER_PAGE),
-  );
-
-  // Đảm bảo currentPage không vượt quá totalPages khi tìm kiếm/lọc
-  if (currentPage > totalPages) {
-    setCurrentPage(1);
-  }
-
-  // Phim hiển thị trên trang hiện tại
-  const paginatedMovies = useMemo(() => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    return filteredMovies.slice(startIndex, startIndex + displayedLimit);
-  }, [filteredMovies, currentPage, displayedLimit]);
-
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     setDisplayedLimit(ITEMS_PER_PAGE);
-    // Cuộn mượt lên vị trí lưới phim
     window.scrollTo({ top: 380, behavior: 'smooth' });
   };
 
@@ -131,11 +147,11 @@ export const MovieDiscoveryPage: FC = () => {
   };
 
   const handleMovieDetail = (movie: DiscoveryMovie) => {
-    navigate(`/phim/${movie.id}`);
+    navigate(`/phim/${movie.slug || movie.id}`);
   };
 
   const handleBookMovie = (movie: DiscoveryMovie) => {
-    navigate(`/phim/${movie.id}?booking=true`);
+    navigate(`/phim/${movie.slug || movie.id}`);
   };
 
   const handleVipBooking = () => {
@@ -146,6 +162,7 @@ export const MovieDiscoveryPage: FC = () => {
     setUserQuery('');
     setFilterState(null);
     setCurrentPage(1);
+    setDisplayedLimit(ITEMS_PER_PAGE);
     navigate('/kham-pha');
   };
 
@@ -160,27 +177,49 @@ export const MovieDiscoveryPage: FC = () => {
 
         {/* SECTION 2: Master Filter Console & Release Status Tabs */}
         <MoviesFilter
-          displayingCount={paginatedMovies.length}
-          totalCount={filteredMovies.length}
+          displayingCount={movies.length}
+          totalCount={totalMovies}
           onFilterChange={handleFilterChange}
         />
 
         {/* SECTION 3: Movie Showcase Grid (Cinematic Cards) */}
-        <MovieShowcaseGrid
-          movies={paginatedMovies}
-          viewMode={filterState?.viewMode || 'grid'}
-          onResetFilters={handleResetFilters}
-          onMovieClick={handleMovieDetail}
-          onBookClick={handleBookMovie}
-        />
+        {isLoading ? (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '80px 0',
+              gap: 16,
+            }}
+          >
+            <Loader2
+              size={36}
+              color="#ff535a"
+              style={{ animation: 'spin 1s linear infinite' }}
+            />
+            <span style={{ color: '#8c8994', fontSize: 14 }}>
+              {t('discovery:loading_movies')}
+            </span>
+          </div>
+        ) : (
+          <MovieShowcaseGrid
+            movies={movies}
+            viewMode={filterState?.viewMode || 'grid'}
+            onResetFilters={handleResetFilters}
+            onMovieClick={handleMovieDetail}
+            onBookClick={handleBookMovie}
+          />
+        )}
 
         {/* SECTION 4: Pagination & VIP Concierge Teaser */}
-        {filteredMovies.length > 0 && (
+        {totalMovies > 0 && !isLoading && (
           <PaginationAndVipTeaser
             currentPage={currentPage}
             totalPages={totalPages}
-            totalMovies={filteredMovies.length}
-            currentShowingCount={paginatedMovies.length}
+            totalMovies={totalMovies}
+            currentShowingCount={movies.length}
             onLoadMore={handleLoadMore}
             onPageChange={handlePageChange}
             onVipBookingClick={handleVipBooking}

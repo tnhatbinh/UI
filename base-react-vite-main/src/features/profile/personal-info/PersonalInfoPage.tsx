@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Sparkles } from 'lucide-react';
 import CinemaNoirShell from '../components/CinemaNoirShell';
 import { UserProfileForm } from './components/UserProfileForm';
@@ -10,6 +11,7 @@ import { AccountControlCard } from './components/AccountControlCard';
 import * as S from './PersonalInfoPage.styles';
 
 export default function PersonalInfoPage() {
+  const { t } = useTranslation();
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
@@ -18,11 +20,11 @@ export default function PersonalInfoPage() {
   };
 
   const handleLogoutDevices = () => {
-    showToast('Đã gửi tín hiệu đăng xuất tất cả các thiết bị khác!');
+    showToast(t('profile:logout_devices_toast'));
   };
 
   return (
-    <CinemaNoirShell pageTitle="Thông tin cá nhân">
+    <CinemaNoirShell pageTitle={t('profile:personal_info_title')}>
       <S.ProfileContentGrid>
         {/* Left Column: Personal Form & Taste Summary */}
         <S.LeftCol>

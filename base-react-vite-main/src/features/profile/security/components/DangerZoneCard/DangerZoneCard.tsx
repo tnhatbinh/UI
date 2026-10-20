@@ -1,55 +1,50 @@
+import { useTranslation } from 'react-i18next';
 import { AlertTriangle } from 'lucide-react';
-import { message } from 'antd';
 import * as S from './DangerZoneCard.styles';
 
 export function DangerZoneCard() {
-  const handleLockAccount = () => {
-    message.warning('Bạn có chắc chắn muốn tạm khóa tài khoản? Vui lòng xác thực bảo mật.');
-  };
+  const { t } = useTranslation();
+  const handleLockAccount = () => {};
 
-  const handleDeleteAccount = () => {
-    message.error(
-      'Cảnh báo: Hành động này sẽ xóa vĩnh viễn tài khoản và không thể phục hồi!',
-    );
-  };
+  const handleDeleteAccount = () => {};
 
   return (
     <S.Container>
       <div className="header-line">
         <AlertTriangle size={16} />
-        <span>Vùng kiểm soát nâng cao</span>
+        <span>{t('profile:danger_zone_title')}</span>
       </div>
       <span className="sub">
-        Các hành động không thể hoàn tác hoặc khôi phục tự do
+        {t('profile:danger_zone_sub')}
       </span>
 
       <div className="action-row">
         <div className="txt">
-          <span className="name">Tạm khóa tài khoản (30 ngày)</span>
+          <span className="name">{t('profile:lock_acc_30_title')}</span>
           <span className="desc">
-            Ẩn hồ sơ thành viên, tạm ngừng nhận thông báo và ưu đãi
+            {t('profile:lock_acc_30_desc')}
           </span>
         </div>
         <button
           className="btn gray"
           onClick={handleLockAccount}
         >
-          Tạm khóa
+          {t('profile:lock_acc_btn_text')}
         </button>
       </div>
 
       <div className="action-row">
         <div className="txt">
-          <span className="name">Xóa vĩnh viễn tài khoản VIP</span>
+          <span className="name">{t('profile:delete_vip_acc_title')}</span>
           <span className="desc">
-            Hủy toàn bộ 1.250 PhimPoints, hạng Diamond và vé đã đặt
+            {t('profile:delete_vip_acc_desc')}
           </span>
         </div>
         <button
           className="btn red"
           onClick={handleDeleteAccount}
         >
-          Xóa tài khoản
+          {t('profile:delete_acc_btn_text')}
         </button>
       </div>
     </S.Container>

@@ -1,3 +1,5 @@
+import type { TFunction } from 'i18next';
+
 // ─── Voucher Data ───────────────────────────────────────────────────────────
 
 export interface VoucherItem {
@@ -8,6 +10,33 @@ export interface VoucherItem {
   hsd: string;
   badge: string;
 }
+
+export const getVouchers = (t: TFunction): VoucherItem[] => [
+  {
+    id: 'v1',
+    discountLabel: '-50K',
+    title: t('profile:voucher1_title'),
+    desc: t('profile:voucher1_desc'),
+    hsd: t('profile:voucher1_hsd'),
+    badge: t('profile:voucher1_badge'),
+  },
+  {
+    id: 'v2',
+    discountLabel: '🍿',
+    title: t('profile:voucher2_title'),
+    desc: t('profile:voucher2_desc'),
+    hsd: t('profile:voucher2_hsd'),
+    badge: t('profile:voucher2_badge'),
+  },
+  {
+    id: 'v3',
+    discountLabel: '1+1',
+    title: t('profile:voucher3_title'),
+    desc: t('profile:voucher3_desc'),
+    hsd: t('profile:voucher3_hsd'),
+    badge: t('profile:voucher3_badge'),
+  },
+];
 
 export const VOUCHERS: VoucherItem[] = [
   {
@@ -46,6 +75,25 @@ export interface QuickPayMethod {
   sub: string;
   badge: string;
 }
+
+export const getQuickPayMethods = (t: TFunction): QuickPayMethod[] => [
+  {
+    id: 'momo',
+    brandLabel: 'MOMO',
+    brandColor: '#a50064',
+    name: 'Ví Điện Tử MoMo',
+    sub: t('profile:momo_sub'),
+    badge: t('profile:momo_badge'),
+  },
+  {
+    id: 'visa',
+    brandLabel: 'VISA',
+    brandColor: '#1a1f71',
+    name: 'Thẻ Quốc Tế Visa •••• 4421',
+    sub: t('profile:visa_sub'),
+    badge: t('profile:visa_badge'),
+  },
+];
 
 export const QUICK_PAY_METHODS: QuickPayMethod[] = [
   {

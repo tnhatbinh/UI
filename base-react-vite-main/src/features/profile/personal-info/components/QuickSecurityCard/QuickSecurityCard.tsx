@@ -1,10 +1,12 @@
 import type { FC } from 'react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Shield, Smartphone, KeyRound, Fingerprint } from 'lucide-react';
 import * as S from './QuickSecurityCard.styles';
 
 export const QuickSecurityCard: FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [isBiometricLoginEnabled, setIsBiometricLoginEnabled] = useState(true);
 
@@ -22,10 +24,10 @@ export const QuickSecurityCard: FC = () => {
         <div className="title-group">
           <h3>
             <Shield size={16} color="#ff535a" />
-            <span>Bảo mật & Đăng nhập</span>
+            <span>{t('profile:security_login_title')}</span>
           </h3>
         </div>
-        <span className="level-badge">CẤP ĐỘ CAO</span>
+        <span className="level-badge">{t('profile:high_security_level')}</span>
       </div>
 
       <S.SideItemList>
@@ -35,11 +37,11 @@ export const QuickSecurityCard: FC = () => {
               <Smartphone size={16} />
             </div>
             <div className="text">
-              <span className="name">Xác thực 2 bước (2FA)</span>
-              <span className="desc">Bảo vệ qua OTP Zalo/SMS khi đặt vé</span>
+              <span className="name">{t('profile:two_fa_name')}</span>
+              <span className="desc">{t('profile:two_fa_desc')}</span>
             </div>
           </div>
-          <span className="badge-on">• Đang bật</span>
+          <span className="badge-on">{t('profile:two_fa_on')}</span>
         </div>
 
         <div className="side-item">
@@ -48,15 +50,15 @@ export const QuickSecurityCard: FC = () => {
               <KeyRound size={16} />
             </div>
             <div className="text">
-              <span className="name">Mật khẩu tài khoản</span>
-              <span className="desc">Cập nhật 30 ngày trước</span>
+              <span className="name">{t('profile:account_password')}</span>
+              <span className="desc">{t('profile:password_updated_ago')}</span>
             </div>
           </div>
           <button
             className="action-btn"
             onClick={handleNavigateSecurity}
           >
-            Đổi mã
+            {t('profile:change_code_btn')}
           </button>
         </div>
 
@@ -66,14 +68,14 @@ export const QuickSecurityCard: FC = () => {
               <Fingerprint size={16} />
             </div>
             <div className="text">
-              <span className="name">Đăng nhập sinh trắc học</span>
-              <span className="desc">Touch ID / Face ID trên trình duyệt</span>
+              <span className="name">{t('profile:biometric_login')}</span>
+              <span className="desc">{t('profile:biometric_desc')}</span>
             </div>
           </div>
           <S.ToggleSwitch
             $active={isBiometricLoginEnabled}
             onClick={handleToggleBiometricLogin}
-            title="Bật/Tắt đăng nhập sinh trắc học"
+            title={t('profile:toggle_biometric_title')}
           >
             <div className="thumb" />
           </S.ToggleSwitch>

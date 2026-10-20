@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Save } from 'lucide-react';
 import * as S from './EmailFrequencyCard.styles';
 
@@ -7,6 +8,7 @@ interface EmailFrequencyCardProps {
 }
 
 export function EmailFrequencyCard({ onToast }: EmailFrequencyCardProps) {
+  const { t } = useTranslation();
   const [emailFreq, setEmailFreq] = useState<
     'instant' | 'friday' | 'tickets_only'
   >('friday');
@@ -17,12 +19,12 @@ export function EmailFrequencyCard({ onToast }: EmailFrequencyCardProps) {
     };
 
   const handleSave = () => {
-    onToast?.('Đã lưu toàn bộ cài đặt thông báo & ưu đãi thành công!');
+    onToast?.(t('profile:toast_save_notif_settings'));
   };
 
   const handleCancel = () => {
     setEmailFreq('friday');
-    onToast?.('Đã hủy các thay đổi gần nhất.');
+    onToast?.(t('profile:toast_cancel_notif_settings'));
   };
 
   return (
@@ -30,10 +32,10 @@ export function EmailFrequencyCard({ onToast }: EmailFrequencyCardProps) {
       <div className="card-top">
         <div className="title-left">
           <h3>
-            <span>Tần suất nhận email tin tức</span>
+            <span>{t('profile:email_freq_title')}</span>
           </h3>
           <span className="sub">
-            Kiểm soát mật độ thư gửi về hòm thư điện tử cá nhân.
+            {t('profile:email_freq_sub')}
           </span>
         </div>
       </div>
@@ -44,9 +46,9 @@ export function EmailFrequencyCard({ onToast }: EmailFrequencyCardProps) {
           onClick={handleSelectFrequency('instant')}
         >
           <div className="left-txt">
-            <span className="title">Tức thì khi có sự kiện hot</span>
+            <span className="title">{t('profile:freq_instant_title')}</span>
             <span className="sub">
-              Nhận ngay khi mở bán vé sneak show hoặc có voucher mới
+              {t('profile:freq_instant_sub')}
             </span>
           </div>
           <input
@@ -63,11 +65,11 @@ export function EmailFrequencyCard({ onToast }: EmailFrequencyCardProps) {
         >
           <div className="left-txt">
             <div className="title-row">
-              <span className="title">Tóm tắt mỗi thứ Sáu hàng tuần</span>
-              <span className="gold-pill">LÝ TƯỞNG CUỐI TUẦN</span>
+              <span className="title">{t('profile:freq_friday_title')}</span>
+              <span className="gold-pill">{t('profile:freq_friday_badge')}</span>
             </div>
             <span className="sub">
-              1 email duy nhất vào 10:00 sáng Thứ Sáu tổng hợp lịch phim hay
+              {t('profile:freq_friday_sub')}
             </span>
           </div>
           <input
@@ -83,9 +85,9 @@ export function EmailFrequencyCard({ onToast }: EmailFrequencyCardProps) {
           onClick={handleSelectFrequency('tickets_only')}
         >
           <div className="left-txt">
-            <span className="title">Chỉ nhận email xác nhận vé</span>
+            <span className="title">{t('profile:freq_tickets_only_title')}</span>
             <span className="sub">
-              Tắt toàn bộ email quảng cáo, ưu đãi và bản tin định kỳ
+              {t('profile:freq_tickets_only_sub')}
             </span>
           </div>
           <input
@@ -98,12 +100,12 @@ export function EmailFrequencyCard({ onToast }: EmailFrequencyCardProps) {
 
         <div className="btn-row">
           <button type="button" className="cancel-btn" onClick={handleCancel}>
-            Hủy thay đổi
+            {t('profile:cancel_changes_btn')}
           </button>
 
           <button type="button" className="save-btn" onClick={handleSave}>
             <Save size={13} />
-            <span>Lưu cài đặt thông báo</span>
+            <span>{t('profile:save_notif_settings_btn')}</span>
           </button>
         </div>
       </S.FrequencyList>

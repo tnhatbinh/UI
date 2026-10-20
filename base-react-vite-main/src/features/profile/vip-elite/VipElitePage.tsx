@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Edit3, Gift, Sparkles } from 'lucide-react';
 import * as S from './VipElitePage.styles';
@@ -11,6 +12,7 @@ import { VipSettingsPanel } from './components/VipSettingsPanel';
 import { VipBottomSecurityStrip } from './components/VipBottomSecurityStrip';
 
 export default function VipElitePage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [isNotify2hEnabled, setIsNotify2hEnabled] = useState(true);
   const [isAutoAiTasteEnabled, setIsAutoAiTasteEnabled] = useState(true);
@@ -24,9 +26,7 @@ export default function VipElitePage() {
 
   const handleClaimMission = () => {
     setHasClaimedReward(true);
-    showToast(
-      'Chúc mừng! Đã cộng 01 Voucher Combo Bắp Nước 0đ vào ví của bạn!',
-    );
+    showToast(t('profile:toast_mission_claimed'));
   };
 
   const handleNavigateToPersonalInfo = () => {
@@ -34,13 +34,11 @@ export default function VipElitePage() {
   };
 
   const handleRewardClick = () => {
-    showToast(
-      'Bạn đang có 1.250 PhimPoints. Sẵn sàng đổi vé IMAX 2D miễn phí!',
-    );
+    showToast(t('profile:toast_points_balance'));
   };
 
   const handleRefreshAiTaste = () => {
-    showToast('Đã đồng bộ khẩu vị điện ảnh với dữ liệu rạp mới nhất!');
+    showToast(t('profile:toast_taste_synced'));
   };
 
   const handleToggleNotify2h = () => {
@@ -56,11 +54,11 @@ export default function VipElitePage() {
   };
 
   const handleShowPrivilegeTerms = () => {
-    showToast('Đang mở điều khoản quyền lợi VIP...');
+    showToast(t('profile:toast_privilege_terms'));
   };
 
   const handleLogout = () => {
-    showToast('Đã đăng xuất an toàn.');
+    showToast(t('profile:toast_logout_safe'));
     navigate('/login');
   };
 
@@ -69,15 +67,15 @@ export default function VipElitePage() {
       <S.InnerWrapper>
         {/* Breadcrumb */}
         <S.Breadcrumb>
-          <span>PHIMBOOK PRIVILEGE CENTER</span>
+          <span>{t('profile:privilege_center_breadcrumb')}</span>
           <span className="separator">/</span>
-          <span className="current">HỒ SƠ CÁ NHÂN</span>
+          <span className="current">{t('profile:profile_breadcrumb')}</span>
         </S.Breadcrumb>
 
         {/* Header Row */}
         <S.HeaderRow>
           <div className="title-area">
-            <h1>Hồ Sơ VIP Elite & Đặc Quyền</h1>
+            <h1>{t('profile:vip_elite_title')}</h1>
             <Sparkles size={24} className="badge-icon" />
           </div>
 
@@ -87,7 +85,7 @@ export default function VipElitePage() {
               onClick={handleNavigateToPersonalInfo}
             >
               <Edit3 size={14} />
-              <span>Chỉnh sửa hồ sơ</span>
+              <span>{t('profile:edit_profile_btn')}</span>
             </button>
 
             <button
@@ -95,7 +93,7 @@ export default function VipElitePage() {
               onClick={handleRewardClick}
             >
               <Gift size={15} />
-              <span>Đổi quà & Thưởng điểm</span>
+              <span>{t('profile:redeem_rewards_btn')}</span>
             </button>
           </div>
         </S.HeaderRow>

@@ -110,7 +110,9 @@ export const LuxuryCinemas: FC = () => {
                   <S.AddressText>{cinema.address}</S.AddressText>
                 </S.AddressGroup>
 
-                <S.DescriptionText>{cinema.desc}</S.DescriptionText>
+                <S.DescriptionText>
+                  {t(`home:luxury.cinema${cinema.id}_desc`, cinema.desc)}
+                </S.DescriptionText>
               </S.ContentContainer>
 
               {/* Bottom Action Row */}
@@ -118,12 +120,16 @@ export const LuxuryCinemas: FC = () => {
                 <S.StatusGroup>
                   <S.StatusIndicator />
                   <S.StatusText>
-                    Đang chiếu: {cinema.shows} suất hôm nay
+                    {t('home:luxury.shows_status', {
+                      count: parseInt(cinema.shows, 10) || 0,
+                    })}
                   </S.StatusText>
                 </S.StatusGroup>
 
                 <S.ActionButton onClick={handleNavigateSchedule}>
-                  <S.ActionButtonText>Xem Lịch Rạp</S.ActionButtonText>
+                  <S.ActionButtonText>
+                    {t('home:luxury.view_schedule_btn')}
+                  </S.ActionButtonText>
                 </S.ActionButton>
               </S.ActionRow>
             </S.Card>

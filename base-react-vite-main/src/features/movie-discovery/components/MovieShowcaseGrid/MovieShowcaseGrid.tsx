@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Clock, Film, RotateCcw, Star, Ticket } from 'lucide-react';
 import type { DiscoveryMovie } from '../../data/mock-movies';
 import {
@@ -23,6 +24,7 @@ export const MovieShowcaseGrid: FC<MovieShowcaseGridProps> = ({
   onMovieClick,
   onBookClick,
 }) => {
+  const { t } = useTranslation();
   const handleMovieClick = (movie: DiscoveryMovie) => () => {
     onMovieClick?.(movie);
   };
@@ -39,14 +41,14 @@ export const MovieShowcaseGrid: FC<MovieShowcaseGridProps> = ({
           <S.EmptyIconContainer>
             <Film size={40} color="#FF535A" />
           </S.EmptyIconContainer>
-          <S.EmptyTitle>Không tìm thấy phim phù hợp</S.EmptyTitle>
+          <S.EmptyTitle>{t('discovery:empty_title')}</S.EmptyTitle>
           <S.EmptyDescription>
-            Rất tiếc, không có bộ phim nào khớp với tiêu chí tìm kiếm hoặc bộ lọc hiện tại của bạn. Vui lòng thử tìm kiếm khác hoặc đặt lại bộ lọc.
+            {t('discovery:empty_desc')}
           </S.EmptyDescription>
           {onResetFilters && (
             <S.EmptyResetButton type="button" onClick={onResetFilters}>
               <RotateCcw size={15} />
-              <span>Đặt lại bộ lọc</span>
+              <span>{t('discovery:filter_reset')}</span>
             </S.EmptyResetButton>
           )}
         </S.EmptyStateWrapper>
@@ -71,6 +73,10 @@ export const MovieShowcaseGrid: FC<MovieShowcaseGridProps> = ({
                   src={movie.poster}
                   alt={movie.title}
                   loading="lazy"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src =
+                      'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600&auto=format&fit=crop';
+                  }}
                 />
 
                 {/* Bottom Gradient Overlay */}
@@ -133,7 +139,7 @@ export const MovieShowcaseGrid: FC<MovieShowcaseGridProps> = ({
                       type="button"
                       onClick={handleMovieClick(movie)}
                     >
-                      <S.DetailButtonText>Chi tiết</S.DetailButtonText>
+                      <S.DetailButtonText>{t('discovery:details_btn')}</S.DetailButtonText>
                     </S.DetailButton>
 
                     <S.BookButton
@@ -141,7 +147,7 @@ export const MovieShowcaseGrid: FC<MovieShowcaseGridProps> = ({
                       onClick={handleBookClick(movie)}
                     >
                       <Ticket size={14} color="#5b000d" />
-                      <S.BookButtonText>MUA VÉ</S.BookButtonText>
+                      <S.BookButtonText>{t('discovery:book_btn')}</S.BookButtonText>
                     </S.BookButton>
                   </S.ListActionPanel>
                 </S.ListInfoArea>
@@ -151,7 +157,7 @@ export const MovieShowcaseGrid: FC<MovieShowcaseGridProps> = ({
                     type="button"
                     onClick={handleMovieClick(movie)}
                   >
-                    <S.DetailButtonText>Chi tiết</S.DetailButtonText>
+                    <S.DetailButtonText>{t('discovery:details_btn')}</S.DetailButtonText>
                   </S.DetailButton>
 
                   <S.BookButton
@@ -159,7 +165,7 @@ export const MovieShowcaseGrid: FC<MovieShowcaseGridProps> = ({
                     onClick={handleBookClick(movie)}
                   >
                     <Ticket size={14} color="#5b000d" />
-                    <S.BookButtonText>MUA VÉ</S.BookButtonText>
+                    <S.BookButtonText>{t('discovery:book_btn')}</S.BookButtonText>
                   </S.BookButton>
                 </S.ActionPanel>
               )}

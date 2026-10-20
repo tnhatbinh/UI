@@ -1,9 +1,11 @@
 import type { FC } from 'react';
 import { Sparkles, Zap, MapPin, Car } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import * as S from '../../AiCineAdvisor.styles';
 
 export const ChatSuggestions: FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleNavigateBooking = () => {
@@ -18,15 +20,13 @@ export const ChatSuggestions: FC = () => {
           <S.CardHeaderRow>
             <S.MatchBadge>
               <Sparkles color="#FFB3B0" size={12} fill="currentColor" />
-              <S.MatchText>Phù Hợp 98%</S.MatchText>
+              <S.MatchText>{t('home:advisor.card1_match')}</S.MatchText>
             </S.MatchBadge>
-            <S.SourceText>Dựa trên 18 phim đã xem</S.SourceText>
+            <S.SourceText>{t('home:advisor.card1_source')}</S.SourceText>
           </S.CardHeaderRow>
-          <S.MovieTitle>Oppenheimer: Bản Chiếu Đặc Biệt</S.MovieTitle>
+          <S.MovieTitle>{t('home:advisor.card1_title')}</S.MovieTitle>
           <S.MovieDescription>
-            "Nếu bạn mê hoặc quy mô hoành tráng của Dune và nhịp độ căng thẳng
-            trí tuệ của Christopher Nolan, đây là trải nghiệm màn ảnh IMAX không
-            thể bỏ qua tối thứ Bảy."
+            {t('home:advisor.card1_desc')}
           </S.MovieDescription>
           <S.InfoBox>
             <S.IconContainer>
@@ -34,7 +34,7 @@ export const ChatSuggestions: FC = () => {
             </S.IconContainer>
             <S.InfoCol>
               <S.InfoLabel>
-                Rạp gần bạn nhất còn 4 ghế VIP trung tâm
+                {t('home:advisor.card1_info')}
               </S.InfoLabel>
               <S.InfoValue>CGV Vincom Center Landmark 81 • 20:15</S.InfoValue>
             </S.InfoCol>
@@ -42,11 +42,11 @@ export const ChatSuggestions: FC = () => {
         </S.CardTopGroup>
         <S.CardBottomRow>
           <S.PriceGroup>
-            <S.PriceValue>140.000đ</S.PriceValue>
-            <S.PriceUnit>/vé VIP</S.PriceUnit>
+            <S.PriceValue>{t('home:advisor.card1_price')}</S.PriceValue>
+            <S.PriceUnit>{t('home:advisor.card1_unit')}</S.PriceUnit>
           </S.PriceGroup>
           <S.PrimaryButton onClick={handleNavigateBooking}>
-            <S.PrimaryButtonText>Chọn Ghế Này</S.PrimaryButtonText>
+            <S.PrimaryButtonText>{t('home:advisor.card1_btn')}</S.PrimaryButtonText>
           </S.PrimaryButton>
         </S.CardBottomRow>
       </S.MovieCard>
@@ -57,32 +57,31 @@ export const ChatSuggestions: FC = () => {
           <S.CardHeaderRow>
             <S.SoonBadge>
               <Zap color="#FFB955" size={12} fill="currentColor" />
-              <S.SoonText>Suất Gần Bạn: 45 Phút Nữa</S.SoonText>
+              <S.SoonText>{t('home:advisor.card2_soon')}</S.SoonText>
             </S.SoonBadge>
-            <S.SourceText>Cách 1.8 km</S.SourceText>
+            <S.SourceText>{t('home:advisor.card2_distance')}</S.SourceText>
           </S.CardHeaderRow>
-          <S.MovieTitle>Mai (Phiên Bản Rạp Tiêu Chuẩn)</S.MovieTitle>
+          <S.MovieTitle>{t('home:advisor.card2_title')}</S.MovieTitle>
           <S.MovieDescription>
-            "Khung giờ hoàng kim tại Lotte Cantavil Quận 2. Phòng chiếu Premium
-            Ghế da ngả lưng Recliner, phòng chỉ còn 6 cặp ghế đôi Sweetbox."
+            {t('home:advisor.card2_desc')}
           </S.MovieDescription>
           <S.InfoBox>
             <S.IconContainer>
               <Car color="#FFB3B0" size={16} />
             </S.IconContainer>
             <S.InfoCol>
-              <S.InfoLabel>Phòng CineComfort • Suất 18:30</S.InfoLabel>
-              <S.InfoValue>Ưu đãi giảm 30k khi đặt đồ qua App</S.InfoValue>
+              <S.InfoLabel>{t('home:advisor.card2_info')}</S.InfoLabel>
+              <S.InfoValue>{t('home:advisor.card2_promo')}</S.InfoValue>
             </S.InfoCol>
           </S.InfoBox>
         </S.CardTopGroup>
         <S.CardBottomRow>
           <S.PriceGroup>
-            <S.PriceValue>220.000đ</S.PriceValue>
-            <S.PriceUnit>/cặp ghế</S.PriceUnit>
+            <S.PriceValue>{t('home:advisor.card2_price')}</S.PriceValue>
+            <S.PriceUnit>{t('home:advisor.card2_unit')}</S.PriceUnit>
           </S.PriceGroup>
           <S.SecondaryButton onClick={handleNavigateBooking}>
-            <S.SecondaryButtonText>Đặt Ngay Kẻo Lỡ</S.SecondaryButtonText>
+            <S.SecondaryButtonText>{t('home:advisor.card2_btn')}</S.SecondaryButtonText>
           </S.SecondaryButton>
         </S.CardBottomRow>
       </S.MovieCard>

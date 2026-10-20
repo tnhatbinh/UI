@@ -1,9 +1,11 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Volume2, Ticket } from 'lucide-react';
 import { useBooking } from '../../../context/useBooking';
 import * as S from './ScreenView.styles';
 
 export const ScreenView: FC = () => {
+  const { t } = useTranslation();
   const { state } = useBooking();
 
   return (
@@ -21,7 +23,7 @@ export const ScreenView: FC = () => {
             <Ticket size={13} />
             <span>
               {state.session.room} • {state.session.time} - {state.session.date}{' '}
-              • Bản phụ đề tiếng Việt
+              • {t('booking:subtitle_vn')}
             </span>
           </div>
         </div>
@@ -36,7 +38,7 @@ export const ScreenView: FC = () => {
       <S.ScreenGraphicWrapper>
         <div className="curve-screen" />
         <div className="screen-glow" />
-        <span className="screen-label">[ MÀN HÌNH CHÍNH • SCREEN ]</span>
+        <span className="screen-label">{t('booking:screen_label')}</span>
       </S.ScreenGraphicWrapper>
     </>
   );

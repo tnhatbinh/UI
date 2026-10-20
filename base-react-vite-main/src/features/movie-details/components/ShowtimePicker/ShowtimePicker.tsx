@@ -1,8 +1,12 @@
 import { forwardRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Search, MapPin, ExternalLink } from 'lucide-react';
 import {
   DAY_OPTIONS,
   FORMAT_FILTERS,
+  getDayTagLabel,
+  getDayOfWeekLabel,
+  getFormatFilterLabel,
   type DayOption,
   type CinemaSchedule,
   type ScreenFormatGroup,
@@ -49,6 +53,8 @@ export const ShowtimePicker = forwardRef<HTMLDivElement, ShowtimePickerProps>(
     },
     ref,
   ) => {
+    const { t } = useTranslation();
+
     const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
       onSelectCity(e.target.value);
     };
@@ -75,8 +81,8 @@ export const ShowtimePicker = forwardRef<HTMLDivElement, ShowtimePickerProps>(
       <S.ShowtimesSection ref={ref} id="showtimes-section">
         <S.ShowtimesHeader>
           <div className="title-group">
-            <span className="sub">🎫 ĐẶT VÉ TRỰC TUYẾN</span>
-            <h2>Lịch Chiếu & Cụm Rạp</h2>
+            <span className="sub">{t('movie:online_booking_badge')}</span>
+            <h2>{t('movie:showtimes_and_cinemas')}</h2>
           </div>
 
           <div className="filters-right">
@@ -93,7 +99,7 @@ export const ShowtimePicker = forwardRef<HTMLDivElement, ShowtimePickerProps>(
               <Search size={14} />
               <input
                 type="text"
-                placeholder="Tìm rạp theo quận..."
+                placeholder={t('movie:search_cinema_placeholder')}
                 value={searchCinema}
                 onChange={handleSearchChange}
               />
@@ -104,7 +110,7 @@ export const ShowtimePicker = forwardRef<HTMLDivElement, ShowtimePickerProps>(
         <S.StepsContainer>
           {/* 1. Chọn ngày xem chiếu */}
           <div>
-            <S.StepLabel>01 • CHỌN NGÀY XEM CHIẾU</S.StepLabel>
+            <S.StepLabel>{t('movie:step_select_date')}</S.StepLabel>
             <S.DayTabsRow>
               {DAY_OPTIONS.map((day) => {
                 const isSelected = selectedDate.dateStr === day.dateStr;
@@ -114,9 +120,13 @@ export const ShowtimePicker = forwardRef<HTMLDivElement, ShowtimePickerProps>(
                     $isActive={isSelected}
                     onClick={handleSelectDate(day)}
                   >
-                    <span className="tag">{day.dayLabel}</span>
+                    <span className="tag">
+                      {getDayTagLabel(t, day.dayLabel)}
+                    </span>
                     <span className="date">{day.dateStr}</span>
-                    <span className="day">{day.dayOfWeek}</span>
+                    <span className="day">
+                      {getDayOfWeekLabel(t, day.dayOfWeek)}
+                    </span>
                   </S.DayTab>
                 );
               })}
@@ -125,7 +135,7 @@ export const ShowtimePicker = forwardRef<HTMLDivElement, ShowtimePickerProps>(
 
           {/* 2. Bộ lọc định dạng phòng */}
           <div>
-            <S.StepLabel>02 • LỌC ĐỊNH DẠNG & CÔNG NGHỆ CHIẾU</S.StepLabel>
+            <S.StepLabel>{t('movie:step_select_format')}</S.StepLabel>
             <S.FormatChipsRow>
               {FORMAT_FILTERS.map((fmt) => (
                 <S.FormatChip
@@ -133,7 +143,7 @@ export const ShowtimePicker = forwardRef<HTMLDivElement, ShowtimePickerProps>(
                   $isActive={selectedFormat === fmt.id}
                   onClick={handleSelectFormat(fmt.id)}
                 >
-                  {fmt.label} ({fmt.count})
+                  {getFormatFilterLabel(t, fmt.id, fmt.label)} ({fmt.count})
                 </S.FormatChip>
               ))}
             </S.FormatChipsRow>
@@ -183,7 +193,7 @@ export const ShowtimePicker = forwardRef<HTMLDivElement, ShowtimePickerProps>(
                       rel="noreferrer"
                       className="map-link"
                     >
-                      <span>Xem bản đồ</span>
+                      <span>{t('movie:view_map')}</span>
                       <ExternalLink size={11} />
                     </a>
                   </div>

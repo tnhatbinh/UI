@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Gift, ArrowRight, ShieldCheck, X } from 'lucide-react';
 import { useBooking } from '../../../context/useBooking';
 import * as S from './SnackOrderSummary.styles';
@@ -13,6 +14,7 @@ export const SnackOrderSummary: FC<SnackOrderSummaryProps> = ({
   onContinue,
   onSkip,
 }) => {
+  const { t } = useTranslation();
   const {
     state,
     applyVoucher,
@@ -72,10 +74,14 @@ export const SnackOrderSummary: FC<SnackOrderSummaryProps> = ({
         <div className="ticket-recap">
           <div className="left">
             <span className="main">
-              {state.selectedSeats.length}x Ghế VIP Hạng Sang
+              {t('booking:vip_seats_count', {
+                count: state.selectedSeats.length,
+              })}
             </span>
             <span className="seats">
-              Số ghế: {seatNames || 'Chưa chọn'} (Hàng giữa IMAX)
+              {t('booking:seats_selected_recap', {
+                seats: seatNames || t('common:noData'),
+              })}
             </span>
           </div>
           <span className="amount">{seatsTotal.toLocaleString('vi-VN')}đ</span>
@@ -85,14 +91,16 @@ export const SnackOrderSummary: FC<SnackOrderSummaryProps> = ({
         <div className="snacks-recap">
           <div className="header-row">
             <span className="label">
-              BẮP NƯỚC ĐÃ CHỌN ({state.selectedSnacks.length} MÓN)
+              {t('booking:snacks_selected_header', {
+                count: state.selectedSnacks.length,
+              })}
             </span>
           </div>
 
           <div className="snack-items">
             {state.selectedSnacks.length === 0 ? (
               <span className="empty-hint">
-                Chưa chọn combo hoặc bắp nước nào.
+                {t('booking:snacks_empty')}
               </span>
             ) : (
               state.selectedSnacks.map((s) => (
@@ -111,11 +119,11 @@ export const SnackOrderSummary: FC<SnackOrderSummaryProps> = ({
 
         {/* Voucher Input & Applied */}
         <div className="voucher-input-block">
-          <span className="label">ƯU ĐÃI THÀNH VIÊN & VOUCHER</span>
+          <span className="label">{t('booking:voucher_block_title')}</span>
           <div className="input-row">
             <input
               type="text"
-              placeholder="Nhập mã ưu đãi..."
+              placeholder={t('booking:voucher_placeholder')}
               value={voucherInput}
               onChange={handleVoucherInputChange}
             />
@@ -124,21 +132,23 @@ export const SnackOrderSummary: FC<SnackOrderSummaryProps> = ({
               className="apply-btn"
               onClick={handleApplyVoucher}
             >
-              Áp dụng
+              {t('booking:apply_btn')}
             </button>
           </div>
 
           {state.appliedVoucher && (
             <div className="applied-tag">
               <span>
-                ✓ Đã áp dụng {state.appliedVoucher.code} (-
-                {(state.appliedVoucher.discount / 1000).toFixed(0)}k)
+                {t('booking:applied_voucher', {
+                  code: state.appliedVoucher.code,
+                  discount: (state.appliedVoucher.discount / 1000).toFixed(0),
+                })}
               </span>
               <button
                 type="button"
                 className="remove-btn"
                 onClick={removeVoucher}
-                title="Bỏ voucher"
+                title={t('booking:remove_voucher_title')}
               >
                 <X size={12} />
               </button>
@@ -149,18 +159,18 @@ export const SnackOrderSummary: FC<SnackOrderSummaryProps> = ({
         {/* Pricing Breakdown */}
         <div className="price-breakdown">
           <div className="row">
-            <span className="label">Tạm tính vé xem phim:</span>
+            <span className="label">{t('booking:subtotal_movie_tickets')}</span>
             <span className="val">{seatsTotal.toLocaleString('vi-VN')}đ</span>
           </div>
 
           <div className="row">
-            <span className="label">Tạm tính bắp nước & combo:</span>
+            <span className="label">{t('booking:subtotal_snacks_combo')}</span>
             <span className="val">{snacksTotal.toLocaleString('vi-VN')}đ</span>
           </div>
 
           {state.appliedVoucher && (
             <div className="row discount">
-              <span className="label">Giảm giá thành viên VIP:</span>
+              <span className="label">{t('booking:vip_member_discount')}</span>
               <span className="val">
                 -{state.appliedVoucher.discount.toLocaleString('vi-VN')}đ
               </span>
@@ -169,9 +179,11 @@ export const SnackOrderSummary: FC<SnackOrderSummaryProps> = ({
 
           <div className="grand-total">
             <div className="label-group">
-              <span className="main">TỔNG CỘNG:</span>
-              <span className="sub">(Đã bao gồm VAT & Phục vụ)</span>
-              <span className="bonus">Tích luỹ +{points} PhimPoints</span>
+              <span className="main">{t('booking:grand_total_summary')}</span>
+              <span className="sub">{t('booking:tax_included')}</span>
+              <span className="bonus">
+                {t('booking:points_accumulate', { points })}
+              </span>
             </div>
             <span className="amount">
               {grandTotal.toLocaleString('vi-VN')}đ
@@ -181,17 +193,17 @@ export const SnackOrderSummary: FC<SnackOrderSummaryProps> = ({
 
         {/* CTA Continue */}
         <button type="button" className="continue-cta" onClick={onContinue}>
-          <span>Tiếp tục: Thanh toán ngay</span>
+          <span>{t('booking:btn_pay_now')}</span>
           <ArrowRight size={16} />
         </button>
 
         <button type="button" className="skip-link" onClick={onSkip}>
-          Bỏ qua bắp nước &amp; Thanh toán vé &gt;
+          {t('booking:skip_snacks_cta')}
         </button>
 
         <div className="assurance-line">
           <ShieldCheck size={13} color="#ffb955" />{' '}
-          Giữ chỗ tức thời • Đổi trả bắp nước trước 30 phút
+          {t('booking:snack_assurance')}
         </div>
       </S.SummaryCard>
 
@@ -201,10 +213,9 @@ export const SnackOrderSummary: FC<SnackOrderSummaryProps> = ({
           <Gift size={20} />
         </div>
         <div className="text">
-          <span className="title">Ưu quyền phòng chiếu IMAX Lounge</span>
+          <span className="title">{t('booking:vip_lounge_perk_title')}</span>
           <span className="sub">
-            Khăn lạnh và nước khoáng tinh khiết phục vụ miễn phí trước suất
-            chiếu.
+            {t('booking:vip_lounge_perk_desc')}
           </span>
         </div>
       </S.VipPrivilegeBanner>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Gift, Ticket, Popcorn } from 'lucide-react';
 import * as S from './VouchersCard.styles';
@@ -8,6 +9,7 @@ interface VouchersCardProps {
 }
 
 export function VouchersCard({ onToast }: VouchersCardProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [voucherCode, setVoucherCode] = useState('');
 
@@ -22,7 +24,7 @@ export function VouchersCard({ onToast }: VouchersCardProps) {
   const handleApplyGift = () => {
     if (!voucherCode.trim()) return;
     onToast?.(
-      `Đã áp dụng mã thẻ quà tặng ${voucherCode.toUpperCase()} thành công!`,
+      t('profile:toast_voucher_applied', { code: voucherCode.toUpperCase() }),
     );
     setVoucherCode('');
   };
@@ -33,21 +35,23 @@ export function VouchersCard({ onToast }: VouchersCardProps) {
         <div className="title-left">
           <h3>
             <Gift size={16} color="#ff535a" />
-            <span>Voucher & CineGift Cards</span>
+            <span>{t('profile:vouchers_card_title')}</span>
           </h3>
         </div>
-        <span className="badge-count">3 Đang có</span>
+        <span className="badge-count">
+          {t('profile:active_vouchers_badge', { count: 3 })}
+        </span>
       </div>
 
       <S.VoucherInputRow>
         <input
           type="text"
-          placeholder="NHẬP MÃ THẺ QUÀ TẶNG HOẶC GIFTVOUCHER..."
+          placeholder={t('profile:voucher_code_placeholder')}
           value={voucherCode}
           onChange={handleVoucherCodeChange}
         />
         <button className="apply-btn" type="button" onClick={handleApplyGift}>
-          Áp dụng
+          {t('profile:apply_btn')}
         </button>
       </S.VoucherInputRow>
 
@@ -58,15 +62,15 @@ export function VouchersCard({ onToast }: VouchersCardProps) {
               <Ticket size={16} />
             </div>
             <div className="info">
-              <span className="title">Giảm 50.000đ Vé IMAX</span>
-              <span className="hsd">HSD: 30/11/2025 • Đơn từ 200k</span>
+              <span className="title">{t('profile:voucher_imax_title')}</span>
+              <span className="hsd">{t('profile:voucher_imax_desc')}</span>
             </div>
           </div>
           <button
             className="use-btn"
             onClick={handleUseVoucher}
           >
-            Dùng ngay
+            {t('profile:use_now_btn')}
           </button>
         </S.VoucherMiniItem>
 
@@ -76,15 +80,15 @@ export function VouchersCard({ onToast }: VouchersCardProps) {
               <Ticket size={16} />
             </div>
             <div className="info">
-              <span className="title">Miễn phí Sweetbox Cuối Tuần</span>
-              <span className="hsd">HSD: 15/12/2025 • Áp dụng rạp CGV</span>
+              <span className="title">{t('profile:voucher_sweetbox_title')}</span>
+              <span className="hsd">{t('profile:voucher_sweetbox_desc')}</span>
             </div>
           </div>
           <button
             className="use-btn"
             onClick={handleUseVoucher}
           >
-            Dùng ngay
+            {t('profile:use_now_btn')}
           </button>
         </S.VoucherMiniItem>
 
@@ -94,15 +98,15 @@ export function VouchersCard({ onToast }: VouchersCardProps) {
               <Popcorn size={16} />
             </div>
             <div className="info">
-              <span className="title">Tặng 01 Bắp Phô Mai Size Lớn</span>
-              <span className="hsd">HSD: 20/11/2025 • Vé suất sau 18:00</span>
+              <span className="title">{t('profile:voucher_popcorn_title')}</span>
+              <span className="hsd">{t('profile:voucher_popcorn_desc')}</span>
             </div>
           </div>
           <button
             className="use-btn"
             onClick={handleUseVoucher}
           >
-            Dùng ngay
+            {t('profile:use_now_btn')}
           </button>
         </S.VoucherMiniItem>
       </div>

@@ -21,6 +21,7 @@ export interface BookingContextType {
   calculateSnacksTotal: () => number;
   calculateGrandTotal: () => number;
   resetBooking: () => void;
+  setLockToken: (token: string | null) => void;
 }
 
 export const BookingContext = createContext<BookingContextType | undefined>(undefined);

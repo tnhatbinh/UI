@@ -16,6 +16,22 @@ const resources = {
   zh,
 };
 
+export const NAMESPACES = [
+  'common',
+  'header',
+  'footer',
+  'sidebar',
+  'auth',
+  'booking',
+  'movie',
+  'discovery',
+  'profile',
+  'feedback',
+  'home',
+] as const;
+
+export type AppNamespace = (typeof NAMESPACES)[number];
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -23,7 +39,7 @@ i18n
     resources,
     fallbackLng: 'vi',
     defaultNS: 'common',
-    ns: ['common', 'header', 'footer', 'home', 'discovery'],
+    ns: [...NAMESPACES],
     interpolation: {
       escapeValue: false,
     },

@@ -42,7 +42,7 @@ export const Newsletter: FC = () => {
                 placeholder={t('home:newsletter.placeholder')}
                 value={email}
                 onChange={handleEmailChange}
-                aria-label="Nhập email của bạn"
+                aria-label={t('home:newsletter.placeholder')}
                 required
               />
             </S.InputWrapper>

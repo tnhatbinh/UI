@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Sparkles } from 'lucide-react';
 import * as S from './ExclusiveOffersCard.styles';
 
 export function ExclusiveOffersCard() {
+  const { t } = useTranslation();
   const [hasOfferSneak, setHasOfferSneak] = useState(true);
   const [hasOfferVip, setHasOfferVip] = useState(true);
   const [hasOfferSnacks, setHasOfferSnacks] = useState(false);
@@ -30,11 +32,10 @@ export function ExclusiveOffersCard() {
         <div className="title-left">
           <h3>
             <Sparkles size={16} color="#ffb955" />
-            <span>Ưu đãi & Sự kiện độc quyền</span>
+            <span>{t('profile:exclusive_offers_title')}</span>
           </h3>
           <span className="sub">
-            Đón đầu các suất chiếu đặc biệt và quyền lợi dành riêng cho hội
-            viên.
+            {t('profile:exclusive_offers_sub')}
           </span>
         </div>
       </div>
@@ -49,12 +50,11 @@ export function ExclusiveOffersCard() {
           <div className="text">
             <div className="title-line">
               <span className="title">
-                Vé mở bán sớm (Sneak Show) & Suất chiếu IMAX
+                {t('profile:offer_sneak_title')}
               </span>
             </div>
             <span className="desc">
-              Thông báo mở suất trước 48h cho các bom tấn Hollywood và liên hoan
-              phim quốc tế.
+              {t('profile:offer_sneak_desc')}
             </span>
           </div>
         </label>
@@ -67,12 +67,11 @@ export function ExclusiveOffersCard() {
           />
           <div className="text">
             <div className="title-line">
-              <span className="title">Đặc quyền VIP Elite & Thẻ Diamond</span>
-              <span className="pill gold">DÀNH RIÊNG CHO BẠN</span>
+              <span className="title">{t('profile:offer_vip_title')}</span>
+              <span className="pill gold">{t('profile:offer_vip_badge')}</span>
             </div>
             <span className="desc">
-              Voucher sinh nhật, vé mời Premiere thảm đỏ và nâng hạng ghế
-              Sweetbox miễn phí.
+              {t('profile:offer_vip_desc')}
             </span>
           </div>
         </label>
@@ -86,12 +85,11 @@ export function ExclusiveOffersCard() {
           <div className="text">
             <div className="title-line">
               <span className="title">
-                Khuyến mãi bắp nước combo & quà tặng phim
+                {t('profile:offer_snacks_title')}
               </span>
             </div>
             <span className="desc">
-              Tin khuyến mãi ly sưu tầm giới hạn, combo bắp phô mai và phụ kiện
-              lưu niệm độc quyền.
+              {t('profile:offer_snacks_desc')}
             </span>
           </div>
         </label>
@@ -105,12 +103,11 @@ export function ExclusiveOffersCard() {
           <div className="text">
             <div className="title-line">
               <span className="title">
-                Bản tin điện ảnh hàng tuần (Weekly Cinema Digest)
+                {t('profile:offer_digest_title')}
               </span>
             </div>
             <span className="desc">
-              Được AI trợ lý tuyển chọn riêng theo gu phim hành động, khoa học
-              viễn tưởng của bạn.
+              {t('profile:offer_digest_desc')}
             </span>
           </div>
         </label>

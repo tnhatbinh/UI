@@ -1,23 +1,26 @@
+import { useTranslation } from 'react-i18next';
 import { Armchair } from 'lucide-react';
 import * as S from './SeatVisualizerCard.styles';
 
 export function SeatVisualizerCard() {
+  const { t } = useTranslation();
+
   return (
     <S.Card>
       <div className="card-top">
         <div className="title-left">
           <h3>
             <Armchair size={16} color="#ff535a" />
-            <span>VỊ TRÍ GHẾ RẠP TỐI ƯU</span>
+            <span>{t('profile:seat_visualizer_title')}</span>
           </h3>
         </div>
-        <span className="badge">Dãy H, J (Trung tâm)</span>
+        <span className="badge">{t('profile:seat_center_badge')}</span>
       </div>
 
       <S.MiniTheaterCard>
         <div className="screen-banner">
           <div className="arc" />
-          <span>MÀN CHIẾU CHÍNH</span>
+          <span>{t('profile:main_screen_label')}</span>
         </div>
 
         <div className="seat-grid-mini">
@@ -48,7 +51,7 @@ export function SeatVisualizerCard() {
         </div>
 
         <span className="caption">
-          Tự động giữ vị trí ghế VIP trung tâm khi đặt vé nhanh.
+          {t('profile:seat_visualizer_caption')}
         </span>
       </S.MiniTheaterCard>
     </S.Card>

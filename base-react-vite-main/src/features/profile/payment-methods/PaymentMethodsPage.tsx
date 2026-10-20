@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Sparkles } from 'lucide-react';
 import CinemaNoirShell from '../components/CinemaNoirShell';
 import { LinkedPaymentMethodsCard } from './components/LinkedPaymentMethodsCard';
@@ -8,6 +9,7 @@ import { RecentTransactionsCard } from './components/RecentTransactionsCard';
 import * as S from './PaymentMethodsPage.styles';
 
 export default function PaymentMethodsPage() {
+  const { t } = useTranslation();
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
@@ -16,7 +18,7 @@ export default function PaymentMethodsPage() {
   };
 
   return (
-    <CinemaNoirShell pageTitle="Phương thức thanh toán">
+    <CinemaNoirShell pageTitle={t('profile:payment_methods_page_title')}>
       <S.PaymentGrid>
         {/* Left Column: Linked Cards & Wallets */}
         <S.LeftColumn>

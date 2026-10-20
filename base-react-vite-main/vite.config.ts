@@ -16,6 +16,16 @@ export default defineConfig({
       "@shared": path.resolve(__dirname, "src/shared"),
     },
   },
+  server: {
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: 'https://be-bookphim-production.up.railway.app',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
   build: {
     rollupOptions: {
       output: {

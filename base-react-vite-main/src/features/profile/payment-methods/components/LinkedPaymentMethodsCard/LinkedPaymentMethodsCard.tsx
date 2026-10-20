@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { CreditCard, Plus, Edit, CheckCircle2, Lock, Zap } from 'lucide-react';
 import * as S from './LinkedPaymentMethodsCard.styles';
 
@@ -9,22 +10,23 @@ interface LinkedPaymentMethodsCardProps {
 export function LinkedPaymentMethodsCard({
   onToast,
 }: LinkedPaymentMethodsCardProps) {
+  const { t } = useTranslation();
   const [isQuickPayEnabled, setIsQuickPayEnabled] = useState(true);
 
   const handleAddNewMethod = () => {
-    onToast?.('Mở giao diện liên kết thẻ / ví điện tử mới...');
+    onToast?.(t('profile:toast_add_method'));
   };
 
   const handleEditCard = () => {
-    onToast?.('Chỉnh sửa thông tin thẻ Techcombank...');
+    onToast?.(t('profile:toast_edit_card'));
   };
 
   const handleSetDefaultMethod = (name: string) => () => {
-    onToast?.(`Đã đặt ${name} làm phương thức mặc định!`);
+    onToast?.(t('profile:toast_set_default', { name }));
   };
 
   const handleUnlinkMethod = (name: string) => () => {
-    onToast?.(`Đã gửi yêu cầu hủy liên kết ví ${name}!`);
+    onToast?.(t('profile:toast_unlink_method', { name }));
   };
 
   const handleToggleQuickPay = () => {
@@ -32,7 +34,7 @@ export function LinkedPaymentMethodsCard({
   };
 
   const handleChangeLimit = () => {
-    onToast?.('Tùy chỉnh hạn mức Quick-Pay...');
+    onToast?.(t('profile:toast_change_limit'));
   };
 
   return (
@@ -41,10 +43,10 @@ export function LinkedPaymentMethodsCard({
         <div className="title-left">
           <h3>
             <CreditCard size={18} color="#ff535a" />
-            <span>Thẻ & Ví đã liên kết</span>
+            <span>{t('profile:linked_cards_wallets_title')}</span>
           </h3>
           <span className="sub">
-            Quản lý các nguồn tiền thanh toán vé phim, combo bắp nước tự động
+            {t('profile:linked_cards_wallets_sub')}
           </span>
         </div>
         <button
@@ -52,7 +54,7 @@ export function LinkedPaymentMethodsCard({
           onClick={handleAddNewMethod}
         >
           <Plus size={14} />
-          <span>Thêm liên kết phương thức mới</span>
+          <span>{t('profile:add_new_method_btn')}</span>
         </button>
       </div>
 
@@ -64,10 +66,10 @@ export function LinkedPaymentMethodsCard({
             <div className="text">
               <div className="name-row">
                 <span className="name">Visa Signature Techcombank</span>
-                <span className="default-badge">MẶC ĐỊNH</span>
+                <span className="default-badge">{t('profile:badge_default')}</span>
               </div>
               <span className="type-sub">
-                Hạng Bạch Kim • Đã kích hoạt 3D Secure Cinema Pay
+                {t('profile:card_platinum_3d_secure')}
               </span>
             </div>
           </div>
@@ -79,11 +81,11 @@ export function LinkedPaymentMethodsCard({
         <div className="card-footer-line">
           <div className="holder-expiry">
             <div className="col">
-              <span className="lbl">CHỦ THẺ</span>
-              <span className="val">NGUYEN THANH TUNG</span>
+              <span className="lbl">{t('profile:card_holder_label')}</span>
+              <span className="val">{t('profile:card_holder_name_sample')}</span>
             </div>
             <div className="col">
-              <span className="lbl">HẾT HẠN</span>
+              <span className="lbl">{t('profile:card_expiry_lbl')}</span>
               <span className="val">11/28</span>
             </div>
           </div>
@@ -94,7 +96,7 @@ export function LinkedPaymentMethodsCard({
               onClick={handleEditCard}
             >
               <Edit size={12} />
-              <span>Chỉnh sửa</span>
+              <span>{t('profile:edit_btn')}</span>
             </button>
           </div>
         </div>
@@ -108,10 +110,10 @@ export function LinkedPaymentMethodsCard({
             <div className="text">
               <div className="name-row">
                 <span className="name">Ví Điện Tử MoMo</span>
-                <span className="badge">Hoàn 5% vé</span>
+                <span className="badge">{t('profile:momo_cashback_badge')}</span>
               </div>
               <span className="meta">
-                Liên kết tự động • Số ĐT: •••• 9988 (Ví chính)
+                {t('profile:momo_meta_sub')}
               </span>
             </div>
           </div>
@@ -119,20 +121,20 @@ export function LinkedPaymentMethodsCard({
         </div>
         <div className="item-bottom">
           <span className="note">
-            Tự động trừ tiền vé & đồ ăn khi đặt ghế nhanh
+            {t('profile:momo_auto_deduct_note')}
           </span>
           <div className="links">
             <span
               className="link"
               onClick={handleSetDefaultMethod('MoMo')}
             >
-              Đặt làm mặc định
+              {t('profile:set_as_default_btn')}
             </span>
             <span
               className="unlink"
               onClick={handleUnlinkMethod('MoMo')}
             >
-              Hủy liên kết
+              {t('profile:unlink_btn')}
             </span>
           </div>
         </div>
@@ -147,11 +149,11 @@ export function LinkedPaymentMethodsCard({
               <div className="name-row">
                 <span className="name">Ví ZaloPay</span>
                 <span className="badge gold">
-                  Ưu đãi Thứ 4 tặng bắp nước
+                  {t('profile:zalopay_badge')}
                 </span>
               </div>
               <span className="meta">
-                Liên kết tài khoản Zalo • Tặng combo Bắp Nước mỗi Thứ Tư
+                {t('profile:zalopay_meta_sub')}
               </span>
             </div>
           </div>
@@ -159,20 +161,20 @@ export function LinkedPaymentMethodsCard({
         </div>
         <div className="item-bottom">
           <span className="note">
-            Đồng bộ tự động mã giảm giá vé đôi Thứ Tư
+            {t('profile:zalopay_note')}
           </span>
           <div className="links">
             <span
               className="link"
               onClick={handleSetDefaultMethod('ZaloPay')}
             >
-              Đặt làm mặc định
+              {t('profile:set_as_default_btn')}
             </span>
             <span
               className="unlink"
               onClick={handleUnlinkMethod('ZaloPay')}
             >
-              Hủy liên kết
+              {t('profile:unlink_btn')}
             </span>
           </div>
         </div>
@@ -185,11 +187,11 @@ export function LinkedPaymentMethodsCard({
             <div className="brand-box vcb">VCB</div>
             <div className="text">
               <div className="name-row">
-                <span className="name">Thẻ ATM Napas Nội Địa Vietcombank</span>
+                <span className="name">{t('profile:napas_vcb_name')}</span>
                 <span className="badge neutral">Smart OTP</span>
               </div>
               <span className="meta">
-                Thẻ ghi nợ nội địa • Số thẻ: •••• •••• •••• 8832
+                {t('profile:napas_vcb_meta')}
               </span>
             </div>
           </div>
@@ -197,20 +199,20 @@ export function LinkedPaymentMethodsCard({
         </div>
         <div className="item-bottom">
           <span className="note">
-            Xác thực OTP qua Smart OTP Vietcombank an toàn
+            {t('profile:napas_vcb_note')}
           </span>
           <div className="links">
             <span
               className="link"
               onClick={handleSetDefaultMethod('Vietcombank ATM')}
             >
-              Đặt làm mặc định
+              {t('profile:set_as_default_btn')}
             </span>
             <span
               className="unlink"
               onClick={handleUnlinkMethod('thẻ Vietcombank')}
             >
-              Hủy liên kết
+              {t('profile:unlink_btn')}
             </span>
           </div>
         </div>
@@ -225,10 +227,10 @@ export function LinkedPaymentMethodsCard({
             </div>
             <div className="text">
               <span className="title">
-                Thanh toán nhanh một chạm (Quick-Pay)
+                {t('profile:quick_pay_feature_title')}
               </span>
               <span className="sub">
-                Bỏ qua bước nhập mã OTP cho các giao dịch vé rạp có giá trị nhỏ
+                {t('profile:quick_pay_feature_sub')}
               </span>
             </div>
           </div>
@@ -242,7 +244,7 @@ export function LinkedPaymentMethodsCard({
 
         <div className="bottom-limit">
           <span className="txt">
-            Áp dụng cho vé & combo bắp nước dưới 500.000 VND / giao dịch
+            {t('profile:quick_pay_limit_desc')}
           </span>
           <div className="limit-val">
             <span className="amount">500.000 đ</span>
@@ -250,7 +252,7 @@ export function LinkedPaymentMethodsCard({
               className="change-link"
               onClick={handleChangeLimit}
             >
-              Thay đổi
+              {t('profile:change_btn')}
             </span>
           </div>
         </div>

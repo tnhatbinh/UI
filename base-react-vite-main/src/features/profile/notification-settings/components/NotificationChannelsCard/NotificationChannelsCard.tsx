@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Bell, MessageSquare, Mail } from 'lucide-react';
 import * as S from './NotificationChannelsCard.styles';
 
 export function NotificationChannelsCard() {
+  const { t } = useTranslation();
   const [isAppPushEnabled, setIsAppPushEnabled] = useState(true);
   const [isSmsZaloEnabled, setIsSmsZaloEnabled] = useState(true);
   const [isEmailNewsEnabled, setIsEmailNewsEnabled] = useState(true);
@@ -27,14 +29,15 @@ export function NotificationChannelsCard() {
         <div className="title-left">
           <h3>
             <Bell size={17} color="#ff535a" />
-            <span>Kênh nhận thông báo</span>
+            <span>{t('profile:notif_channels_title')}</span>
           </h3>
           <span className="sub">
-            Chọn các phương thức bạn muốn PhimBook kết nối và gửi thông tin vé
-            tức thì.
+            {t('profile:notif_channels_sub')}
           </span>
         </div>
-        <span className="badge">{activeCount} ĐANG BẬT</span>
+        <span className="badge">
+          {t('profile:channels_active_badge', { count: activeCount })}
+        </span>
       </div>
 
       <S.ChannelRowList>
@@ -44,10 +47,9 @@ export function NotificationChannelsCard() {
               <Bell size={18} />
             </div>
             <div className="text">
-              <span className="name">Ứng dụng & Trình duyệt</span>
+              <span className="name">{t('profile:channel_push_name')}</span>
               <span className="desc">
-                Push notifications trực tiếp qua Chrome, Safari và PhimBook
-                Mobile
+                {t('profile:channel_push_desc')}
               </span>
             </div>
           </div>
@@ -63,9 +65,9 @@ export function NotificationChannelsCard() {
               <MessageSquare size={18} />
             </div>
             <div className="text">
-              <span className="name">Tin nhắn Zalo ZNS / SMS</span>
+              <span className="name">{t('profile:channel_zalo_name')}</span>
               <span className="desc">
-                Gửi tin thông báo mở vé đến SĐT đăng ký (+84 *** *** 88)
+                {t('profile:channel_zalo_desc')}
               </span>
             </div>
           </div>
@@ -81,9 +83,9 @@ export function NotificationChannelsCard() {
               <Mail size={18} />
             </div>
             <div className="text">
-              <span className="name">Email nhận tin tức</span>
+              <span className="name">{t('profile:channel_email_name')}</span>
               <span className="desc">
-                Gửi hóa đơn VAT, vé điện tử và thư mời tới tung.nguyen@gmail.com
+                {t('profile:channel_email_desc')}
               </span>
             </div>
           </div>

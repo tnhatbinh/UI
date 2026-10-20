@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Clock } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useBooking } from '../context/useBooking';
 import { useBookingTimer } from '../hooks/useBookingTimer';
 import { MOCK_SNACKS } from './data/snacks.data';
@@ -10,9 +11,11 @@ import { SnackCategoryTabs } from './components/SnackCategoryTabs/SnackCategoryT
 import { SnackCard } from './components/SnackCard/SnackCard';
 import { PickupMethodSelector } from './components/PickupMethodSelector/PickupMethodSelector';
 import { SnackOrderSummary } from './components/SnackOrderSummary/SnackOrderSummary';
+import { MobileStickySnackBottomBar } from './components/MobileStickySnackBottomBar/MobileStickySnackBottomBar';
 import * as S from './SnacksServicesPage.styles';
 
 export const SnacksServicesPage: FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { state, updateSnackQuantity } = useBooking();
 
@@ -72,7 +75,7 @@ export const SnacksServicesPage: FC = () => {
               onClick={handleNavigateShowtimes}
             >
               <div className="step-num">✓</div>
-              <span>1. Suất chiếu</span>
+              <span>{t('booking:step_showtime')}</span>
             </div>
             <span className="step-arrow">&gt;</span>
 
@@ -81,25 +84,25 @@ export const SnacksServicesPage: FC = () => {
               onClick={handleNavigateSeats}
             >
               <div className="step-num">✓</div>
-              <span>2. Chọn ghế</span>
+              <span>{t('booking:step_seats')}</span>
             </div>
             <span className="step-arrow">&gt;</span>
 
             <div className="step-item active">
               <div className="step-num">3</div>
-              <span>3. Bắp nước & Combo</span>
+              <span>{t('booking:step_snacks')}</span>
             </div>
             <span className="step-arrow">&gt;</span>
 
             <div className="step-item">
               <div className="step-num">4</div>
-              <span>4. Thanh toán</span>
+              <span>{t('booking:step_checkout')}</span>
             </div>
           </S.StepperRow>
 
           <S.TimerBadge>
             <Clock size={14} />
-            <span>THỜI GIAN GIỮ VÉ: {formattedTime}</span>
+            <span>{t('booking:holding_time_badge', { time: formattedTime })}</span>
           </S.TimerBadge>
         </S.TopBar>
 
@@ -142,6 +145,9 @@ export const SnacksServicesPage: FC = () => {
           />
         </S.MainGrid>
       </S.InnerWrapper>
+
+      {/* Mobile Sticky Floating Continue Bar */}
+      <MobileStickySnackBottomBar onContinue={handleContinue} />
     </S.PageContainer>
   );
 };

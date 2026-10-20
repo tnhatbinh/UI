@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Sparkles } from 'lucide-react';
 import CinemaNoirShell from '../components/CinemaNoirShell';
 import { ChangePasswordCard } from './components/ChangePasswordCard';
@@ -9,6 +10,7 @@ import { DangerZoneCard } from './components/DangerZoneCard';
 import * as S from './SecurityPage.styles';
 
 export default function SecurityPage() {
+  const { t } = useTranslation();
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
@@ -17,7 +19,7 @@ export default function SecurityPage() {
   };
 
   return (
-    <CinemaNoirShell pageTitle="Bảo mật & Mật khẩu">
+    <CinemaNoirShell pageTitle={t('profile:security_title')}>
       <S.SecurityGrid>
         {/* Left Column: Password update & Active Sessions */}
         <S.LeftColumn>

@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { SnackProduct } from '../../data/snacks.data';
 import * as S from './SnackCard.styles';
 
@@ -13,6 +14,8 @@ export const SnackCard: FC<SnackCardProps> = ({
   quantity,
   onUpdateQuantity,
 }) => {
+  const { t } = useTranslation();
+
   const handleDecreaseQuantity = () => {
     onUpdateQuantity(-1);
   };
@@ -56,7 +59,9 @@ export const SnackCard: FC<SnackCardProps> = ({
         <div className="note-text">
           {snack.stockNote ||
             snack.perkNote ||
-            (quantity > 0 ? '✓ Đã thêm vào giỏ' : 'Chọn số lượng')}
+            (quantity > 0
+              ? t('booking:snack_added_hint')
+              : t('booking:snack_select_qty'))}
         </div>
 
         {quantity > 0 ? (
@@ -83,7 +88,7 @@ export const SnackCard: FC<SnackCardProps> = ({
             className="add-btn"
             onClick={handleIncreaseQuantity}
           >
-            + Thêm
+            {t('booking:snack_add_btn')}
           </button>
         )}
       </div>

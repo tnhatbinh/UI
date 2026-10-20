@@ -1,5 +1,8 @@
 import type { ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
+import { getProfileApi } from '@features/auth/api/auth.api';
 import {
   User,
   Shield,
@@ -16,7 +19,6 @@ import {
   Tag,
   Star,
 } from 'lucide-react';
-import { message } from 'antd';
 import * as S from './CinemaNoirShell.styles';
 
 interface CinemaNoirShellProps {
@@ -24,45 +26,55 @@ interface CinemaNoirShellProps {
   pageTitle: string;
 }
 
-const TABS = [
-  {
-    id: 'personal-info',
-    label: 'Thông tin cá nhân',
-    path: '/profile/personal-info',
-    icon: User,
-  },
-  {
-    id: 'security',
-    label: 'Bảo mật & Mật khẩu',
-    path: '/profile/security',
-    icon: Shield,
-  },
-  {
-    id: 'PaymentMethods',
-    label: 'Phương thức thanh toán',
-    path: '/profile/payment-methods',
-    icon: CreditCard,
-  },
-  {
-    id: 'cinematic-taste',
-    label: 'Khẩu vị điện ảnh',
-    path: '/profile/cinematic-taste',
-    icon: Film,
-  },
-  {
-    id: 'notification-settings',
-    label: 'Cài đặt thông báo & Ưu đãi',
-    path: '/profile/notification-settings',
-    icon: Bell,
-  },
-];
+
+
 
 export default function CinemaNoirShell({
   children,
   pageTitle,
 }: CinemaNoirShellProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const tabs = [
+    {
+      id: 'personal-info',
+      label: t('sidebar:nav_personal_info'),
+      path: '/profile/personal-info',
+      icon: User,
+    },
+    {
+      id: 'security',
+      label: t('sidebar:nav_security'),
+      path: '/profile/security',
+      icon: Shield,
+    },
+    {
+      id: 'PaymentMethods',
+      label: t('sidebar:nav_payment_methods'),
+      path: '/profile/payment-methods',
+      icon: CreditCard,
+    },
+    {
+      id: 'cinematic-taste',
+      label: t('sidebar:nav_taste'),
+      path: '/profile/cinematic-taste',
+      icon: Film,
+    },
+    {
+      id: 'notification-settings',
+      label: t('sidebar:nav_notif_settings'),
+      path: '/profile/notification-settings',
+      icon: Bell,
+    },
+  ];
+
+  const { data: profile } = useQuery({
+    queryKey: ['user-profile'],
+    queryFn: getProfileApi,
+    staleTime: 60000,
+  });
 
   const handleNavigateHome = () => {
     navigate('/');
@@ -72,13 +84,19 @@ export default function CinemaNoirShell({
     navigate('/profile/vip-elite');
   };
 
-  const handleAvatarAlert = () => {
-    message.info('Vui lòng tải lên ảnh chân dung định dạng JPG/PNG tối đa 5MB.');
-  };
+  const handleAvatarAlert = () => {};
 
   const handleTabClick = (path: string) => () => {
     navigate(path);
   };
+
+  const displayName = profile?.fullName || t('profile:default_username');
+  const displayEmail = profile?.email || 'user@phimbook.vn';
+  const displayPhone = profile?.phone || t('profile:not_updated');
+  const tier = profile?.membershipTier || 'VIP_ELITE';
+  const points = profile?.totalPoints ?? 100;
+  const moviesCount = profile?.moviesWatchedCount ?? 0;
+  const theatersCount = profile?.theatersVisitedCount ?? 0;
 
   return (
     <S.ShellContainer>
@@ -86,11 +104,11 @@ export default function CinemaNoirShell({
         {/* Breadcrumb Navigation */}
         <S.BreadcrumbNav>
           <span className="link" onClick={handleNavigateHome}>
-            Trang chủ
+            {t('sidebar:nav_home')}
           </span>
           <span className="separator">&gt;</span>
           <span className="link" onClick={handleNavigateVipElite}>
-            Tài khoản
+            {t('sidebar:group_profile')}
           </span>
           <span className="separator">&gt;</span>
           <span className="current">{pageTitle}</span>
@@ -103,33 +121,40 @@ export default function CinemaNoirShell({
             <div className="user-profile-left">
               <div className="avatar-wrapper">
                 <img
-                  src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80"
-                  alt="Nguyễn Thanh Tùng"
+                  src={
+                    profile?.avatarUrl ||
+                    'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80'
+                  }
+                  alt={displayName}
                 />
-                <span className="vip-tag">VIP ELITE</span>
+                <span className="vip-tag">{tier.replace('_', ' ')}</span>
               </div>
 
               <div className="user-meta">
                 <div className="name-row">
-                  <h2>Nguyễn Thanh Tùng</h2>
+                  <h2>{displayName}</h2>
                   <span className="verified-badge">
                     <CheckCircle size={11} />
-                    <span>Đã xác thực danh tính</span>
+                    <span>{t('profile:account_verified')}</span>
                   </span>
                 </div>
 
                 <div className="contact-row">
                   <span className="item">
                     <Mail size={12} />
-                    tung.nguyen@gmail.com
+                    {displayEmail}
                   </span>
                   <span className="item">
                     <Phone size={12} />
-                    0988 123 456
+                    {displayPhone}
                   </span>
                   <span className="item">
                     <Calendar size={12} />
-                    Thành viên từ 04/2021
+                    {profile?.birthDate
+                      ? t('profile:birthday_label', {
+                          date: profile.birthDate.split('T')[0],
+                        })
+                      : t('profile:member_phimbook')}
                   </span>
                 </div>
 
@@ -139,7 +164,7 @@ export default function CinemaNoirShell({
                     onClick={handleAvatarAlert}
                   >
                     <Camera size={12} />
-                    <span>Chỉnh sửa ảnh đại diện</span>
+                    <span>{t('profile:edit_avatar')}</span>
                   </button>
 
                   <button
@@ -147,7 +172,7 @@ export default function CinemaNoirShell({
                     onClick={handleNavigateVipElite}
                   >
                     <Crown size={12} />
-                    <span>Nâng cấp Diamond Member</span>
+                    <span>{t('profile:upgrade_diamond')}</span>
                   </button>
                 </div>
               </div>
@@ -155,11 +180,17 @@ export default function CinemaNoirShell({
 
             {/* Right side: Diamond Progress Gauge */}
             <div className="diamond-progress-box">
-              <div className="circular-chart">75%</div>
+              <div className="circular-chart">{Math.min(100, Math.round((points / 500) * 100))}%</div>
               <div className="text">
-                <span className="label">HẠNG TÍCH LŨY 2025</span>
-                <span className="title">12/16 Vé nữa tới Diamond</span>
-                <span className="sub">Hưởng ưu đãi phòng chờ riêng Lounge</span>
+                <span className="label">{t('profile:tier_label')}</span>
+                <span className="title">
+                  {points >= 500
+                    ? t('profile:vip_reached')
+                    : t('profile:points_to_vip', {
+                        points: Math.max(0, 500 - points),
+                      })}
+                </span>
+                <span className="sub">{t('profile:vip_privilege_note')}</span>
               </div>
             </div>
           </div>
@@ -171,8 +202,8 @@ export default function CinemaNoirShell({
                 <Film size={18} />
               </div>
               <div className="info">
-                <span className="val">48</span>
-                <span className="lbl">Phim đã xem</span>
+                <span className="val">{moviesCount}</span>
+                <span className="lbl">{t('profile:movies_watched')}</span>
               </div>
             </div>
 
@@ -181,8 +212,8 @@ export default function CinemaNoirShell({
                 <MapPin size={18} />
               </div>
               <div className="info">
-                <span className="val">12</span>
-                <span className="lbl">Cụm rạp đã ghé</span>
+                <span className="val">{theatersCount}</span>
+                <span className="lbl">{t('profile:theaters_visited')}</span>
               </div>
             </div>
 
@@ -191,8 +222,8 @@ export default function CinemaNoirShell({
                 <Tag size={18} />
               </div>
               <div className="info">
-                <span className="val">1.450.000đ</span>
-                <span className="lbl">Tiết kiệm năm nay</span>
+                <span className="val">{(points * 1000).toLocaleString('vi-VN')}đ</span>
+                <span className="lbl">{t('profile:reward_value')}</span>
               </div>
             </div>
 
@@ -201,8 +232,8 @@ export default function CinemaNoirShell({
                 <Star size={18} />
               </div>
               <div className="info">
-                <span className="val">1.250</span>
-                <span className="lbl">PhimPoints tích luỹ</span>
+                <span className="val">{points.toLocaleString('vi-VN')}</span>
+                <span className="lbl">{t('profile:accumulated_points')}</span>
               </div>
             </div>
           </div>
@@ -210,7 +241,7 @@ export default function CinemaNoirShell({
 
         {/* Horizontal Navigation Tab Bar */}
         <S.TabsNavBar>
-          {TABS.map((tab) => {
+          {tabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = location.pathname === tab.path;
             return (

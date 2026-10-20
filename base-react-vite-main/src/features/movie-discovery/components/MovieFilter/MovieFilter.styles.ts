@@ -11,7 +11,7 @@ export const SectionContainer = styled.section`
   max-width: var(--content-max-width, 1280px);
   margin: 0 auto;
   min-height: 190px;
-  z-index: 3;
+  z-index: 30;
   position: relative;
 
   @media ${media.md} {
@@ -201,6 +201,8 @@ export const GlassFilterBar = styled.div`
     0px 20px 25px -5px rgba(0, 0, 0, 0.1),
     0px 8px 10px -6px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  z-index: 10;
 
   @media ${media.lg} {
     flex-direction: column;
@@ -227,13 +229,15 @@ export const FilterItemsContainer = styled.div`
   }
 `;
 
-export const FilterItem = styled.div`
+export const FilterItem = styled.div<{ $isOpen?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
   width: 100%;
   min-width: 0;
+  position: relative;
+  z-index: ${({ $isOpen }) => ($isOpen ? 50 : 1)};
 `;
 
 export const FilterLabel = styled.span`
@@ -248,9 +252,10 @@ export const FilterLabel = styled.span`
   white-space: nowrap;
 `;
 
-export const FilterSelectWrapper = styled.div`
+export const FilterSelectWrapper = styled.div<{ $isOpen?: boolean }>`
   position: relative;
   width: 100%;
+  z-index: ${({ $isOpen }) => ($isOpen ? 50 : 1)};
 `;
 
 export const FilterSelectBox = styled.button<{ $isOpen?: boolean }>`
@@ -298,22 +303,22 @@ export const FilterChevron = styled.div<{ $isOpen?: boolean }>`
   transform: ${({ $isOpen }) => ($isOpen ? 'rotate(180deg)' : 'rotate(0deg)')};
 `;
 
-export const CustomDropdownMenu = styled.div`
+export const CustomDropdownMenu = styled.div<{ $alignRight?: boolean }>`
   position: absolute;
   top: calc(100% + 6px);
-  left: 0;
+  ${({ $alignRight }) => ($alignRight ? 'right: 0;' : 'left: 0;')}
   width: 100%;
-  min-width: min(160px, 100%);
-  max-height: 240px;
+  min-width: 180px;
+  max-height: 260px;
   overflow-y: auto;
   background: rgba(28, 27, 28, 0.98);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 8px;
-  box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 16px 36px rgba(0, 0, 0, 0.8), 0px 4px 12px rgba(0, 0, 0, 0.5);
   padding: 4px;
-  z-index: 30;
+  z-index: 100;
   display: flex;
   flex-direction: column;
   gap: 2px;

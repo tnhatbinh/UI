@@ -1,5 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import { RefreshCw, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { getCineMatchAiApi } from '@features/auth/api/auth.api';
 import * as S from './AiTasteSection.styles';
 
 interface AiTasteSectionProps {
@@ -7,15 +10,35 @@ interface AiTasteSectionProps {
 }
 
 export function AiTasteSection({ onRefresh }: AiTasteSectionProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
+  const { data: tasteData, refetch } = useQuery({
+    queryKey: ['cine-match-ai'],
+    queryFn: getCineMatchAiApi,
+    staleTime: 60000,
+  });
+
+  const handleRefresh = () => {
+    refetch();
+    onRefresh();
+  };
+
   const handleNavigateMovieDetails = () => {
-    navigate('/movie-details');
+    navigate('/phim/dune-phan-hai');
   };
 
   const handleNavigateTaste = () => {
     navigate('/profile/cinematic-taste');
   };
+
+  const matchRate = tasteData?.tasteMatchRate
+    ? Math.round(tasteData.tasteMatchRate)
+    : 95;
+  const genres =
+    tasteData?.favoriteGenres && tasteData.favoriteGenres.length > 0
+      ? tasteData.favoriteGenres
+      : ['Khoa học viễn tưởng (Sci-fi)', 'Hành động bom tấn', 'Tâm lý giật gân', 'Phim tài liệu IMAX'];
 
   return (
     <S.SectionCard>
@@ -24,26 +47,30 @@ export function AiTasteSection({ onRefresh }: AiTasteSectionProps) {
           <div className="icon-wrap">
             <Sparkles size={18} />
           </div>
-          <h3>AI Trợ Lý & Gu Điện Ảnh Của Bạn</h3>
-          <span className="tag-pill">CÁ NHÂN HÓA</span>
+          <h3>{t('profile:ai_taste_title')}</h3>
+          <span className="tag-pill">{t('profile:tag_personalized')}</span>
         </div>
-        <RefreshCw size={15} className="refresh-btn" onClick={onRefresh} />
+        <RefreshCw size={15} className="refresh-btn" onClick={handleRefresh} />
       </div>
 
       <S.AiInsightBox>
         <div className="gauge-circle">
-          <span className="percent">94%</span>
-          <span className="sub">ĐỘ HỢP GU</span>
+          <span className="percent">{matchRate}%</span>
+          <span className="sub">{t('profile:taste_match_rate')}</span>
         </div>
         <div className="text-content">
-          <span className="ai-badge">✨ Nhận định từ CineAI Brain:</span>
+          <span className="ai-badge">{t('profile:ai_brain_insight')}</span>
           <p className="desc">
-            Bạn là tín đồ cuồng nhiệt của các thước phim kỹ xảo vĩ mô và chiều
-            sâu tâm lý đa tầng. 82% vé đặt trong 6 tháng qua thuộc các suất
-            chiếu màn chiếu khổng lồ đêm muộn.
+            {t('profile:ai_brain_desc')}
+            {tasteData?.favoriteDirectors && tasteData.favoriteDirectors.length > 0 && (
+              <span> {t('profile:favorite_directors_label')} {tasteData.favoriteDirectors.join(', ')}.</span>
+            )}
+            {tasteData?.favoriteActors && tasteData.favoriteActors.length > 0 && (
+              <span> {t('profile:favorite_actors_label')} {tasteData.favoriteActors.join(', ')}.</span>
+            )}
           </p>
           <span className="recommend">
-            Gợi ý tác phẩm hot tuần này:{' '}
+            {t('profile:recommend_weekly_hot')}{' '}
             <strong onClick={handleNavigateMovieDetails}>
               Dune: Part Two (IMAX Re-run) ↗
             </strong>
@@ -55,22 +82,23 @@ export function AiTasteSection({ onRefresh }: AiTasteSectionProps) {
         {/* Passion Genres */}
         <div className="sub-block">
           <div className="block-header">
-            <span className="title">THỂ LOẠI SAY MÊ</span>
-            <span className="badge">4 thể loại chính</span>
+            <span className="title">{t('profile:passion_genres_title')}</span>
+            <span className="badge">{t('profile:main_genres_badge', { count: genres.length })}</span>
           </div>
           <div className="tags-wrap">
-            <span className="tag highlight">Khoa học viễn tưởng (Sci-fi)</span>
-            <span className="tag">Tâm lý giật gân</span>
-            <span className="tag highlight">Hành động bom tấn</span>
-            <span className="tag">Phim tài liệu IMAX</span>
+            {genres.map((g, idx) => (
+              <span key={g} className={`tag ${idx % 2 === 0 ? 'highlight' : ''}`}>
+                {g}
+              </span>
+            ))}
           </div>
         </div>
 
         {/* Priority Format */}
         <div className="sub-block">
           <div className="block-header">
-            <span className="title">ĐỊNH DẠNG RẠP ƯU TIÊN</span>
-            <span className="badge">Tự động chọn phòng</span>
+            <span className="title">{t('profile:priority_format_title')}</span>
+            <span className="badge">{t('profile:auto_select_auditorium')}</span>
           </div>
           <div className="tags-wrap">
             <span className="tag highlight">🎟 IMAX with Laser</span>
@@ -84,9 +112,9 @@ export function AiTasteSection({ onRefresh }: AiTasteSectionProps) {
         {/* Frequently visited cinemas */}
         <div className="sub-block">
           <div className="block-header">
-            <span className="title">RẠP QUEN THUỘC (ƯU TIÊN LỊCH)</span>
+            <span className="title">{t('profile:familiar_cinemas_title')}</span>
             <span className="badge action" onClick={handleNavigateTaste}>
-              Thêm rạp
+              {t('profile:add_cinema_link')}
             </span>
           </div>
           <S.CinemaFavsList>
@@ -95,15 +123,15 @@ export function AiTasteSection({ onRefresh }: AiTasteSectionProps) {
                 <span className="dot" />
                 PhimBook Lounge Landmark 81
               </span>
-              <span className="tag">Rạp thân quen #1</span>
+              <span className="tag">{t('profile:favorite_cinema_1')}</span>
             </div>
             <div className="item">
               <span className="name">CGV Vincom Đồng Khởi</span>
-              <span className="dist">Cách 3.2 km</span>
+              <span className="dist">{t('profile:distance_km', { dist: '3.2' })}</span>
             </div>
             <div className="item">
               <span className="name">Galaxy Sala Thủ Thiêm</span>
-              <span className="dist">Cách 4.8 km</span>
+              <span className="dist">{t('profile:distance_km', { dist: '4.8' })}</span>
             </div>
           </S.CinemaFavsList>
         </div>
@@ -111,8 +139,8 @@ export function AiTasteSection({ onRefresh }: AiTasteSectionProps) {
         {/* Preferred Seating Area */}
         <div className="sub-block">
           <div className="block-header">
-            <span className="title">KHU VỰC GHẾ HOÀN HẢO</span>
-            <span className="badge gold">Hàng F, G, H (7 - 10)</span>
+            <span className="title">{t('profile:perfect_seating_title')}</span>
+            <span className="badge gold">{t('profile:center_seats_badge')}</span>
           </div>
 
           <S.SeatVisualizerBox>
@@ -144,8 +172,7 @@ export function AiTasteSection({ onRefresh }: AiTasteSectionProps) {
               </div>
             </div>
             <span className="SeatLegend">
-              Hệ thống tự động khóa giữ ghế trung tâm tối ưu tầm nhìn mắt khi
-              bạn mở trang đặt vé.
+              {t('profile:seat_visualizer_legend')}
             </span>
           </S.SeatVisualizerBox>
         </div>

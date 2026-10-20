@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Ticket,
   Clock,
@@ -9,24 +10,42 @@ import {
   Share2,
 } from 'lucide-react';
 import type { ActiveTicketData } from '../../data/active-ticket.data';
+import { getTicketQrUrl } from '@features/booking/api/booking.api';
 import * as S from './ActiveTicket.styles';
 
 interface ActiveTicketProps {
   ticket: ActiveTicketData;
   onToast: (msg: string) => void;
+  onCheckIn?: () => void;
+  onRefund?: () => void;
 }
 
-export function ActiveTicket({ ticket, onToast }: ActiveTicketProps) {
-  const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(
-    ticket.qrCodeValue || 'PBK-8849204',
+export function ActiveTicket({
+  ticket,
+  onToast,
+  onCheckIn,
+  onRefund,
+}: ActiveTicketProps) {
+  const qrCodeStr =
+    ticket.qrCodeValue ||
+    ticket.orderCode ||
+    ticket.orderId?.replace('#', '').trim() ||
+    'PBK-8849204';
+
+  const backendQrUrl = getTicketQrUrl(qrCodeStr);
+  const fallbackQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(
+    qrCodeStr,
   )}&color=0d0c0f&bgcolor=ffffff`;
+
+  const [qrSrc, setQrSrc] = useState(backendQrUrl);
 
   const handleAddToWallet = () => {
     onToast('Đã thêm vé vào Apple / Google Wallet thành công!');
   };
 
   const handleDownloadPdf = () => {
-    onToast('Đang tạo và tải file vé điện tử PDF độ phân giải cao...');
+    onToast('Đang mở mã QR vé chuẩn mã hóa từ hệ thống PhimBook...');
+    window.open(backendQrUrl, '_blank');
   };
 
   const handleShareTicket = () => {
@@ -34,9 +53,21 @@ export function ActiveTicket({ ticket, onToast }: ActiveTicketProps) {
   };
 
   const handleRequestRefund = () => {
-    onToast(
-      'Hệ thống đã ghi nhận yêu cầu đổi/hoàn vé. Hotline sẽ liên hệ trong 5 phút.',
-    );
+    if (onRefund) {
+      onRefund();
+    } else {
+      onToast(
+        'Hệ thống đã ghi nhận yêu cầu đổi/hoàn vé. Hotline sẽ liên hệ trong 5 phút.',
+      );
+    }
+  };
+
+  const handleSimulateCheckIn = () => {
+    if (onCheckIn) {
+      onCheckIn();
+    } else {
+      onToast('Đã mô phỏng quét mã vào cửa thành công!');
+    }
   };
 
   return (
@@ -163,14 +194,28 @@ export function ActiveTicket({ ticket, onToast }: ActiveTicketProps) {
             <span className="code-str">{ticket.qrCodeValue}</span>
           </div>
 
-          <div className="qr-box">
-            <img src={qrImageUrl} alt="QR Code Soát Vé" />
+          <div
+            className="qr-box"
+            style={{ cursor: 'pointer' }}
+            onClick={handleSimulateCheckIn}
+            title="Nhấn để mô phỏng quét mã vào rạp Fast-Track"
+          >
+            <img
+              src={qrSrc}
+              onError={() => setQrSrc(fallbackQrUrl)}
+              alt="QR Code Soát Vé"
+            />
           </div>
 
           <div className="qr-note">
-            <span className="direct-tag">
+            <span
+              className="direct-tag"
+              style={{ cursor: 'pointer' }}
+              onClick={handleSimulateCheckIn}
+              title="Nhấn để quét mã soát vé tại cổng"
+            >
               <CheckCircle2 size={13} />
-              <span>Quét trực tiếp tại cửa</span>
+              <span>Quét trực tiếp tại cửa (Bấm thử)</span>
             </span>
             <span className="instructions">
               Đưa mã QR này cho nhân viên soát vé tại cửa phòng chiếu để vào rạp

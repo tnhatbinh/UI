@@ -1,113 +1,169 @@
-import { Fragment, type FC } from 'react';
-import { MoveHorizontal, Heart } from 'lucide-react';
+import { Fragment, useMemo, type FC } from 'react';
+import { useTranslation } from 'react-i18next';
+import { MoveHorizontal } from 'lucide-react';
 import { useBooking } from '../../../context/useBooking';
-import {
-  SEAT_ROWS,
-  SEAT_CLUSTERS,
-  SWEETBOX_PAIRS,
-  SOLD_SEATS,
-  SOLD_SWEETBOX,
-  getSeatType,
-} from '../../data/seat-matrix.data';
+import type { SeatDto } from '@shared/types/api.types';
 import * as S from './SeatGrid.styles';
 
 interface SeatGridProps {
-  onSeatClick: (row: string, number: number) => void;
-  onSweetboxClick: (id: string, number: number) => void;
+  seats?: SeatDto[];
+  isLoading?: boolean;
+  onSeatClick: (seat: SeatDto) => void;
 }
 
 export const SeatGrid: FC<SeatGridProps> = ({
+  seats = [],
+  isLoading = false,
   onSeatClick,
-  onSweetboxClick,
 }) => {
+  const { t } = useTranslation();
   const { state } = useBooking();
 
-  const handleSeatClick = (row: string, number: number) => () => {
-    onSeatClick(row, number);
+  // Group seats by row label (A, B, C, ...)
+  const rows = useMemo(() => {
+    if (!seats || seats.length === 0) return [];
+
+    const rowMap = new Map<string, SeatDto[]>();
+    for (const seat of seats) {
+      const row = seat.seatRow || seat.rowLabel || 'A';
+      if (!rowMap.has(row)) {
+        rowMap.set(row, []);
+      }
+      rowMap.get(row)!.push(seat);
+    }
+
+    // Sort rows alphabetically (A -> Z)
+    const sortedRowKeys = Array.from(rowMap.keys()).sort();
+    return sortedRowKeys.map((rowKey) => {
+      const rowSeats = rowMap.get(rowKey)!;
+      // Sort seats within each row by seatNumber ascending (1 -> N)
+      rowSeats.sort((a, b) => a.seatNumber - b.seatNumber);
+      return {
+        row: rowKey,
+        seats: rowSeats,
+      };
+    });
+  }, [seats]);
+
+  // Divide seats into 3 visual clusters separated by cinema aisles
+  const clusterSeats = (rowSeats: SeatDto[]): SeatDto[][] => {
+    const total = rowSeats.length;
+    if (total <= 6) return [rowSeats];
+    if (total <= 12) {
+      const c1 = Math.floor(total / 3);
+      const c2 = Math.floor(total / 3);
+      return [
+        rowSeats.slice(0, c1),
+        rowSeats.slice(c1, c1 + c2),
+        rowSeats.slice(c1 + c2),
+      ];
+    }
+    // E.g. 15 seats -> 5 - 5 - 5
+    const left = Math.ceil(total / 3);
+    const center = Math.round(total / 3);
+    return [
+      rowSeats.slice(0, left),
+      rowSeats.slice(left, left + center),
+      rowSeats.slice(left + center),
+    ];
   };
 
-  const handleSweetboxClick = (id: string, number: number) => () => {
-    onSweetboxClick(id, number);
-  };
+  if (isLoading) {
+    return (
+      <S.SeatMapGrid>
+        <S.SeatMapInner style={{ padding: '60px 0', textAlign: 'center' }}>
+          <div style={{ color: '#ffb955', fontSize: '13px', fontWeight: 600 }}>
+            {t('booking:loading_seatmap')}
+          </div>
+        </S.SeatMapInner>
+      </S.SeatMapGrid>
+    );
+  }
 
   return (
     <>
       <S.MobileScrollHint>
         <MoveHorizontal size={14} />
-        <span>Vuốt ngang để xem toàn bộ rạp</span>
+        <span>{t('booking:scroll_hint')}</span>
       </S.MobileScrollHint>
 
       <S.SeatMapGrid>
         <S.SeatMapInner>
-          {/* Standard & VIP Rows (A -> H) */}
-          {SEAT_ROWS.map((row) => (
-            <S.SeatRow key={row}>
-              <span className="row-label">{row}</span>
+          {rows.map(({ row, seats: rowSeats }) => {
+            const clusters = clusterSeats(rowSeats);
 
-              {SEAT_CLUSTERS.map((cluster, clusterIdx) => (
-                <Fragment key={clusterIdx}>
-                  <div className="seats-cluster">
-                    {cluster.map((num) => {
-                      const id = `${row}${num}`;
-                      const isSold = SOLD_SEATS.has(id);
-                      const isSelected = state.selectedSeats.some(
-                        (s) => s.id === id,
-                      );
-                      const type = getSeatType(row);
+            return (
+              <S.SeatRow key={row}>
+                <span className="row-label">{row}</span>
 
-                      return (
-                        <S.SeatBox
-                          key={id}
-                          $type={type}
-                          $isSelected={isSelected}
-                          $isSold={isSold}
-                          disabled={isSold}
-                          onClick={handleSeatClick(row, num)}
-                          title={`${id} - ${type.toUpperCase()}`}
-                        >
-                          {isSold ? '✕' : num}
-                        </S.SeatBox>
-                      );
-                    })}
-                  </div>
+                {clusters.map((cluster, clusterIdx) => (
+                  <Fragment key={clusterIdx}>
+                    <div className="seats-cluster">
+                      {cluster.map((seat) => {
+                        const seatLabel =
+                          seat.seatLabel || `${row}${seat.seatNumber}`;
+                        const isSold =
+                          seat.status === 'BOOKED' ||
+                          (seat.status === 'LOCKED' &&
+                            !seat.isLockedByCurrentUser);
 
-                  {clusterIdx < SEAT_CLUSTERS.length - 1 && (
-                    <div className="aisle-gap" />
-                  )}
-                </Fragment>
-              ))}
+                        const isSelected =
+                          state.selectedSeats.some(
+                            (s) =>
+                              s.id === seatLabel || s.seatId === seat.seatId,
+                          ) || Boolean(seat.isLockedByCurrentUser);
 
-              <span className="row-label">{row}</span>
-            </S.SeatRow>
-          ))}
+                        const normalizedType = (
+                          seat.seatType?.toLowerCase() || 'standard'
+                        ) as 'standard' | 'vip' | 'sweetbox';
 
-          {/* Row J - Couple Sweetbox */}
-          <S.SweetboxRow>
-            <span className="row-label">J</span>
-            <div className="sweetbox-cluster">
-              {SWEETBOX_PAIRS.map((pair) => {
-                const isSold = SOLD_SWEETBOX.has(pair.id);
-                const isSelected = state.selectedSeats.some(
-                  (s) => s.id === pair.id,
-                );
+                        const getDisplayContent = () => {
+                          if (seat.status === 'BOOKED') return '✕';
+                          if (
+                            seat.status === 'LOCKED' &&
+                            !seat.isLockedByCurrentUser
+                          )
+                            return '🔒';
+                          return seat.seatNumber;
+                        };
 
-                return (
-                  <S.SweetboxCouple
-                    key={pair.id}
-                    $isSelected={isSelected}
-                    $isSold={isSold}
-                    disabled={isSold}
-                    onClick={handleSweetboxClick(pair.id, pair.num)}
-                    title={`Sweetbox đôi ${pair.id}`}
-                  >
-                    <Heart size={10} fill={isSelected ? '#fff' : 'none'} />
-                    <span>{isSold ? 'Đã bán' : pair.id.replace('J', '')}</span>
-                  </S.SweetboxCouple>
-                );
-              })}
-            </div>
-            <span className="row-label">J</span>
-          </S.SweetboxRow>
+                        const getTooltip = () => {
+                          if (seat.status === 'BOOKED')
+                            return t('booking:seat_tooltip_booked', { seat: seatLabel });
+                          if (
+                            seat.status === 'LOCKED' &&
+                            !seat.isLockedByCurrentUser
+                          )
+                            return t('booking:seat_tooltip_locked', { seat: seatLabel });
+                          return `${seatLabel} • ${seat.seatType?.toUpperCase()} • ${seat.price.toLocaleString('vi-VN')}đ`;
+                        };
+
+                        return (
+                          <S.SeatBox
+                            key={seat.seatId || seatLabel}
+                            $type={normalizedType}
+                            $isSelected={isSelected}
+                            $isSold={isSold}
+                            disabled={isSold}
+                            onClick={() => !isSold && onSeatClick(seat)}
+                            title={getTooltip()}
+                          >
+                            {getDisplayContent()}
+                          </S.SeatBox>
+                        );
+                      })}
+                    </div>
+
+                    {clusterIdx < clusters.length - 1 && (
+                      <div className="aisle-gap" />
+                    )}
+                  </Fragment>
+                ))}
+
+                <span className="row-label">{row}</span>
+              </S.SeatRow>
+            );
+          })}
         </S.SeatMapInner>
       </S.SeatMapGrid>
     </>

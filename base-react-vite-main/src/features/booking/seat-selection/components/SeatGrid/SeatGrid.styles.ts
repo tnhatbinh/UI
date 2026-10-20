@@ -123,6 +123,18 @@ export const SeatBox = styled.button<{
         }
       `;
     }
+    if ($type === 'sweetbox') {
+      return `
+        background: rgba(255, 83, 90, 0.12);
+        border: 1px solid rgba(255, 83, 90, 0.45);
+        color: #ff9e9e;
+        &:hover {
+          background: rgba(255, 83, 90, 0.25);
+          border-color: #ff535a;
+          transform: scale(1.08);
+        }
+      `;
+    }
     return `
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.12);

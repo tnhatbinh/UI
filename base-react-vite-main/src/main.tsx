@@ -9,8 +9,8 @@ import App from './App.tsx';
 
 // Ant Design
 import { StyleProvider, px2remTransformer } from '@ant-design/cssinjs';
-import antdDefaultConfig from '@config/antDesign';
-import { App as AntdApp, ConfigProvider as AntdConfigProvider } from 'antd';
+import AntdLocaleProvider from '@config/AntdLocaleProvider';
+import { App as AntdApp } from 'antd';
 
 // React Query
 import queryClient from '@config/reactQuery/react-query';
@@ -35,7 +35,7 @@ const SHOW_NETWORK_DETECTOR = true;
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
-    <AntdConfigProvider {...antdDefaultConfig}>
+    <AntdLocaleProvider>
       <AntdApp>
         <StyleProvider transformers={[PX_2_REM]}>
           <ErrorBoundary>
@@ -43,7 +43,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           </ErrorBoundary>
         </StyleProvider>
       </AntdApp>
-    </AntdConfigProvider>
+    </AntdLocaleProvider>
 
     {/* React Query Devtools - chỉ hiện ở development */}
     <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />

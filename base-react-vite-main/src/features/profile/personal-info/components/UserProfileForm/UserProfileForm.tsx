@@ -1,5 +1,8 @@
 import type { FC, FormEvent } from 'react';
 import { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { getProfileApi, updateProfileApi } from '@features/auth/api/auth.api';
 import {
   User,
   Lock,
@@ -11,6 +14,7 @@ import {
   Film,
   ChevronDown,
   Check,
+  Loader2,
 } from 'lucide-react';
 import * as S from './UserProfileForm.styles';
 
@@ -29,18 +33,41 @@ interface UserProfileFormProps {
 export const UserProfileForm: FC<UserProfileFormProps> = ({
   onSaveSuccess,
 }) => {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+
+  const { data: profileData, isLoading: isFetchingProfile } = useQuery({
+    queryKey: ['user-profile'],
+    queryFn: getProfileApi,
+    staleTime: 60000,
+  });
+
   // Form states
-  const [fullName, setFullName] = useState('Nguyễn Thanh Tùng');
-  const [nickname, setNickname] = useState('Tùng Cine');
+  const [fullName, setFullName] = useState('Khách Hàng PhimBook');
+  const [nickname, setNickname] = useState('');
   const [dob, setDob] = useState('1995-08-18');
   const [gender, setGender] = useState<'male' | 'female' | 'other'>('male');
-  const [email, setEmail] = useState('tung.nguyen@gmail.com');
-  const [phone, setPhone] = useState('0988 123 456');
+  const [email, setEmail] = useState('user@phimbook.vn');
+  const [phone, setPhone] = useState('0912345678');
   const [city, setCity] = useState('TP. Hồ Chí Minh');
   const [favoriteCinema, setFavoriteCinema] = useState(
     'PhimBook IMAX Landmark 81',
   );
   const [activeDropdown, setActiveDropdown] = useState<'city' | 'cinema' | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+
+  // Sync profile data when fetched
+  useEffect(() => {
+    if (profileData) {
+      if (profileData.fullName) setFullName(profileData.fullName);
+      if (profileData.nickname) setNickname(profileData.nickname);
+      if (profileData.birthDate) {
+        setDob(profileData.birthDate.split('T')[0]);
+      }
+      if (profileData.email) setEmail(profileData.email);
+      if (profileData.phone) setPhone(profileData.phone);
+    }
+  }, [profileData]);
 
   const cityDropdownRef = useRef<HTMLDivElement>(null);
   const cinemaDropdownRef = useRef<HTMLDivElement>(null);
@@ -109,9 +136,28 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
     setActiveDropdown(null);
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    onSaveSuccess('Đã lưu cập nhật thông tin hồ sơ thành công!');
+    try {
+      setIsSaving(true);
+      await updateProfileApi({
+        fullName: fullName.trim(),
+        phone: phone.trim(),
+        birthDate: dob ? `${dob}T00:00:00.000Z` : undefined,
+        nickname: nickname.trim() || undefined,
+        favoriteTheaterId: 'd0000001-0000-0000-0000-000000000001',
+      });
+
+      // Update cached profile
+      localStorage.setItem('user_name', fullName.trim());
+      await queryClient.invalidateQueries({ queryKey: ['user-profile'] });
+
+      onSaveSuccess(t('profile:save_profile_success'));
+    } catch (error) {
+      console.error('Lỗi khi cập nhật hồ sơ:', error);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -120,11 +166,14 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
         <div className="title-group">
           <h3>
             <User size={18} color="#ff535a" />
-            <span>Hồ sơ người dùng</span>
+            <span>{t('profile:user_profile_title')}</span>
+            {isFetchingProfile && (
+              <Loader2 size={14} color="#8c8994" style={{ animation: 'spin 1s linear infinite' }} />
+            )}
           </h3>
           <span className="sub">
-            Thông tin được sử dụng cho việc xuất vé điện tử và quyền lợi quà
-            tặng thành viên.
+            {t('profile:user_profile_sub')}
+
           </span>
         </div>
       </div>
@@ -132,8 +181,8 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
       <S.FormRow>
         <S.FormGroup>
           <label>
-            <span>Họ và tên</span>
-            <span className="req">*Bắt buộc</span>
+            <span>{t('profile:full_name')}</span>
+            <span className="req">{t('profile:required_badge')}</span>
           </label>
           <div className="input-wrap">
             <User size={14} className="icon" />
@@ -147,7 +196,7 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
         </S.FormGroup>
 
         <S.FormGroup>
-          <label>Biệt danh hiển thị</label>
+          <label>{t('profile:nickname_label')}</label>
           <div className="input-wrap">
             <span className="icon">@</span>
             <input
@@ -162,7 +211,7 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
       <S.FormRow>
         <S.FormGroup>
           <label>
-            <span>Ngày sinh</span>
+            <span>{t('profile:dob_label')}</span>
             <Lock size={11} color="#ffb955" />
           </label>
           <div className="input-wrap">
@@ -174,40 +223,40 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
             />
           </div>
           <span className="helper-text">
-            🎁 Tặng ngay 02 vé xem phim 2D vào tuần lễ sinh nhật
+            {t('profile:birthday_gift_note')}
           </span>
         </S.FormGroup>
 
         <S.FormGroup>
-          <label>Giới tính</label>
+          <label>{t('profile:gender_label')}</label>
           <S.GenderRow>
             <button
               type="button"
               className={`gender-btn ${gender === 'male' ? 'active' : ''}`}
               onClick={handleSelectGender('male')}
             >
-              ♂ Nam
+              {t('profile:gender_male')}
             </button>
             <button
               type="button"
               className={`gender-btn ${gender === 'female' ? 'active' : ''}`}
               onClick={handleSelectGender('female')}
             >
-              ♀ Nữ
+              {t('profile:gender_female')}
             </button>
             <button
               type="button"
               className={`gender-btn ${gender === 'other' ? 'active' : ''}`}
               onClick={handleSelectGender('other')}
             >
-              Khác
+              {t('profile:gender_other')}
             </button>
           </S.GenderRow>
         </S.FormGroup>
       </S.FormRow>
 
       <S.FormGroup>
-        <label>Email tài khoản</label>
+        <label>{t('profile:email_label')}</label>
         <div className="input-wrap">
           <Mail size={14} className="icon" />
           <input
@@ -216,12 +265,12 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
             onChange={handleEmailChange}
             className="has-badge"
           />
-          <span className="status-badge verified">✓ Đã xác minh</span>
+          <span className="status-badge verified">{t('profile:verified_badge')}</span>
         </div>
       </S.FormGroup>
 
       <S.FormGroup>
-        <label>Số điện thoại nhận vé SMS / Zalo</label>
+        <label>{t('profile:phone_sms_label')}</label>
         <div className="input-wrap">
           <Phone size={14} className="icon" />
           <input
@@ -230,13 +279,13 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
             onChange={handlePhoneChange}
             className="has-badge"
           />
-          <span className="status-badge linked">Đã liên kết OTP</span>
+          <span className="status-badge linked">{t('profile:otp_linked_badge')}</span>
         </div>
       </S.FormGroup>
 
       <S.FormRow>
         <S.FormGroup>
-          <label>Thành phố </label>
+          <label>{t('profile:city_label')}</label>
           <div className="input-wrap" ref={cityDropdownRef}>
             <MapPin size={14} className="icon" />
             <S.SelectTrigger
@@ -271,7 +320,7 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
         </S.FormGroup>
 
         <S.FormGroup>
-          <label>Cụm rạp yêu thích nhất</label>
+          <label>{t('profile:fav_cinema_label')}</label>
           <div className="input-wrap" ref={cinemaDropdownRef}>
             <Film size={14} className="icon" />
             <S.SelectTrigger
@@ -311,10 +360,28 @@ export const UserProfileForm: FC<UserProfileFormProps> = ({
       <S.FormFooter>
         <div className="sync-note">
           <Sparkles size={14} color="#ffb955" />
-          <span>Dữ liệu đồng bộ tức thì trên app PhimBook</span>
+          <span>{t('profile:sync_note')}</span>
         </div>
-        <button type="submit" className="save-btn">
-          Lưu thay đổi
+        <button
+          type="submit"
+          className="save-btn"
+          disabled={isSaving}
+          style={{
+            opacity: isSaving ? 0.7 : 1,
+            cursor: isSaving ? 'not-allowed' : 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+          }}
+        >
+          {isSaving ? (
+            <>
+              <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} />
+              <span>{t('profile:saving_btn')}</span>
+            </>
+          ) : (
+            t('profile:save_changes_btn')
+          )}
         </button>
       </S.FormFooter>
     </S.Card>

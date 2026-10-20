@@ -48,8 +48,8 @@ export const handleRefreshToken = async (originalRequest: IOriginRequest) => {
     if (refreshToken) {
       axios
         .post(
-          `${import.meta.env.REACT_APP_SERVER_URL}/v1/auth/user/refresh_token`,
-          JSON.stringify({ refreshToken }),
+          `${import.meta.env.VITE_API_URL}/auth/refresh-token`,
+          { refreshToken },
           {
             headers: { 'Content-Type': 'application/json' },
           },

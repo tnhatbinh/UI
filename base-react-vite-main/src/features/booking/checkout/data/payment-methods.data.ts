@@ -44,10 +44,10 @@ export const PAYMENT_METHODS: PaymentMethodItemData[] = [
   },
   {
     id: 'phimpoints',
-    name: 'Ví PhimPoints / CinePass Elite',
-    vipBadge: 'VIP Balance',
-    desc: 'Số dư hiện tại: 1,250 Điểm (Tương đương 125.000đ)',
+    name: 'Quick-Pay 1-Chạm / Ví PhimPoints',
+    vipBadge: 'VIP Khuyên Dùng',
+    desc: 'Thanh toán tức thì không cần OTP cho đơn hàng dưới 500.000đ',
     brandClass: 'points',
-    rightTag: 'Đổi Điểm',
+    rightTag: '⚡ Tức thì',
   },
 ];

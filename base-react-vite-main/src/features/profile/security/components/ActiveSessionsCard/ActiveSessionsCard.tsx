@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Laptop, Power, Smartphone, Monitor } from 'lucide-react';
 import * as S from './ActiveSessionsCard.styles';
 
@@ -9,12 +10,14 @@ interface ActiveSessionsCardProps {
 export const ActiveSessionsCard: FC<ActiveSessionsCardProps> = ({
   onToast,
 }) => {
+  const { t } = useTranslation();
+
   const handleLogoutAllOther = () => {
-    onToast('Đã ngắt kết nối an toàn với 2 thiết bị khác!');
+    onToast(t('profile:toast_logout_others'));
   };
 
   const handleLogoutDevice = (deviceName: string) => () => {
-    onToast(`Đã đăng xuất ${deviceName}!`);
+    onToast(t('profile:toast_logout_dev', { name: deviceName }));
   };
 
   return (
@@ -23,10 +26,10 @@ export const ActiveSessionsCard: FC<ActiveSessionsCardProps> = ({
         <div className="title-left">
           <h3>
             <Laptop size={17} color="#ff535a" />
-            <span>Phiên đăng nhập & Thiết bị</span>
+            <span>{t('profile:active_sessions_title')}</span>
           </h3>
           <span className="sub">
-            3 thiết bị được nhận diện an toàn đang truy cập tài khoản
+            {t('profile:active_sessions_sub')}
           </span>
         </div>
         <button
@@ -35,7 +38,7 @@ export const ActiveSessionsCard: FC<ActiveSessionsCardProps> = ({
           onClick={handleLogoutAllOther}
         >
           <Power size={11} />
-          <span>Đăng xuất tất cả thiết bị khác</span>
+          <span>{t('profile:logout_all_others_btn')}</span>
         </button>
       </div>
 
@@ -49,16 +52,15 @@ export const ActiveSessionsCard: FC<ActiveSessionsCardProps> = ({
             <div className="info">
               <div className="name-row">
                 <span className="name">MacBook Pro 16" (macOS Sonoma)</span>
-                <span className="badge">Thiết bị này</span>
+                <span className="badge">{t('profile:current_device_badge')}</span>
               </div>
               <span className="meta">
-                Trình duyệt Chrome 124.0 • TP. Hồ Chí Minh, VN • IP:
-                115.79.208.***
+                {t('profile:device_macbook_sub')}
               </span>
             </div>
           </div>
           <div className="right-side">
-            <span className="online-badge">((•)) Online</span>
+            <span className="online-badge">{t('profile:online_badge')}</span>
           </div>
         </div>
 
@@ -74,8 +76,7 @@ export const ActiveSessionsCard: FC<ActiveSessionsCardProps> = ({
                 <span className="badge">PhimBook App iOS</span>
               </div>
               <span className="meta">
-                PhimBook Mobile App v4.2 • Quận 1, TP. HCM • Hoạt động 32 phút
-                trước
+                {t('profile:device_iphone_sub')}
               </span>
             </div>
           </div>
@@ -83,7 +84,7 @@ export const ActiveSessionsCard: FC<ActiveSessionsCardProps> = ({
             <button
               type="button"
               className="kill-btn"
-              title="Đăng xuất thiết bị này"
+              title={t('profile:logout_device_tooltip')}
               onClick={handleLogoutDevice('iPhone 15 Pro Max')}
             >
               <Power size={13} />
@@ -102,7 +103,7 @@ export const ActiveSessionsCard: FC<ActiveSessionsCardProps> = ({
                 <span className="name">Workstation Windows 11</span>
               </div>
               <span className="meta">
-                Cốc Cốc Browser • Wi-Fi Rạp Landmark 81 • Hôm qua, 19:42
+                {t('profile:device_windows_sub')}
               </span>
             </div>
           </div>
@@ -110,7 +111,7 @@ export const ActiveSessionsCard: FC<ActiveSessionsCardProps> = ({
             <button
               type="button"
               className="kill-btn"
-              title="Đăng xuất thiết bị này"
+              title={t('profile:logout_device_tooltip')}
               onClick={handleLogoutDevice('Workstation Windows 11')}
             >
               <Power size={13} />

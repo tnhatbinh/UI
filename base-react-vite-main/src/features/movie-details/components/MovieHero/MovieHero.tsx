@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Star,
   Clock,
@@ -27,12 +28,14 @@ export const MovieHero: FC<MovieHeroProps> = ({
   isBookmarked,
   onToggleBookmark,
 }) => {
+  const { t } = useTranslation();
+
   // Format release status/date cleanly for compact key facts strip (avoid wrapping or repetition)
   const formatReleaseDate = (dateStr: string) => {
     if (!dateStr) return '';
-    if (dateStr.includes('Đang khởi chiếu')) return 'Đang chiếu';
-    if (dateStr.includes('Tái chiếu')) return 'Tái chiếu';
-    if (dateStr.toLowerCase().includes('cuối tuần')) return 'Cuối tuần';
+    if (dateStr.includes('Đang khởi chiếu')) return t('movie:now_showing', 'Đang chiếu');
+    if (dateStr.includes('Tái chiếu')) return t('movie:re_releasing', 'Tái chiếu');
+    if (dateStr.toLowerCase().includes('cuối tuần')) return t('movie:weekend', 'Cuối tuần');
     return dateStr;
   };
 
@@ -41,7 +44,14 @@ export const MovieHero: FC<MovieHeroProps> = ({
       {/* Left Column: Poster & Key Facts */}
       <S.PosterColumn>
         <S.PosterWrapper>
-          <img src={movie.posterUrl} alt={movie.title} />
+          <img
+            src={movie.posterUrl}
+            alt={movie.title}
+            onError={(e) => {
+              (e.target as HTMLImageElement).src =
+                'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600&auto=format&fit=crop';
+            }}
+          />
           <div className="badge-imdb">
             <Star size={12} fill="#ffb955" />
             <span>{movie.rating} IMDb</span>
@@ -51,7 +61,7 @@ export const MovieHero: FC<MovieHeroProps> = ({
 
         <S.KeyFactsStrip>
           <div className="fact-item">
-            <span className="fact-label">Thời lượng</span>
+            <span className="fact-label">{t('movie:runtime')}</span>
             <span className="fact-value">
               <Clock size={12} className="gold" />
               <span>{movie.runtime}</span>
@@ -59,7 +69,7 @@ export const MovieHero: FC<MovieHeroProps> = ({
           </div>
           <div className="fact-divider" />
           <div className="fact-item">
-            <span className="fact-label">Khởi chiếu</span>
+            <span className="fact-label">{t('movie:release_date')}</span>
             <span className="fact-value" title={movie.releaseDate}>
               <Calendar size={12} className="gold" />
               <span>{formatReleaseDate(movie.releaseDate)}</span>
@@ -67,7 +77,7 @@ export const MovieHero: FC<MovieHeroProps> = ({
           </div>
           <div className="fact-divider" />
           <div className="fact-item">
-            <span className="fact-label">Định dạng</span>
+            <span className="fact-label">{t('movie:format')}</span>
             <span className="fact-value" title={movie.formatBadge}>
               <Film size={12} className="gold" />
               <span>{movie.formatBadge}</span>
@@ -86,7 +96,9 @@ export const MovieHero: FC<MovieHeroProps> = ({
                 idx === 0 ? 'gold' : idx === 1 ? 'red' : ''
               }`}
             >
-              {badge}
+              {badge === 'Đang khởi chiếu'
+                ? t('movie:now_showing', 'Đang chiếu')
+                : badge}
             </span>
           ))}
         </S.BadgesRow>
@@ -135,7 +147,7 @@ export const MovieHero: FC<MovieHeroProps> = ({
           </div>
 
           <div className="cast-group">
-            <span className="cast-title">Dàn diễn viên chủ chốt</span>
+            <span className="cast-title">{t('movie:key_cast')}</span>
             <div className="cast-members">
               {movie.cast.map((c) => (
                 <div key={c.name} className="cast-member">
@@ -157,21 +169,21 @@ export const MovieHero: FC<MovieHeroProps> = ({
               <Play size={16} fill="#ffffff" />
             </div>
             <div className="trailer-text">
-              <span className="main">Xem Trailer Full HD</span>
-              <span className="sub">Thời lượng 02:45 • Âm thanh 7.1</span>
+              <span className="main">{t('movie:trailer_btn')}</span>
+              <span className="sub">{t('movie:trailer_sub')}</span>
             </div>
           </button>
 
           <button type="button" className="book-now-btn" onClick={onBookNow}>
             <Ticket size={18} />
-            <span>Đặt Vé Ngay</span>
+            <span>{t('movie:book_now')}</span>
           </button>
 
           <button
             type="button"
             className={`bookmark-btn ${isBookmarked ? 'bookmarked' : ''}`}
             onClick={onToggleBookmark}
-            title="Lưu vào danh sách yêu thích"
+            title={t('movie:bookmark_tooltip')}
           >
             <Bookmark size={18} fill={isBookmarked ? '#ffb955' : 'none'} />
           </button>

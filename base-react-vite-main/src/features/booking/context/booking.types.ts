@@ -1,5 +1,6 @@
 export interface SeatItem {
   id: string; // e.g. "H8"
+  seatId?: string; // UUID from database
   row: string;
   number: number;
   type: 'standard' | 'vip' | 'sweetbox';
@@ -36,6 +37,7 @@ export interface BookingState {
     format: string;
   };
   session: {
+    showtimeId?: string;
     cinemaId: string;
     cinemaName: string;
     cinemaAddress: string;
@@ -56,4 +58,5 @@ export interface BookingState {
     isSendZalo: boolean;
   };
   paymentMethod: 'momo' | 'vnpay' | 'credit-card' | 'atm' | 'phimpoints';
+  lockToken?: string | null;
 }

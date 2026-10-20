@@ -96,8 +96,8 @@ const Header: FC<HeaderProps> = ({
             type="button"
             $isOpen={isSidebarOpen}
             onClick={onToggleSidebar}
-            title="Menu hệ thống (Sidebar)"
-            aria-label="Mở menu hệ thống"
+            title={t('header:sidebar_menu_title', 'Menu hệ thống')}
+            aria-label={t('header:sidebar_menu_aria', 'Mở menu hệ thống')}
           >
             <MenuIcon size={20} />
           </S.EdgeMenuTrigger>

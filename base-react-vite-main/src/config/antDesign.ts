@@ -1,7 +1,7 @@
 import type { ConfigProviderProps, ThemeConfig } from 'antd';
 import viVN from 'antd/locale/vi_VN';
 
-const palette = {
+export const palette = {
   bgPrimary: '#0B0B0C',
   borderPrimary: 'rgba(255, 255, 255, 0.12)',
   borderSecondary: 'rgba(255, 255, 255, 0.08)',
@@ -19,7 +19,7 @@ const palette = {
   warning: '#FFB955',
 } as const;
 
-const theme: ThemeConfig = {
+export const theme: ThemeConfig = {
   token: {
     colorPrimary: palette.primary,
     colorLink: palette.primary,

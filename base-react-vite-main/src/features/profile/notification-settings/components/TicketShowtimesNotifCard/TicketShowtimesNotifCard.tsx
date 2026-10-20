@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as S from './TicketShowtimesNotifCard.styles';
 
 export function TicketShowtimesNotifCard() {
+  const { t } = useTranslation();
   const [isNotify2hEnabled, setIsNotify2hEnabled] = useState(true);
   const [isNotify24hEnabled, setIsNotify24hEnabled] = useState(true);
   const [isNotifyEmergencyEnabled, setIsNotifyEmergencyEnabled] = useState(true);
@@ -28,11 +30,10 @@ export function TicketShowtimesNotifCard() {
       <div className="card-top">
         <div className="title-left">
           <h3>
-            <span>Lịch chiếu & Vé đã đặt</span>
+            <span>{t('profile:notif_tickets_showtimes_title')}</span>
           </h3>
           <span className="sub">
-            Đảm bảo trải nghiệm tới rạp trọn vẹn, không lỡ khung giờ vàng mở
-            màn.
+            {t('profile:notif_tickets_showtimes_sub')}
           </span>
         </div>
       </div>
@@ -46,12 +47,11 @@ export function TicketShowtimesNotifCard() {
           />
           <div className="text">
             <div className="title-line">
-              <span className="title">Nhắc lịch chiếu trước 2 giờ</span>
-              <span className="pill">KHUYÊN DÙNG</span>
+              <span className="title">{t('profile:notif_2h_title')}</span>
+              <span className="pill">{t('profile:recommended_pill')}</span>
             </div>
             <span className="desc">
-              Tự động đẩy thông báo kèm mã QR quét vé nhanh tại cổng và bản đồ
-              định vị chỉ đường tới sảnh rạp tương ứng.
+              {t('profile:notif_2h_full_desc')}
             </span>
           </div>
         </label>
@@ -64,11 +64,10 @@ export function TicketShowtimesNotifCard() {
           />
           <div className="text">
             <div className="title-line">
-              <span className="title">Nhắc lịch chiếu trước 24 giờ</span>
+              <span className="title">{t('profile:notif_24h_title')}</span>
             </div>
             <span className="desc">
-              Lời nhắc chuẩn bị lịch trình và thời gian đổi vé linh hoạt (nếu
-              cần đổi suất chiếu theo chính sách VIP).
+              {t('profile:notif_24h_desc')}
             </span>
           </div>
         </label>
@@ -82,12 +81,11 @@ export function TicketShowtimesNotifCard() {
           <div className="text">
             <div className="title-line">
               <span className="title">
-                Cảnh báo khẩn cấp thay đổi phòng chiếu hoặc lịch rạp ⚠️
+                {t('profile:notif_emergency_title')}
               </span>
             </div>
             <span className="desc">
-              Cập nhật ngay lập tức nếu cụm rạp điều chỉnh phòng chiếu kỹ thuật
-              số, bảo trì máy chiếu IMAX hoặc đổi giờ đột xuất.
+              {t('profile:notif_emergency_desc')}
             </span>
           </div>
         </label>
@@ -101,12 +99,11 @@ export function TicketShowtimesNotifCard() {
           <div className="text">
             <div className="title-line">
               <span className="title">
-                Đánh giá phim & nhận điểm PhimPoints sau suất chiếu
+                {t('profile:notif_review_title')}
               </span>
             </div>
             <span className="desc">
-              Gửi biểu mẫu chấm điểm nhanh sau khi phim kết thúc; cộng ngay 50
-              PhimPoints trực tiếp vào thẻ hội viên.
+              {t('profile:notif_review_desc')}
             </span>
           </div>
         </label>

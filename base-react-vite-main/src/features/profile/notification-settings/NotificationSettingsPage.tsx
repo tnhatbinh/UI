@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { CheckCircle } from 'lucide-react';
 import CinemaNoirShell from '../components/CinemaNoirShell';
 import { NotificationChannelsCard } from './components/NotificationChannelsCard';
@@ -9,6 +10,7 @@ import { ConciergeHelpCard } from './components/ConciergeHelpCard';
 import * as S from './NotificationSettingsPage.styles';
 
 export default function NotificationSettingsPage() {
+  const { t } = useTranslation();
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
@@ -17,7 +19,7 @@ export default function NotificationSettingsPage() {
   };
 
   return (
-    <CinemaNoirShell pageTitle="Cài đặt thông báo & Ưu đãi">
+    <CinemaNoirShell pageTitle={t('profile:notif_settings_page_title')}>
       <S.NotifGrid>
         {/* Left Column: Notification Channels & Showtimes/Tickets */}
         <S.LeftColumn>

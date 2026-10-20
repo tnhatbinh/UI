@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
 import Header from './header/Header';
 import { Footer } from './footer/Footer';
 import Sidebar from './sidebar/Sidebar';
@@ -18,6 +18,7 @@ export default function MainLayout() {
 
   return (
     <S.LayoutWrapper>
+      <ScrollRestoration />
       {/* 1. Header (Sticky Top, Full-width Glassmorphism với nút menu 3 gạch sát mép màn hình) */}
       <Header
         isSidebarOpen={isSidebarOpen}

@@ -1,5 +1,6 @@
 export interface DiscoveryMovie {
-  id: number;
+  id: number | string;
+  slug?: string;
   title: string;
   poster: string;
   duration: string;
@@ -112,7 +113,7 @@ export const MOCK_DISCOVERY_MOVIES: DiscoveryMovie[] = [
     id: 5,
     title: 'Deadpool & Wolverine',
     poster:
-      'https://m.media-amazon.com/images/M/MV5BNzRiMjg0MzUtNTQ1Mi00Y2Q5LWEwM2MtMzUwZDU5NmVjN2NkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg',
+      'https://image.tmdb.org/t/p/original/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg',
     duration: '127 phút',
     genre: 'Hành Động / Hài Hước',
     description: 'Cặp đôi quái chiêu đại náo Đa vũ trụ trong...',

@@ -28,12 +28,77 @@ export interface CinemaSchedule {
   formats: ScreenFormatGroup[];
 }
 
+import type { TFunction } from 'i18next';
+
 export interface DayOption {
   dayLabel: string;
   dateStr: string;
   dayOfWeek: string;
   fullDate: string;
 }
+
+export const getDayTagLabel = (
+  t: TFunction,
+  dayLabel: string,
+): string => {
+  switch (dayLabel.toUpperCase()) {
+    case 'HÔM NAY':
+      return t('movie:tag_today', 'HÔM NAY');
+    case 'NGÀY MAI':
+      return t('movie:tag_tomorrow', 'NGÀY MAI');
+    case 'CUỐI TUẦN':
+      return t('movie:tag_weekend', 'CUỐI TUẦN');
+    case 'TUẦN MỚI':
+      return t('movie:tag_new_week', 'TUẦN MỚI');
+    case 'ƯU ĐÃI':
+      return t('movie:tag_promo', 'ƯU ĐÃI');
+    default:
+      return dayLabel;
+  }
+};
+
+export const getDayOfWeekLabel = (
+  t: TFunction,
+  dayOfWeek: string,
+): string => {
+  switch (dayOfWeek) {
+    case 'Thứ Hai':
+      return t('movie:weekday_mon', 'Thứ Hai');
+    case 'Thứ Ba':
+      return t('movie:weekday_tue', 'Thứ Ba');
+    case 'Thứ Tư':
+      return t('movie:weekday_wed', 'Thứ Tư');
+    case 'Thứ Năm':
+      return t('movie:weekday_thu', 'Thứ Năm');
+    case 'Thứ Sáu':
+      return t('movie:weekday_fri', 'Thứ Sáu');
+    case 'Thứ Bảy':
+      return t('movie:weekday_sat', 'Thứ Bảy');
+    case 'Chủ Nhật':
+      return t('movie:weekday_sun', 'Chủ Nhật');
+    default:
+      return dayOfWeek;
+  }
+};
+
+export const getFormatFilterLabel = (
+  t: TFunction,
+  formatId: string,
+  defaultLabel: string,
+): string => {
+  switch (formatId) {
+    case 'all':
+      return t('movie:format_all', defaultLabel);
+    case 'imax':
+      return t('movie:format_imax', defaultLabel);
+    case '2d':
+      return t('movie:format_2d', defaultLabel);
+    case 'screenx':
+      return t('movie:format_screenx', defaultLabel);
+    default:
+      return defaultLabel;
+  }
+};
 
 export interface MovieDetails {
   id: string | number;
@@ -344,7 +409,7 @@ export const DEADPOOL_WOLVERINE_MOVIE_DATA: MovieDetails = {
   title: 'Deadpool & Wolverine',
   originalTitle: 'Deadpool & Wolverine (2024)',
   posterUrl:
-    'https://m.media-amazon.com/images/M/MV5BNzRiMjg0MzUtNTQ1Mi00Y2Q5LWEwM2MtMzUwZDU5NmVjN2NkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg',
+    'https://image.tmdb.org/t/p/original/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg',
   backdropUrl:
     'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1600&auto=format&fit=crop',
   trailerUrl: 'https://www.youtube.com/embed/73_1biulkYk?autoplay=1',
@@ -705,7 +770,7 @@ export const BAY_THI_THE_DATA: MovieDetails = {
   title: '7 Thi Thể',
   originalTitle: 'Dark Figure of Crime (2018)',
   posterUrl:
-    'https://upload.wikimedia.org/wikipedia/vi/b/b4/Poster_phim_7_thi_th%E1%BB%83.jpg?utm_source=vi.wikipedia.org&utm_campaign=index&utm_content=original',
+    'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800&auto=format&fit=crop',
   backdropUrl:
     'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1600&auto=format&fit=crop',
   trailerUrl: 'https://www.youtube.com/embed/d2k4K1aY2vA?autoplay=1',

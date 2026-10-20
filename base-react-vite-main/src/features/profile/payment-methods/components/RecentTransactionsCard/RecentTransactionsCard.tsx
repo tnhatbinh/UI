@@ -1,8 +1,10 @@
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Clock } from 'lucide-react';
 import * as S from './RecentTransactionsCard.styles';
 
 export function RecentTransactionsCard() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleNavigateTickets = () => {
@@ -15,34 +17,34 @@ export function RecentTransactionsCard() {
         <div className="title-left">
           <h3>
             <Clock size={16} color="#ff535a" />
-            <span>Giao dịch gần nhất</span>
+            <span>{t('profile:recent_transactions_title')}</span>
           </h3>
         </div>
         <span className="see-all-link" onClick={handleNavigateTickets}>
-          Xem tất cả
+          {t('common:see_more')}
         </span>
       </div>
 
       <S.RecentTxList>
         <div className="tx-item">
           <div className="info">
-            <span className="name">Dune: Hành Tinh Cát 2 (IMAX)</span>
-            <span className="sub">Hôm qua, 19:45 • Thẻ Visa **** 4421</span>
+            <span className="name">{t('profile:tx1_name')}</span>
+            <span className="sub">{t('profile:tx1_sub')}</span>
           </div>
           <div className="amt-status">
             <span className="amt">- 380.000 đ</span>
-            <span className="status">● Thành công</span>
+            <span className="status">{t('profile:tx_status_success')}</span>
           </div>
         </div>
 
         <div className="tx-item">
           <div className="info">
-            <span className="name">Combo 2 Bắp + 2 Pepsi Lớn</span>
-            <span className="sub">02/11/2025 • Ví MoMo</span>
+            <span className="name">{t('profile:tx2_name')}</span>
+            <span className="sub">{t('profile:tx2_sub')}</span>
           </div>
           <div className="amt-status">
             <span className="amt">- 145.000 đ</span>
-            <span className="status">● Thành công</span>
+            <span className="status">{t('profile:tx_status_success')}</span>
           </div>
         </div>
       </S.RecentTxList>

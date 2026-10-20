@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Sparkles, Award } from 'lucide-react';
 import type { MovieDetails } from '../../data/mock-movie-details';
 import * as S from './MovieSynopsis.styles';
@@ -8,6 +9,8 @@ interface MovieSynopsisProps {
 }
 
 export const MovieSynopsis: FC<MovieSynopsisProps> = ({ movie }) => {
+  const { t } = useTranslation();
+
   return (
     <S.DetailsGrid>
       {/* Left: Synopsis & Accolades */}
@@ -15,9 +18,9 @@ export const MovieSynopsis: FC<MovieSynopsisProps> = ({ movie }) => {
         <div className="card-header">
           <span className="header-title">
             <Sparkles size={14} />
-            Nội dung phim kịch tính
+            {t('movie:synopsis_title')}
           </span>
-          <span className="copyright">Bản quyền rạp chiếu quốc tế</span>
+          <span className="copyright">{t('movie:synopsis_copyright')}</span>
         </div>
         <div className="synopsis-body">
           <p>{movie.synopsisP1}</p>
@@ -40,12 +43,16 @@ export const MovieSynopsis: FC<MovieSynopsisProps> = ({ movie }) => {
       <S.CriticCard>
         <div className="score-row">
           <div className="score-left">
-            <span className="label">Điểm chuyên môn phê bình</span>
+            <span className="label">{t('movie:critic_score_title')}</span>
             <div className="number">
               {movie.criticScore}
               <span className="max"> / 10</span>
             </div>
-            <span className="based-on">Dựa trên {movie.criticReviewCount}</span>
+            <span className="based-on">
+              {t('movie:based_on_reviews', {
+                count: parseInt(movie.criticReviewCount, 10) || 0,
+              })}
+            </span>
           </div>
           <div className="score-gauge">
             <span className="percent">{movie.masterpieceRate}</span>
@@ -54,11 +61,11 @@ export const MovieSynopsis: FC<MovieSynopsisProps> = ({ movie }) => {
         </div>
 
         <div className="quote-block">
-          <span className="quote-label">❞ Đánh giá tiêu biểu</span>
+          <span className="quote-label">❞ {t('movie:featured_review')}</span>
           <p className="quote-text">"{movie.featuredQuote}"</p>
           <div className="author-row">
             <span className="author">{movie.featuredAuthor}</span>
-            <span className="rating-stars">★★★★★ 5/5 Sao</span>
+            <span className="rating-stars">{t('movie:five_stars')}</span>
           </div>
         </div>
       </S.CriticCard>

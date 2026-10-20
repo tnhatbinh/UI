@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Award, Bell, CheckCheck, Gift, Sparkles, Ticket } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -24,6 +25,7 @@ export function NotificationDropdownMenu({
   onCloseOthers,
   onScrollOrNavigate,
 }: NotificationDropdownProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [notifTab, setNotifTab] = useState<'all' | 'offers'>('all');
@@ -68,7 +70,7 @@ export function NotificationDropdownMenu({
   return (
     <S.NotificationWrapper ref={ref}>
       <S.NotificationBtn
-        title="Thông báo"
+        title={t('header:notifications', 'Thông báo')}
         $isOpen={isOpen}
         onClick={handleToggleOpen}
       >
@@ -80,9 +82,11 @@ export function NotificationDropdownMenu({
         <S.NotificationDropdown>
           <S.NotificationDropdownHeader>
             <div className="header-left">
-              <span className="title">Thông báo</span>
+              <span className="title">{t('header:notifications', 'Thông báo')}</span>
               {unreadCount > 0 && (
-                <span className="count-badge">{unreadCount} mới</span>
+                <span className="count-badge">
+                  {unreadCount} {t('header:new_badge', 'mới')}
+                </span>
               )}
             </div>
             {unreadCount > 0 && (
@@ -92,7 +96,7 @@ export function NotificationDropdownMenu({
                 onClick={handleMarkAllAsRead}
               >
                 <CheckCheck size={12} />
-                <span>Đã đọc hết</span>
+                <span>{t('header:mark_all_read', 'Đã đọc hết')}</span>
               </button>
             )}
           </S.NotificationDropdownHeader>
@@ -103,21 +107,21 @@ export function NotificationDropdownMenu({
               $isActive={notifTab === 'all'}
               onClick={handleSelectTab('all')}
             >
-              Tất cả
+              {t('header:tab_all', 'Tất cả')}
             </S.NotificationTab>
             <S.NotificationTab
               type="button"
               $isActive={notifTab === 'offers'}
               onClick={handleSelectTab('offers')}
             >
-              Ưu đãi & Quà tặng
+              {t('header:tab_offers', 'Ưu đãi & Quà tặng')}
             </S.NotificationTab>
           </S.NotificationTabs>
 
           <S.NotificationList>
             {filteredNotifications.length === 0 ? (
               <S.EmptyNotification>
-                Không có thông báo nào
+                {t('header:no_notifications', 'Không có thông báo nào')}
               </S.EmptyNotification>
             ) : (
               filteredNotifications.map((item) => (
@@ -146,7 +150,7 @@ export function NotificationDropdownMenu({
               className="view-all-link"
               onClick={handleViewAllOffers}
             >
-              Xem tất cả ưu đãi & sự kiện
+              {t('header:view_all_offers', 'Xem tất cả ưu đãi & sự kiện')}
             </button>
           </S.NotificationDropdownFooter>
         </S.NotificationDropdown>

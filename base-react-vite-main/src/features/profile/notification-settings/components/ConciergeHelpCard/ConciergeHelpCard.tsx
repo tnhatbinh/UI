@@ -1,11 +1,10 @@
+import { useTranslation } from 'react-i18next';
 import { Headphones, ChevronRight } from 'lucide-react';
 import * as S from './ConciergeHelpCard.styles';
-import { message } from 'antd';
 
 export function ConciergeHelpCard() {
-  const handleClick = () => {
-    message.info('Đang kết nối tổng đài VIP concierge: 1900 8888...');
-  };
+  const { t } = useTranslation();
+  const handleClick = () => {};
 
   return (
     <S.Container onClick={handleClick}>
@@ -14,9 +13,9 @@ export function ConciergeHelpCard() {
           <Headphones size={18} />
         </div>
         <div className="text">
-          <span className="title">Trợ giúp thông báo rạp?</span>
+          <span className="title">{t('profile:concierge_title')}</span>
           <span className="sub">
-            Hotline VIP concierge: <strong>1900 8888 (nhánh 1)</strong>
+            {t('profile:concierge_hotline')}
           </span>
         </div>
       </div>

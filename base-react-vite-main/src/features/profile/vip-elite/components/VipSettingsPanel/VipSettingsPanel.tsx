@@ -1,6 +1,7 @@
+import { useTranslation } from 'react-i18next';
 import { Bell, Sliders, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { QUICK_PAY_METHODS } from '../../data/vip-elite-data';
+import { getQuickPayMethods } from '../../data/vip-elite-data';
 import * as S from './VipSettingsPanel.styles';
 
 interface VipSettingsPanelProps {
@@ -16,7 +17,9 @@ export function VipSettingsPanel({
   onToggleNotify2h,
   onToggleAutoAiTaste,
 }: VipSettingsPanelProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
+  const quickPayMethods = getQuickPayMethods(t);
 
   const handleNavigatePaymentMethods = () => {
     navigate('/profile/payment-methods');
@@ -29,9 +32,9 @@ export function VipSettingsPanel({
           <div className="icon-wrap">
             <Sliders size={18} />
           </div>
-          <h3>Tiện Ích & Thiết Lập</h3>
+          <h3>{t('profile:utilities_settings_title')}</h3>
         </div>
-        <span className="auto-sync">Tự động đồng bộ</span>
+        <span className="auto-sync">{t('profile:auto_sync_label')}</span>
       </div>
 
       {/* Notification Toggles */}
@@ -40,10 +43,10 @@ export function VipSettingsPanel({
           <div className="text">
             <span className="title">
               <Bell size={13} />
-              Nhắc lịch chiếu trước 2 giờ
+              {t('profile:notif_2h_vip_title')}
             </span>
             <span className="sub">
-              Gửi push qua app & Zalo kèm mã vạch QR vào thẳng rạp
+              {t('profile:notif_2h_vip_sub')}
             </span>
           </div>
           <div
@@ -56,11 +59,10 @@ export function VipSettingsPanel({
           <div className="text">
             <span className="title">
               <Sparkles size={13} />
-              Cập nhật phim theo gu AI tự động
+              {t('profile:auto_ai_taste_title')}
             </span>
             <span className="sub">
-              Thông báo suất chiếu sớm khi đạo diễn hoặc diễn viên quen thuộc ra
-              mắt phim
+              {t('profile:auto_ai_taste_sub')}
             </span>
           </div>
           <div
@@ -73,17 +75,17 @@ export function VipSettingsPanel({
       {/* 1-Click Payments */}
       <S.QuickPaySection>
         <S.QuickPayHeader>
-          <span className="title">PHƯƠNG THỨC THANH TOÁN 1-CLICK</span>
+          <span className="title">{t('profile:quick_pay_section_title')}</span>
           <span
             className="add-link"
             onClick={handleNavigatePaymentMethods}
           >
-            + Thêm thẻ
+            {t('profile:add_card_link')}
           </span>
         </S.QuickPayHeader>
 
         <S.QuickPayList>
-          {QUICK_PAY_METHODS.map((method) => (
+          {quickPayMethods.map((method) => (
             <S.QuickPayItem key={method.id}>
               <div className="left">
                 <S.BrandIcon $bg={method.brandColor}>

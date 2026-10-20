@@ -26,10 +26,7 @@ const defaultState: BookingState = {
     format: 'IMAX Laser 2D',
     soundSystem: 'DOLBY ATMOS • 64 LOA',
   },
-  selectedSeats: [
-    { id: 'H8', row: 'H', number: 8, type: 'vip', price: 130000 },
-    { id: 'H9', row: 'H', number: 9, type: 'vip', price: 130000 },
-  ],
+  selectedSeats: [],
   selectedSnacks: [],
   pickupMethod: 'at-seat',
   appliedVoucher: {
@@ -71,11 +68,18 @@ export const BookingProvider: React.FC<{ children: React.ReactNode }> = ({
     movie: Partial<BookingState['movie']>,
     session: Partial<BookingState['session']>,
   ) => {
-    setState((prev) => ({
-      ...prev,
-      movie: { ...prev.movie, ...movie },
-      session: { ...prev.session, ...session },
-    }));
+    setState((prev) => {
+      const showtimeChanged = Boolean(
+        session.showtimeId && session.showtimeId !== prev.session.showtimeId,
+      );
+      return {
+        ...prev,
+        movie: { ...prev.movie, ...movie },
+        session: { ...prev.session, ...session },
+        selectedSeats: showtimeChanged ? [] : prev.selectedSeats,
+        lockToken: showtimeChanged ? null : prev.lockToken,
+      };
+    });
   };
 
   const toggleSeat = (seat: SeatItem) => {
@@ -175,6 +179,10 @@ export const BookingProvider: React.FC<{ children: React.ReactNode }> = ({
     setState(defaultState);
   };
 
+  const setLockToken = (token: string | null) => {
+    setState((prev) => ({ ...prev, lockToken: token }));
+  };
+
   return (
     <BookingContext.Provider
       value={{
@@ -192,6 +200,7 @@ export const BookingProvider: React.FC<{ children: React.ReactNode }> = ({
         calculateSnacksTotal,
         calculateGrandTotal,
         resetBooking,
+        setLockToken,
       }}
     >
       {children}

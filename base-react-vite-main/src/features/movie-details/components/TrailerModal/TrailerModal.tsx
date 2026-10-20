@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 import * as S from './TrailerModal.styles';
 
@@ -15,6 +16,8 @@ export const TrailerModal: FC<TrailerModalProps> = ({
   trailerUrl,
   title,
 }) => {
+  const { t } = useTranslation();
+
   if (!isOpen) return null;
 
   const handleContentClick = (e: React.MouseEvent) => {
@@ -28,7 +31,7 @@ export const TrailerModal: FC<TrailerModalProps> = ({
           type="button"
           className="close-btn"
           onClick={onClose}
-          aria-label="Đóng trailer"
+          aria-label={t('movie:close_trailer', 'Đóng trailer')}
         >
           <X size={18} />
         </button>

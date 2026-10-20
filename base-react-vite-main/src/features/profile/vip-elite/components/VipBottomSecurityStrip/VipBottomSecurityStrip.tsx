@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { LogOut, Shield } from 'lucide-react';
 import * as S from './VipBottomSecurityStrip.styles';
 
@@ -12,24 +13,25 @@ export function VipBottomSecurityStrip({
   onShowPrivilegeTerms,
   onLogout,
 }: VipBottomSecurityStripProps) {
+  const { t } = useTranslation();
+
   return (
     <S.BottomSecurityStrip>
       <div className="left-sec">
         <Shield size={14} className="icon" />
         <span>
-          Bảo mật dữ liệu hội viên được bảo vệ đa lớp bởi chuẩn PCI-DSS & mã hóa
-          phòng chiếu PhimBook Security.
+          {t('profile:vip_security_note')}
         </span>
       </div>
 
       <div className="links">
-        <a onClick={onNavigateTickets}>Lịch sử giao dịch</a>
+        <a onClick={onNavigateTickets}>{t('profile:transaction_history_link')}</a>
         <span>•</span>
-        <a onClick={onShowPrivilegeTerms}>Điều khoản đặc quyền VIP</a>
+        <a onClick={onShowPrivilegeTerms}>{t('profile:privilege_terms_link')}</a>
         <span>•</span>
         <span className="logout-btn" onClick={onLogout}>
           <LogOut size={12} />
-          <span>Đăng xuất</span>
+          <span>{t('profile:logout_btn')}</span>
         </span>
       </div>
     </S.BottomSecurityStrip>

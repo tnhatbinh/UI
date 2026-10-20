@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Calendar,
   Check,
@@ -78,6 +79,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
   displayingCount = 8,
   totalCount = 24,
 }) => {
+  const { t } = useTranslation();
   const [statusTab, setStatusTab] = useState<string>('now-showing');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
@@ -123,6 +125,50 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
         activeBadges,
         ...updates,
       });
+    }
+  };
+
+  const getGenreLabel = (value: string) => {
+    switch (value) {
+      case 'Tất cả thể loại': return t('discovery:genre_all');
+      case 'Hành Động': return t('discovery:genre_action');
+      case 'Khoa Học Viễn Tưởng': return t('discovery:genre_scifi');
+      case 'Kinh Dị': return t('discovery:genre_horror');
+      case 'Hoạt Hình': return t('discovery:genre_animation');
+      case 'Tâm Lý / Hài Hước': return t('discovery:genre_drama');
+      case 'Gia Đình': return t('discovery:genre_family');
+      default: return value;
+    }
+  };
+
+  const getCinemaLabel = (value: string) => {
+    if (value === 'Tất cả hệ thống rạp') return t('discovery:cinema_all');
+    return value;
+  };
+
+  const getFormatLabel = (value: string) => {
+    if (value === 'Tất cả định dạng') return t('discovery:format_all');
+    return value;
+  };
+
+  const getTimeLabel = (value: string) => {
+    switch (value) {
+      case 'Mọi khung giờ': return t('discovery:time_all');
+      case 'Buổi sáng (Trước 12:00)': return t('discovery:time_morning');
+      case 'Buổi chiều (12:00 - 18:00)': return t('discovery:time_afternoon');
+      case 'Buổi tối (18:00 - 22:00)': return t('discovery:time_evening');
+      case 'Suất đêm (Sau 22:00)': return t('discovery:time_late');
+      default: return value;
+    }
+  };
+
+  const getSortLabel = (value: string) => {
+    switch (value) {
+      case 'Được đánh giá cao nhất': return t('discovery:sort_highest');
+      case 'Mới nhất': return t('discovery:sort_newest');
+      case 'Phổ biến nhất': return t('discovery:sort_popular_opt');
+      case 'Tên phim A-Z': return t('discovery:sort_az');
+      default: return value;
     }
   };
 
@@ -235,7 +281,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                 <Flame size={15} />
               </S.TabIconBox>
               <S.TabText $isActive={statusTab === 'now-showing'}>
-                Đang Chiếu Tại Rạp (28)
+                {t('discovery:tab_now_showing')}
               </S.TabText>
             </S.TabButton>
 
@@ -248,7 +294,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                 <Calendar size={14} />
               </S.TabIconBox>
               <S.TabText $isActive={statusTab === 'coming-soon'}>
-                Sắp Chiếu / Mở Bán Sớm (14)
+                {t('discovery:tab_coming_soon')}
               </S.TabText>
             </S.TabButton>
 
@@ -261,15 +307,17 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                 <Sparkles size={15} />
               </S.TabIconBox>
               <S.TabText $isActive={statusTab === 'sneak-show'}>
-                Suất Chiếu Đặc Biệt (Sneak-show)
+                {t('discovery:tab_sneak_show')}
               </S.TabText>
             </S.TabButton>
           </S.TabsWrapper>
 
           <S.QuickViewToggleGroup>
             <S.CounterText>
-              Hiển thị <strong>{displayingCount}</strong> trong tổng số{' '}
-              {totalCount} phim
+              {t('discovery:counter_text', {
+                displaying: displayingCount,
+                total: totalCount,
+              })}
             </S.CounterText>
 
             <S.ViewModeWrapper>
@@ -277,7 +325,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                 type="button"
                 $isActive={viewMode === 'grid'}
                 onClick={handleSelectViewMode('grid')}
-                title="Chế độ lưới"
+                title={t('discovery:view_grid')}
               >
                 <Grid size={14} />
               </S.ViewModeButton>
@@ -285,7 +333,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                 type="button"
                 $isActive={viewMode === 'list'}
                 onClick={handleSelectViewMode('list')}
-                title="Chế độ danh sách"
+                title={t('discovery:view_list')}
               >
                 <List size={14} />
               </S.ViewModeButton>
@@ -297,15 +345,15 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
         <S.GlassFilterBar>
           <S.FilterItemsContainer>
             {/* Filter: Thể loại */}
-            <S.FilterItem>
-              <S.FilterLabel>THỂ LOẠI</S.FilterLabel>
-              <S.FilterSelectWrapper>
+            <S.FilterItem $isOpen={activeDropdown === 'genre'}>
+              <S.FilterLabel>{t('discovery:filter_genre_label')}</S.FilterLabel>
+              <S.FilterSelectWrapper $isOpen={activeDropdown === 'genre'}>
                 <S.FilterSelectBox
                   type="button"
                   $isOpen={activeDropdown === 'genre'}
                   onClick={handleToggleDropdown('genre')}
                 >
-                  <S.FilterSelectText>{genre}</S.FilterSelectText>
+                  <S.FilterSelectText>{getGenreLabel(genre)}</S.FilterSelectText>
                   <S.FilterChevron $isOpen={activeDropdown === 'genre'}>
                     <ChevronDown size={14} />
                   </S.FilterChevron>
@@ -319,7 +367,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                         $isSelected={genre === opt}
                         onClick={handleSelectDropdownOption('genre', opt)}
                       >
-                        <span>{opt}</span>
+                        <span>{getGenreLabel(opt)}</span>
                         {genre === opt && <Check size={14} color="#FF535A" />}
                       </S.CustomDropdownItem>
                     ))}
@@ -329,15 +377,15 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
             </S.FilterItem>
 
             {/* Filter: Cụm rạp */}
-            <S.FilterItem>
-              <S.FilterLabel>CỤM RẠP ĐỐI TÁC</S.FilterLabel>
-              <S.FilterSelectWrapper>
+            <S.FilterItem $isOpen={activeDropdown === 'cinema'}>
+              <S.FilterLabel>{t('discovery:filter_cinema_label')}</S.FilterLabel>
+              <S.FilterSelectWrapper $isOpen={activeDropdown === 'cinema'}>
                 <S.FilterSelectBox
                   type="button"
                   $isOpen={activeDropdown === 'cinema'}
                   onClick={handleToggleDropdown('cinema')}
                 >
-                  <S.FilterSelectText>{cinema}</S.FilterSelectText>
+                  <S.FilterSelectText>{getCinemaLabel(cinema)}</S.FilterSelectText>
                   <S.FilterChevron $isOpen={activeDropdown === 'cinema'}>
                     <ChevronDown size={14} />
                   </S.FilterChevron>
@@ -351,7 +399,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                         $isSelected={cinema === opt}
                         onClick={handleSelectDropdownOption('cinema', opt)}
                       >
-                        <span>{opt}</span>
+                        <span>{getCinemaLabel(opt)}</span>
                         {cinema === opt && <Check size={14} color="#FF535A" />}
                       </S.CustomDropdownItem>
                     ))}
@@ -361,15 +409,15 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
             </S.FilterItem>
 
             {/* Filter: Định dạng */}
-            <S.FilterItem>
-              <S.FilterLabel>CÔNG NGHỆ CHIẾU</S.FilterLabel>
-              <S.FilterSelectWrapper>
+            <S.FilterItem $isOpen={activeDropdown === 'format'}>
+              <S.FilterLabel>{t('discovery:filter_format_label')}</S.FilterLabel>
+              <S.FilterSelectWrapper $isOpen={activeDropdown === 'format'}>
                 <S.FilterSelectBox
                   type="button"
                   $isOpen={activeDropdown === 'format'}
                   onClick={handleToggleDropdown('format')}
                 >
-                  <S.FilterSelectText>{format}</S.FilterSelectText>
+                  <S.FilterSelectText>{getFormatLabel(format)}</S.FilterSelectText>
                   <S.FilterChevron $isOpen={activeDropdown === 'format'}>
                     <ChevronDown size={14} />
                   </S.FilterChevron>
@@ -383,7 +431,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                         $isSelected={format === opt}
                         onClick={handleSelectDropdownOption('format', opt)}
                       >
-                        <span>{opt}</span>
+                        <span>{getFormatLabel(opt)}</span>
                         {format === opt && <Check size={14} color="#FF535A" />}
                       </S.CustomDropdownItem>
                     ))}
@@ -393,15 +441,15 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
             </S.FilterItem>
 
             {/* Filter: Khung giờ */}
-            <S.FilterItem>
-              <S.FilterLabel>KHUNG GIỜ CHIẾU</S.FilterLabel>
-              <S.FilterSelectWrapper>
+            <S.FilterItem $isOpen={activeDropdown === 'time'}>
+              <S.FilterLabel>{t('discovery:filter_time_label')}</S.FilterLabel>
+              <S.FilterSelectWrapper $isOpen={activeDropdown === 'time'}>
                 <S.FilterSelectBox
                   type="button"
                   $isOpen={activeDropdown === 'time'}
                   onClick={handleToggleDropdown('time')}
                 >
-                  <S.FilterSelectText>{timeSlot}</S.FilterSelectText>
+                  <S.FilterSelectText>{getTimeLabel(timeSlot)}</S.FilterSelectText>
                   <S.FilterChevron $isOpen={activeDropdown === 'time'}>
                     <ChevronDown size={14} />
                   </S.FilterChevron>
@@ -415,7 +463,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                         $isSelected={timeSlot === opt}
                         onClick={handleSelectDropdownOption('timeSlot', opt)}
                       >
-                        <span>{opt}</span>
+                        <span>{getTimeLabel(opt)}</span>
                         {timeSlot === opt && (
                           <Check size={14} color="#FF535A" />
                         )}
@@ -427,29 +475,29 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
             </S.FilterItem>
 
             {/* Filter: Sắp xếp */}
-            <S.FilterItem>
-              <S.FilterLabel>SẮP XẾP THEO</S.FilterLabel>
-              <S.FilterSelectWrapper>
+            <S.FilterItem $isOpen={activeDropdown === 'sort'}>
+              <S.FilterLabel>{t('discovery:filter_sort_label')}</S.FilterLabel>
+              <S.FilterSelectWrapper $isOpen={activeDropdown === 'sort'}>
                 <S.FilterSelectBox
                   type="button"
                   $isOpen={activeDropdown === 'sort'}
                   onClick={handleToggleDropdown('sort')}
                 >
-                  <S.FilterSelectText>{sortBy}</S.FilterSelectText>
+                  <S.FilterSelectText>{getSortLabel(sortBy)}</S.FilterSelectText>
                   <S.FilterChevron $isOpen={activeDropdown === 'sort'}>
                     <ChevronDown size={14} />
                   </S.FilterChevron>
                 </S.FilterSelectBox>
 
                 {activeDropdown === 'sort' && (
-                  <S.CustomDropdownMenu onClick={handleStopPropagation}>
+                  <S.CustomDropdownMenu $alignRight onClick={handleStopPropagation}>
                     {SORT_OPTIONS.map((opt) => (
                       <S.CustomDropdownItem
                         key={opt}
                         $isSelected={sortBy === opt}
                         onClick={handleSelectDropdownOption('sortBy', opt)}
                       >
-                        <span>{opt}</span>
+                        <span>{getSortLabel(opt)}</span>
                         {sortBy === opt && <Check size={14} color="#FF535A" />}
                       </S.CustomDropdownItem>
                     ))}
@@ -461,14 +509,14 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
 
           <S.ResetButton type="button" onClick={handleClearAllBadges}>
             <RotateCcw size={14} color="#E7BCBA" />
-            <S.ResetText>Đặt lại</S.ResetText>
+            <S.ResetText>{t('discovery:filter_reset')}</S.ResetText>
           </S.ResetButton>
         </S.GlassFilterBar>
 
         {/* TẦNG 3: Active Filter Badges */}
         {activeBadges.length > 0 && (
           <S.ActiveBadgesRow>
-            <S.ActiveLabel>Đang áp dụng:</S.ActiveLabel>
+            <S.ActiveLabel>{t('discovery:filter_active_label')}</S.ActiveLabel>
 
             {activeBadges.map((badge) => (
               <S.ActiveBadgePill key={badge.id}>
@@ -476,7 +524,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
                 <S.RemoveBadgeBtn
                   type="button"
                   onClick={handleRemoveBadge(badge.id)}
-                  title="Xóa bộ lọc"
+                  title={t('discovery:remove_filter')}
                 >
                   <X size={12} />
                 </S.RemoveBadgeBtn>
@@ -484,7 +532,7 @@ export const MoviesFilter: FC<MoviesFilterProps> = ({
             ))}
 
             <S.ClearAllBtn type="button" onClick={handleClearAllBadges}>
-              Xóa tất cả bộ lọc
+              {t('discovery:filter_clear_all')}
             </S.ClearAllBtn>
           </S.ActiveBadgesRow>
         )}

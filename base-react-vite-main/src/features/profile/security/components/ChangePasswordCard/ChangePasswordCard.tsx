@@ -1,7 +1,7 @@
 import type { FC, FormEvent } from 'react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Key, Lock, Eye, EyeOff, Shield, CheckCircle2 } from 'lucide-react';
-import { message } from 'antd';
 import * as S from './ChangePasswordCard.styles';
 
 interface ChangePasswordCardProps {
@@ -11,6 +11,7 @@ interface ChangePasswordCardProps {
 export const ChangePasswordCard: FC<ChangePasswordCardProps> = ({
   onSuccess,
 }) => {
+  const { t } = useTranslation();
   const [currentPass, setCurrentPass] = useState('PasswordVIP2024!');
   const [newPass, setNewPass] = useState('CinemaNoir_Elite99#');
   const [confirmPass, setConfirmPass] = useState('CinemaNoir_Elite99#');
@@ -19,7 +20,7 @@ export const ChangePasswordCard: FC<ChangePasswordCardProps> = ({
   const [isReloginRequired, setIsReloginRequired] = useState(true);
 
   const handleForgotPassword = () => {
-    onSuccess('Hệ thống đã gửi liên kết khôi phục mật khẩu vào email của bạn.');
+    onSuccess(t('profile:toast_forgot_pass'));
   };
 
   const handleCurrentPasswordChange = (
@@ -55,10 +56,9 @@ export const ChangePasswordCard: FC<ChangePasswordCardProps> = ({
   const handlePasswordSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (newPass !== confirmPass) {
-      message.error('Mật khẩu xác nhận không khớp!');
       return;
     }
-    onSuccess('Mật khẩu tài khoản đã được cập nhật thành công!');
+    onSuccess(t('profile:toast_pass_updated'));
   };
 
   return (
@@ -67,25 +67,24 @@ export const ChangePasswordCard: FC<ChangePasswordCardProps> = ({
         <div className="title-left">
           <h3>
             <Key size={17} color="#ff535a" />
-            <span>Đổi mật khẩu tài khoản</span>
+            <span>{t('profile:change_pass_title')}</span>
           </h3>
           <span className="sub">
-            Đảm bảo mật khẩu có tối thiểu 8 ký tự kèm chữ số và biểu tượng đặc
-            biệt
+            {t('profile:change_pass_sub')}
           </span>
         </div>
-        <span className="status-pill">Cập nhật 45 ngày trước</span>
+        <span className="status-pill">{t('profile:pass_updated_ago')}</span>
       </div>
 
       <S.PasswordForm onSubmit={handlePasswordSubmit}>
         <div className="field-group">
           <label>
-            <span>Mật khẩu hiện tại</span>
+            <span>{t('profile:current_pass_lbl')}</span>
             <span
               className="forgot-link"
               onClick={handleForgotPassword}
             >
-              Quên mật khẩu?
+              {t('profile:forgot_pass_link')}
             </span>
           </label>
           <div className="input-box">
@@ -106,7 +105,7 @@ export const ChangePasswordCard: FC<ChangePasswordCardProps> = ({
         </div>
 
         <div className="field-group">
-          <label>Mật khẩu mới</label>
+          <label>{t('profile:new_pass_lbl')}</label>
           <div className="input-box">
             <Lock size={14} className="icon" />
             <input
@@ -133,12 +132,12 @@ export const ChangePasswordCard: FC<ChangePasswordCardProps> = ({
           </div>
           <span className="score-text">
             <Shield size={12} />
-            <span>Rất mạnh (Tối ưu chuẩn PCI DSS)</span>
+            <span>{t('profile:pass_strength_optimal')}</span>
           </span>
         </div>
 
         <div className="field-group">
-          <label>Xác nhận mật khẩu mới</label>
+          <label>{t('profile:confirm_new_pass_lbl')}</label>
           <div className="input-box">
             <Lock size={14} className="icon" />
             <input
@@ -157,11 +156,11 @@ export const ChangePasswordCard: FC<ChangePasswordCardProps> = ({
             checked={isReloginRequired}
             onChange={handleReloginRequiredChange}
           />
-          <span>Yêu cầu đăng nhập lại sau khi đổi</span>
+          <span>{t('profile:relogin_required_chk')}</span>
         </label>
 
         <button type="submit" className="submit-btn">
-          Cập nhật mật khẩu
+          {t('profile:update_pass_btn')}
         </button>
       </S.PasswordForm>
     </S.Card>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Film } from 'lucide-react';
 import * as S from './PreferredGenresCard.styles';
 
@@ -16,6 +17,7 @@ export function PreferredGenresCard({
   genres,
   onToggleGenre,
 }: PreferredGenresCardProps) {
+  const { t } = useTranslation();
   const selectedCount = genres.filter((g) => g.isSelected).length;
 
   const handleToggleGenre = (id: string) => () => {
@@ -28,14 +30,15 @@ export function PreferredGenresCard({
         <div className="title-left">
           <h3>
             <Film size={17} color="#ff535a" />
-            <span>THỂ LOẠI PHIM YÊU THÍCH</span>
+            <span>{t('profile:favorite_genres_title')}</span>
           </h3>
           <span className="sub">
-            Chạm để chọn hoặc bỏ chọn. Trợ lý AI sẽ ưu tiên hiển thị suất chiếu
-            và gửi thông báo độc quyền cho các thể loại này.
+            {t('profile:favorite_genres_desc')}
           </span>
         </div>
-        <span className="badge">Đã chọn {selectedCount} thể loại</span>
+        <span className="badge">
+          {t('profile:selected_genres_count', { count: selectedCount })}
+        </span>
       </div>
 
       <S.GenreGrid>

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Shield, LogOut, AlertTriangle } from 'lucide-react';
-import { message } from 'antd';
 import * as S from './AccountControlCard.styles';
 
 interface AccountControlCardProps {
@@ -10,15 +10,14 @@ interface AccountControlCardProps {
 export const AccountControlCard: FC<AccountControlCardProps> = ({
   onLogoutDevices,
 }) => {
-  const handleLockAccount = () => {
-    message.warning('Bạn có chắc chắn muốn tạm khóa tài khoản trong 30 ngày? Vui lòng xác thực liên kết bảo mật.');
-  };
+  const { t } = useTranslation();
+  const handleLockAccount = () => {};
 
   return (
     <S.Card>
       <div className="card-title">
         <Shield size={14} />
-        <span>KHU VỰC KIỂM SOÁT TÀI KHOẢN</span>
+        <span>{t('profile:account_control_title')}</span>
       </div>
 
       <div className="btn-row">
@@ -28,7 +27,7 @@ export const AccountControlCard: FC<AccountControlCardProps> = ({
           onClick={onLogoutDevices}
         >
           <LogOut size={13} />
-          <span>Đăng xuất thiết bị</span>
+          <span>{t('profile:logout_devices_btn')}</span>
         </button>
 
         <button
@@ -37,7 +36,7 @@ export const AccountControlCard: FC<AccountControlCardProps> = ({
           onClick={handleLockAccount}
         >
           <AlertTriangle size={13} />
-          <span>Tạm khóa tài khoản</span>
+          <span>{t('profile:lock_account_btn')}</span>
         </button>
       </div>
     </S.Card>

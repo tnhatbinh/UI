@@ -45,7 +45,7 @@ export const AiCineAdvisor: FC = () => {
                   </S.TasteText>
                 </S.TasteTextCol>
               </S.TasteBadge>
-              <S.RefreshButton aria-label="Làm mới đề xuất">
+              <S.RefreshButton aria-label={t('home:advisor.refresh_label')}>
                 <RefreshCw color="#E7BCBA" size={20} />
               </S.RefreshButton>
             </S.RightControls>

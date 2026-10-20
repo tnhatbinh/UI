@@ -81,7 +81,7 @@ export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
     desc: 'Deadpool & Wolverine đã mở bán vé suất chiếu sớm Midnight Sneak-show.',
     time: 'Hôm qua',
     isUnread: false,
-    link: '/phim/5?booking=true',
+    link: '/phim/5',
   },
   {
     id: '4',

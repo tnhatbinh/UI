@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Tv, Volume2, Sliders, Armchair } from 'lucide-react';
 import * as S from './CinemaTechCard.styles';
 
 export function CinemaTechCard() {
+  const { t } = useTranslation();
   const [hasTechImax, setHasTechImax] = useState(true);
   const [hasTechAtmos, setHasTechAtmos] = useState(true);
   const [hasTech4dx, setHasTech4dx] = useState(true);
@@ -30,11 +32,10 @@ export function CinemaTechCard() {
         <div className="title-left">
           <h3>
             <Tv size={17} color="#ff535a" />
-            <span>CÔNG NGHỆ PHÒNG CHIẾU ƯU TIÊN</span>
+            <span>{t('profile:cinema_tech_title')}</span>
           </h3>
           <span className="sub">
-            Hệ thống sẽ lọc lịch chiếu ưu tiên định dạng trải nghiệm bạn mong
-            muốn.
+            {t('profile:cinema_tech_desc')}
           </span>
         </div>
       </div>
@@ -46,9 +47,9 @@ export function CinemaTechCard() {
               <Tv size={16} />
             </div>
             <div className="text">
-              <span className="name">IMAX Laser 3D/2D</span>
+              <span className="name">{t('profile:tech_imax_name')}</span>
               <span className="desc">
-                Màn chiếu khổng lồ, tỉ lệ 1.43:1 & 1.90:1
+                {t('profile:tech_imax_desc')}
               </span>
             </div>
           </div>
@@ -65,8 +66,8 @@ export function CinemaTechCard() {
               <Volume2 size={16} />
             </div>
             <div className="text">
-              <span className="name">Dolby Atmos 360</span>
-              <span className="desc">Âm thanh vòm đa chiều chuyển động</span>
+              <span className="name">{t('profile:tech_atmos_name')}</span>
+              <span className="desc">{t('profile:tech_atmos_desc')}</span>
             </div>
           </div>
           <input
@@ -82,9 +83,9 @@ export function CinemaTechCard() {
               <Sliders size={16} />
             </div>
             <div className="text">
-              <span className="name">4DX Chuyển Động & Hiệu Ứng</span>
+              <span className="name">{t('profile:tech_4dx_name')}</span>
               <span className="desc">
-                Ghế rung lắc, gió nước, sương mù sống động
+                {t('profile:tech_4dx_desc')}
               </span>
             </div>
           </div>
@@ -101,9 +102,9 @@ export function CinemaTechCard() {
               <Armchair size={16} />
             </div>
             <div className="text">
-              <span className="name">VIP Bed Lounge / Sweetbox Nhung</span>
+              <span className="name">{t('profile:tech_lounge_name')}</span>
               <span className="desc">
-                Giường nằm cao cấp, phục vụ ẩm thực tại chỗ
+                {t('profile:tech_lounge_desc')}
               </span>
             </div>
           </div>

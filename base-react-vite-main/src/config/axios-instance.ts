@@ -46,6 +46,9 @@ const handleResponse = (response: AxiosResponse<IResponse<unknown>>) => {
   }
 
   if (response.config.method === 'get') {
+    if ((data as { metaData?: unknown })?.metaData) {
+      return data;
+    }
     return data.data;
   }
 

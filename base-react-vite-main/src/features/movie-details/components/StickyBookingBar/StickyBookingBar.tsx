@@ -1,11 +1,13 @@
 import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ArrowRight } from 'lucide-react';
 import { BiCameraMovie } from 'react-icons/bi';
-import type {
-  CinemaSchedule,
-  ScreenFormatGroup,
-  ShowtimeSlot,
-  DayOption,
+import {
+  getDayTagLabel,
+  type CinemaSchedule,
+  type ScreenFormatGroup,
+  type ShowtimeSlot,
+  type DayOption,
 } from '../../data/mock-movie-details';
 import * as S from './StickyBookingBar.styles';
 
@@ -24,6 +26,8 @@ export const StickyBookingBar: FC<StickyBookingBarProps> = ({
   selectedDate,
   onProceed,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <S.StickyBottomBar $visible={Boolean(selectedSlot)}>
       {selectedSlot && (
@@ -38,7 +42,7 @@ export const StickyBookingBar: FC<StickyBookingBarProps> = ({
                 <span className="badge">{selectedSlot.cinema.badge}</span>
               </div>
               <span className="session-details">
-                {selectedDate.dayLabel}, {selectedDate.dateStr} • Suất{' '}
+                {getDayTagLabel(t, selectedDate.dayLabel)}, {selectedDate.dateStr} • {t('movie:slot_prefix')}{' '}
                 <strong>{selectedSlot.slot.time}</strong> •{' '}
                 {selectedSlot.format.roomDetails}
               </span>
@@ -47,15 +51,15 @@ export const StickyBookingBar: FC<StickyBookingBarProps> = ({
 
           <div className="bar-right">
             <div className="price-group">
-              <span className="label">Tạm tính vé xem phim</span>
+              <span className="label">{t('movie:estimated_price')}</span>
               <span className="price">
                 {selectedSlot.slot.price.toLocaleString('vi-VN')}đ
               </span>
             </div>
 
             <button type="button" className="cta-btn" onClick={onProceed}>
-              <span className="cta-full">Tiếp tục chọn ghế</span>
-              <span className="cta-short">Chọn ghế</span>
+              <span className="cta-full">{t('movie:continue_to_seats')}</span>
+              <span className="cta-short">{t('movie:select_seats')}</span>
               <ArrowRight size={16} />
             </button>
           </div>
